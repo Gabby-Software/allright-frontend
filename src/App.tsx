@@ -2,10 +2,11 @@ import React, {Suspense} from 'react';
 import './App.css';
 import styled from "styled-components";
 import {useSeo} from "./hooks/seo.hook";
-import {Switch, Route} from 'react-router-dom';
+import {Switch, Route, Redirect} from 'react-router-dom';
 import routes from "./config/routes.config";
 import {AuthFormProvider} from "./modules/auth/auth.context";
 import Skeleton from "./components/skeleton/skeleton.component";
+import {Routes} from "./enums/routes.enum";
 
 const Styles = styled.div`
     font-family: 'Work Sans', sans-serif;
@@ -15,6 +16,7 @@ function App() {
   return (
       <Styles>
         <Switch>
+          <Redirect from={Routes.HOME} to={Routes.LOGIN}/>
           <Route path={routes.map(r => r.url)}>
             <AuthFormProvider>
               <Suspense fallback={<Skeleton/>}>
