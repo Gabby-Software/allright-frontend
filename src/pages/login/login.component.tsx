@@ -8,7 +8,6 @@ import {
 } from 'formik';
 import FormSwitch from "../../components/forms/form-switch/form-switch.component";
 import ButtonSubmit from "../../components/forms/button-submit/button-submit.component";
-import logoCompact from '../../assets/media/logo-compact.png';
 import {Link} from 'react-router-dom';
 import {useTranslation} from "../../modules/i18n/i18n.hook";
 import Styles, {Wrapper, Logo, SwitchState,ForgetPassword, Title} from '../styles';
@@ -18,6 +17,7 @@ import FormInputLabeled from "../../components/forms/form-input-labeled/form-inp
 import {Routes} from "../../enums/routes.enum";
 import logger from "../../managers/logger.manager";
 import {onlyGuest} from "../../guards/guest.guard";
+import brand from "../../config/branding.config";
 
 type LoginDataType = {
     type: string;
@@ -40,7 +40,7 @@ const Login = () => {
     return (
         <Styles>
             <Wrapper>
-                <Logo alt={'liveright'} src={logoCompact}/>
+                <Logo alt={'liveright'} src={brand.logo}/>
                 <Title>
                     <div className={'title__hr'}/>
                     <h1 className={'title__h1'}>{t('auth:sign-in-title')}</h1>

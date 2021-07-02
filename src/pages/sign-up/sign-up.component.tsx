@@ -7,7 +7,6 @@ import {
 } from 'formik';
 import FormSwitch from "../../components/forms/form-switch/form-switch.component";
 import ButtonSubmit from "../../components/forms/button-submit/button-submit.component";
-import logoCompact from '../../assets/media/logo-compact.png';
 import {Link, Redirect} from 'react-router-dom';
 import {useTranslation} from "../../modules/i18n/i18n.hook";
 import Styles, {Wrapper, Logo, SwitchState, Title} from '../styles';
@@ -19,6 +18,7 @@ import logger from "../../managers/logger.manager";
 import FormRadio from "../../components/forms/form-radio-button/form-radio-button.component";
 import genderTypes from "../../enums/gender-types";
 import {onlyGuest} from "../../guards/guest.guard";
+import brand from "../../config/branding.config";
 
 type LoginDataType = {
     type: string;
@@ -50,7 +50,7 @@ const SignUp = () => {
     return (
             <Styles>
                 <Wrapper>
-                    <Logo alt={'liveright'} src={logoCompact}/>
+                    <Logo alt={'liveright'} src={brand.logo}/>
                     <Title>
                         <div className={'title__hr'}/>
                         <h1 className={'title__h1'}>{t('auth:sign-up-title')}</h1>

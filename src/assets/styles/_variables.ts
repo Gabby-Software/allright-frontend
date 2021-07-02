@@ -1,7 +1,9 @@
+import brand from "../../config/branding.config";
+
 const vars = {
     colors: {
-        primary: '#F74057',
-        primaryLight: '#F97081',
+        primary: brand.primaryColor,
+        primaryLight: brand.primaryLightColor,
         primaryDark: '#40424D',
         secondary: '#BDBDBD',
         secondary2: '#d5d5d5',
