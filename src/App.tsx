@@ -1,25 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Suspense} from 'react';
 import './App.css';
+import styled from "styled-components";
+import {useSeo} from "./hooks/seo.hook";
+import {Switch, Route} from 'react-router-dom';
+import routes from "./config/routes.config";
+import {AuthFormProvider} from "./modules/auth/auth.context";
+import Skeleton from "./components/skeleton/skeleton.component";
 
+const Styles = styled.div`
+    font-family: 'Work Sans', sans-serif;
+`;
 function App() {
+  useSeo();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Styles>
+        <Switch>
+          <Route path={routes.map(r => r.url)}>
+            <AuthFormProvider>
+              <Suspense fallback={<Skeleton/>}>
+                {
+                  routes.map(R => (
+                      <Route exact path={R.url} key={R.url} {...R.props}>
+                        <R.Component/>
+                      </Route>
+                  ))
+                }
+              </Suspense>
+            </AuthFormProvider>
+          </Route>
+        </Switch>
+      </Styles>
   );
 }
 

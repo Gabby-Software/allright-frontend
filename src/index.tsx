@@ -4,10 +4,22 @@ import './index.css';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import './config/validation.config';
+import "antd/dist/antd.css";
+import {I18nProvider} from "./modules/i18n/i18n.context";
+import {ThemeProvider} from 'styled-components';
+import theme from "./assets/styles";
+import {BrowserRouter} from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+      <I18nProvider>
+          <ThemeProvider theme={theme}>
+              <BrowserRouter>
+              <App />
+              </BrowserRouter>
+          </ThemeProvider>
+      </I18nProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,0 +1,14 @@
+{
+  "invalid-input": "Invalid input",
+  "required-field": "This field is required",
+  "field-too-short": "Use at least {{min}} chars",
+  "field-too-long": "Use at most {{max}} chars",
+  "invalid-email": "Invalid email",
+  "low-value": "Min is {{num}}",
+  "high-value": "Max is {{num}}",
+  "invalid-name": "Only english characters allowed",
+  "passwords-not-match": "Passwords not match",
+  "invalid-password": "Password must contain at lease one letter and one digit",
+  "invalid-phone": "Invalid phone number",
+  "network-error": "Something went's wrong! please try again later."
+}
