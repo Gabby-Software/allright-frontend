@@ -1,7 +1,10 @@
 import styled from "styled-components";
-
-export default styled.img`
+import config from "../../config/branding.config";
+const Logo = config.logo;
+export default styled(Logo)`
         width: 106px;
+        height: auto;
+        color:${p => p.theme.vars.colors.primary};
         margin: 45px 0 38px 0;
         @media all and (max-height: 800px) {
             width: 106px;

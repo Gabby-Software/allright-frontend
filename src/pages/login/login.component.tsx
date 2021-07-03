@@ -40,7 +40,7 @@ const Login = () => {
     return (
         <Styles>
             <Wrapper>
-                <Logo alt={'liveright'} src={brand.logo}/>
+                <Logo/>
                 <Title>
                     <div className={'title__hr'}/>
                     <h1 className={'title__h1'}>{t('auth:sign-in-title')}</h1>

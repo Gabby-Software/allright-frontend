@@ -15,7 +15,7 @@ const SignUpConfirmation = () => {
     return (
         <Styles>
             <Wrapper>
-                <Logo alt={'liveright'} src={brand.logo}/>
+                <Logo/>
                 <h1 className={'forgot-password__title'}>{t('auth:sign-up')}</h1>
                 <div className={'forgot-password__hr'}/>
                 <p className={'forgot-password__desc'}>
