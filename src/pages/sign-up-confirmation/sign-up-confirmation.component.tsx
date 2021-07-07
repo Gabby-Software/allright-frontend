@@ -1,16 +1,30 @@
-import React, {useState, useEffect} from 'react';
-import Styles, {Logo, ResendEmail, Wrapper} from "../styles";
+import React, {useState, useEffect, useContext} from 'react';
+import Styles, {ChangeEmail, Logo, ResendEmail, Wrapper} from "../styles";
 
 import {useTranslation} from "../../modules/i18n/i18n.hook";
 import {onlyGuest} from "../../guards/guest.guard";
 import Back from "../styles/back/back.component";
 import {Routes} from "../../enums/routes.enum";
 import brand from "../../config/branding.config";
+import {Form, Formik, FormikProps} from "formik";
+import {AuthFormContext} from "../../modules/auth/auth.context";
+import * as Yup from "yup";
+import {AuthFormTypeNotNull} from "../../modules/auth/auth-form.type";
+import FormInputLabeled from "../../components/forms/form-input-labeled/form-input-labeled.component";
+import FormRow from "../../components/forms/form-row/form-row.component";
+import ButtonSubmit from "../../components/forms/button-submit/button-submit.component";
+import FormButton from "../../components/forms/form-button/form-button.component";
 
 const SignUpConfirmation = () => {
     const {t} = useTranslation();
+    const {form, update} = useContext(AuthFormContext) as AuthFormTypeNotNull;
+    const [isChangingEmail, setIsChangingEmail] = useState(false);
     const resendEmail = () => {
         // todo: handle submittion
+    };
+    const changeEmail = () => {
+      // todo: handle change email
+      setIsChangingEmail(false);
     };
     return (
         <Styles>
@@ -22,11 +36,43 @@ const SignUpConfirmation = () => {
                     <span>{t('auth:sign-up-confirm-1')}</span>
                     <span>{t('auth:sign-up-confirm-2')}</span>
                 </p>
-                <ResendEmail>
-                    <span>{t('auth:not-received')}</span>
-                    <a onClick={resendEmail}>{t('auth:send-again')}</a>
-                </ResendEmail>
-                <Back to={Routes.LOGIN}/>
+                {
+                    isChangingEmail?(
+                        <Formik initialValues={form}
+                            onSubmit={changeEmail}
+                            validationSchema={Yup.object({
+                                email: Yup.string().required().email()
+                            })}
+                        >
+                            {
+                                (form) => (
+                                    <Form>
+                                        <FormInputLabeled name={'email'} label={'Email'}/>
+                                        <FormRow>
+                                            <FormButton type={'default'} onClick={() => {
+                                                form.resetForm();
+                                                setIsChangingEmail(false);
+                                            }}>{t('cancel')}</FormButton>
+                                            <ButtonSubmit>{t('submit')}</ButtonSubmit>
+                                        </FormRow>
+                                    </Form>
+                                )
+                            }
+                        </Formik>
+                    ):(
+                        <>
+                            <ResendEmail>
+                                <span>{t('auth:not-received')}</span>
+                                <a onClick={resendEmail}>{t('auth:send-again')}</a>
+                            </ResendEmail>
+                            <div className={'center'}>or</div>
+                            <ChangeEmail><a onClick={() => {
+                                setIsChangingEmail(true);
+                            }}>{t('auth:change-email')}</a></ChangeEmail>
+                            <Back to={Routes.LOGIN}/>
+                        </>
+                    )
+                }
             </Wrapper>
         </Styles>
     )

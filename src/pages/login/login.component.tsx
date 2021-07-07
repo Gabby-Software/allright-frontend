@@ -18,6 +18,7 @@ import {Routes} from "../../enums/routes.enum";
 import logger from "../../managers/logger.manager";
 import {onlyGuest} from "../../guards/guest.guard";
 import brand from "../../config/branding.config";
+import FormPassword from "../../components/forms/form-password/form-password.component";
 
 type LoginDataType = {
     type: string;
@@ -58,7 +59,7 @@ const Login = () => {
                         <Form>
                             <FormSwitch name={'type'} options={userTypeOptions} onUpdate={update}/>
                             <FormInputLabeled name={'email'} label={'Email'} onUpdate={update}/>
-                            <FormInputLabeled type={'password'} name={'password'} label={'Password'} onUpdate={update}/>
+                            <FormPassword name={'password'} label={'Password'} onUpdate={update}/>
                             <ForgetPassword className={'desktop'} to={'/forgot-password'}>{t('auth:forgot-password')}</ForgetPassword>
                             <ButtonSubmit>{t('auth:sign-in')}</ButtonSubmit>
                         </Form>

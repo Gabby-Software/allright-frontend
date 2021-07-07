@@ -19,6 +19,7 @@ import FormRadio from "../../components/forms/form-radio-button/form-radio-butto
 import genderTypes from "../../enums/gender-types";
 import {onlyGuest} from "../../guards/guest.guard";
 import brand from "../../config/branding.config";
+import FormPassword from "../../components/forms/form-password/form-password.component";
 
 type LoginDataType = {
     type: string;
@@ -36,6 +37,7 @@ const SignUp = () => {
         logger.info('submitting form', form);
         const {first_name, last_name, email, password, type, gender} = form;
         // todo: handle submittion
+        setIsSubmitted(true);
         submitProps.setSubmitting(false);
     };
     const userTypeOptions = [
@@ -75,7 +77,7 @@ const SignUp = () => {
                                 </div>
                                 <FormRadio name={'gender'} label={'What\'s your gender?'} options={genderOptions}/>
                                 <FormInputLabeled name={'email'} label={'Email'} onUpdate={update}/>
-                                <FormInputLabeled type={'password'} name={'password'} label={'Create a password'} onUpdate={update}/>
+                                <FormPassword name={'password'} label={'Create a password'} onUpdate={update}/>
                                 <ButtonSubmit >{t('auth:sign-up')}</ButtonSubmit>
                             </Form>
                         )}

@@ -1,5 +1,7 @@
 {
   "next": "Next",
   "finish": "Finish",
-  "skip": "Skip"
+  "skip": "Skip",
+  "submit": "Submit",
+  "cancel": "Cancel"
 }

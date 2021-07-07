@@ -7,6 +7,25 @@ export default styled.div`
         position: relative;
         display: block;
     }
+    &__content {
+        position: relative;
+        svg {
+            display: block;
+            position: absolute;
+            top:0;
+            bottom:0;
+            right: 16px;
+            margin: auto;
+            &:not(.text_input__error) {
+                width: 18px;
+                cursor: pointer;
+                z-index:2;
+                &:active+svg {
+                    display: none;
+                }
+            }
+        }
+    }
     &__label {
         color: ${p => p.theme.vars.colors.primaryDark};
         transition: ${p => p.theme.vars.defaults.transition};
@@ -27,6 +46,36 @@ export default styled.div`
         box-sizing: border-box;
         &:focus {
             border-color: black;
+            &+svg+svg.text_input__error {
+                display: none;
+            }
+            &~svg:not(.text_input__error) {
+                display:block;
+            }
+        }
+    }    
+}
+
+&.text_input{
+    &__error {
+        .text_input {
+            &__input {
+                border-color: ${p => p.theme.vars.colors.error};
+                padding-right: 40px;
+                &:not(:focus)+svg {
+                    opacity:0;
+                }
+            }
+        }
+        svg {
+            color: ${p => p.theme.vars.colors.error};
+        }
+    }
+    &__icon {
+        .text_input {
+            &__input {
+                padding-right: 40px;
+            }
         }
     }
 }
