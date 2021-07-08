@@ -7,7 +7,11 @@ import {Redirect} from "react-router-dom";
 import {Routes} from "../../enums/routes.enum";
 import {onlyGuest} from "../../guards/guest.guard";
 import Back from "../styles/back/back.component";
-import brand from "../../config/branding.config";
+import api, {handleError} from "../../managers/api.manager";
+import {EP_SEND_RESET_PASSWORD} from "../../enums/api.enum";
+import logger from "../../managers/logger.manager";
+import {toast} from "../../components/toast/toast.component";
+import {serverError} from "../../pipes/server-error.pipe";
 
 const ForgotPasswordConfirmation = () => {
     const {t} = useTranslation();
@@ -15,7 +19,12 @@ const ForgotPasswordConfirmation = () => {
     if(!form.email)
         return <Redirect to={Routes.LOGIN}/>;
     const resendEmail = () => {
-        // todo: handle submit
+        api.post(EP_SEND_RESET_PASSWORD, {email:form.email})
+            .then((res) => {
+                logger.success('RESENT PASSWORD SUCCESS', res);
+                toast.show({type: 'success', msg: 'Reset password sent'});
+            })
+            .catch(e => toast.show({type: 'error', msg: serverError(e)}));
     };
     return (
         <Styles>

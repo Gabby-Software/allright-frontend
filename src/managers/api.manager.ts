@@ -3,6 +3,10 @@ import cookieManager from "./cookie.manager";
 import {EP_CSRF, EP_LOGOUT} from "../enums/api.enum";
 import logger from "./logger.manager";
 import {Routes} from "../enums/routes.enum";
+import {FormikHelpers} from "formik";
+import {toast} from "../components/toast/toast.component";
+import {serverError} from "../pipes/server-error.pipe";
+import {i18n} from "../modules/i18n/i18n.context";
 
 const api = axios.create({
     baseURL: process.env.REACT_APP_BASE_API_URL,
@@ -12,10 +16,7 @@ logger.info('ENV', process.env);
 api.interceptors.request.use(
     (config: AxiosRequestConfig) => {
         const token = window.localStorage.getItem('uuid');
-        const csrf = cookieManager.get('XSRF-TOKEN');
-        if(token) config.headers['Account-Token'] =  `${token}`;
         if(token) config.headers['Authorization'] =  `Bearer ${token}`;
-        if(csrf) config.headers['X-XSRF-TOKEN'] = csrf;
         logger.info('HTTP_REQUEST', config.url, config.data);
         return config;
     },
@@ -38,21 +39,20 @@ api.interceptors.response.use(
             api.post(EP_LOGOUT);
             localStorage.clear();
             document.cookie = '';
-            // cookieManager.remove('liveright_session');
-            // cookieManager.remove('XSRF-TOKEN');
             // Todo: remove user data from redux store
             window.location.pathname = Routes.LOGIN;
         }
         return Promise.reject(err)
     }
 );
-const post = api.post;
-const put = api.put;
-api.post = (url: string, data: any, config: AxiosRequestConfig) => {
-    return api.get(EP_CSRF).then(() => post(url, data, config));
+export const handleError = (formHelper?:FormikHelpers<any>) => (e: any) => {
+    if(e?.response?.data?.errors) {
+        for (const [name, [message]] of Object.entries<string[]>(e.response.data.errors)) {
+            formHelper?.setFieldError(name, message);
+        }
+    } else {
+        toast.show({type: 'error', msg: serverError(e)})
+    }
+    formHelper?.setSubmitting(false)
 };
-api.put = (url: string, data: any, config: AxiosRequestConfig) => {
-    return api.get(EP_CSRF).then(() => put(url, data, config));
-};
-
 export default api;

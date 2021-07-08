@@ -1,10 +1,10 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect, useContext, useRef} from 'react';
 import userTypes from "../../enums/user-types.enum";
 import * as Yup from 'yup';
 import {
     Formik,
     FormikProps,
-    Form,
+    Form, FormikHelpers,
 } from 'formik';
 import FormSwitch from "../../components/forms/form-switch/form-switch.component";
 import ButtonSubmit from "../../components/forms/button-submit/button-submit.component";
@@ -12,13 +12,17 @@ import {Link} from 'react-router-dom';
 import {useTranslation} from "../../modules/i18n/i18n.hook";
 import Styles, {Wrapper, Logo, SwitchState,ForgetPassword, Title} from '../styles';
 import {AuthFormContext} from "../../modules/auth/auth.context";
-import {AuthFormTypeNotNull} from "../../modules/auth/auth-form.type";
+import {AuthFormFieldsType, AuthFormTypeNotNull} from "../../modules/auth/auth-form.type";
 import FormInputLabeled from "../../components/forms/form-input-labeled/form-input-labeled.component";
 import {Routes} from "../../enums/routes.enum";
 import logger from "../../managers/logger.manager";
 import {onlyGuest} from "../../guards/guest.guard";
 import brand from "../../config/branding.config";
 import FormPassword from "../../components/forms/form-password/form-password.component";
+import {EP_LOGIN} from "../../enums/api.enum";
+import api, {handleError} from "../../managers/api.manager";
+import IframeManager from "../../managers/iframe.manager";
+import {mainHost} from "../../pipes/main-host";
 
 type LoginDataType = {
     type: string;
@@ -28,11 +32,25 @@ type LoginDataType = {
 const Login = () => {
     const {t} = useTranslation();
     const {form, update} = useContext(AuthFormContext) as AuthFormTypeNotNull;
-    const handleSubmit = (form: LoginDataType, submitProps: {setSubmitting:(submitting: boolean) => void}) => {
+    const iframe = useRef<HTMLIFrameElement>(null);
+    const handleSubmit = (form: LoginDataType, helper: FormikHelpers<AuthFormFieldsType>) => {
         logger.info('submitting login', form);
         const {type, email, password} = form;
-        // todo: handle submit
-        submitProps.setSubmitting(false);
+        api.post(EP_LOGIN, {email,password})
+            .then(res => res.data)
+            .then(res => {
+                const ifm = new IframeManager(iframe.current?.contentWindow as Window);
+                logger.success('LOGGED IN!', res, iframe.current);
+                ifm.send({
+                    action: IframeManager.messages.DO_LOGIN,
+                    payload: res
+                }).then(res => {
+                    logger.success('LOGIN SUCCESS!');
+                    helper.setSubmitting(false);
+                    window.location.href = mainHost();
+                })
+            })
+            .catch(handleError(helper));
     };
     const userTypeOptions = [
         {label: 'Client', value: userTypes.CLIENT},
@@ -70,6 +88,7 @@ const Login = () => {
                     {t('auth:dont-have-account')} <Link to={Routes.REGISTER}>{t('auth:sign-up')}</Link>
                 </SwitchState>
             </Wrapper>
+            <iframe style={{display:"none"}} src={mainHost()+'/auth'} ref={iframe}/>
         </Styles>
     );
 };

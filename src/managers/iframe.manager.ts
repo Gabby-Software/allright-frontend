@@ -6,6 +6,10 @@ export type IframeEventType = {
 export default class IframeManager {
     private w: Window;
     private events: {[key:string]:(data:any) => void} = {};
+    static messages = {
+        CHECK_LOGIN: 'check_login',
+        DO_LOGIN: 'do_login',
+    };
     constructor(targetWindow: Window) {
         this.w = targetWindow;
         window.addEventListener('message', ({data}) => {

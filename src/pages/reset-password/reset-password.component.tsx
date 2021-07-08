@@ -11,6 +11,7 @@ import {Redirect} from "react-router-dom";
 import {onlyGuest} from "../../guards/guest.guard";
 import brand from "../../config/branding.config";
 import FormPassword from "../../components/forms/form-password/form-password.component";
+import api from "../../managers/api.manager";
 
 type PasswordType = {
     new_password: string;
@@ -22,7 +23,6 @@ const ResetPassword = () => {
     const [submitted, setSubmitted] = useState<boolean>(false);
     const handleSubmit = (form: PasswordType, submitProps: {setSubmitting:(submitting: boolean) => void}) => {
         console.log(form);
-        alert(`submitted!\n${JSON.stringify(form)}`);
         submitProps.setSubmitting(false);
         setSubmitted(true);
     };
