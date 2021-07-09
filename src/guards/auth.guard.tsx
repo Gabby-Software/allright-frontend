@@ -9,4 +9,3 @@ export const onlyAuth = (Component: ComponentType) => (props: ComponentProps<any
         return <Redirect to={Routes.LOGIN}/>;
     return <Component {...props}/>
 };
-
