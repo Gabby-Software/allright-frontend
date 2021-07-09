@@ -5,6 +5,7 @@ import logger from "../../managers/logger.manager";
 import {VerifyEmailParamsType} from "../../modules/auth/verify-email-params.type";
 import {onlyGuest} from "../../guards/guest.guard";
 import {Routes} from "../../enums/routes.enum";
+import {onlyAuth} from "../../guards/auth.guard";
 
 enum verifiedState {
     NONE, SUCCESS, ERROR
@@ -26,4 +27,4 @@ const VerifyEmail = () => {
     return (<div/>);
 };
 
-export default onlyGuest(VerifyEmail);
+export default onlyAuth(VerifyEmail);

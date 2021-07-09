@@ -7,5 +7,5 @@ export const Routes = {
     FORGOT_PASSWORD: '/forgot-password',
     FORGOT_PASSWORD_CONFIRMATION: '/forgot-password/confirmation',
     RESET_PASSWORD: '/reset-password',
-    VERIFY_EMAIL: '/email/verify',
+    VERIFY_EMAIL: '/verify-email',
 };
