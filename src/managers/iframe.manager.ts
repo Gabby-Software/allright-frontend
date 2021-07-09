@@ -5,7 +5,7 @@ export type IframeEventType = {
     action: string;
     payload?: any;
 }
-
+document.domain = document.location.hostname.split('.').slice(1).join('.');
 export default class IframeManager {
     private w: Window;
     private events: {[key:string]:(data:any) => void} = {};
@@ -25,7 +25,7 @@ export default class IframeManager {
             const key = Math.random().toString(36);
             this.events[key] = ({response}) => res(response);
             try {
-                this.w.postMessage({event: event.action, key, ...event.payload}, mainHost());
+                this.w.postMessage({event: event.action, key, ...event.payload}, document.location.hostname.split('.').slice(1).join('.'));
             } catch(e){
                 logger.error(e);
             }
