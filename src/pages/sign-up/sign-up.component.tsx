@@ -24,6 +24,8 @@ import {EP_REGISTER} from "../../enums/api.enum";
 import api, {handleError} from "../../managers/api.manager";
 import {mainHost} from "../../pipes/main-host";
 import IframeManager from "../../managers/iframe.manager";
+import cookieManager from "../../managers/cookie.manager";
+import {AuthResponseType} from "../../hooks/authorization.hook";
 
 type LoginDataType = {
     type: string;
@@ -41,22 +43,25 @@ const SignUp = () => {
     const handleSubmit = (form: LoginDataType, helper: FormikHelpers<AuthFormFieldsType>) => {
         logger.info('submitting form', form);
         const {first_name, last_name, email, password, type, gender} = form;
-        api.post(EP_REGISTER, {
+        api.post<AuthResponseType>(EP_REGISTER, {
             first_name, last_name, email, password, gender,
             account_type: type,
             password_confirmation: password
         })
+            .then(res => res.data)
             .then((res) => {
                 logger.success('REGISTRATION SUCCESS', res);
-                const ifm = new IframeManager(iframe.current?.contentWindow as Window);
-                ifm.send({
-                    action: IframeManager.messages.DO_LOGIN,
-                    payload: res
-                }).then(res => {
-                    logger.success('GET REGISTER RESPONSE');
-                    helper.setSubmitting(false);
-                    setIsSubmitted(true);
-                });
+                cookieManager.set('access_token', res.access_token, res.expires_in);
+                cookieManager.set('auth', JSON.stringify(res.user), res.expires_in);
+                // const ifm = new IframeManager(iframe.current?.contentWindow as Window);
+                // ifm.send({
+                //     action: IframeManager.messages.DO_LOGIN,
+                //     payload: res
+                // }).then(res => {
+                //     logger.success('GET REGISTER RESPONSE');
+                //     helper.setSubmitting(false);
+                //     setIsSubmitted(true);
+                // });
 
             })
             .catch(handleError(helper))

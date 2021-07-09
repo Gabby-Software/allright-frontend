@@ -26,6 +26,7 @@ import {mainHost} from "../../pipes/main-host";
 import {AuthDataContext} from "../../modules/auth/auth-data.context";
 import {AuthResponseType} from "../../hooks/authorization.hook";
 import {auth} from "../../managers/auth.manager";
+import cookieManager from "../../managers/cookie.manager";
 
 type LoginDataType = {
     type: string;
@@ -43,19 +44,21 @@ const Login = () => {
         api.post<AuthResponseType>(EP_LOGIN, {email,password})
             .then(res => res.data)
             .then(res => {
-                const ifm = new IframeManager(iframe.current?.contentWindow as Window);
+                // const ifm = new IframeManager(iframe.current?.contentWindow as Window);
                 logger.success('LOGGED IN!', res, iframe.current);
                 auth.current = res;
                 setData(res);
-                ifm.send({
-                    action: IframeManager.messages.DO_LOGIN,
-                    payload: res
-                }).then(() => {
-                    logger.success('LOGIN SUCCESS!');
-                    helper.setSubmitting(false);
-                    if(res.user.email_verified_at)
-                        window.location.href = mainHost();
-                });
+                cookieManager.set('access_token', res.access_token, res.expires_in);
+                cookieManager.set('auth', JSON.stringify(res.user), res.expires_in);
+                // ifm.send({
+                //     action: IframeManager.messages.DO_LOGIN,
+                //     payload: res
+                // }).then(() => {
+                //     logger.success('LOGIN SUCCESS!');
+                //     helper.setSubmitting(false);
+                //     if(res.user.email_verified_at)
+                //         window.location.href = mainHost();
+                // });
             })
             .catch(handleError(helper));
     };

@@ -38,6 +38,7 @@ export type AuthObjectType = {
 
 export type AuthResponseType = {
     access_token: string;
+    expires_in?: number;
     user: AuthObjectType;
 }
 
