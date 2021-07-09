@@ -1,9 +1,9 @@
 # AllRight authentication system
 
-### *related links*
+### *Related links*
 * [api documentation](https://documenter.getpostman.com/view/8741108/Tzm5GGb9)
 
-### Integration
+### *Integration*
 
  * The app suppose to load on you subdomain (identity.main-domain.xyz)  
  * To let the app communicate with you, you will required to configure `/auth` to be a route where you will handle messages from identity app

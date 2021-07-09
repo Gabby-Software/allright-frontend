@@ -1,0 +1,22 @@
+name: CI master
+on:
+  push:
+    branches: [ master ]
+jobs:
+  # test:
+  #   ...
+  deploy:
+    name: "Deploy to staging"
+    runs-on: ubuntu-latest
+    steps:
+      - name: testing ssh connection
+        uses: appleboy/ssh-action@master
+        with:
+         host: ${{ secrets.SSH_HOST_MASTER }}
+         username: ${{ secrets.SSH_USERNAME }}
+         key: ${{ secrets.SSH_PRIVATE_KEY }}
+         port: 22
+         script: |
+          cd /home/identity/public_html
+          git checkout master
+          git pull origin master
