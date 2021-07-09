@@ -5,7 +5,7 @@ export type IframeEventType = {
     action: string;
     payload?: any;
 }
-document.domain = document.location.hostname.split('.').slice(1).join('.');
+// document.domain = document.location.hostname.split('.').slice(1).join('.');
 export default class IframeManager {
     private w: Window;
     private events: {[key:string]:(data:any) => void} = {};
