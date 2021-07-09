@@ -1,3 +1,6 @@
+import {mainHost} from "../pipes/main-host";
+import logger from "./logger.manager";
+
 export type IframeEventType = {
     action: string;
     payload?: any;
@@ -21,7 +24,11 @@ export default class IframeManager {
         return new Promise((res) => {
             const key = Math.random().toString(36);
             this.events[key] = ({response}) => res(response);
-            this.w.postMessage({event: event.action, key, ...event.payload}, '*');
+            try {
+                this.w.postMessage({event: event.action, key, ...event.payload}, mainHost());
+            } catch(e){
+                logger.error(e);
+            }
         });
     }
 }
