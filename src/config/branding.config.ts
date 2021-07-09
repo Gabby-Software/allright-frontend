@@ -8,12 +8,22 @@ const brands: {[key: string]:BrandingType} = {
         primaryLightColor: "#F97081",
         logo: LiverightIcon
     },
-    'identity.liveright.xyz': {
+    'identity.liverightdev.xyz': {
         primaryColor: "#F74057",
         primaryLightColor: "#F97081",
         logo: LiverightIcon
     },
-    'identity.eatright.xyz': {
+    'identity.eatrightdev.xyz': {
+        primaryColor: "#96BE35",
+        primaryLightColor: "#84a72f",
+        logo: EatrightIcon
+    },
+    'identity.liverightstaging.xyz': {
+        primaryColor: "#F74057",
+        primaryLightColor: "#F97081",
+        logo: LiverightIcon
+    },
+    'identity.eatrightstaging.xyz': {
         primaryColor: "#96BE35",
         primaryLightColor: "#84a72f",
         logo: EatrightIcon
