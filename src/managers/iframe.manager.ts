@@ -25,7 +25,10 @@ export default class IframeManager {
             const key = Math.random().toString(36);
             this.events[key] = ({response}) => res(response);
             try {
-                this.w.postMessage({event: event.action, key, ...event.payload}, document.location.hostname.split('.').slice(1).join('.'));
+                this.w.postMessage({event: event.action, key, ...event.payload},
+                "*"
+                    // document.location.hostname.split('.').slice(1).join('.')
+                );
             } catch(e){
                 logger.error(e);
             }
