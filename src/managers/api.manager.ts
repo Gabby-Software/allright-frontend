@@ -10,7 +10,6 @@ import {i18n} from "../modules/i18n/i18n.context";
 
 const api = axios.create({
     baseURL: process.env.REACT_APP_BASE_API_URL,
-    withCredentials: true
 });
 logger.info('ENV', process.env);
 api.interceptors.request.use(
