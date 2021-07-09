@@ -37,13 +37,11 @@ export type AuthObjectType = {
 }
 
 export type AuthResponseType = {
-    token_type: string;
-    expires_in: string;
     access_token: string;
     user: AuthObjectType;
 }
 
-export const useAuthorization = (isAuthCallback: () => boolean, handleAuthCallback: (auth: AuthResponseType) => void) => {
+export const useAuthorization = (isAuthCallback: () => AuthResponseType, handleAuthCallback: (auth: AuthResponseType) => void) => {
 
     useEffect(() => {
         const handler = ({data:{key, event, ...payload}}: MessageEvent<IframeEventType>) => {

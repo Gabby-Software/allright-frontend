@@ -7,6 +7,7 @@ import {FormikHelpers} from "formik";
 import {toast} from "../components/toast/toast.component";
 import {serverError} from "../pipes/server-error.pipe";
 import {i18n} from "../modules/i18n/i18n.context";
+import {auth} from "./auth.manager";
 
 const api = axios.create({
     baseURL: process.env.REACT_APP_BASE_API_URL,
@@ -14,8 +15,10 @@ const api = axios.create({
 logger.info('ENV', process.env);
 api.interceptors.request.use(
     (config: AxiosRequestConfig) => {
-        const token = window.localStorage.getItem('uuid');
+        const token = auth.current?.access_token;
+        const uuid = auth.current?.user.uuid;
         if(token) config.headers['Authorization'] =  `Bearer ${token}`;
+        if(uuid) config.headers['Account-Token'] =  uuid;
         logger.info('HTTP_REQUEST', config.url, config.data);
         return config;
     },

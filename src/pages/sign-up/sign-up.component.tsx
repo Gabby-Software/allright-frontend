@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect, useContext, useRef} from 'react';
 import userTypes from "../../enums/user-types.enum";
 import * as Yup from 'yup';
 import {
@@ -22,6 +22,8 @@ import brand from "../../config/branding.config";
 import FormPassword from "../../components/forms/form-password/form-password.component";
 import {EP_REGISTER} from "../../enums/api.enum";
 import api, {handleError} from "../../managers/api.manager";
+import {mainHost} from "../../pipes/main-host";
+import IframeManager from "../../managers/iframe.manager";
 
 type LoginDataType = {
     type: string;
@@ -35,16 +37,26 @@ const SignUp = () => {
     const {t} = useTranslation();
     const {form, update} = useContext(AuthFormContext) as AuthFormTypeNotNull;
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const iframe = useRef<HTMLIFrameElement>(null);
     const handleSubmit = (form: LoginDataType, helper: FormikHelpers<AuthFormFieldsType>) => {
         logger.info('submitting form', form);
         const {first_name, last_name, email, password, type, gender} = form;
-        api.post(EP_REGISTER, {first_name, last_name, email,password, gender,
+        api.post(EP_REGISTER, {
+            first_name, last_name, email, password, gender,
             account_type: type,
-            password_confirmation:password})
+            password_confirmation: password
+        })
             .then((res) => {
                 logger.success('REGISTRATION SUCCESS', res);
-                helper.setSubmitting(false);
-                setIsSubmitted(true);
+                const ifm = new IframeManager(iframe.current?.contentWindow as Window);
+                ifm.send({
+                    action: IframeManager.messages.DO_LOGIN,
+                    payload: res
+                }).then(res => {
+                    logger.success('GET REGISTER RESPONSE');
+                    helper.setSubmitting(false);
+                    setIsSubmitted(true);
+                });
 
             })
             .catch(handleError(helper))
@@ -57,45 +69,46 @@ const SignUp = () => {
         {label: 'Male', value: genderTypes.MALE},
         {label: 'Female', value: genderTypes.FEMALE},
     ];
-    if(isSubmitted) return <Redirect to={Routes.REGISTER_CONFIRMATION}/>;
+    if (isSubmitted) return <Redirect to={Routes.REGISTER_CONFIRMATION}/>;
     return (
-            <Styles>
-                <Wrapper>
-                    <Logo/>
-                    <Title>
-                        <div className={'title__hr'}/>
-                        <h1 className={'title__h1'}>{t('auth:sign-up-title')}</h1>
-                        <h2 className={'title__h2'}>{t('auth:sign-up-subtitle')}</h2>
-                    </Title>
-                    <Formik initialValues={form}
-                            onSubmit={handleSubmit}
-                            validationSchema={Yup.object({
-                                type: Yup.string().required(),
-                                first_name: Yup.string().required().name(),
-                                last_name: Yup.string().required().name(),
-                                email: Yup.string().required().email(),
-                                password: Yup.string().required().min(8).password()
-                            })}
-                    >
-                        {() => (
-                            <Form>
-                                <FormSwitch name={'type'} options={userTypeOptions}/>
-                                <div className={'sign-up__name'}>
-                                    <FormInputLabeled name={'first_name'} label={'First Name'} onUpdate={update}/>
-                                    <FormInputLabeled name={'last_name'} label={'Last Name'} onUpdate={update}/>
-                                </div>
-                                <FormRadio name={'gender'} label={'What\'s your gender?'} options={genderOptions}/>
-                                <FormInputLabeled name={'email'} label={'Email'} onUpdate={update}/>
-                                <FormPassword name={'password'} label={'Create a password'} onUpdate={update}/>
-                                <ButtonSubmit >{t('auth:sign-up')}</ButtonSubmit>
-                            </Form>
-                        )}
-                    </Formik>
+        <Styles>
+            <Wrapper>
+                <Logo/>
+                <Title>
+                    <div className={'title__hr'}/>
+                    <h1 className={'title__h1'}>{t('auth:sign-up-title')}</h1>
+                    <h2 className={'title__h2'}>{t('auth:sign-up-subtitle')}</h2>
+                </Title>
+                <Formik initialValues={form}
+                        onSubmit={handleSubmit}
+                        validationSchema={Yup.object({
+                            type: Yup.string().required(),
+                            first_name: Yup.string().required().name(),
+                            last_name: Yup.string().required().name(),
+                            email: Yup.string().required().email(),
+                            password: Yup.string().required().min(8).password()
+                        })}
+                >
+                    {() => (
+                        <Form>
+                            <FormSwitch name={'type'} options={userTypeOptions}/>
+                            <div className={'sign-up__name'}>
+                                <FormInputLabeled name={'first_name'} label={'First Name'} onUpdate={update}/>
+                                <FormInputLabeled name={'last_name'} label={'Last Name'} onUpdate={update}/>
+                            </div>
+                            <FormRadio name={'gender'} label={'What\'s your gender?'} options={genderOptions}/>
+                            <FormInputLabeled name={'email'} label={'Email'} onUpdate={update}/>
+                            <FormPassword name={'password'} label={'Create a password'} onUpdate={update}/>
+                            <ButtonSubmit>{t('auth:sign-up')}</ButtonSubmit>
+                        </Form>
+                    )}
+                </Formik>
                 <SwitchState>
                     {t('auth:have-account')} <Link to={Routes.LOGIN}>{t('auth:sign-in')}</Link>
                 </SwitchState>
-                </Wrapper>
-            </Styles>
+                <iframe style={{display: "none"}} src={mainHost() + '/auth'} ref={iframe}/>
+            </Wrapper>
+        </Styles>
     );
 };
 

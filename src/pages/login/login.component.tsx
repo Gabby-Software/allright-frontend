@@ -23,6 +23,9 @@ import {EP_LOGIN} from "../../enums/api.enum";
 import api, {handleError} from "../../managers/api.manager";
 import IframeManager from "../../managers/iframe.manager";
 import {mainHost} from "../../pipes/main-host";
+import {AuthDataContext} from "../../modules/auth/auth-data.context";
+import {AuthResponseType} from "../../hooks/authorization.hook";
+import {auth} from "../../managers/auth.manager";
 
 type LoginDataType = {
     type: string;
@@ -31,24 +34,28 @@ type LoginDataType = {
 };
 const Login = () => {
     const {t} = useTranslation();
+    const {setData} = useContext(AuthDataContext);
     const {form, update} = useContext(AuthFormContext) as AuthFormTypeNotNull;
     const iframe = useRef<HTMLIFrameElement>(null);
     const handleSubmit = (form: LoginDataType, helper: FormikHelpers<AuthFormFieldsType>) => {
         logger.info('submitting login', form);
         const {type, email, password} = form;
-        api.post(EP_LOGIN, {email,password})
+        api.post<AuthResponseType>(EP_LOGIN, {email,password})
             .then(res => res.data)
             .then(res => {
                 const ifm = new IframeManager(iframe.current?.contentWindow as Window);
                 logger.success('LOGGED IN!', res, iframe.current);
+                auth.current = res;
+                setData(res);
                 ifm.send({
                     action: IframeManager.messages.DO_LOGIN,
                     payload: res
-                }).then(res => {
+                }).then(() => {
                     logger.success('LOGIN SUCCESS!');
                     helper.setSubmitting(false);
-                    window.location.href = mainHost();
-                })
+                    if(res.user.email_verified_at)
+                        window.location.href = mainHost();
+                });
             })
             .catch(handleError(helper));
     };

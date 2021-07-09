@@ -10,15 +10,18 @@ import {I18nProvider} from "./modules/i18n/i18n.context";
 import {ThemeProvider} from 'styled-components';
 import theme from "./assets/styles";
 import {BrowserRouter} from "react-router-dom";
+import {AuthDataContext, AuthDataProvider} from "./modules/auth/auth-data.context";
 
 ReactDOM.render(
   <React.StrictMode>
       <I18nProvider>
+          <AuthDataProvider>
           <ThemeProvider theme={theme}>
               <BrowserRouter>
               <App />
               </BrowserRouter>
           </ThemeProvider>
+          </AuthDataProvider>
       </I18nProvider>
   </React.StrictMode>,
   document.getElementById('root')

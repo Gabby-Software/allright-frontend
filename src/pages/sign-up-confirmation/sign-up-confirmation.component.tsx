@@ -14,10 +14,14 @@ import FormInputLabeled from "../../components/forms/form-input-labeled/form-inp
 import FormRow from "../../components/forms/form-row/form-row.component";
 import ButtonSubmit from "../../components/forms/button-submit/button-submit.component";
 import FormButton from "../../components/forms/form-button/form-button.component";
+import {AuthDataContext} from "../../modules/auth/auth-data.context";
+import {onlyAuth} from "../../guards/auth.guard";
+import {auth} from "../../managers/auth.manager";
 
 const SignUpConfirmation = () => {
     const {t} = useTranslation();
     const {form, update} = useContext(AuthFormContext) as AuthFormTypeNotNull;
+    const {setData} = useContext(AuthDataContext);
     const [isChangingEmail, setIsChangingEmail] = useState(false);
     const resendEmail = () => {
         // todo: handle submittion
@@ -69,7 +73,11 @@ const SignUpConfirmation = () => {
                             <ChangeEmail><a onClick={() => {
                                 setIsChangingEmail(true);
                             }}>{t('auth:change-email')}</a></ChangeEmail>
-                            <Back to={Routes.LOGIN}/>
+                            <Back to={Routes.LOGIN} onClick={() => {
+                                alert('clicked');
+                                setData(null);
+                                auth.current = null;
+                            }}/>
                         </>
                     )
                 }
@@ -78,4 +86,4 @@ const SignUpConfirmation = () => {
     )
 };
 
-export default onlyGuest(SignUpConfirmation);
+export default onlyAuth(SignUpConfirmation);
