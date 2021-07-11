@@ -32,6 +32,7 @@ const SignUpConfirmation = () => {
     };
     const changeEmail = (values: AuthFormFieldsType) => {
       // api.post()
+
       setIsChangingEmail(false);
     };
     return (
