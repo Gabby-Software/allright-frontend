@@ -4,4 +4,5 @@ export type BrandingType = {
     logo: ComponentType
     primaryColor: string;
     primaryLightColor: string;
+    icon: string;
 }
