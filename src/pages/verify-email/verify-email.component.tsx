@@ -21,10 +21,9 @@ const VerifyEmail = () => {
     useEffect(() => {
         logger.info('PARAMS', id, token, location.search);
         if(id && token) {
-            api.get(`${EP_VERIFY_EMAIL}/${id}/${token}`)
+            api.get(`${EP_VERIFY_EMAIL}/${id}/${token}${location.search}`)
                 .then(res => {
                     logger.success('EMAIL VERIFIED', res);
-
                 })
                 .catch(e => {
                     toast.show({type: 'error', msg: serverError(e)});

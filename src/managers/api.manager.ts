@@ -15,11 +15,11 @@ const api = axios.create({
 logger.info('ENV', process.env);
 api.interceptors.request.use(
     (config: AxiosRequestConfig) => {
-        const token = auth.current?.access_token;
-        const uuid = auth.current?.user.uuid;
+        const token = cookieManager.get('access_token');
+        const uuid = JSON.parse(cookieManager.get('auth')||'{}')?.uuid;
         if(token) config.headers['Authorization'] =  `Bearer ${token}`;
         if(uuid) config.headers['Account-Token'] =  uuid;
-        logger.info('HTTP_REQUEST', config.url, config.data);
+        logger.info('HTTP_REQUEST', token, config.url, config.data);
         return config;
     },
     err => Promise.reject(err)
@@ -36,7 +36,7 @@ api.interceptors.response.use(
             return Promise.reject(err);
         }
         logger.error('HTTP_ERROR', err.response?.data?.message || err.message, err.response);
-        if(err.response.status === 401) {
+        if(err.response.status === 401 && false) {
             // Todo: call api to logout
             api.post(EP_LOGOUT);
             localStorage.clear();
