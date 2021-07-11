@@ -28,7 +28,7 @@ const VerifyEmail = () => {
                 })
                 .catch(e => {
                     toast.show({type: 'error', msg: serverError(e)});
-                    setVerified(verifiedState.ERROR);
+                    // setVerified(verifiedState.ERROR);
                 })
         }
     }, []);
