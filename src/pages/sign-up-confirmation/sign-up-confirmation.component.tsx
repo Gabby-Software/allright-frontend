@@ -2,14 +2,12 @@ import React, {useState, useEffect, useContext} from 'react';
 import Styles, {ChangeEmail, Logo, ResendEmail, Wrapper} from "../styles";
 
 import {useTranslation} from "../../modules/i18n/i18n.hook";
-import {onlyGuest} from "../../guards/guest.guard";
 import Back from "../styles/back/back.component";
 import {Routes} from "../../enums/routes.enum";
-import brand from "../../config/branding.config";
-import {Form, Formik, FormikProps} from "formik";
+import {Form, Formik, FormikHelpers, FormikProps} from "formik";
 import {AuthFormContext} from "../../modules/auth/auth.context";
 import * as Yup from "yup";
-import {AuthFormTypeNotNull} from "../../modules/auth/auth-form.type";
+import {AuthFormFieldsType, AuthFormTypeNotNull} from "../../modules/auth/auth-form.type";
 import FormInputLabeled from "../../components/forms/form-input-labeled/form-input-labeled.component";
 import FormRow from "../../components/forms/form-row/form-row.component";
 import ButtonSubmit from "../../components/forms/button-submit/button-submit.component";
@@ -17,6 +15,10 @@ import FormButton from "../../components/forms/form-button/form-button.component
 import {AuthDataContext} from "../../modules/auth/auth-data.context";
 import {onlyAuth} from "../../guards/auth.guard";
 import {auth} from "../../managers/auth.manager";
+import api, {handleError} from "../../managers/api.manager";
+import {EP_VERIFY_EMAIL_RESEND} from "../../enums/api.enum";
+import {toast} from "../../components/toast/toast.component";
+import {serverError} from "../../pipes/server-error.pipe";
 
 const SignUpConfirmation = () => {
     const {t} = useTranslation();
@@ -24,10 +26,12 @@ const SignUpConfirmation = () => {
     const {setData} = useContext(AuthDataContext);
     const [isChangingEmail, setIsChangingEmail] = useState(false);
     const resendEmail = () => {
-        // todo: handle submittion
+        api.post(EP_VERIFY_EMAIL_RESEND)
+            .then(()=>toast.show({type: "success", msg: t("alerts:resend-verification-success")}))
+            .catch(e => toast.show({type: "error", msg: serverError(e)}))
     };
-    const changeEmail = () => {
-      // todo: handle change email
+    const changeEmail = (values: AuthFormFieldsType) => {
+      // api.post()
       setIsChangingEmail(false);
     };
     return (
