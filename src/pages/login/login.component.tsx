@@ -45,13 +45,13 @@ const Login = () => {
             .then(res => res.data)
             .then(res => {
                 logger.success('LOGGED IN!', res, iframe.current);
-                auth.current = res;
-                setData(res);
                 cookieManager.set('access_token', res.access_token, res.expires_in);
                 cookieManager.set('auth', JSON.stringify(res.user), res.expires_in);
                 if(res.user.email_verified_at) {
                     document.location.href = mainHost();
-
+                } else {
+                    auth.current = res;
+                    setData(res);
                 }
             })
             .catch(handleError(helper));
