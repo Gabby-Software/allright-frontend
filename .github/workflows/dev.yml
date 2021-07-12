@@ -18,6 +18,7 @@ jobs:
           cd /home/identity/public_html
           git checkout dev
           git pull origin dev
+          cp /home/identity/public_html/.env.example /home/identity/public_html/.env
           yarn install
           yarn build
           
