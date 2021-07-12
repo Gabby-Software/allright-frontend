@@ -10,6 +10,7 @@ import api, {handleError} from "../../managers/api.manager";
 import {EP_VERIFY_EMAIL} from "../../enums/api.enum";
 import {toast} from "../../components/toast/toast.component";
 import {serverError} from "../../pipes/server-error.pipe";
+import {mainHost} from "../../pipes/main-host";
 
 enum verifiedState {
     NONE, SUCCESS, ERROR
@@ -24,6 +25,7 @@ const VerifyEmail = () => {
             api.get(`${EP_VERIFY_EMAIL}/${id}/${token}${location.search}`)
                 .then(res => {
                     logger.success('EMAIL VERIFIED', res);
+                    document.location.href=mainHost()+Routes.REGISTER_ON_BOARD;
                 })
                 .catch(e => {
                     toast.show({type: 'error', msg: serverError(e)});
