@@ -26,7 +26,7 @@ function App() {
   return (
       <Styles>
         <Switch>
-          {/*<Redirect exact from={Routes.HOME} to={Routes.LOGIN}/>*/}
+          <Redirect exact from={Routes.HOME} to={Routes.LOGIN}/>
           <Route path={routes.map(r => r.url)}>
             <AuthFormProvider>
               <Suspense fallback={<Skeleton/>}>
