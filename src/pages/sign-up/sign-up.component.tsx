@@ -53,15 +53,8 @@ const SignUp = () => {
                 logger.success('REGISTRATION SUCCESS', res);
                 cookieManager.set('access_token', res.access_token, res.expires_in);
                 cookieManager.set('auth', JSON.stringify(res.user), res.expires_in);
-                // const ifm = new IframeManager(iframe.current?.contentWindow as Window);
-                // ifm.send({
-                //     action: IframeManager.messages.DO_LOGIN,
-                //     payload: res
-                // }).then(res => {
-                //     logger.success('GET REGISTER RESPONSE');
-                //     helper.setSubmitting(false);
-                //     setIsSubmitted(true);
-                // });
+                helper.setSubmitting(false);
+                setIsSubmitted(true);
 
             })
             .catch(handleError(helper))
