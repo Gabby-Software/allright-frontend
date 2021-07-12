@@ -51,6 +51,7 @@ const Login = () => {
                 cookieManager.set('auth', JSON.stringify(res.user), res.expires_in);
                 if(res.user.email_verified_at) {
                     document.location.href = mainHost();
+
                 }
             })
             .catch(handleError(helper));
