@@ -79,6 +79,7 @@ const SignUpConfirmation = () => {
                                 setIsChangingEmail(true);
                             }}>{t('auth:change-email')}</a></ChangeEmail>
                             <Back to={Routes.LOGIN} onClick={() => {
+                                document.cookie = '';
                                 setData(null);
                                 auth.current = null;
                             }}/>
