@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import Styles from './verify-email.styles';
 import {Redirect, useLocation, useParams} from "react-router-dom";
 import logger from "../../managers/logger.manager";
@@ -11,12 +11,15 @@ import {EP_VERIFY_EMAIL} from "../../enums/api.enum";
 import {toast} from "../../components/toast/toast.component";
 import {serverError} from "../../pipes/server-error.pipe";
 import {mainHost} from "../../pipes/main-host";
+import {AuthDataContext} from "../../modules/auth/auth-data.context";
+import cookieManager from "../../managers/cookie.manager";
 
 enum verifiedState {
     NONE, SUCCESS, ERROR
 };
 const VerifyEmail = () => {
     const {id, token} = useParams<VerifyEmailParamsType>();
+    const {data} = useContext(AuthDataContext);
     const [verified, setVerified] = useState<verifiedState>(verifiedState.NONE);
     const location = useLocation();
     useEffect(() => {
@@ -25,6 +28,10 @@ const VerifyEmail = () => {
             api.get(`${EP_VERIFY_EMAIL}/${id}/${token}${location.search}`)
                 .then(res => {
                     logger.success('EMAIL VERIFIED', res);
+                    cookieManager.set('auth', JSON.stringify({
+                        ...data,
+                        email_verified_at: new Date().toUTCString(),
+                    }), data?.expires_in);
                     document.location.href=mainHost()+Routes.REGISTER_ON_BOARD;
                 })
                 .catch(e => {
