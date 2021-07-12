@@ -3,13 +3,11 @@ on:
   push:
     branches: [ dev ]
 jobs:
-  # test:
-  #   ...
-  deploy:
+   deploy:
     name: "Deploy to dev"
     runs-on: ubuntu-latest
     steps:
-      - name: testing ssh connection
+      - name: Deploy code to allright-frontend-dev server
         uses: appleboy/ssh-action@master
         with:
          host: ${{ secrets.SSH_HOST_DEV }}
