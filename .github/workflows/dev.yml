@@ -20,4 +20,6 @@ jobs:
           cd /home/identity/public_html
           git checkout dev
           git pull origin dev
+          yarn install
+          yarn build
           
