@@ -19,6 +19,7 @@ import api, {handleError} from "../../managers/api.manager";
 import {EP_VERIFY_EMAIL_RESEND} from "../../enums/api.enum";
 import {toast} from "../../components/toast/toast.component";
 import {serverError} from "../../pipes/server-error.pipe";
+import cookieManager from "../../managers/cookie.manager";
 
 const SignUpConfirmation = () => {
     const {t} = useTranslation();
@@ -79,7 +80,7 @@ const SignUpConfirmation = () => {
                                 setIsChangingEmail(true);
                             }}>{t('auth:change-email')}</a></ChangeEmail>
                             <Back to={Routes.LOGIN} onClick={() => {
-                                document.cookie = '';
+                                cookieManager.removeAll();
                                 setData(null);
                                 auth.current = null;
                             }}/>

@@ -40,7 +40,7 @@ api.interceptors.response.use(
             // Todo: call api to logout
             api.post(EP_LOGOUT);
             localStorage.clear();
-            document.cookie = '';
+            cookieManager.removeAll();
             // Todo: remove user data from redux store
             window.location.pathname = Routes.LOGIN;
         }
