@@ -26,6 +26,7 @@ import {mainHost} from "../../pipes/main-host";
 import IframeManager from "../../managers/iframe.manager";
 import cookieManager from "../../managers/cookie.manager";
 import {AuthResponseType} from "../../hooks/authorization.hook";
+import {AuthDataContext} from "../../modules/auth/auth-data.context";
 
 type LoginDataType = {
     type: string;
@@ -39,6 +40,7 @@ const SignUp = () => {
     const {t} = useTranslation();
     const {form, update} = useContext(AuthFormContext) as AuthFormTypeNotNull;
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const {setData} = useContext(AuthDataContext);
     const iframe = useRef<HTMLIFrameElement>(null);
     const handleSubmit = (form: LoginDataType, helper: FormikHelpers<AuthFormFieldsType>) => {
         logger.info('submitting form', form);
@@ -53,6 +55,7 @@ const SignUp = () => {
                 logger.success('REGISTRATION SUCCESS', res);
                 cookieManager.set('access_token', res.access_token, res.expires_in);
                 cookieManager.set('auth', JSON.stringify(res.user), res.expires_in);
+                setData(res);
                 helper.setSubmitting(false);
                 setIsSubmitted(true);
 
