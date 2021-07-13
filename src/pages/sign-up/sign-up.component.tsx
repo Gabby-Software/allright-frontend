@@ -27,6 +27,7 @@ import IframeManager from "../../managers/iframe.manager";
 import cookieManager from "../../managers/cookie.manager";
 import {AuthResponseType} from "../../hooks/authorization.hook";
 import {AuthDataContext} from "../../modules/auth/auth-data.context";
+import {ipstack} from "../../managers/ipstack.manager";
 
 type LoginDataType = {
     type: string;
@@ -42,10 +43,12 @@ const SignUp = () => {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const {setData} = useContext(AuthDataContext);
     const iframe = useRef<HTMLIFrameElement>(null);
-    const handleSubmit = (form: LoginDataType, helper: FormikHelpers<AuthFormFieldsType>) => {
+    const handleSubmit = async (form: LoginDataType, helper: FormikHelpers<AuthFormFieldsType>) => {
         logger.info('submitting form', form);
         const {first_name, last_name, email, password, type, gender} = form;
+        const defaults = await ipstack.getDefaults();
         api.post<AuthResponseType>(EP_REGISTER, {
+            ...defaults,
             first_name, last_name, email, password, gender,
             account_type: type,
             password_confirmation: password
@@ -58,7 +61,6 @@ const SignUp = () => {
                 setData(res);
                 helper.setSubmitting(false);
                 setIsSubmitted(true);
-
             })
             .catch(handleError(helper))
     };

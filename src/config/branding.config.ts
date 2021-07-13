@@ -1,7 +1,7 @@
 import {BrandingType} from "../types/branding.type";
 import {ReactComponent as LiverightIcon} from "../assets/media/logo-compact.svg";
 import {ReactComponent as EatrightIcon} from "../assets/media/eatright-logo-compact.svg";
-import livefavicon from "../assets/media/favicon-eat.ico";
+import livefavicon from "../assets/media/favicon-live.ico";
 import eatfavicon from "../assets/media/favicon-eat.ico";
 
 const brands: {[key: string]:BrandingType} = {
@@ -21,7 +21,7 @@ const brands: {[key: string]:BrandingType} = {
         primaryColor: "#96BE35",
         primaryLightColor: "#84a72f",
         logo: EatrightIcon,
-        icon:livefavicon
+        icon:eatfavicon
     },
     'identity.liverightstaging.xyz': {
         primaryColor: "#F74057",
@@ -33,7 +33,7 @@ const brands: {[key: string]:BrandingType} = {
         primaryColor: "#96BE35",
         primaryLightColor: "#84a72f",
         logo: EatrightIcon,
-        icon:livefavicon
+        icon:eatfavicon
     },
     localhost: {
         primaryColor: "#96BE35",
