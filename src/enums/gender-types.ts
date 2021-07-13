@@ -1,5 +1,6 @@
 const genderTypes = {
     MALE: 'male',
-    FEMALE: 'female'
+    FEMALE: 'female',
+    OTHER: 'other'
 };
 export default genderTypes;

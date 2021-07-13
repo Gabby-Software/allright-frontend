@@ -69,6 +69,7 @@ const SignUp = () => {
     const genderOptions = [
         {label: 'Male', value: genderTypes.MALE},
         {label: 'Female', value: genderTypes.FEMALE},
+        {label: 'Other', value: genderTypes.OTHER},
     ];
     if (isSubmitted) return <Redirect to={Routes.REGISTER_CONFIRMATION}/>;
     return (
