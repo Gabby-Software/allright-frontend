@@ -31,7 +31,7 @@ type IPStackType = {
 const getDefaults:() => Promise<AddressDefaultsType> = () => {
     return api.get('https://api.db-ip.com/v2/free/self')
         .then(res => res.data.ipAddress)
-        .then(ip => api.get<IPStackType>(`https://api.ipstack.com/${ip}?access_key=${process.env.REACT_APP_IPSTACK_KEY}`))
+        .then(ip => api.get<IPStackType>(`http://api.ipstack.com/${ip}?access_key=${process.env.REACT_APP_IPSTACK_KEY}`))
         .then(res => res.data)
         .then(({country_code, city, zip}) => ({
             country_code,  city, postal_code: zip, lang_code: navigator.language.substring(0,2)
