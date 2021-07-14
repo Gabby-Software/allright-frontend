@@ -63,12 +63,14 @@ const Login = () => {
     return (
         <Styles>
             <Wrapper>
+                <div>
                 <Logo/>
                 <Title>
                     <div className={'title__hr'}/>
                     <h1 className={'title__h1'}>{t('auth:sign-in-title')}</h1>
                     <h2 className={'title__h2'}>{t('auth:sign-in-subtitle')}</h2>
                 </Title>
+                </div>
                 <Formik initialValues={form}
                         onSubmit={handleSubmit}
                         validationSchema={Yup.object({
@@ -79,15 +81,15 @@ const Login = () => {
                 >
                     {() => (
                         <Form>
-                            <FormSwitch name={'type'} options={userTypeOptions} onUpdate={update}/>
+                            {/*<FormSwitch name={'type'} options={userTypeOptions} onUpdate={update}/>*/}
                             <FormInputLabeled name={'email'} label={'Email'} onUpdate={update}/>
                             <FormPassword name={'password'} label={'Password'} onUpdate={update}/>
-                            <ForgetPassword className={'desktop'} to={'/forgot-password'}>{t('auth:forgot-password')}</ForgetPassword>
+                            <ForgetPassword to={'/forgot-password'}>{t('auth:forgot-password')}</ForgetPassword>
                             <ButtonSubmit>{t('auth:sign-in')}</ButtonSubmit>
                         </Form>
                     )}
                 </Formik>
-                <ForgetPassword className={'mobile'} to={'/forgot-password'}>{t('auth:forgot-password')}</ForgetPassword>
+                {/*<ForgetPassword className={'mobile'} to={'/forgot-password'}>{t('auth:forgot-password')}</ForgetPassword>*/}
                 <SwitchState>
                     {t('auth:dont-have-account')} <Link to={Routes.REGISTER}>{t('auth:sign-up')}</Link>
                 </SwitchState>

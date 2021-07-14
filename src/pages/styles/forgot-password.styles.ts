@@ -6,15 +6,9 @@ export default styled(Link)`
     font-weight: 500;
     color: #333333;
     font-size:14px;
+    text-align: right;
     &:hover {
         color: #333333;
         text-decoration: underline;
-    }
-    &.desktop {
-        ${p => p.theme.extend.onlyDesktop}
-    }
-    &.mobile {
-        margin-top: 24px;
-        ${p => p.theme.extend.onlyMobile}
     }
 `
