@@ -6,6 +6,7 @@ export {default as ForgetPassword} from './forgot-password.styles';
 export {default as Title} from './title';
 export {default as ResendEmail} from './resend-email.styles';
 export {default as ChangeEmail} from './change-email.styles';
+export {default as FormDesc} from './form-desc.styles';
 export {MobileStickyBottom} from './mobile-sticky-bottom';
 
 export default styled.div`

@@ -35,11 +35,15 @@ export default styled.div`
         width: 100%;
         height: 100vh;
         overflow: auto;
+        display: flex;
+        flex-direction: column;
     }
     &__wrapper {
         padding: 80px 0 180px 0;
         margin: auto;
+        width: 100%;
         max-width: 395px;
+        
     }
    
 }

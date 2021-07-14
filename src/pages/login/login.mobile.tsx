@@ -12,7 +12,7 @@ const LoginMobile = () => {
         <IdentityMobileLayout title={t('auth:sign-in-title')} desc={t('auth:sign-in-subtitle')}>
             <LoginForm/>
             <SwitchState>
-                {t('auth:dont-have-account')} <Link to={Routes.REGISTER}>{t('auth:sign-up')}</Link>
+                {t('auth:dont-have-account')} <Link to={Routes.REGISTER}>{t('auth:create-account')}</Link>
             </SwitchState>
         </IdentityMobileLayout>
     );

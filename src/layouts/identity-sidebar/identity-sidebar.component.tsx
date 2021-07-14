@@ -48,4 +48,7 @@ IdentitySidebar.Hr = styled.div`
     border-bottom: 1px solid white;
     max-width: 50px;
 `;
+IdentitySidebar.Space = styled.div`
+margin-top: 40px;
+`;
 export default IdentitySidebar;

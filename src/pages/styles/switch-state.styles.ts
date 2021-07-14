@@ -14,6 +14,8 @@ export default styled.p`
                 text-align: right;
             }
             a {
+                margin-top: 5px;
+                display: block;
                 color: ${p => p.theme.vars.colors.primary};
                 font-weight: 700;
             }
