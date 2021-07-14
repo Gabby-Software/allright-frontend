@@ -43,7 +43,6 @@ export default styled.div`
         margin: auto;
         width: 100%;
         max-width: 395px;
-        
     }
    
 }

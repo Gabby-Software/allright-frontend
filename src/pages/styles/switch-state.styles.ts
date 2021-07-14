@@ -1,17 +1,13 @@
 import styled from "styled-components";
 
 export default styled.p`
-            font-size: 12px;
+            font-size: 14px;
             color: #333333;
-            font-weight: 500;
+            font-weight: 400;
             margin-top:54px;
             margin-bottom:0;
             @media all and (max-height: 800px) {
                 margin-top: 20px;
-            }
-            @media all and (min-width: ${p => p.theme.vars.media.tablet}px) {
-                margin-top: 30px;
-                text-align: right;
             }
             a {
                 margin-top: 5px;

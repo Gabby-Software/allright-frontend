@@ -5,6 +5,7 @@ export default styled.div`
     border-top: 1px solid ${p => p.theme.vars.colors.light2};
     font-weight: 500;
     font-size: 12px;
+    margin-top: 40px;
     .footer {
         &__copyright {
             text-align: center;
