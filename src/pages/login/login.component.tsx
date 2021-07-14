@@ -10,7 +10,7 @@ import FormSwitch from "../../components/forms/form-switch/form-switch.component
 import ButtonSubmit from "../../components/forms/button-submit/button-submit.component";
 import {Link} from 'react-router-dom';
 import {useTranslation} from "../../modules/i18n/i18n.hook";
-import Styles, {Wrapper, Logo, SwitchState,ForgetPassword, Title} from '../styles';
+import Styles, {Wrapper, Logo, SwitchState, ForgetPassword, Title, MobileStickyBottom} from '../styles';
 import {AuthFormContext} from "../../modules/auth/auth.context";
 import {AuthFormFieldsType, AuthFormTypeNotNull} from "../../modules/auth/auth-form.type";
 import FormInputLabeled from "../../components/forms/form-input-labeled/form-input-labeled.component";
@@ -85,7 +85,9 @@ const Login = () => {
                             <FormInputLabeled name={'email'} label={'Email'} onUpdate={update}/>
                             <FormPassword name={'password'} label={'Password'} onUpdate={update}/>
                             <ForgetPassword to={'/forgot-password'}>{t('auth:forgot-password')}</ForgetPassword>
+                            <MobileStickyBottom>
                             <ButtonSubmit>{t('auth:sign-in')}</ButtonSubmit>
+                            </MobileStickyBottom>
                         </Form>
                     )}
                 </Formik>

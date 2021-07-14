@@ -9,7 +9,7 @@ import FormSwitch from "../../components/forms/form-switch/form-switch.component
 import ButtonSubmit from "../../components/forms/button-submit/button-submit.component";
 import {Link, Redirect} from 'react-router-dom';
 import {useTranslation} from "../../modules/i18n/i18n.hook";
-import Styles, {Wrapper, Logo, SwitchState, Title} from '../styles';
+import Styles, {Wrapper, Logo, SwitchState, Title, MobileStickyBottom} from '../styles';
 import {AuthFormContext} from "../../modules/auth/auth.context";
 import {AuthFormFieldsType, AuthFormTypeNotNull} from "../../modules/auth/auth-form.type";
 import FormInputLabeled from "../../components/forms/form-input-labeled/form-input-labeled.component";
@@ -103,7 +103,9 @@ const SignUp = () => {
                             <FormRadio name={'gender'} label={'What\'s your gender?'} options={genderOptions}/>
                             <FormInputLabeled name={'email'} label={'Email'} onUpdate={update}/>
                             <FormPassword name={'password'} label={'Create a password'} onUpdate={update}/>
+                            <MobileStickyBottom>
                             <ButtonSubmit>{t('auth:sign-up')}</ButtonSubmit>
+                            </MobileStickyBottom>
                         </Form>
                     )}
                 </Formik>
