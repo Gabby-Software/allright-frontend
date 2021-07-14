@@ -13,6 +13,7 @@ import {serverError} from "../../pipes/server-error.pipe";
 import {mainHost} from "../../pipes/main-host";
 import {AuthDataContext} from "../../modules/auth/auth-data.context";
 import cookieManager from "../../managers/cookie.manager";
+import {AuthObjectType, AuthResponseType} from "../../hooks/authorization.hook";
 
 enum verifiedState {
     NONE, SUCCESS, ERROR
@@ -25,11 +26,11 @@ const VerifyEmail = () => {
     useEffect(() => {
         logger.info('PARAMS', id, token, location.search);
         if(id && token) {
-            api.get(`${EP_VERIFY_EMAIL}/${id}/${token}${location.search}`)
+            api.get<AuthResponseType>(`${EP_VERIFY_EMAIL}/${id}/${token}${location.search}`)
                 .then(res => {
                     logger.success('EMAIL VERIFIED', res);
                     cookieManager.set('auth', JSON.stringify({
-                        ...data,
+                        ...data?.user,
                         email_verified_at: new Date().toUTCString(),
                     }), data?.expires_in);
                     document.location.href=mainHost()+Routes.REGISTER_ON_BOARD;
