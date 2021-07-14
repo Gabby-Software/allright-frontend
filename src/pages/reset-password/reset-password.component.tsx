@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import Styles, {Wrapper, Logo, SwitchState, ForgetPassword} from '../styles';
+import Styles, {Wrapper, Logo, SwitchState, ForgetPassword, MobileStickyBottom} from '../styles';
 import {useTranslation} from "../../modules/i18n/i18n.hook";
 import {Form, Formik, FormikProps} from 'formik';
 import * as Yup from 'yup';
@@ -45,7 +45,9 @@ const ResetPassword = () => {
                         <Form>
                             <FormPassword name={'new_password'} label={t('auth:new-password')}/>
                             <FormPassword name={'confirm_new_password'} label={t('auth:confirm-password')}/>
+                            <MobileStickyBottom>
                             <ButtonSubmit {...form}>{t('auth:change-password')}</ButtonSubmit>
+                            </MobileStickyBottom>
                         </Form>
                     )}
                 </Formik>

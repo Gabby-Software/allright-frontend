@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import Styles, {Wrapper, Logo, SwitchState,ForgetPassword} from '../styles';
+import Styles, {Wrapper, Logo, SwitchState, ForgetPassword, MobileStickyBottom} from '../styles';
 import {Form, Formik, FormikHelpers, FormikProps} from "formik";
 import ButtonSubmit from "../../components/forms/button-submit/button-submit.component";
 import {useTranslation} from "../../modules/i18n/i18n.hook";
@@ -54,7 +54,9 @@ const ForgotPassword = () => {
                     {(form: FormikProps<EmailType>) => (
                         <Form>
                             <FormInputLabeled name={'email'} label={'Email'} onUpdate={update}/>
+                            <MobileStickyBottom>
                             <ButtonSubmit {...form}>{t('auth:send-link')}</ButtonSubmit>
+                            </MobileStickyBottom>
                         </Form>
                     )}
                 </Formik>
