@@ -1,59 +1,12 @@
 import React, {useState, useEffect, useContext} from 'react';
-import Styles, {Wrapper, Logo, SwitchState, ForgetPassword, MobileStickyBottom} from '../styles';
-import {useTranslation} from "../../modules/i18n/i18n.hook";
-import {Form, Formik, FormikProps} from 'formik';
-import * as Yup from 'yup';
-import FormInputLabeled from "../../components/forms/form-input-labeled/form-input-labeled.component";
-import {AuthFormType, AuthFormTypeNotNull} from "../../modules/auth/auth-form.type";
-import {AuthFormContext} from "../../modules/auth/auth.context";
-import ButtonSubmit from "../../components/forms/button-submit/button-submit.component";
-import {Redirect} from "react-router-dom";
 import {onlyGuest} from "../../guards/guest.guard";
-import brand from "../../config/branding.config";
-import FormPassword from "../../components/forms/form-password/form-password.component";
-import api from "../../managers/api.manager";
+import {useIsMobile} from "../../hooks/is-mobile.hook";
+import ResetPasswordMobile from "./reset-password.mobile";
+import ResetPasswordDesktop from "./reset-password.desktop";
 
-type PasswordType = {
-    new_password: string;
-    confirm_new_password: string;
-}
 const ResetPassword = () => {
-    const {t} = useTranslation();
-    const {form} = useContext(AuthFormContext) as AuthFormTypeNotNull;
-    const [submitted, setSubmitted] = useState<boolean>(false);
-    const handleSubmit = (form: PasswordType, submitProps: {setSubmitting:(submitting: boolean) => void}) => {
-        console.log(form);
-        submitProps.setSubmitting(false);
-        setSubmitted(true);
-    };
-    if(submitted) return <Redirect to={'/'}/>;
-    return (
-        <Styles>
-            <Wrapper>
-                <Logo/>
-                <h1 className={'forgot-password__title'}>{t('auth:recover-password')}</h1>
-                <div className={'forgot-password__hr'}/>
-                <h2 className={'forgot-password__desc'}/>
-                <Formik initialValues={form}
-                        onSubmit={handleSubmit}
-                        validationSchema={Yup.object({
-                            new_password: Yup.string().required().min(8).password(),
-                            confirm_new_password: Yup.string().required().equals([Yup.ref('new_password')], 'passwords-not-match')
-                        })}
-                >
-                    {(form: FormikProps<PasswordType>) => (
-                        <Form>
-                            <FormPassword name={'new_password'} label={t('auth:new-password')}/>
-                            <FormPassword name={'confirm_new_password'} label={t('auth:confirm-password')}/>
-                            <MobileStickyBottom>
-                            <ButtonSubmit {...form}>{t('auth:change-password')}</ButtonSubmit>
-                            </MobileStickyBottom>
-                        </Form>
-                    )}
-                </Formik>
-            </Wrapper>
-        </Styles>
-    );
+    const isMobile = useIsMobile();
+    return isMobile ? <ResetPasswordMobile/>:<ResetPasswordDesktop/>;
 };
 
 export default onlyGuest(ResetPassword);
