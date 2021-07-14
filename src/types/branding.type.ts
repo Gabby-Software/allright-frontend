@@ -1,8 +1,9 @@
 import {ComponentType} from "react";
 
 export type BrandingType = {
-    logo: ComponentType
+    logo: ComponentType<any>
     primaryColor: string;
     primaryLightColor: string;
     icon: string;
+    name: string;
 }

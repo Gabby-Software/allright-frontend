@@ -6,5 +6,5 @@ export default styled.div`
     text-align:center;
     width: 100%;
     max-width: 435px;
-    min-height: 100vh;
+    min-height: calc(100vh - 106px);
 `;

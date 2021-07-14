@@ -3,5 +3,11 @@
   "finish": "Finish",
   "skip": "Skip",
   "submit": "Submit",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "footer": {
+    "copyright": "© {{name}} DMCC, {{year}} - Some Rights Reserved",
+    "support": "Support",
+    "tnb": "Terms and Conditions",
+    "privacy": "Privacy Policy"
+  }
 }

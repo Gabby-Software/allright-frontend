@@ -36,6 +36,11 @@ const routes: RouteType[] = [
         title: 'Email verification',
         url: `${Routes.VERIFY_EMAIL}/:id/:token`,
         Component: lazy(() => import('../pages/verify-email/verify-email.component')),
+    },
+    {
+        title: 'TEST',
+        url: Routes.TEST,
+        Component: lazy(() => import('../pages/test/test.component'))
     }
 ];
 export default routes;

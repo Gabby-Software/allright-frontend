@@ -7,6 +7,7 @@ export default styled(Link)`
     color: #333333;
     font-size:14px;
     text-align: right;
+    margin-top: 24px;
     &:hover {
         color: #333333;
         text-decoration: underline;

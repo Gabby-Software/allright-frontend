@@ -21,84 +21,21 @@ import brand from "../../config/branding.config";
 import FormPassword from "../../components/forms/form-password/form-password.component";
 import {EP_LOGIN} from "../../enums/api.enum";
 import api, {handleError} from "../../managers/api.manager";
-import IframeManager from "../../managers/iframe.manager";
 import {mainHost} from "../../pipes/main-host";
 import {AuthDataContext} from "../../modules/auth/auth-data.context";
 import {AuthResponseType} from "../../hooks/authorization.hook";
 import {auth} from "../../managers/auth.manager";
 import cookieManager from "../../managers/cookie.manager";
+import {useIsMobile} from "../../hooks/is-mobile.hook";
+import LoginForm from "./login.form";
+import IdentityMobileLayout from "../../layouts/identity-mobile-layout/identity-mobile-layout.component";
+import LoginMobile from "./login.mobile";
+import LoginDesktop from "./login.desktop";
 
-type LoginDataType = {
-    type: string;
-    email: string;
-    password: string;
-};
 const Login = () => {
     const {t} = useTranslation();
-    const {setData} = useContext(AuthDataContext);
-    const {form, update} = useContext(AuthFormContext) as AuthFormTypeNotNull;
-    const iframe = useRef<HTMLIFrameElement>(null);
-    const handleSubmit = (form: LoginDataType, helper: FormikHelpers<AuthFormFieldsType>) => {
-        logger.info('submitting login', form);
-        const {type, email, password} = form;
-        api.post<AuthResponseType>(EP_LOGIN, {email,password})
-            .then(res => res.data)
-            .then(res => {
-                logger.success('LOGGED IN!', res, iframe.current);
-                cookieManager.set('access_token', res.access_token, res.expires_in);
-                cookieManager.set('auth', JSON.stringify(res.user), res.expires_in);
-                if(res.user.email_verified_at) {
-                    document.location.href = mainHost();
-                } else {
-                    auth.current = res;
-                    setData(res);
-                }
-            })
-            .catch(handleError(helper));
-    };
-    const userTypeOptions = [
-        {label: 'Client', value: userTypes.CLIENT},
-        {label: 'Trainer', value: userTypes.TRAINER},
-    ];
-    return (
-        <Styles>
-            <Wrapper>
-                <div>
-                <Logo/>
-                <Title>
-                    <div className={'title__hr'}/>
-                    <h1 className={'title__h1'}>{t('auth:sign-in-title')}</h1>
-                    <h2 className={'title__h2'}>{t('auth:sign-in-subtitle')}</h2>
-                </Title>
-                </div>
-                <Formik initialValues={form}
-                        onSubmit={handleSubmit}
-                        validationSchema={Yup.object({
-                            type: Yup.string().required(),
-                            email: Yup.string().required().email(),
-                            password: Yup.string().required()
-                        })}
-                >
-                    {() => (
-                        <Form>
-                            {/*<FormSwitch name={'type'} options={userTypeOptions} onUpdate={update}/>*/}
-                            <FormInputLabeled name={'email'} label={'Email'} onUpdate={update}/>
-                            <FormPassword name={'password'} label={'Password'} onUpdate={update}/>
-                            <ForgetPassword to={'/forgot-password'}>{t('auth:forgot-password')}</ForgetPassword>
-                            <MobileStickyBottom>
-                            <ButtonSubmit>{t('auth:sign-in')}</ButtonSubmit>
-                            </MobileStickyBottom>
-                        </Form>
-                    )}
-                </Formik>
-                {/*<ForgetPassword className={'mobile'} to={'/forgot-password'}>{t('auth:forgot-password')}</ForgetPassword>*/}
-                <SwitchState>
-                    {t('auth:dont-have-account')} <Link to={Routes.REGISTER}>{t('auth:sign-up')}</Link>
-                </SwitchState>
-            </Wrapper>
-            <iframe style={{display:"none"}} src={mainHost()+'/auth'} ref={iframe}/>
-        </Styles>
-    );
+    const isMobile = useIsMobile();
+    return isMobile ? <LoginMobile/> : <LoginDesktop/>;
 };
 
 export default onlyGuest(Login);
