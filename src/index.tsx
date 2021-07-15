@@ -11,6 +11,8 @@ import {ThemeProvider} from 'styled-components';
 import theme from "./assets/styles";
 import {BrowserRouter} from "react-router-dom";
 import {AuthDataContext, AuthDataProvider} from "./modules/auth/auth-data.context";
+import qa from "./managers/qa.manager";
+window.QA = qa;
 
 ReactDOM.render(
   <React.StrictMode>

@@ -4,6 +4,7 @@ import {OnBoardProvider} from "../onboard/onboard.context";
 import OnBoardMobile from "../onboard/onboard.mobile";
 import OnboardDesktop from "../onboard/onboard.desktop";
 import {addAccountOnboardData} from "./add-account-onboard.data";
+import {Skip} from "../styles/skip.styles";
 
 type Props = {};
 const AddAccountOnboard = ({}:Props) => {
@@ -11,6 +12,7 @@ const AddAccountOnboard = ({}:Props) => {
     return (
         <OnBoardProvider steps={addAccountOnboardData}>
             {isMobile ? <OnBoardMobile/> : <OnboardDesktop/>}
+            <Skip/>
         </OnBoardProvider>
     );
 };

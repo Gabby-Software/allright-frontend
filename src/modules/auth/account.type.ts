@@ -25,5 +25,7 @@ export type AccountObjType = {
     last_name: string;
     uuid: string;
     city: null | string;
-    country: null | CountryType
+    country: null | CountryType,
+    region_name: string;
+    postal_code: string;
 }
