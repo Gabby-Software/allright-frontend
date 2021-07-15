@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 
 export const addAccountOnboardData: OnBoardStepType[] = [
     {
-        desc: 'onboard-restrictions',
+        desc: 'add-account.onboard',
         validationSchema: Yup.object({}),
         fields: [
             {
