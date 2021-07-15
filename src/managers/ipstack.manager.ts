@@ -33,8 +33,8 @@ const getDefaults:() => Promise<AddressDefaultsType> = () => {
         .then(res => res.data.ipAddress)
         .then(ip => api.get<IPStackType>(`https://api.ipstack.com/${ip}/?access_key=${process.env.REACT_APP_IPSTACK_KEY}`))
         .then(res => res.data)
-        .then(({country_code, city, zip}) => ({
-            country_code,  city, postal_code: zip, lang_code: navigator.language.substring(0,2)
+        .then(({country_code, city, zip, currency, region_name}) => ({
+            country_code,  city, postal_code: zip, currency: currency.code, region_name, lang_code: navigator.language.substring(0,2)
         }))
 };
 export const ipstack = {
