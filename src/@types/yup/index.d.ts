@@ -4,5 +4,6 @@ declare module 'yup' {
         name(): StringSchema;
         password(): StringSchema;
         phone(): StringSchema;
+        zip(): StringSchema;
     }
 }

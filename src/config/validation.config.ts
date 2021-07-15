@@ -27,6 +27,15 @@ Yup.addMethod(Yup.string, 'phone', function() {
         }
     });
 });
+Yup.addMethod(Yup.string, 'zip', function() {
+    return this.test({
+        name: 'zip',
+        message: 'invalid-zip',
+        test: (value) => {
+            return !value || /^[\d\-\s]{3,10}$/.test(value||'');
+        }
+    });
+});
 Yup.setLocale({
     // use constant translation keys for messages without values
     mixed: {

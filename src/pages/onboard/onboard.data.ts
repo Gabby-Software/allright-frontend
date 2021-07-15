@@ -27,7 +27,7 @@ const liveRightOnBoard: OnBoardStepType[] = [
     },
     {
         desc: 'onboard-location',
-        validationSchema: Yup.object({}),
+        validationSchema: Yup.object({postal_code: Yup.string().zip()}),
         fields: [
             {
                 type: 'text',
