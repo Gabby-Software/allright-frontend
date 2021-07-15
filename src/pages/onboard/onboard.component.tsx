@@ -10,6 +10,7 @@ import OnboardStep from "./onboard-step.component";
 import {useIsMobile} from "../../hooks/is-mobile.hook";
 import OnBoardMobile from "./onboard.mobile";
 import OnboardDesktop from "./onboard.desktop";
+import {onlyActive} from "../../guards/active.guard";
 
 const Onboard = () => {
     const isMobile = useIsMobile();
@@ -20,4 +21,4 @@ const Onboard = () => {
     );
 };
 
-export default Onboard;
+export default onlyActive(Onboard);

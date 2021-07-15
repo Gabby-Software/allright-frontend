@@ -15,13 +15,13 @@ import {AuthDataContext, AuthDataProvider} from "./modules/auth/auth-data.contex
 ReactDOM.render(
   <React.StrictMode>
       <I18nProvider>
-          <AuthDataProvider>
           <ThemeProvider theme={theme}>
               <BrowserRouter>
-              <App />
+                  <AuthDataProvider>
+                  <App />
+                  </AuthDataProvider>
               </BrowserRouter>
           </ThemeProvider>
-          </AuthDataProvider>
       </I18nProvider>
   </React.StrictMode>,
   document.getElementById('root')

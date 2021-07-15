@@ -21,7 +21,6 @@ const Styles = styled.div`
 `;
 function App() {
   useSeo();
-  const iframe = useRef<HTMLIFrameElement>(null);
 
   return (
       <Styles>

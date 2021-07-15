@@ -46,6 +46,11 @@ const routes: RouteType[] = [
         title: 'TEST',
         url: Routes.TEST,
         Component: lazy(() => import('../pages/test/test.component'))
+    },
+    {
+        title: 'Add Account',
+        url: Routes.ADD_ACCOUNT,
+        Component: lazy(() => import('../pages/add-account/add-account.component'))
     }
 ];
 export default routes;

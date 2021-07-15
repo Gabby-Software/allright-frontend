@@ -9,5 +9,6 @@ export const Routes = {
     RESET_PASSWORD: '/reset-password',
     VERIFY_EMAIL: '/verify-email',
     TEST: '/test',
-    SUPPORT: '/support'
+    SUPPORT: '/support',
+    ADD_ACCOUNT: '/add-account'
 };

@@ -52,8 +52,9 @@ export default styled.div`
         }
         &__desc {
             font-size: 18px;
-            margin: 0 0 50px 0;
+            margin: 0 auto 50px auto;
            color: ${p => p.theme.vars.colors.light2};
+           max-width: 500px;
         }
         &__hr {
             @media all and (min-width: ${p =>p.theme.vars.media.tablet}px) {

@@ -1,5 +1,6 @@
-const userTypes: {[key: string]: 'trainer'|'client'} = {
+const userTypes = {
     CLIENT: 'client',
-    TRAINER: 'trainer'
+    TRAINER: 'trainer',
+    ORG: 'organization'
 };
 export default userTypes;

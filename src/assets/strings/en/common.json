@@ -4,6 +4,7 @@
   "skip": "Skip",
   "submit": "Submit",
   "cancel": "Cancel",
+  "proceed": "Proceed",
   "footer": {
     "copyright": "© {{name}} DMCC, {{year}} - Some Rights Reserved",
     "support": "Support",

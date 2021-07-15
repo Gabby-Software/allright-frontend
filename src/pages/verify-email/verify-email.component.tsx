@@ -14,13 +14,14 @@ import {mainHost} from "../../pipes/main-host";
 import {AuthDataContext} from "../../modules/auth/auth-data.context";
 import cookieManager from "../../managers/cookie.manager";
 import {AuthResponseType} from "../../hooks/authorization.hook";
+import {AccountObjType} from "../../modules/auth/account.type";
 
 enum verifiedState {
     NONE, SUCCESS, ERROR
 };
 const VerifyEmail = () => {
     const {id, token} = useParams<VerifyEmailParamsType>();
-    const {data} = useContext(AuthDataContext);
+    const {data, setData} = useContext(AuthDataContext);
     const [verified, setVerified] = useState<verifiedState>(verifiedState.NONE);
     const location = useLocation();
     useEffect(() => {
@@ -34,6 +35,14 @@ const VerifyEmail = () => {
                         email_verified_at: new Date().toUTCString(),
                     }), data?.expires_in);
                     setVerified(verifiedState.SUCCESS);
+                    setData({
+                        access_token: data?.access_token as string,
+                        expires_in: data?.expires_in,
+                        user: {
+                            ...data?.user,
+                            email_verified_at: new Date().toUTCString(),
+                        } as AccountObjType
+                    });
                 })
                 .catch(e => {
                     toast.show({type: 'error', msg: serverError(e)});
