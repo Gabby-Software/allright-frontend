@@ -6,7 +6,8 @@ import moment from 'moment';
 const liveRightOnBoard: OnBoardStepType[] = [
     {
         desc: 'onboard-more-info',
-        validationSchema: Yup.object({phone_number: Yup.string().phone(), birthday: Yup.date().nullable().max(moment().startOf('day'))}),
+        validationSchema: Yup.object({phone_number: Yup.string().phone(),
+            birthday: Yup.date().nullable().max(moment().startOf('day'))}),
         fields: [
             {
                 type: 'row',

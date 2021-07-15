@@ -18,7 +18,7 @@ export const AuthDataProvider = ({children}:{children: any}) => {
     const user = JSON.parse(cookieManager.get('auth')||'{}') as AccountObjType;
     const {pathname} = useLocation();
     if(access_token && user.email_verified_at && !allowedRoutes.includes(pathname)) {
-        // document.location.href = mainHost();
+        document.location.href = mainHost();
     }
     const [data, setData] = useState<AuthResponseType|null>(access_token?({access_token, user}):null);
     return (

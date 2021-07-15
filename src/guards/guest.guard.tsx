@@ -7,7 +7,7 @@ import {mainHost} from "../pipes/main-host";
 export const onlyGuest = (Component: ComponentType) => (props: ComponentProps<any>) => {
   const {data} = useContext(AuthDataContext);
   if(data?.access_token && data?.user.email_verified_at) {
-    // document.location.href = mainHost();
+    document.location.href = mainHost();
     return null;
   }
   if(data?.access_token)

@@ -79,6 +79,11 @@ export default styled.div`
         display:block;
         max-width: 320px;
         margin: 40px auto;
+        @media all and (max-width:720px) {
+            position:sticky;
+            bottom: 20px;
+            outline:20px solid white;       
+        }
     }
     
 }
