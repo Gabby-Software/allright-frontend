@@ -13,20 +13,20 @@ import {EP_UPDATE_PROFILE, EP_UPDATE_USER} from "../../enums/api.enum";
 import {fillExist} from "../../pipes/fill-exist.pipe";
 
 export type OnBoardContextType = {
-    data: null | (AccountObjType & ProfileDataType);
+    data: null | (AccountObjType & ProfileDataType & AccountType);
     update: (name: string, value: any) => void;
     step: number;
     steps: OnBoardStepType[];
     nextStep: () => void;
-    onSubmit: (values: AccountObjType & ProfileDataType, helper: FormikHelpers<AccountObjType & ProfileDataType>) => void;
+    onSubmit: (values: AccountObjType & AccountType & ProfileDataType, helper: FormikHelpers<AccountType & AccountObjType & ProfileDataType>) => void;
 };
 export type OnBoardContextTypeNotNull = {
-    data: AccountObjType & ProfileDataType;
+    data: AccountObjType & ProfileDataType &AccountType;
     update: (name: string, value: any) => void;
     step: number;
     steps: OnBoardStepType[];
     nextStep: () => void;
-    onSubmit: (values: AccountObjType & ProfileDataType, helper: FormikHelpers<AccountObjType & ProfileDataType>) => void;
+    onSubmit: (values: AccountObjType & AccountType & ProfileDataType, helper: FormikHelpers<AccountType&AccountObjType & ProfileDataType>) => void;
 };
 export const OnBoardContext = createContext<OnBoardContextType>({
     data: null,
@@ -43,12 +43,13 @@ export const OnBoardProvider = ({children, steps}: { children: React.ReactNode, 
     const {data: initialData, setData: setInitialData} = useContext(AuthDataContext);
     const initialUser = (initialData as AuthResponseType).user;
     const [step, setStep] = useState(0);
-    const [data, setData] = useState<AccountObjType & ProfileDataType>({...initialUser, ...initialUser?.accounts?.find(acc => acc.is_current)?.profile as ProfileDataType});
+    const [data, setData] = useState<AccountObjType & AccountType & ProfileDataType>({...initialUser, ...initialUser?.accounts?.find(acc => acc.is_current) as AccountType,...initialUser?.accounts?.find(acc => acc.is_current)?.profile as ProfileDataType});
     const update = (name: string, val: any) => setData({...data, [name]: val});
     const nextStep = () => {
         setStep(step + 1);
     };
-    const onSubmit = async (values: AccountObjType & ProfileDataType, helper: FormikHelpers<AccountObjType & ProfileDataType>) => {
+    const onSubmit = async (values: AccountObjType & ProfileDataType &AccountType,
+                            helper: FormikHelpers<AccountObjType & ProfileDataType & AccountType>) => {
         try {
             const {
                 first_name, last_name, email, birthday, gender, country,

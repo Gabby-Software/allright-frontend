@@ -7,8 +7,9 @@ import OnboardItem from "./onboard-item.component";
 import ButtonSubmit from "../../components/forms/button-submit/button-submit.component";
 import {useTranslation} from "../../modules/i18n/i18n.hook";
 
-const OnboardStep = ({validationSchema, fields}:OnBoardStepType) => {
-    const {steps,data, onSubmit, step} = useContext(OnBoardContext) as OnBoardContextTypeNotNull;
+const OnboardStep = ({validationSchema, fields, trainer, client}:OnBoardStepType) => {
+    const {steps, data, onSubmit, step} = useContext(OnBoardContext) as OnBoardContextTypeNotNull;
+    const {type} = data;
     const {t} = useTranslation();
     return (
         <Steps.Step>
@@ -19,7 +20,7 @@ const OnboardStep = ({validationSchema, fields}:OnBoardStepType) => {
             >
                 <Form>
                     {
-                        fields.map(field => <OnboardItem {...field}/>)
+                        ({client,trainer}[type as 'client'|'trainer'] || fields).map(field => <OnboardItem {...field}/>)
                     }
                     <ButtonSubmit>{t(steps.length-1 > step ? 'next' : 'finish')}</ButtonSubmit>
                 </Form>

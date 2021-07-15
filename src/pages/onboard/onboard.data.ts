@@ -70,15 +70,70 @@ const liveRightOnBoard: OnBoardStepType[] = [
                 name: 'injuries',
                 label: 'profile:injuries'
             },
+        ],
+        trainer: [
+            {
+                type: 'textarea',
+                name: 'about',
+                label: 'profile:about'
+            },
+            {
+                type: 'textarea',
+                name: 'qualifications',
+                label: 'profile:qualifications'
+            },
+            {
+                type: 'textarea',
+                name: 'additional_information',
+                label: 'profile:additional-information'
+            }
+        ],
+        client: [
+            {
+                type: 'textarea',
+                name: 'dietary_restrictions',
+                label: 'profile:dietary-restrictions'
+            },
+            {
+                type: 'textarea',
+                name: 'injuries',
+                label: 'profile:injuries'
+            },
         ]
     }
 ];
 const eatRightOnBoard: OnBoardStepType[] = [
     {
         desc: 'onboard-location',
-        validationSchema: Yup.object({}),
-        fields: []
-    }
+        validationSchema: Yup.object({postal_code: Yup.string().zip()}),
+        fields: [
+            {
+                type: 'text',
+                name: 'address',
+                label: 'profile:address',
+            },
+            {
+                type: 'row',
+                data: [
+                    {
+                        type: 'text',
+                        name: 'city',
+                        label: 'profile:city'
+                    },
+                    {
+                        type: 'text',
+                        name: 'postal_code',
+                        label: 'profile:postal-code'
+                    }
+                ]
+            },
+            {
+                type: "country-select",
+                name: 'country.id',
+                label: 'profile:country'
+            }
+        ]
+    },
 ];
 const onBoardResource: {[key:string]:OnBoardStepType[]} = {
     LiveRight: liveRightOnBoard,

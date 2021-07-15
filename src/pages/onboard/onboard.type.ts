@@ -12,5 +12,7 @@ export type OnBoardItemType = {
 export type OnBoardStepType = {
     desc: string;
     fields: OnBoardItemType[],
+    trainer?: OnBoardItemType[];
+    client?: OnBoardItemType[];
     validationSchema: AnyObjectSchema
 }
