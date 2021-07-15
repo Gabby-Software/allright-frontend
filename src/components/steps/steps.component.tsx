@@ -40,7 +40,7 @@ const Steps = ({children, currentStep = 0, dots}: StepsProps) => {
             }
             </div>
             {
-                dots?(
+                dots&&count>1?(
                     <div className={'steps__dots'}>
                         {
                             Children.map(children, ((_, i) => (

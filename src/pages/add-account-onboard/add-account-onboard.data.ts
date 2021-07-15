@@ -3,8 +3,19 @@ import * as Yup from 'yup';
 
 export const addAccountOnboardData: OnBoardStepType[] = [
     {
-        desc: '',
+        desc: 'onboard-restrictions',
         validationSchema: Yup.object({}),
-        fields: []
+        fields: [
+            {
+                type: 'textarea',
+                name: 'dietary_restrictions',
+                label: 'profile:dietary-restrictions'
+            },
+            {
+                type: 'textarea',
+                name: 'injuries',
+                label: 'profile:injuries'
+            },
+        ]
     }
 ];

@@ -5,13 +5,14 @@ import cookieManager from "../../managers/cookie.manager";
 import {AuthDataContext} from "../../modules/auth/auth-data.context";
 import {AuthResponseType} from "../../hooks/authorization.hook";
 import {FormikHelpers} from 'formik';
-import {onBoardData} from "./onboard.data";
 import {mainHost} from "../../pipes/main-host";
+import {OnBoardStepType} from "./onboard.type";
 
 export type OnBoardContextType = {
     data: null | (AccountObjType & ProfileDataType);
     update: (name: string, value: any) => void;
     step: number;
+    steps: OnBoardStepType[];
     nextStep: () => void;
     onSubmit: (values: AccountObjType & ProfileDataType, helper: FormikHelpers<AccountObjType & ProfileDataType>) => void;
 };
@@ -19,17 +20,19 @@ export type OnBoardContextTypeNotNull = {
     data: AccountObjType & ProfileDataType;
     update: (name: string, value: any) => void;
     step: number;
+    steps: OnBoardStepType[];
     nextStep: () => void;
     onSubmit: (values: AccountObjType & ProfileDataType, helper: FormikHelpers<AccountObjType & ProfileDataType>) => void;
 };
 export const OnBoardContext = createContext<OnBoardContextType>({
     data: null,
     update: () => {},
+    steps: [],
     step: 0,
     nextStep: () => {},
     onSubmit: () => {}
 });
-export const OnBoardProvider = ({children}: {children: React.ReactNode}) => {
+export const OnBoardProvider = ({children, steps}: {children: React.ReactNode, steps: OnBoardStepType[]}) => {
     const {data: initialData} = useContext(AuthDataContext);
     const initialUser = (initialData as AuthResponseType).user;
     const [step, setStep] = useState(0);
@@ -40,12 +43,12 @@ export const OnBoardProvider = ({children}: {children: React.ReactNode}) => {
     };
     const onSubmit = (values: AccountObjType & ProfileDataType, helper: FormikHelpers<AccountObjType & ProfileDataType>) => {
         // todo: handle submit;
-        if(step+1>=onBoardData.length)
+        if(step+1>=steps.length)
             document.location.href = mainHost();
         else nextStep();
     };
     return (
-        <OnBoardContext.Provider value={{data, update, step, nextStep, onSubmit}}>
+        <OnBoardContext.Provider value={{data, update, step, nextStep, onSubmit, steps}}>
             {children}
         </OnBoardContext.Provider>
     );
