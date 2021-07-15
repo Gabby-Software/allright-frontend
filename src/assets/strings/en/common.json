@@ -5,6 +5,7 @@
   "submit": "Submit",
   "cancel": "Cancel",
   "proceed": "Proceed",
+  "back-home": "Back to LiveRight dashboard",
   "footer": {
     "copyright": "© {{name}} DMCC, {{year}} - Some Rights Reserved",
     "support": "Support",

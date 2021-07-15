@@ -1,6 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import Styles from './add-account.styles';
-import {useIsMobile} from "../../hooks/is-mobile.hook";
 import AddAccountMobile from "./add-account.mobile";
 import AddAccountDesktop from "./add-account.desktop";
 import {onlyActive} from "../../guards/active.guard";

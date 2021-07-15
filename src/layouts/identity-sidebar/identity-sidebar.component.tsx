@@ -33,6 +33,22 @@ IdentitySidebar.Link = styled(Link)`
         color: white;
     }
 `;
+IdentitySidebar.ExtLink = styled.a`
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    display:flex;
+    align-items: center;
+    &:hover {
+        color: white;
+    }
+    svg {
+        margin-right: 12px;
+        height: 14px;
+        width:auto;
+    }
+`;
 IdentitySidebar.Desc = styled.div`
     color: white;
     font-size: 20px;
