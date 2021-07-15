@@ -1,7 +1,8 @@
 import React, {createContext, useContext, useState, ComponentType, ElementType} from 'react';
-import {AuthObjectType, AuthResponseType} from "../../hooks/authorization.hook";
+import {AuthResponseType} from "../../hooks/authorization.hook";
 import cookieManager from "../../managers/cookie.manager";
 import {mainHost} from "../../pipes/main-host";
+import {AccountObjType} from "./account.type";
 
 export const AuthDataContext = createContext<{
     data:AuthResponseType|null;
@@ -9,7 +10,7 @@ export const AuthDataContext = createContext<{
 }>({data: null,setData: ()=>{}});
 export const AuthDataProvider = ({children}:{children: any}) => {
     const access_token = cookieManager.get('access_token');
-    const user = JSON.parse(cookieManager.get('auth')||'{}') as AuthObjectType;
+    const user = JSON.parse(cookieManager.get('auth')||'{}') as AccountObjType;
     if(access_token && user.email_verified_at) {
         document.location.href = mainHost();
     }

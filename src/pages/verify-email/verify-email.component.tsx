@@ -13,7 +13,7 @@ import {serverError} from "../../pipes/server-error.pipe";
 import {mainHost} from "../../pipes/main-host";
 import {AuthDataContext} from "../../modules/auth/auth-data.context";
 import cookieManager from "../../managers/cookie.manager";
-import {AuthObjectType, AuthResponseType} from "../../hooks/authorization.hook";
+import {AuthResponseType} from "../../hooks/authorization.hook";
 
 enum verifiedState {
     NONE, SUCCESS, ERROR
@@ -33,7 +33,7 @@ const VerifyEmail = () => {
                         ...data?.user,
                         email_verified_at: new Date().toUTCString(),
                     }), data?.expires_in);
-                    document.location.href=mainHost()+Routes.REGISTER_ON_BOARD;
+                    setVerified(verifiedState.SUCCESS);
                 })
                 .catch(e => {
                     toast.show({type: 'error', msg: serverError(e)});
@@ -43,6 +43,8 @@ const VerifyEmail = () => {
     }, []);
     if(verified === verifiedState.ERROR || !id || !token)
         return <Redirect to={Routes.LOGIN}/>;
+    if(verified === verifiedState.SUCCESS || !id || !token)
+        return <Redirect to={Routes.REGISTER_ON_BOARD}/>;
     return (<div/>);
 };
 

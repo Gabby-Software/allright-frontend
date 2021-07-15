@@ -38,6 +38,11 @@ const routes: RouteType[] = [
         Component: lazy(() => import('../pages/verify-email/verify-email.component')),
     },
     {
+        title: 'Sign Up Onboard',
+        url: Routes.REGISTER_ON_BOARD,
+        Component: lazy(() => import('../pages/onboard/onboard.component')),
+    },
+    {
         title: 'TEST',
         url: Routes.TEST,
         Component: lazy(() => import('../pages/test/test.component'))
