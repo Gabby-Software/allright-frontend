@@ -9,6 +9,15 @@ import {ReactComponent as TrainerImage} from "../../assets/media/trainer.svg";
 import {ReactComponent as OrgImage} from "../../assets/media/organization.svg";
 import {AuthDataContext} from "../../modules/auth/auth-data.context";
 import {AccessOptionType} from "../../modules/auth/access-option.type";
+import api from "../../managers/api.manager";
+import {EP_ADD_ACCOUNT} from "../../enums/api.enum";
+import logger from "../../managers/logger.manager";
+import cookieManager from "../../managers/cookie.manager";
+import {Routes} from "../../enums/routes.enum";
+import {Redirect} from 'react-router-dom';
+import {AccountObjType} from "../../modules/auth/account.type";
+import {toast} from "../../components/toast/toast.component";
+import {serverError} from "../../pipes/server-error.pipe";
 
 type AccountOptionType = {
     image: ComponentType<any>;
@@ -45,7 +54,8 @@ const AddAccountOption = ({
 const AddAccountForm = () => {
     const {t} = useTranslation();
     const [selected, setSelected] = useState<string>('');
-    const {data} = useContext(AuthDataContext);
+    const [submitted, setSubmitted] = useState(false);
+    const {data, setData} = useContext(AuthDataContext);
     const types = data?.user?.accounts?.map(acc => acc.type);
     const options: AccountOptionType[] = [
         {
@@ -68,6 +78,20 @@ const AddAccountForm = () => {
             disabled: true
         },
     ];
+    const handleSubmit = () => {
+        api.post(EP_ADD_ACCOUNT, {type:selected})
+            .then(res => res.data.data)
+            .then(res => {
+                logger.success('ADD ACCOUNT SUCCESS', res);
+                const user = data?.user as AccountObjType;
+                user.accounts.push(res);
+                cookieManager.set('auth', JSON.stringify(user));
+                setSubmitted(true);
+            })
+            .catch(e => toast.show({type: 'error', msg: serverError(e)}))
+    };
+    if(submitted)
+        return <Redirect to={Routes.ADD_ACCOUNT_ONBOARD}/>;
     return (
         <Styles>
             <h2 className={'add-account__title'}>{t('auth:add-account.title')}</h2>
@@ -84,7 +108,9 @@ const AddAccountForm = () => {
             </div>
             <FormButton
                 className={'add-account__submit'}
-                type={'primary'} disabled={!selected}>{t('proceed')}</FormButton>
+                type={'primary'} disabled={!selected}
+                onClick={handleSubmit}
+            >{t('proceed')}</FormButton>
         </Styles>
     );
 };

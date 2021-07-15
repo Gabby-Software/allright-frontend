@@ -10,5 +10,6 @@ export const Routes = {
     VERIFY_EMAIL: '/verify-email',
     TEST: '/test',
     SUPPORT: '/support',
-    ADD_ACCOUNT: '/add-account'
+    ADD_ACCOUNT: '/add-account',
+    ADD_ACCOUNT_ONBOARD: '/add-account/onboard'
 };

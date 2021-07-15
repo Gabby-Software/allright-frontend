@@ -10,4 +10,6 @@ export const EP_UPDATE_USER = '/user';
 export const EP_UPDATE_PROFILE = '/user/profile';
 export const EP_RESET_PASSWORD = '/reset-password';
 export const EP_GET_COUNTRIES = '/countries';
+export const EP_ADD_ACCOUNT = '/user/account';
+
 
