@@ -18,6 +18,7 @@ import {useProfile} from "../../hooks/use-profile.hook";
 import {AuthDataContext} from "../../modules/auth/auth-data.context";
 import {AuthResponseType} from "../../hooks/authorization.hook";
 import {AddressType} from "../../types/address.type";
+import {fillExist} from "../../pipes/fill-exist.pipe";
 
 export type ProfileContextType = {
     editMode: boolean,
@@ -61,9 +62,9 @@ export const ProfileProvider = ({children}: { children: ComponentProps<any> }) =
             phone_number, addresses, city, dietary_restrictions,
             injuries, about, qualifications, additional_info, avatar
         } = values;
-        const authPayload = {
+        const authPayload = fillExist({
             first_name, last_name, email, birthday, gender, city
-        };
+        });
         const user = data?.user as AccountObjType;
         logger.info('SUBMITTING 1');
         try {
@@ -76,9 +77,9 @@ export const ProfileProvider = ({children}: { children: ComponentProps<any> }) =
                 ...data
             } as AuthResponseType);
             logger.info('SUBMITTING 2');
-            const profilePayload = {
+            const profilePayload = fillExist({
                 phone_number, dietary_restrictions, injuries, about, qualifications, additional_info
-            };
+            });
             const res = (await api.put(EP_UPDATE_PROFILE, profilePayload).then(res => res.data.data)) as AccountType;
             const idx = user.accounts.findIndex(acc => acc.is_current);
             user.accounts[idx] = res;
@@ -103,13 +104,17 @@ export const ProfileProvider = ({children}: { children: ComponentProps<any> }) =
                 fd.append('avatar', avatarFile);
                 const res = (await api.post(EP_UPDATE_AVATAR, fd).then(res => res.data.data)) as FileType;
                 logger.success('AVATAR RESPONSE', res);
-                logger.info('SUBMITTING 5');
-                user.avatar = res;
+                (data as AuthResponseType).user.avatar = res;
+                logger.info('SUBMITTING 5',user, data);
+                setData({...data} as AuthResponseType);
+            } else if(avatar?.file_name && !avatar?.url) {
+                await api.delete(EP_UPDATE_AVATAR);
+                (data as AuthResponseType).user.avatar = null;
                 setData({...data} as AuthResponseType);
             }
             setEditMode(false);
         } catch (e) {
-            alert(e.message);
+
             handleError(helper)(e);
         }
     };

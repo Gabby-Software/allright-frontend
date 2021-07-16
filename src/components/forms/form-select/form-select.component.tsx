@@ -22,7 +22,6 @@ const FormSelect = ({name, label, options, onUpdate}: FormSelectPropsType) => {
         form.setFieldValue(name, value);
         onUpdate && onUpdate(value);
     };
-    logger.info('OPTIONS', options);
     return (
         <Field name={name}>
             {

@@ -18,7 +18,6 @@ const ProfileContent = () => {
     const auth = useAuth();
     const profile = useProfile();
     const {handleSubmit, setTnbFile} = useProfileContext();
-    logger.info('handle submit', handleSubmit, setTnbFile);
     return (
             <Formik initialValues={{...auth, ...profile, password: '', password_confirmation: ''}}
                     onSubmit={handleSubmit} validationSchema={profileSchema}>
