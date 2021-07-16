@@ -30,7 +30,7 @@ export const addAccountOnboardData: OnBoardStepType[] = [
             },
             {
                 type: 'textarea',
-                name: 'additional_information',
+                name: 'additional_info',
                 label: 'profile:additional-information'
             }
         ],

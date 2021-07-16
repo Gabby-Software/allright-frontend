@@ -10,7 +10,7 @@ export type ProfileDataType = {
     custom_url:string;
     about: string;
     qualifications: string;
-    additional_information: string;
+    additional_info: string;
     payment_info: PaymentInfoType;
     terms_and_conditions: FileType | null;
 }

@@ -54,7 +54,7 @@ export const OnBoardProvider = ({children, steps}: { children: React.ReactNode, 
             const {
                 first_name, last_name, email, birthday, gender, country,
                 phone_number, address, city, dietary_restrictions, injuries, about, qualifications,
-                additional_information, region_name, postal_code
+                additional_info, region_name, postal_code
             } = values;
             const authPayload = fillExist({
                 first_name,
@@ -74,7 +74,7 @@ export const OnBoardProvider = ({children, steps}: { children: React.ReactNode, 
             setInitialData({...initialData} as AuthResponseType);
             cookieManager.set('auth', JSON.stringify(res));
             const profilePayload = fillExist({
-                phone_number, dietary_restrictions, injuries, about, qualifications, additional_information
+                phone_number, dietary_restrictions, injuries, about, qualifications, additional_info
             });
             const res2 = (await api.put(EP_UPDATE_PROFILE, profilePayload).then(res => res.data.data)) as AccountType;
             const account = initialUser.accounts.findIndex(acc => acc.is_current);
