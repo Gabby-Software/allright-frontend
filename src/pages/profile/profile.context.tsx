@@ -89,13 +89,14 @@ export const ProfileProvider = ({children}: { children: ComponentProps<any> }) =
             if (terms_and_conditions?.file_name || tnbFile) {
                 const fd = new FormData();
                 tnbFile && fd.append('terms_conditions', tnbFile || '');
-                const res = (await  api.post(EP_UPDATE_TNB, fd).then(res => res.data.data)) as AccountObjType;
+                const tnbres = (await  api.post(EP_UPDATE_TNB, fd).then(res => res.data.data)) as AccountType;
                 logger.success('TNB RESPONSE', res);
                 logger.info('SUBMITTING 4');
-                // setData({
-                //     ...data,
-                //
-                // } as AuthResponseType);
+                const idx = user.accounts.findIndex(acc => acc.is_current);
+                user.accounts[idx] = tnbres;
+                setData({
+                    ...data
+                } as AuthResponseType);
             }
             if (avatarFile) {
                 const fd = new FormData();

@@ -12,6 +12,7 @@ import {Form, Formik} from "formik";
 import ProfileImage from "./sections/profile-image/profile-image.component";
 import ProfileTnb from "./sections/profile-tnb/profile-tnb.component";
 import logger from "../../managers/logger.manager";
+import {profileSchema} from "./profile.schema";
 
 const ProfileContent = () => {
     const auth = useAuth();
@@ -20,7 +21,7 @@ const ProfileContent = () => {
     logger.info('handle submit', handleSubmit, setTnbFile);
     return (
             <Formik initialValues={{...auth, ...profile, password: '', password_confirmation: ''}}
-                    onSubmit={handleSubmit}>
+                    onSubmit={handleSubmit} validationSchema={profileSchema}>
                 <Form>
                     <Styles className={'profile'}>
                         <ProfileSidebar/>

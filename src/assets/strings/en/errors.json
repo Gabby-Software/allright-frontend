@@ -11,5 +11,6 @@
   "invalid-password": "Password must contain at lease one letter and one digit",
   "invalid-phone": "Invalid phone number",
   "network-error": "Something went's wrong! please try again later.",
-  "invalid-zip": "Invalid postal code"
+  "invalid-zip": "Invalid postal code",
+  "age-16": "Must be at least 16 years old"
 }

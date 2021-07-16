@@ -6,6 +6,7 @@
   "cancel": "Cancel",
   "proceed": "Proceed",
   "back-home": "Back to LiveRight dashboard",
+  "no-data": "No data yet",
   "footer": {
     "copyright": "© {{name}} DMCC, {{year}} - Some Rights Reserved",
     "support": "Support",

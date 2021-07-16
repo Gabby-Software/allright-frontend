@@ -1,11 +1,11 @@
 import * as Yup from "yup";
 
-Yup.addMethod(Yup.string, 'name', function() {
+Yup.addMethod(Yup.string, 'name', function(acceptSpace=false) {
     return this.test({
         name: 'name',
         message: 'invalid-name',
         test: (value) => {
-            return /^[A-Za-z]*$/.test(value || '');
+            return (acceptSpace?/^[A-Za-z\s]*$/ : /^[A-Za-z]*$/).test(value || '');
         }
     });
 });
@@ -27,6 +27,15 @@ Yup.addMethod(Yup.string, 'phone', function() {
         }
     });
 });
+Yup.addMethod(Yup.string, 'number', function() {
+    return this.test({
+        name: 'number',
+        message: 'must-be-number',
+        test: (value) => {
+            return /^\d*$/.test(value||'');
+        }
+    });
+});
 Yup.addMethod(Yup.string, 'zip', function() {
     return this.test({
         name: 'zip',
@@ -36,12 +45,13 @@ Yup.addMethod(Yup.string, 'zip', function() {
         }
     });
 });
+
 Yup.setLocale({
     // use constant translation keys for messages without values
     mixed: {
         required: 'required-field',
         default: 'invalid-input',
-        equals: 'passwords-not-match'
+        equals: 'passwords-not-match',
     },
     // use functions to generate an error object that includes the value from the schema
     number: {
