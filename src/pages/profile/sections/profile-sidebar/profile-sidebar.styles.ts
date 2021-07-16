@@ -69,7 +69,7 @@ export const PExtLink = styled.a`
     display:flex;
     align-items: center;
     &:hover {
-        color: white;
+         color: ${p => p.theme.vars.colors.primary};
     }
     svg {
         margin-right: 12px;
