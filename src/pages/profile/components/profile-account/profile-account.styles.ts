@@ -6,6 +6,7 @@ export default styled.div`
     padding: 15px 13px;
     min-width: 247px;
     display: flex;
+    align-items:center;
     margin-right: 27px;
     cursor: pointer;
     .account {
@@ -32,7 +33,7 @@ export default styled.div`
             color:black;
         }
         &__type {
-            font-size:12px;
+            font-size:18px;
             color: ${p => p.theme.vars.colors.secondary3};
         }
     }

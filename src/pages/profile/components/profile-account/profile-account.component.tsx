@@ -22,16 +22,7 @@ const ProfileAccount = ({first_name, last_name, type, image, active, className, 
                     <div className={classes('account__radio', active && 'account__radio__active')}/>
                 )
             }
-            {
-                image? (
-                    <img className={classes('account__img', active && 'account__img__active')}
-                         src={image} alt={'account'}/>
-                ):(
-                    <div className={'account__img account__placeholder'}>{noImage(first_name, last_name)}</div>
-                )
-            }
             <div className={'account__data'}>
-                <div className={'account__name'}>{first_name} {last_name}</div>
                 <div className={'account__type'}>{capitalize(type)}</div>
             </div>
         </Styles>
