@@ -1,9 +1,10 @@
 import {PaymentInfoType} from "./payment-info.type";
 import {FileType} from "./file.type";
+import {AddressType} from "../../types/address.type";
 
 export type ProfileDataType = {
     phone_number: string;
-    address:string;
+    addresses: AddressType[];
     dietary_restrictions: string;
     injuries: string;
     notes:string;

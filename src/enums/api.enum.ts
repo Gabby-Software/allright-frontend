@@ -8,8 +8,12 @@ export const EP_VERIFY_EMAIL = '/verify-email';
 export const EP_VERIFY_EMAIL_RESEND = '/email/verification-notification';
 export const EP_UPDATE_USER = '/user';
 export const EP_UPDATE_PROFILE = '/user/profile';
+export const EP_UPDATE_TNB = '/user/profile/terms_conditions';
+export const EP_UPDATE_AVATAR = '/user/avatar';
 export const EP_RESET_PASSWORD = '/reset-password';
 export const EP_GET_COUNTRIES = '/countries';
 export const EP_ADD_ACCOUNT = '/user/account';
+export const EP_GET_ADDRESSES = '/user/account/addresses';
+export const EP_UPDATE_ADDRESSES = '/user/account/addresses';
 
 

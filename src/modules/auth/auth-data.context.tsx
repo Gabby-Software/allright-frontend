@@ -23,6 +23,9 @@ export const AuthDataProvider = ({children}:{children: any}) => {
     }
     const [data, setData] = useState<AuthResponseType|null>(access_token?({access_token, user}):null);
     return (
-        <AuthDataContext.Provider value={{data, setData}}>{children}</AuthDataContext.Provider>
+        <AuthDataContext.Provider value={{data, setData: (data: AuthResponseType|null) => {
+                setData(data);
+                cookieManager.set('auth', JSON.stringify(data?.user));
+            }}}>{children}</AuthDataContext.Provider>
     )
 };

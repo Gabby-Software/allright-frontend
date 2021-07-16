@@ -5,16 +5,13 @@ import {noImage} from "../../../../pipes/no-image.pipe";
 import {capitalize} from "../../../../pipes/capitalize.pipe";
 
 type Prop = {
-    first_name: string;
-    last_name: string;
     type: string;
-    image: string;
     active?: boolean;
     className?: string;
     noRadio?: boolean;
     onClick?: () => void;
 };
-const ProfileAccount = ({first_name, last_name, type, image, active, className, noRadio, onClick}: Prop) => {
+const ProfileAccount = ({type, active, className, noRadio, onClick}: Prop) => {
     return (
         <Styles className={classes(className, active && 'account__active')} onClick={onClick}>
             {

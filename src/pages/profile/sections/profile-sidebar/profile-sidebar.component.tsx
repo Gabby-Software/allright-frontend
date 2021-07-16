@@ -6,6 +6,7 @@ import {mainHost} from "../../../../pipes/main-host";
 import FormButton from "../../../../components/forms/form-button/form-button.component";
 import {ReactComponent as BackIcon} from "../../../../assets/media/icons/back-arrow.svg";
 import {useProfileContext} from "../../profile.context";
+import ButtonSubmit from "../../../../components/forms/button-submit/button-submit.component";
 
 const ProfileSidebar = () => {
     const {t} = useTranslation();
@@ -24,7 +25,13 @@ const ProfileSidebar = () => {
                 <PSubtitle>Please review your information. if you'd like you can change it anytime</PSubtitle>
                 <PHr/>
                 <MobileStickyBottom>
-                <FormButton type={'primary'} onClick={() =>setEditMode(!editMode)}>{editMode?'Save Changes':'Edit Profile'}</FormButton>
+                    {
+                        editMode?(
+                            <ButtonSubmit>Save Changes</ButtonSubmit>
+                        ):(
+                            <FormButton type={'primary'} onClick={() =>setEditMode(!editMode)}>Edit Profile</FormButton>
+                        )
+                    }
                 </MobileStickyBottom>
             </div>
         </Styles>

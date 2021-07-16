@@ -10,13 +10,13 @@ import ProfileImage from "../../../../components/profile-image/profile-image.com
 
 const ProfileImageSection = () => {
     const {editMode, setAvatarFile} = useProfileContext();
-    const {first_name, last_name, avatar_thumb} = useAuth();
+    const {first_name, last_name, avatar} = useAuth();
     const {t} = useTranslation();
     return (
         <Styles>
             {
                 editMode ? (
-                    <FormImageUpload name={'image'}
+                    <FormImageUpload name={'avatar.url'}
                                      label={'Change Profile Photo'}
                                      aspectRatio={1}
                                      onUpdate={({file}) => setAvatarFile(file)}>
@@ -25,7 +25,7 @@ const ProfileImageSection = () => {
                         }
                     </FormImageUpload>
                 ) : (
-                    <ProfileImage url={avatar_thumb} placeholder={noImage(first_name, last_name)}/>
+                    <ProfileImage url={avatar?.url || ''} placeholder={noImage(first_name, last_name)}/>
                 )
             }
         </Styles>

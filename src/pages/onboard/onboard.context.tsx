@@ -52,9 +52,9 @@ export const OnBoardProvider = ({children, steps}: { children: React.ReactNode, 
                             helper: FormikHelpers<AccountObjType & ProfileDataType & AccountType>) => {
         try {
             const {
-                first_name, last_name, email, birthday, gender, country,
-                phone_number, address, city, dietary_restrictions, injuries, about, qualifications,
-                additional_info, region_name, postal_code
+                first_name, last_name, email, birthday, gender,
+                phone_number, addresses, dietary_restrictions, injuries, about, qualifications,
+                additional_info, postal_code
             } = values;
             const authPayload = fillExist({
                 first_name,
@@ -62,11 +62,7 @@ export const OnBoardProvider = ({children, steps}: { children: React.ReactNode, 
                 email,
                 birthday,
                 gender,
-                country_id: country?.id,
-                city,
-                region_name,
                 postal_code,
-                address
             });
 
             const res = (await api.put(EP_UPDATE_USER, authPayload).then(res => res.data.data)) as AccountObjType;

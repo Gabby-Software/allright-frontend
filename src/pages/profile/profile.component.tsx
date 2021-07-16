@@ -5,37 +5,41 @@ import ProfileInfo from "./sections/profile-info/profile-info.component";
 import ProfileBasic from "./sections/profile-basic/profile-basic.component";
 import ProfilePassword from "./sections/profile-password/profile-password.component";
 import ProfileAccounts from "./sections/profile-accounts/profile-accounts.component";
-import {ProfileProvider, useProfileContext} from "./profile.context";
+import {ProfileContext, ProfileProvider, useProfileContext} from "./profile.context";
 import {useAuth} from "../../hooks/use-auth.hook";
 import {useProfile} from "../../hooks/use-profile.hook";
 import {Form, Formik} from "formik";
 import ProfileImage from "./sections/profile-image/profile-image.component";
 import ProfileTnb from "./sections/profile-tnb/profile-tnb.component";
+import logger from "../../managers/logger.manager";
 
-const Profile = () => {
+const ProfileContent = () => {
     const auth = useAuth();
     const profile = useProfile();
-    const {handleSubmit} = useProfileContext();
+    const {handleSubmit, setTnbFile} = useProfileContext();
+    logger.info('handle submit', handleSubmit, setTnbFile);
     return (
-        <ProfileProvider>
-            <Styles className={'profile'}>
-                <ProfileSidebar/>
-                <main className={'profile__main'}>
-                    <Formik initialValues={{...auth, ...profile}}
-                            onSubmit={handleSubmit}>
-                        <Form>
+            <Formik initialValues={{...auth, ...profile, password: '', password_confirmation: ''}}
+                    onSubmit={handleSubmit}>
+                <Form>
+                    <Styles className={'profile'}>
+                        <ProfileSidebar/>
+                        <main className={'profile__main'}>
                             <ProfileImage/>
                             <ProfileBasic/>
                             <ProfileInfo/>
                             <ProfileTnb/>
                             <ProfilePassword/>
                             <ProfileAccounts/>
-                        </Form>
-                    </Formik>
-                </main>
-            </Styles>
-        </ProfileProvider>
+                        </main>
+                    </Styles>
+                </Form>
+            </Formik>
     );
 };
-
+const Profile = () => (
+    <ProfileProvider>
+        <ProfileContent/>
+    </ProfileProvider>
+    )
 export default Profile;

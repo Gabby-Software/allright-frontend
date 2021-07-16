@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
 import {Routes} from "../../../../enums/routes.enum";
 
 const ProfileAccounts = () => {
-    const {accounts, first_name, last_name, avatar_thumb} = useAuth();
+    const {accounts} = useAuth();
     const {t} = useTranslation();
     const switchAccount = (uuid: string) => {
 
@@ -19,9 +19,8 @@ const ProfileAccounts = () => {
             <div className={'accounts__cont'}>
                 {
                     accounts.map(({uuid, is_current, type}) => (
-                        <ProfileAccount active={is_current} key={uuid} type={type} first_name={first_name}
-                                        className={'accounts__item'}
-                                        last_name={last_name} image={avatar_thumb || ''} onClick={() => switchAccount(uuid)}/>
+                        <ProfileAccount active={is_current} key={uuid} type={type}
+                                        className={'accounts__item'} onClick={() => switchAccount(uuid)}/>
                     ))
                 }
                 <Link to={Routes.ADD_ACCOUNT} className={'accounts__add'}>
