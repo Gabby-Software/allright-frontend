@@ -56,6 +56,11 @@ const routes: RouteType[] = [
         title: 'Add Account Onboard',
         url: Routes.ADD_ACCOUNT_ONBOARD,
         Component: lazy(() => import('../pages/add-account-onboard/add-account-onboard.component'))
+    },
+    {
+        title: 'Profile',
+        url: Routes.PROFILE,
+        Component: lazy(() => import('../pages/profile/profile.component'))
     }
 ];
 export default routes;

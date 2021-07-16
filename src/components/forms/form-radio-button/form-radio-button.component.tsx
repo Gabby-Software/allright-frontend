@@ -3,11 +3,12 @@ import Styles from './form-radio-button.styles';
 import {Field, FieldProps} from 'formik';
 import FormError from "../form-error/form-error.component";
 import {classes} from "../../../pipes/classes.pipe";
+import {OptionType} from "../../../types/option.type";
 
 type Props = {
     name: string;
     label: string;
-    options: { value: string, label: string }[];
+    options: OptionType[];
 }
 const FormRadio = ({name, label, options}: Props) => {
     return (

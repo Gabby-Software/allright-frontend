@@ -8,8 +8,9 @@ import FormTextarea from "../../components/forms/form-textarea/form-textarea.com
 import {OnBoardContext} from "./onboard.context";
 import FormDatepicker from "../../components/forms/form-datepicker/form-datepicker.component";
 import {useTranslation} from "../../modules/i18n/i18n.hook";
+import FormRadio from "../../components/forms/form-radio-button/form-radio-button.component";
 
-const OnboardItem = ({type, name, label, data}:OnBoardItemType) => {
+const OnboardItem = ({type, name, label, data, options}:OnBoardItemType) => {
     const {update} = useContext(OnBoardContext);
     const {t} = useTranslation();
     switch (type) {
@@ -23,6 +24,8 @@ const OnboardItem = ({type, name, label, data}:OnBoardItemType) => {
             return <FormTextarea name={name||''} label={t(label||'')} onUpdate={update}/>;
         case 'date':
             return <FormDatepicker name={name||''} label={t(label||'')} onUpdate={update}/>;
+        case 'radio':
+            return <FormRadio name={name||''} label={t(label||'')} options={options||[]}/>
     }
     return null;
 };

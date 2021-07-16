@@ -11,7 +11,8 @@ export const AuthDataContext = createContext<{
     setData:(data: AuthResponseType|null)=>void;
 }>({data: null,setData: ()=>{}});
 const allowedRoutes = [
-    Routes.REGISTER_ON_BOARD, Routes.ADD_ACCOUNT, Routes.ADD_ACCOUNT_ONBOARD
+    Routes.REGISTER_ON_BOARD, Routes.ADD_ACCOUNT, Routes.ADD_ACCOUNT_ONBOARD,
+    Routes.PROFILE
 ];
 export const AuthDataProvider = ({children}:{children: any}) => {
     const access_token = cookieManager.get('access_token');

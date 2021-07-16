@@ -11,5 +11,6 @@ export const Routes = {
     TEST: '/test',
     SUPPORT: '/support',
     ADD_ACCOUNT: '/add-account',
-    ADD_ACCOUNT_ONBOARD: '/add-account/onboard'
+    ADD_ACCOUNT_ONBOARD: '/add-account/onboard',
+    PROFILE: '/profile'
 };
