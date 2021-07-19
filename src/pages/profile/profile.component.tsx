@@ -11,14 +11,14 @@ import {useProfile} from "../../hooks/use-profile.hook";
 import {Form, Formik} from "formik";
 import ProfileImage from "./sections/profile-image/profile-image.component";
 import ProfileTnb from "./sections/profile-tnb/profile-tnb.component";
-import logger from "../../managers/logger.manager";
 import {profileSchema} from "./profile.schema";
 import brand from "../../config/branding.config";
+import {onlyActive} from "../../guards/active.guard";
 
 const ProfileContent = () => {
     const auth = useAuth();
     const profile = useProfile();
-    const {handleSubmit, setTnbFile} = useProfileContext();
+    const {handleSubmit} = useProfileContext();
     return (
             <Formik initialValues={{...auth, ...profile, password: '', password_confirmation: ''}}
                     onSubmit={handleSubmit} validationSchema={profileSchema}>
@@ -50,5 +50,5 @@ const Profile = () => (
     <ProfileProvider>
         <ProfileContent/>
     </ProfileProvider>
-    )
-export default Profile;
+    );
+export default onlyActive(Profile);

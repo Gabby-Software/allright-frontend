@@ -5,6 +5,7 @@ import OnBoardMobile from "../onboard/onboard.mobile";
 import OnboardDesktop from "../onboard/onboard.desktop";
 import {addAccountOnboardData} from "./add-account-onboard.data";
 import {Skip} from "../styles/skip.styles";
+import {onlyActive} from "../../guards/active.guard";
 
 type Props = {};
 const AddAccountOnboard = ({}:Props) => {
@@ -17,4 +18,4 @@ const AddAccountOnboard = ({}:Props) => {
     );
 };
 
-export default AddAccountOnboard;
+export default onlyActive(AddAccountOnboard);
