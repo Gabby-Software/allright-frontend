@@ -28,7 +28,11 @@ const ProfileContent = () => {
                             <ProfileImage/>
                             <ProfileBasic/>
                             <ProfileInfo/>
-                            <ProfileTnb/>
+                            {
+                                auth?.type === 'trainer'?(
+                                    <ProfileTnb/>
+                                ):null
+                            }
                             <ProfilePassword/>
                             <ProfileAccounts/>
                         </main>
