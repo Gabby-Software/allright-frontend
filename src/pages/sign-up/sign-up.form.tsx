@@ -19,6 +19,7 @@ import FormRadio from "../../components/forms/form-radio-button/form-radio-butto
 import FormPassword from "../../components/forms/form-password/form-password.component";
 import {MobileStickyBottom} from "../styles";
 import ButtonSubmit from "../../components/forms/button-submit/button-submit.component";
+import brand from "../../config/branding.config";
 
 type LoginDataType = {
     type: string;
@@ -74,7 +75,11 @@ const SignUpForm = () => {
         >
             {() => (
                 <Form>
-                    <FormSwitch name={'type'} options={userTypeOptions}/>
+                    {
+                        brand.multiple_accounts?(
+                            <FormSwitch name={'type'} options={userTypeOptions}/>
+                        ):null
+                    }
                     <div className={'sign-up__name'}>
                         <FormInputLabeled name={'first_name'} label={'First Name'} onUpdate={update}/>
                         <FormInputLabeled name={'last_name'} label={'Last Name'} onUpdate={update}/>

@@ -10,42 +10,48 @@ const brands: {[key: string]:BrandingType} = {
         primaryLightColor: "#F97081",
         logo: LiverightIcon,
         icon:livefavicon,
-        name: 'LiveRight'
+        name: 'LiveRight',
+        multiple_accounts: true
     },
     'identity.liverightdev.xyz': {
         primaryColor: "#F74057",
         primaryLightColor: "#F97081",
         logo: LiverightIcon,
         icon:livefavicon,
-        name: 'LiveRight'
+        name: 'LiveRight',
+        multiple_accounts: true
     },
     'identity.eatrightdev.xyz': {
         primaryColor: "#96BE35",
         primaryLightColor: "#84a72f",
         logo: EatrightIcon,
         icon:eatfavicon,
-        name: 'EatRight'
+        name: 'EatRight',
+        multiple_accounts: false
     },
     'identity.liverightstaging.xyz': {
         primaryColor: "#F74057",
         primaryLightColor: "#F97081",
         logo: LiverightIcon,
         icon:livefavicon,
-        name: 'LiveRight'
+        name: 'LiveRight',
+        multiple_accounts: true
     },
     'identity.eatrightstaging.xyz': {
         primaryColor: "#96BE35",
         primaryLightColor: "#84a72f",
         logo: EatrightIcon,
         icon:eatfavicon,
-        name: 'EatRight'
+        name: 'EatRight',
+        multiple_accounts: false
     },
     localhost: {
         primaryColor: "#96BE35",
         primaryLightColor: "#84a72f",
         logo: EatrightIcon,
         icon:livefavicon,
-        name: 'Localhost'
+        name: 'Localhost',
+        multiple_accounts: true
     }
 };
 const branding = new Proxy(brands, {

@@ -13,6 +13,7 @@ import ProfileImage from "./sections/profile-image/profile-image.component";
 import ProfileTnb from "./sections/profile-tnb/profile-tnb.component";
 import logger from "../../managers/logger.manager";
 import {profileSchema} from "./profile.schema";
+import brand from "../../config/branding.config";
 
 const ProfileContent = () => {
     const auth = useAuth();
@@ -34,7 +35,11 @@ const ProfileContent = () => {
                                 ):null
                             }
                             <ProfilePassword/>
-                            <ProfileAccounts/>
+                            {
+                                brand.multiple_accounts?(
+                                <ProfileAccounts/>
+                                ):null
+                            }
                         </main>
                     </Styles>
                 </Form>
