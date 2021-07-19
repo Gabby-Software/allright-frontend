@@ -6,13 +6,12 @@ import {useAuth} from "../../../../hooks/use-auth.hook";
 import {useTranslation} from "../../../../modules/i18n/i18n.hook";
 import {Link} from "react-router-dom";
 import {Routes} from "../../../../enums/routes.enum";
+import {useProfileContext} from "../../profile.context";
 
 const ProfileAccounts = () => {
     const {accounts} = useAuth();
     const {t} = useTranslation();
-    const switchAccount = (uuid: string) => {
-
-    };
+    const {switchAccount, editMode} = useProfileContext();
     return (
         <Styles>
             <ProfileTitle title={'Accounts'}/>
@@ -20,7 +19,7 @@ const ProfileAccounts = () => {
                 {
                     accounts.map(({uuid, is_current, type}) => (
                         <ProfileAccount active={is_current} key={uuid} type={type}
-                                        className={'accounts__item'} onClick={() => switchAccount(uuid)}/>
+                                        className={'accounts__item'} onClick={() => editMode || switchAccount(uuid)}/>
                     ))
                 }
                 <Link to={Routes.ADD_ACCOUNT} className={'accounts__add'}>

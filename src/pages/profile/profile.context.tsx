@@ -6,7 +6,7 @@ import {ProfileFormType} from "./profile.type";
 import logger from "../../managers/logger.manager";
 import api, {handleError} from "../../managers/api.manager";
 import {
-    EP_GET_ADDRESSES,
+    EP_GET_ADDRESSES, EP_GET_USER,
     EP_UPDATE_AVATAR,
     EP_UPDATE_PROFILE,
     EP_UPDATE_TNB,
@@ -19,6 +19,7 @@ import {AuthDataContext} from "../../modules/auth/auth-data.context";
 import {AuthResponseType} from "../../hooks/authorization.hook";
 import {AddressType} from "../../types/address.type";
 import {fillExist} from "../../pipes/fill-exist.pipe";
+import cookieManager from "../../managers/cookie.manager";
 
 export type ProfileContextType = {
     editMode: boolean,
@@ -29,6 +30,7 @@ export type ProfileContextType = {
     setTnbFile: (file: File | null) => void;
     handleSubmit: (values: ProfileFormType, helper: FormikHelpers<ProfileFormType>) => void;
     addresses: AddressType[];
+    switchAccount: (uuid:string)=> void;
 }
 export const ProfileContext = createContext<ProfileContextType>({
     editMode: false,
@@ -42,7 +44,8 @@ export const ProfileContext = createContext<ProfileContextType>({
     },
     handleSubmit: () => {
     },
-    addresses:[]
+    addresses:[],
+    switchAccount: () => {}
 });
 export const ProfileProvider = ({children}: { children: ComponentProps<any> }) => {
     const [editMode, setEditMode] = useState(false);
@@ -50,12 +53,28 @@ export const ProfileProvider = ({children}: { children: ComponentProps<any> }) =
     const [tnbFile, setTnbFile] = useState<File | null>(null);
     const [addresses, setAddresses] = useState<AddressType[]>([]);
     const {data, setData} = useContext(AuthDataContext);
-    const {uuid} = useAuth();
+    const {uuid, accounts} = useAuth();
     useEffect(() => {
-        api.get<{data:AddressType[]}>(EP_GET_ADDRESSES)
+        // api.get<{data:AddressType[]}>(EP_GET_ADDRESSES)
+        //     .then(res => res.data.data)
+        //     .then(address => {
+        //         setAddresses(address||[]);
+        //         cookieManager.set('addresses', JSON.stringify(address))
+        //     });
+        api.get(EP_GET_USER)
             .then(res => res.data.data)
-            .then(address => setAddresses(address||[]))
+            .then(res => {
+                const d = data as AuthResponseType;
+                d.user = res;
+                setData({...d});
+                cookieManager.set('auth', JSON.stringify(res));
+            });
     }, [uuid]);
+    const switchAccount = (uuid: string) => {
+        (data as AuthResponseType).user.accounts = data?.user.accounts.map(acc => ({...acc, is_current: acc.uuid === uuid})) || [];
+        setData({...data} as AuthResponseType);
+        cookieManager.set('auth', JSON.stringify(data?.user));
+    };
     const handleSubmit = async (values: ProfileFormType, helper: FormikHelpers<ProfileFormType>) => {
         const {
             first_name, last_name, email, birthday, gender, terms_and_conditions,
@@ -120,7 +139,7 @@ export const ProfileProvider = ({children}: { children: ComponentProps<any> }) =
     };
     return (
         <ProfileContext.Provider
-            value={{editMode, setEditMode, avatarFile, setAvatarFile, tnbFile, setTnbFile, handleSubmit, addresses}}>
+            value={{editMode, setEditMode, avatarFile, setAvatarFile, tnbFile, setTnbFile, handleSubmit, addresses, switchAccount}}>
             {children}
         </ProfileContext.Provider>
     )
