@@ -25,10 +25,10 @@ const FormDatepicker = ({name, label, onUpdate, disabled}: Props) => {
                               disabled={disabled}
                               value={field.value?moment(field.value):null} className={'text_input__input'}
                                       onChange={(date, dateString: string)=>{
-                                          if(!date) return;
                                           form.setFieldValue(name, dateString);
                                           onUpdate && onUpdate(name, dateString);
-                                      }} onBlur={field.onBlur}/>
+                                      }}
+                              onBlur={field.onBlur}/>
                       </label>
                       <FormError name={name}/>
                   </Styles>
