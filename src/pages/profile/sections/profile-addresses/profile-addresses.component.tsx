@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Styles from './profile-addresses.styles';
 import ProfileTitle from "../../components/profile-title/profile-title.component";
-import {ArrayHelpers, Field, FieldArray, FieldProps} from "formik";
+import {ArrayHelpers, Field, FieldArray, FieldProps, FormikProps} from "formik";
 import FormRow from "../../../../components/forms/form-row/form-row.component";
 import FormInputLabeled from "../../../../components/forms/form-input-labeled/form-input-labeled.component";
 import {useTranslation} from "../../../../modules/i18n/i18n.hook";
@@ -32,6 +32,11 @@ const ProfileAddresses = ({}: Props) => {
         };
         helpers.insert(i, empty_addr);
     };
+    const markAsDefault = (idx: number, total: number, form: FormikProps<any>) => {
+        for(let i=0;i<total;i++) {
+            form.setFieldValue(`addresses.${i}.is_default`, i===idx);
+        }
+    };
     return (
         <Styles>
             <ProfileTitle title={'Addresses'}/>
@@ -45,7 +50,7 @@ const ProfileAddresses = ({}: Props) => {
                                         {
                                             field?.value?.map((_: any, i: number) => (
                                                 editMode ? (
-                                                    <>
+                                                    <React.Fragment key={i}>
                                                         <FormRow>
                                                             <FormInputLabeled name={`addresses.${i}.address`}
                                                                               label={t('profile:address')}/>
@@ -59,11 +64,21 @@ const ProfileAddresses = ({}: Props) => {
                                                                                label={t('profile:country')}/>
                                                         </FormRow>
                                                         <FormRow>
-                                                            {/*<div className={classes('profile-addr__default', )}*/}
+                                                            <div className={classes(
+                                                                'profile-addr__default',
+                                                                field?.value[i].is_default && 'profile-addr__default__active'
+                                                            )}
+                                                            onClick={() => markAsDefault(i, field.value.length, form)}
+                                                            >
+                                                                My default address
+                                                            </div>
+                                                            <div className={'profile-addr__remove'}
+                                                                 onClick={() => helpers.remove(i)}
+                                                            >{'remove address'}</div>
                                                         </FormRow>
-                                                    </>
+                                                    </React.Fragment>
                                                 ) : (
-                                                    <FormRow>
+                                                    <FormRow key={i}>
                                                         <ProfileField type={'text'} name={`addresses.${i}.address`}
                                                                       label={t('profile:address')}/>
                                                         <FormRow>

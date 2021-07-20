@@ -10,5 +10,22 @@ export default styled.div`
         text-decoration: underline;
         cursor: pointer;
     }
+    &__default {
+        display: flex;
+        align-items: center;
+        margin-bottom: 24px;
+        cursor: pointer;
+        ${p => p.theme.extend.radioCircle}
+    }
+    &__remove {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        margin-bottom: 24px;
+        color: ${p => p.theme.vars.colors.error};
+        font-size: 10px;
+        font-weight: 500;
+        cursor: pointer;
+    }
 }
 `;
