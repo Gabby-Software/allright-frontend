@@ -8,7 +8,7 @@ import api, {handleError} from "../../managers/api.manager";
 import {
     EP_GET_ADDRESSES, EP_GET_USER,
     EP_UPDATE_AVATAR,
-    EP_UPDATE_PROFILE,
+    EP_UPDATE_PROFILE, EP_UPDATE_PROFILE_CUSTOM,
     EP_UPDATE_TNB,
     EP_UPDATE_USER
 } from "../../enums/api.enum";
@@ -30,7 +30,7 @@ export type ProfileContextType = {
     setTnbFile: (file: File | null) => void;
     handleSubmit: (values: ProfileFormType, helper: FormikHelpers<ProfileFormType>) => void;
     addresses: AddressType[];
-    switchAccount: (uuid:string)=> void;
+    switchAccount: (uuid: string) => void;
 }
 export const ProfileContext = createContext<ProfileContextType>({
     editMode: false,
@@ -44,8 +44,9 @@ export const ProfileContext = createContext<ProfileContextType>({
     },
     handleSubmit: () => {
     },
-    addresses:[],
-    switchAccount: () => {}
+    addresses: [],
+    switchAccount: () => {
+    }
 });
 export const ProfileProvider = ({children}: { children: ComponentProps<any> }) => {
     const [editMode, setEditMode] = useState(false);
@@ -71,46 +72,64 @@ export const ProfileProvider = ({children}: { children: ComponentProps<any> }) =
             });
     }, [uuid]);
     const switchAccount = (uuid: string) => {
-        (data as AuthResponseType).user.accounts = data?.user.accounts.map(acc => ({...acc, is_current: acc.uuid === uuid})) || [];
+        (data as AuthResponseType).user.accounts = data?.user.accounts.map(acc => ({
+            ...acc,
+            is_current: acc.uuid === uuid
+        })) || [];
         setData({...data} as AuthResponseType);
         cookieManager.set('auth', JSON.stringify(data?.user));
     };
     const handleSubmit = async (values: ProfileFormType, helper: FormikHelpers<ProfileFormType>) => {
         const {
             first_name, last_name, email, birthday, gender, terms_and_conditions,
-            phone_number, addresses, city, dietary_restrictions,
+            phone_number, addresses, dietary_restrictions,
             injuries, about, qualifications, additional_info, avatar
         } = values;
-        const authPayload = fillExist({
-            first_name, last_name, email, birthday, gender, city
-        });
         const user = data?.user as AccountObjType;
         logger.info('SUBMITTING 1');
         try {
-            const authRes = (await api.put(EP_UPDATE_USER, authPayload).then(res => res.data.data)) as AccountObjType;
-            (data as AuthResponseType).user = {
-                ...authRes,
-                accounts: (data?.user?.accounts as AccountType[])
+            const payload: any = {
+                user: fillExist({
+                    first_name, last_name, email, birthday, gender
+                }),
+                account: {
+                    phone_number, dietary_restrictions, injuries, about, qualifications, additional_info
+                },
+
             };
-            setData({
-                ...data
-            } as AuthResponseType);
-            logger.info('SUBMITTING 2');
-            const profilePayload = fillExist({
-                phone_number, dietary_restrictions, injuries, about, qualifications, additional_info
-            });
-            const res = (await api.put(EP_UPDATE_PROFILE, profilePayload).then(res => res.data.data)) as AccountType;
-            const idx = user.accounts.findIndex(acc => acc.is_current);
-            user.accounts[idx] = res;
-            setData({
-                ...data
-            } as AuthResponseType);
-            logger.info('SUBMITTING 3');
+            if (addresses?.length) {
+                payload.addresses = addresses;
+            }
+            const authRes = await api.put<{data:AccountObjType}>(EP_UPDATE_PROFILE_CUSTOM, payload)
+                .then(res => res.data.data);
+            (data as AuthResponseType).user = authRes;
+            // const authPayload = fillExist({
+            //     first_name, last_name, email, birthday, gender, city
+            // });
+            // const authRes = (await api.put(EP_UPDATE_USER, authPayload).then(res => res.data.data)) as AccountObjType;
+            // (data as AuthResponseType).user = {
+            //     ...authRes,
+            //     accounts: (data?.user?.accounts as AccountType[])
+            // };
+            // setData({
+            //     ...data
+            // } as AuthResponseType);
+            // logger.info('SUBMITTING 2');
+            // const profilePayload = fillExist({
+            //     phone_number, dietary_restrictions, injuries, about, qualifications, additional_info
+            // });
+            // const res = (await api.put(EP_UPDATE_PROFILE, profilePayload).then(res => res.data.data)) as AccountType;
+            // const idx = user.accounts.findIndex(acc => acc.is_current);
+            // user.accounts[idx] = res;
+            // setData({
+            //     ...data
+            // } as AuthResponseType);
+            // logger.info('SUBMITTING 3');
             if (terms_and_conditions?.file_name || tnbFile) {
                 const fd = new FormData();
                 tnbFile && fd.append('terms_conditions', tnbFile || '');
-                const tnbres = (await  api.post(EP_UPDATE_TNB, fd).then(res => res.data.data)) as AccountType;
-                logger.success('TNB RESPONSE', res);
+                const tnbres = (await api.post(EP_UPDATE_TNB, fd).then(res => res.data.data)) as AccountType;
+                logger.success('TNB RESPONSE', tnbres);
                 logger.info('SUBMITTING 4');
                 const idx = user.accounts.findIndex(acc => acc.is_current);
                 user.accounts[idx] = tnbres;
@@ -124,9 +143,9 @@ export const ProfileProvider = ({children}: { children: ComponentProps<any> }) =
                 const res = (await api.post(EP_UPDATE_AVATAR, fd).then(res => res.data.data)) as FileType;
                 logger.success('AVATAR RESPONSE', res);
                 (data as AuthResponseType).user.avatar = res;
-                logger.info('SUBMITTING 5',user, data);
+                logger.info('SUBMITTING 5', user, data);
                 setData({...data} as AuthResponseType);
-            } else if(avatar?.file_name && !avatar?.url) {
+            } else if (avatar?.file_name && !avatar?.url) {
                 await api.delete(EP_UPDATE_AVATAR);
                 (data as AuthResponseType).user.avatar = null;
                 setData({...data} as AuthResponseType);
@@ -139,7 +158,17 @@ export const ProfileProvider = ({children}: { children: ComponentProps<any> }) =
     };
     return (
         <ProfileContext.Provider
-            value={{editMode, setEditMode, avatarFile, setAvatarFile, tnbFile, setTnbFile, handleSubmit, addresses, switchAccount}}>
+            value={{
+                editMode,
+                setEditMode,
+                avatarFile,
+                setAvatarFile,
+                tnbFile,
+                setTnbFile,
+                handleSubmit,
+                addresses,
+                switchAccount
+            }}>
             {children}
         </ProfileContext.Provider>
     )

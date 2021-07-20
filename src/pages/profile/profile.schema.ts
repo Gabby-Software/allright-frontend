@@ -2,9 +2,6 @@ import * as Yup from 'yup';
 import moment from 'moment';
 
 export const profileSchema = Yup.object({
-    avatar: Yup.object({
-        url: Yup.string().nullable()
-    }),
     birthday: Yup.date().nullable().max(moment().add(-16, 'years'), 'age-16'),
     first_name: Yup.string().required().name(),
     last_name: Yup.string().required().name(),

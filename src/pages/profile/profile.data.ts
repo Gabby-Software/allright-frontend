@@ -104,7 +104,7 @@ export const profileBasic: OnBoardItemType[] = [
         ]
     },
     {
-        name: '', label: '', type: 'row',
+        name: 'addresses', label: '', type: 'list',
         data: [
             {
               type: 'text',

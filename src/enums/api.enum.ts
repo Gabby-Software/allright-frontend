@@ -16,5 +16,6 @@ export const EP_GET_COUNTRIES = '/countries';
 export const EP_ADD_ACCOUNT = '/user/account';
 export const EP_GET_ADDRESSES = '/user/account/addresses';
 export const EP_UPDATE_ADDRESSES = '/user/account/addresses';
+export const EP_UPDATE_PROFILE_CUSTOM = '/user/generic-profile';
 
 
