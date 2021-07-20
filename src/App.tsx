@@ -15,6 +15,7 @@ import {auth} from "./managers/auth.manager";
 import {AuthResponseType} from "./hooks/authorization.hook";
 import {AuthDataContext} from "./modules/auth/auth-data.context";
 import cookieManager from "./managers/cookie.manager";
+import PageNotFound from "./pages/page-not-found/page-not-found.component";
 
 const Styles = styled.div`
     font-family: 'Work Sans', sans-serif;
@@ -39,6 +40,9 @@ function App() {
               </Suspense>
             </AuthFormProvider>
           </Route>
+            <Route path={'/'}>
+                <PageNotFound/>
+            </Route>
         </Switch>
           <Toast/>
           {/*<iframe style={{display:'none'}} onLoad={checkLogin} src={mainHost()+'/auth'} ref={iframe} id={'login-check'}/>*/}

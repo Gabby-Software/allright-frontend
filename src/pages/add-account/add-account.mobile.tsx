@@ -5,6 +5,7 @@ import {useTranslation} from "../../modules/i18n/i18n.hook";
 import {AuthDataContext} from "../../modules/auth/auth-data.context";
 import {SwitchState} from "../styles";
 import {mainHost} from "../../pipes/main-host";
+import brand from "../../config/branding.config";
 
 const AddAccountMobile = () => {
     const {t} = useTranslation();
@@ -14,7 +15,7 @@ const AddAccountMobile = () => {
                               desc={t('auth:add-account.desc')}>
             <AddAccountForm/>
             <SwitchState>
-                <a href={mainHost()}>{t('back-home')}</a>
+                <a href={mainHost()}>{t('back-home', {name: brand.name})}</a>
             </SwitchState>
         </IdentityMobileLayout>
     );

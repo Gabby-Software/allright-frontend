@@ -5,8 +5,9 @@
   "submit": "Submit",
   "cancel": "Cancel",
   "proceed": "Proceed",
-  "back-home": "Back to LiveRight dashboard",
+  "back-home": "Back to {{name}} dashboard",
   "no-data": "No data yet",
+  "not-found-desc": "You seem to be lost, or maybe this page never existed?",
   "footer": {
     "copyright": "© {{name}} DMCC, {{year}} - Some Rights Reserved",
     "support": "Support",

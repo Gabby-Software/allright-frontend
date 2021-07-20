@@ -4,6 +4,7 @@ import {useTranslation} from "../../modules/i18n/i18n.hook";
 import {AuthDataContext} from "../../modules/auth/auth-data.context";
 import {mainHost} from "../../pipes/main-host";
 import {ReactComponent as BackIcon} from "../../assets/media/icons/back-arrow.svg";
+import brand from "../../config/branding.config";
 
 const AddAccountSidebar = () => {
     const {t} = useTranslation();
@@ -15,7 +16,7 @@ const AddAccountSidebar = () => {
             <IdentitySidebar.Hr/>
             <IdentitySidebar.ExtLink href={mainHost()}>
                 <BackIcon/>
-                <span>{t('back-home')}</span>
+                <span>{t('back-home', {name: brand.name})}</span>
             </IdentitySidebar.ExtLink>
         </>
     );
