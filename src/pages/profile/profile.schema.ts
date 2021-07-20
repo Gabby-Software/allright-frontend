@@ -7,6 +7,9 @@ export const profileSchema = Yup.object({
     last_name: Yup.string().required().name(),
     email: Yup.string().required().email(),
     phone_number: Yup.string().nullable().phone(),
+    addresses: Yup.array(Yup.object({
+        postal_code: Yup.string().nullable().zip()
+    })).nullable()
     // payment_info: Yup.object({
     //     account_number: Yup.string()
     //         .number().min(6).max(12),

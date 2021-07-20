@@ -13,7 +13,7 @@ export default styled.div`
     &__default {
         display: flex;
         align-items: center;
-        margin-bottom: 24px;
+        margin-bottom: 12px;
         cursor: pointer;
         ${p => p.theme.extend.radioCircle}
     }
@@ -21,7 +21,7 @@ export default styled.div`
         display: flex;
         align-items: center;
         justify-content: flex-end;
-        margin-bottom: 24px;
+        margin-bottom: 12px;
         color: ${p => p.theme.vars.colors.error};
         font-size: 10px;
         font-weight: 500;
