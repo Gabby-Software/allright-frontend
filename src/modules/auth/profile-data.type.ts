@@ -4,7 +4,6 @@ import {AddressType} from "../../types/address.type";
 
 export type ProfileDataType = {
     phone_number: string;
-    addresses: AddressType[];
     dietary_restrictions: string;
     injuries: string;
     notes:string;

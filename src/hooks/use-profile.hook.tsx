@@ -10,7 +10,6 @@ export const useProfile = () => {
     const profile = auth.accounts.find(acc => acc.is_current)?.profile;
     return {
         phone_number: '',
-        addresses: [],
         dietary_restrictions: '',
         injuries: '',
         notes: '',

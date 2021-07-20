@@ -103,35 +103,35 @@ export const profileBasic: OnBoardItemType[] = [
             },
         ]
     },
-    {
-        name: 'addresses', label: '', type: 'list',
-        data: [
-            {
-              type: 'text',
-              name: 'address',
-              label: 'profile:address'
-            },
-            {
-                type: 'row',
-                label: '', name: '',
-                data: [
-                    {
-                        label: 'profile:postal-code',
-                        name: 'postal_code',
-                        type: 'text'
-                    },
-                    {
-                        label: 'profile:city',
-                        name: 'city',
-                        type: 'text'
-                    },
-                ]
-            },
-            {
-                type: 'country-select',
-                name: 'country.code',
-                label: 'profile:country'
-            }
-        ]
-    }
+    // {
+    //     name: 'addresses', label: '', type: 'list',
+    //     data: [
+    //         {
+    //           type: 'text',
+    //           name: 'address',
+    //           label: 'profile:address'
+    //         },
+    //         {
+    //             type: 'row',
+    //             label: '', name: '',
+    //             data: [
+    //                 {
+    //                     label: 'profile:postal-code',
+    //                     name: 'postal_code',
+    //                     type: 'text'
+    //                 },
+    //                 {
+    //                     label: 'profile:city',
+    //                     name: 'city',
+    //                     type: 'text'
+    //                 },
+    //             ]
+    //         },
+    //         {
+    //             type: 'country-select',
+    //             name: 'country.code',
+    //             label: 'profile:country'
+    //         }
+    //     ]
+    // }
 ];

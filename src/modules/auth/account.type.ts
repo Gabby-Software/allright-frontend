@@ -2,6 +2,7 @@ import {AccessOptionType} from "./access-option.type";
 import {ProfileDataType} from "./profile-data.type";
 import {CountryType} from "../../types/country.type";
 import {FileType} from "./file.type";
+import {AddressType} from "../../types/address.type";
 
 export type AccountType = {
     account_level: null | number;
@@ -10,7 +11,8 @@ export type AccountType = {
     last_used_at: null | string;
     type: AccessOptionType;
     uuid: string;
-    profile: null | ProfileDataType
+    profile: null | ProfileDataType;
+    addresses: AddressType[];
 }
 export type AccountObjType = {
     accounts: AccountType[];

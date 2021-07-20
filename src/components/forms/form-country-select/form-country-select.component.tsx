@@ -12,7 +12,7 @@ type FormCountrySelectPropsType = {
     label?: string;
     onUpdate?: (val:string) =>void;
 }
-const FormCountrySelect = ({name = 'country.id', label, onUpdate}: FormCountrySelectPropsType) => {
+const FormCountrySelect = ({name = 'country.code', label, onUpdate}: FormCountrySelectPropsType) => {
     const {t} = useTranslation();
     const [countries, setCountries] = useState<OptionType[]>([]);
     useEffect(() => {
@@ -23,8 +23,8 @@ const FormCountrySelect = ({name = 'country.id', label, onUpdate}: FormCountrySe
             api.get<{data:CountryType[]}>(EP_GET_COUNTRIES)
                 .then(res => res.data.data)
                 .then(cs => {
-                    logger.success('COOUNTRIES', cs,cs.map(country => ({label: country.name_english, value: String(country.id)})));
-                    setCountries(cs.map(country => ({label: country.name_english, value: String(country.id)})))
+                    logger.success('COOUNTRIES', cs,cs.map(country => ({label: country.name_english, value: String(country.code)})));
+                    setCountries(cs.map(country => ({label: country.name_english, value: String(country.code)})))
                 })
         }
         // import('./form-country-select.data.json').then(module => module.default).then((data) => {

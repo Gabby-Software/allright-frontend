@@ -31,6 +31,7 @@
   "new-password": "New password",
   "confirm-password": "Please repeat password",
   "add-account": "Add Account",
+  "add-address": "Add another address +",
   "payment-info": {
     "title": "Payment Info",
     "bank": "Bank",

@@ -14,20 +14,26 @@ import ProfileTnb from "./sections/profile-tnb/profile-tnb.component";
 import {profileSchema} from "./profile.schema";
 import brand from "../../config/branding.config";
 import {onlyActive} from "../../guards/active.guard";
+import ProfileAdresses from "./sections/profile-adresses/profile-adresses.component";
+import ProfileAddresses from "./sections/profile-addresses/profile-addresses.component";
+import logger from "../../managers/logger.manager";
 
 const ProfileContent = () => {
     const auth = useAuth();
     const profile = useProfile();
     const {handleSubmit} = useProfileContext();
+    logger.info('AUTH', auth);
+    logger.info('PROFILE', profile);
     return (
             <Formik initialValues={{...auth, ...profile, password: '', password_confirmation: ''}}
-                    onSubmit={handleSubmit} validationSchema={profileSchema}>
+                    onSubmit={handleSubmit} validationSchema={profileSchema} enableReinitialize>
                 <Form>
                     <Styles className={'profile'}>
                         <ProfileSidebar/>
                         <main className={'profile__main'}>
                             <ProfileImage/>
                             <ProfileBasic/>
+                            <ProfileAddresses/>
                             <ProfileInfo/>
                             {
                                 auth?.type === 'trainer'?(
