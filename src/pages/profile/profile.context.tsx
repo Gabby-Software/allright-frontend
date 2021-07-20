@@ -92,7 +92,7 @@ export const ProfileProvider = ({children}: { children: ComponentProps<any> }) =
                 user: fillExist({
                     first_name, last_name, email, birthday, gender
                 }),
-                account: {
+                profile: {
                     phone_number, dietary_restrictions, injuries, about, qualifications, additional_info
                 },
 
