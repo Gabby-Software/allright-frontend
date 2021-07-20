@@ -9,6 +9,7 @@ import FormCountrySelect from "../../../../components/forms/form-country-select/
 import {AddressType} from "../../../../types/address.type";
 import {useProfileContext} from "../../profile.context";
 import ProfileField from "../../components/profile-field/profile-field.component";
+import {classes} from "../../../../pipes/classes.pipe";
 
 type Props = {};
 const ProfileAddresses = ({}: Props) => {
@@ -36,7 +37,7 @@ const ProfileAddresses = ({}: Props) => {
             <ProfileTitle title={'Addresses'}/>
             <Field name={'addresses'}>
                 {
-                    ({field}: FieldProps) => (
+                    ({field, form}: FieldProps) => (
                         <FieldArray name={'addresses'}>
                             {
                                 (helpers: ArrayHelpers) => (
@@ -44,18 +45,23 @@ const ProfileAddresses = ({}: Props) => {
                                         {
                                             field?.value?.map((_: any, i: number) => (
                                                 editMode ? (
-                                                    <FormRow>
-                                                        <FormInputLabeled name={`addresses.${i}.address`}
-                                                                          label={t('profile:address')}/>
+                                                    <>
                                                         <FormRow>
-                                                            <FormInputLabeled name={`addresses.${i}.postal_code`}
-                                                                              label={t('profile:postal-code')}/>
-                                                            <FormInputLabeled name={`addresses.${i}.city`}
-                                                                              label={t('profile:city')}/>
+                                                            <FormInputLabeled name={`addresses.${i}.address`}
+                                                                              label={t('profile:address')}/>
+                                                            <FormRow>
+                                                                <FormInputLabeled name={`addresses.${i}.postal_code`}
+                                                                                  label={t('profile:postal-code')}/>
+                                                                <FormInputLabeled name={`addresses.${i}.city`}
+                                                                                  label={t('profile:city')}/>
+                                                            </FormRow>
+                                                            <FormCountrySelect name={`addresses.${i}.country.code`}
+                                                                               label={t('profile:country')}/>
                                                         </FormRow>
-                                                        <FormCountrySelect name={`addresses.${i}.country.code`}
-                                                                           label={t('profile:country')}/>
-                                                    </FormRow>
+                                                        <FormRow>
+                                                            {/*<div className={classes('profile-addr__default', )}*/}
+                                                        </FormRow>
+                                                    </>
                                                 ) : (
                                                     <FormRow>
                                                         <ProfileField type={'text'} name={`addresses.${i}.address`}
@@ -68,17 +74,18 @@ const ProfileAddresses = ({}: Props) => {
                                                                           name={`addresses.${i}.city`}
                                                                           label={t('profile:city')}/>
                                                         </FormRow>
-                                                        <ProfileField type={'text'} name={`addresses.${i}.country.name_english`}
+                                                        <ProfileField type={'text'}
+                                                                      name={`addresses.${i}.country.name_english`}
                                                                       label={t('profile:country')}/>
                                                     </FormRow>
                                                 )
                                             ))
                                         }
                                         {
-                                            editMode?(
+                                            editMode ? (
                                                 <p className={'profile-addr__add'}
                                                    onClick={() => addAddr(helpers, field.value.length)}>{t('profile:add-address')}</p>
-                                            ):null
+                                            ) : null
                                         }
                                     </>
                                 )

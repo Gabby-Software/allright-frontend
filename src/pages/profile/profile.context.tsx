@@ -98,7 +98,7 @@ export const ProfileProvider = ({children}: { children: ComponentProps<any> }) =
 
             };
             if (addresses?.length) {
-                payload.addresses = addresses.map(addr => ({...addr, country_code: addr?.country?.code || null}));
+                payload.addresses = addresses.map(addr => ({...addr, country_code: addr?.country?.code || undefined}));
             }
             const authRes = await api.put<{data:AccountObjType}>(EP_UPDATE_PROFILE_CUSTOM, payload)
                 .then(res => res.data.data);
