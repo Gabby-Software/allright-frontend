@@ -29,8 +29,16 @@ const ProfileAddresses = ({}: Props) => {
             postal_code: '',
             region: '',
             is_default: false,
+            id: -Math.random()
         };
         helpers.insert(i, empty_addr);
+    };
+    const removeAddr = (helpers:ArrayHelpers, form: FormikProps<any>, i:number) => {
+        if(form.values.addresses[i].id) {
+            form.setFieldValue(`addresses.${i}._delete`, true);
+        } else {
+            helpers.remove(i);
+        }
     };
     const markAsDefault = (idx: number, total: number, form: FormikProps<any>) => {
         for(let i=0;i<total;i++) {
@@ -49,8 +57,8 @@ const ProfileAddresses = ({}: Props) => {
                                     <>
                                         {
                                             field?.value?.map((_: any, i: number) => (
-                                                editMode ? (
-                                                    <React.Fragment key={i}>
+                                                editMode ? _._delete ? null : (
+                                                    <React.Fragment key={_.id}>
                                                         <FormRow>
                                                             <FormInputLabeled name={`addresses.${i}.address`}
                                                                               label={t('profile:address')}/>
@@ -73,11 +81,11 @@ const ProfileAddresses = ({}: Props) => {
                                                                 My default address
                                                             </div>
                                                             <div className={'profile-addr__remove'}
-                                                                 onClick={() => helpers.remove(i)}
+                                                                 onClick={() => removeAddr(helpers,form,i)}
                                                             >{'remove address'}</div>
                                                         </FormRow>
                                                     </React.Fragment>
-                                                ) : (
+                                                ) : (_._delete ? null :
                                                     <FormRow key={i}>
                                                         <ProfileField type={'text'} name={`addresses.${i}.address`}
                                                                       label={t('profile:address')}/>
@@ -97,9 +105,9 @@ const ProfileAddresses = ({}: Props) => {
                                             ))
                                         }
                                         {
-                                            editMode ? (
+                                            editMode && field.value.filter((d: AddressType)=>!d._delete).length < 2? (
                                                 <p className={'profile-addr__add'}
-                                                   onClick={() => addAddr(helpers, field.value.length)}>{t('profile:add-address')}</p>
+                                                   onClick={() => addAddr(helpers, field.value.filter((d: AddressType)=>!d._delete).length)}>{t('profile:add-address')}</p>
                                             ) : null
                                         }
                                     </>

@@ -25,36 +25,38 @@ const ProfileContent = () => {
     logger.info('AUTH', auth);
     logger.info('PROFILE', profile);
     return (
-            <Formik initialValues={{...auth, ...profile, password: '', password_confirmation: ''}}
-                    onSubmit={handleSubmit} validationSchema={profileSchema} enableReinitialize>
-                <Form>
-                    <Styles className={'profile'}>
-                        <ProfileSidebar/>
-                        <main className={'profile__main'}>
-                            <ProfileImage/>
-                            <ProfileBasic/>
-                            <ProfileAddresses/>
-                            <ProfileInfo/>
-                            {
-                                auth?.type === 'trainer'?(
-                                    <ProfileTnb/>
-                                ):null
-                            }
-                            <ProfilePassword/>
-                            {
-                                brand.multiple_accounts?(
+        <Formik initialValues={{...auth, ...profile, password: '', password_confirmation: ''}}
+                onSubmit={handleSubmit} validationSchema={profileSchema}
+                enableReinitialize
+                isInitialValid={false}>
+            <Form>
+                <Styles className={'profile'}>
+                    <ProfileSidebar/>
+                    <main className={'profile__main'}>
+                        <ProfileImage/>
+                        <ProfileBasic/>
+                        <ProfileAddresses/>
+                        <ProfileInfo/>
+                        {
+                            auth?.type === 'trainer' ? (
+                                <ProfileTnb/>
+                            ) : null
+                        }
+                        <ProfilePassword/>
+                        {
+                            brand.multiple_accounts ? (
                                 <ProfileAccounts/>
-                                ):null
-                            }
-                        </main>
-                    </Styles>
-                </Form>
-            </Formik>
+                            ) : null
+                        }
+                    </main>
+                </Styles>
+            </Form>
+        </Formik>
     );
 };
 const Profile = () => (
     <ProfileProvider>
         <ProfileContent/>
     </ProfileProvider>
-    );
+);
 export default onlyActive(Profile);

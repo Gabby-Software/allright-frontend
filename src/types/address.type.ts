@@ -8,4 +8,5 @@ export type AddressType = {
     is_default: boolean;
     postal_code: string;
     region: string;
+    _delete?: boolean
 }

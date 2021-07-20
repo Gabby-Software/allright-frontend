@@ -24,7 +24,7 @@ const FormInputLabeled = ({name, label, type, onUpdate, icon}: Props) => {
                         icon && 'text_input__icon'
 
                     )}>
-                        {logger.info('FORM DATA + ERRORS', form, form.errors)}
+                        {logger.info('FORM DATA + ERRORS', field, form.values, form.errors)}
                         <label className={'text_input__cont'}>
                             <div className={'text_input__label'}>{label}</div>
                             <div className={'text_input__content'}>
