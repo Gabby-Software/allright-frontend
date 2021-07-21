@@ -17,7 +17,7 @@ const ProfileAccounts = () => {
             <ProfileTitle title={'Accounts'}/>
             <div className={'accounts__cont'}>
                 {
-                    accounts.map(({uuid, is_current, type}) => (
+                    accounts.sort((a,b) => a.type>b.type?1:-1).map(({uuid, is_current, type}) => (
                         <ProfileAccount active={is_current} key={uuid} type={type} disabled={editMode}
                                         className={'accounts__item'} onClick={() => editMode || switchAccount(uuid)}/>
                     ))
