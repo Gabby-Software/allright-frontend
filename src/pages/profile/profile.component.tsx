@@ -25,7 +25,7 @@ const ProfileContent = () => {
     logger.info('AUTH', auth);
     logger.info('PROFILE', profile);
     return (
-        <Formik initialValues={{...auth, ...profile, password: '', password_confirmation: ''}}
+        <Formik initialValues={{...auth, ...profile, password: '', password_confirmation: '', current_password: ''}}
                 onSubmit={handleSubmit} validationSchema={profileSchema}
                 enableReinitialize
                 isInitialValid={false}>

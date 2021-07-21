@@ -28,6 +28,7 @@
   "male": "Male",
   "female": "Female",
   "tnb": "Terms & Conditions",
+  "current-password": "Current Password",
   "new-password": "New password",
   "confirm-password": "Please repeat password",
   "add-account": "Add Account",

@@ -12,8 +12,10 @@ export const profileSchema = Yup.object({
             is: (del:boolean) => !del,
             then: Yup.string().nullable().zip()
         }).nullable()
-    })).nullable()
-
+    })).nullable(),
+    current_password: Yup.string().nullable().password(),
+    password: Yup.string().nullable().password(),
+    password_confirmation: Yup.string().equals([Yup.ref('password')], 'passwords-not-match').nullable()
     // payment_info: Yup.object({
     //     account_number: Yup.string()
     //         .number().min(6).max(12),

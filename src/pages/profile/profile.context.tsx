@@ -7,7 +7,7 @@ import logger from "../../managers/logger.manager";
 import api, {handleError} from "../../managers/api.manager";
 import {
     EP_GET_ADDRESSES, EP_GET_USER,
-    EP_UPDATE_AVATAR,
+    EP_UPDATE_AVATAR, EP_UPDATE_PASSWORD,
     EP_UPDATE_PROFILE, EP_UPDATE_PROFILE_CUSTOM,
     EP_UPDATE_TNB,
     EP_UPDATE_USER
@@ -84,11 +84,17 @@ export const ProfileProvider = ({children}: { children: ComponentProps<any> }) =
         const {
             first_name, last_name, email, birthday, gender, terms_and_conditions,
             phone_number, addresses, dietary_restrictions,
-            injuries, about, qualifications, additional_info, avatar
+            injuries, about, qualifications, additional_info, avatar,
+            password, password_confirmation, current_password
         } = values;
         const user = data?.user as AccountObjType;
         logger.info('SUBMITTING 1');
         try {
+            if(current_password && password && password_confirmation) {
+                await api.put(EP_UPDATE_PASSWORD, {
+                    current_password, password, password_confirmation
+                })
+            }
             const payload: any = {
                 user: fillExist({
                     first_name, last_name, email, birthday, gender

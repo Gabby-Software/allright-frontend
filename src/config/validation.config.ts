@@ -14,7 +14,7 @@ Yup.addMethod(Yup.string, 'password', function() {
         name: 'password',
         message: 'invalid-password',
         test: (value) => {
-            return /\d/.test(value||'') && /[a-zA-Z]/.test(value||'');
+            return !value || /\d/.test(value||'') && /[a-zA-Z]/.test(value||'');
         }
     });
 });
