@@ -9,6 +9,12 @@ export default styled.div`
     align-items:center;
     margin-right: 27px;
     cursor: pointer;
+    &.account {
+      &__disabled {
+        opacity: .4;
+        cursor: default;
+      }  
+    }
     .account {
         &__radio {
             ${p => p.theme.extend.flexCenter}

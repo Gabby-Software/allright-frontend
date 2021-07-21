@@ -10,10 +10,11 @@ type Prop = {
     className?: string;
     noRadio?: boolean;
     onClick?: () => void;
+    disabled?: boolean;
 };
-const ProfileAccount = ({type, active, className, noRadio, onClick}: Prop) => {
+const ProfileAccount = ({type, active, className, noRadio, onClick, disabled}: Prop) => {
     return (
-        <Styles className={classes(className, active && 'account__active')} onClick={onClick}>
+        <Styles className={classes(className, active && 'account__active', disabled && 'account__disabled')} onClick={onClick}>
             {
                 noRadio ? null : (
                     <div className={classes('account__radio', active && 'account__radio__active')}/>

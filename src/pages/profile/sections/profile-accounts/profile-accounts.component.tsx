@@ -18,13 +18,17 @@ const ProfileAccounts = () => {
             <div className={'accounts__cont'}>
                 {
                     accounts.map(({uuid, is_current, type}) => (
-                        <ProfileAccount active={is_current} key={uuid} type={type}
+                        <ProfileAccount active={is_current} key={uuid} type={type} disabled={editMode}
                                         className={'accounts__item'} onClick={() => editMode || switchAccount(uuid)}/>
                     ))
                 }
-                <Link to={Routes.ADD_ACCOUNT} className={'accounts__add'}>
-                    <span>{t('profile:add-account')}</span>
-                </Link>
+                {
+                    editMode?null:(
+                        <Link to={Routes.ADD_ACCOUNT} className={'accounts__add'}>
+                            <span>{t('profile:add-account')}</span>
+                        </Link>
+                    )
+                }
             </div>
         </Styles>
     )
