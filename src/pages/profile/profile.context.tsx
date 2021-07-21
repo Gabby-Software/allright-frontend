@@ -71,10 +71,11 @@ export const ProfileProvider = ({children}: { children: ComponentProps<any> }) =
                 cookieManager.set('auth', JSON.stringify(res));
             });
     }, [uuid]);
-    const switchAccount = (uuid: string) => {
+    const switchAccount = (new_uuid: string) => {
+        if(uuid === new_uuid) return;
         (data as AuthResponseType).user.accounts = data?.user.accounts.map(acc => ({
             ...acc,
-            is_current: acc.uuid === uuid
+            is_current: acc.uuid === new_uuid
         })) || [];
         setData({...data} as AuthResponseType);
         cookieManager.set('auth', JSON.stringify(data?.user));
