@@ -85,6 +85,7 @@ const AddAccountForm = () => {
                 logger.success('ADD ACCOUNT SUCCESS', res);
                 const user = data?.user as AccountObjType;
                 user.accounts.push(res);
+                user.accounts = user.accounts.map(acc => ({...acc, is_current: acc.uuid === res.uuid}));
                 cookieManager.set('auth', JSON.stringify(user));
                 setSubmitted(true);
             })
