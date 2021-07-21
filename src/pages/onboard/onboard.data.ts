@@ -1,14 +1,14 @@
 import {OnBoardItemType, OnBoardStepType} from "./onboard.type";
 import config from "../../config/branding.config";
 import * as Yup from 'yup';
-import moment from 'moment';
+import moment, {Moment} from 'moment';
 
 const liveRightOnBoard: OnBoardStepType[] = [
     {
         desc: 'onboard-more-info',
         validationSchema: Yup.object({
             phone_number: Yup.string().nullable().phone(),
-            birthday: Yup.date().nullable().max(moment().add(-16, 'years'), 'age-16')
+            birthday: Yup.date().nullable().max(moment().add(-16, 'years'), 'age-16'),
         }),
         fields: [
             {
@@ -22,7 +22,10 @@ const liveRightOnBoard: OnBoardStepType[] = [
                     {
                         type: 'date',
                         name: 'birthday',
-                        label: 'profile:birth-date'
+                        label: 'profile:birth-date',
+                        props: {
+                            disabledDate: (d:Moment) => d.isAfter(moment()) || d.isBefore(moment().add(-120, 'years')),
+                        }
                     }
                 ]
             }

@@ -11,7 +11,7 @@ import {useTranslation} from "../../modules/i18n/i18n.hook";
 import FormRadio from "../../components/forms/form-radio-button/form-radio-button.component";
 import {FieldArray, Field, ArrayHelpers, FieldProps} from 'formik';
 
-const OnboardItem = ({type, name, label, data, options}: OnBoardItemType) => {
+const OnboardItem = ({type, name, label, data, options, props}: OnBoardItemType) => {
     const {update} = useContext(OnBoardContext);
     const {t} = useTranslation();
     switch (type) {
@@ -24,7 +24,7 @@ const OnboardItem = ({type, name, label, data, options}: OnBoardItemType) => {
         case 'textarea':
             return <FormTextarea name={name || ''} label={t(label || '')} onUpdate={update}/>;
         case 'date':
-            return <FormDatepicker name={name || ''} label={t(label || '')} onUpdate={update}/>;
+            return <FormDatepicker {...props} name={name || ''} label={t(label || '')} onUpdate={update}/>;
         case 'radio':
             return <FormRadio name={name || ''} label={t(label || '')} options={options || []}/>;
         case 'list':

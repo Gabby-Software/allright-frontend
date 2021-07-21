@@ -8,6 +8,7 @@ export type OnBoardItemType = {
     label?: string;
     options?: OptionType[];
     data?: OnBoardItemType[];
+    props?: any;
 }
 export type OnBoardStepType = {
     desc: string;

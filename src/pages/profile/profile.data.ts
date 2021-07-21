@@ -1,5 +1,5 @@
 import brand from "../../config/branding.config";
-import {OptionType} from "../../types/option.type";
+import moment, {Moment} from 'moment';
 import genderTypes from "../../enums/gender-types";
 import {OnBoardItemType} from "../onboard/onboard.type";
 
@@ -74,7 +74,10 @@ export const profileBasic: OnBoardItemType[] = [
             {
                 name: 'birthday',
                 label: 'profile:birth-date',
-                type: 'date'
+                type: 'date',
+                props: {
+                    disabledDate: (d:Moment) => d.isAfter(moment()) || d.isBefore(moment().add(-120, 'years')),
+                }
             },
         ]
     },
