@@ -56,12 +56,6 @@ export const ProfileProvider = ({children}: { children: ComponentProps<any> }) =
     const {data, setData} = useContext(AuthDataContext);
     const {uuid, accounts} = useAuth();
     useEffect(() => {
-        // api.get<{data:AddressType[]}>(EP_GET_ADDRESSES)
-        //     .then(res => res.data.data)
-        //     .then(address => {
-        //         setAddresses(address||[]);
-        //         cookieManager.set('addresses', JSON.stringify(address))
-        //     });
         api.get(EP_GET_USER)
             .then(res => res.data.data)
             .then(res => {

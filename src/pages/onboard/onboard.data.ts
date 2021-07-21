@@ -7,7 +7,7 @@ const liveRightOnBoard: OnBoardStepType[] = [
     {
         desc: 'onboard-more-info',
         validationSchema: Yup.object({
-            phone_number: Yup.string().phone(),
+            phone_number: Yup.string().nullable().phone(),
             birthday: Yup.date().nullable().max(moment().add(-16, 'years'), 'age-16')
         }),
         fields: [
@@ -30,11 +30,11 @@ const liveRightOnBoard: OnBoardStepType[] = [
     },
     {
         desc: 'onboard-location',
-        validationSchema: Yup.object({postal_code: Yup.string().zip()}),
+        validationSchema: Yup.object({postal_code: Yup.string().nullable().zip()}),
         fields: [
             {
                 type: 'text',
-                name: 'address',
+                name: 'addresses.0.address',
                 label: 'profile:address',
             },
             {
@@ -42,19 +42,19 @@ const liveRightOnBoard: OnBoardStepType[] = [
                 data: [
                     {
                         type: 'text',
-                        name: 'city',
+                        name: 'addresses.0.city',
                         label: 'profile:city'
                     },
                     {
                         type: 'text',
-                        name: 'postal_code',
+                        name: 'addresses.0.postal_code',
                         label: 'profile:postal-code'
                     }
                 ]
             },
             {
                 type: "country-select",
-                name: 'country.id',
+                name: 'addresses.0.country.code',
                 label: 'profile:country'
             }
         ]

@@ -9,7 +9,7 @@ import {mainHost} from "../../pipes/main-host";
 import {OnBoardStepType} from "./onboard.type";
 import api, {handleError} from "../../managers/api.manager";
 import logger from "../../managers/logger.manager";
-import {EP_UPDATE_PROFILE, EP_UPDATE_USER} from "../../enums/api.enum";
+import {EP_UPDATE_PASSWORD, EP_UPDATE_PROFILE, EP_UPDATE_PROFILE_CUSTOM, EP_UPDATE_USER} from "../../enums/api.enum";
 import {fillExist} from "../../pipes/fill-exist.pipe";
 
 export type OnBoardContextType = {
@@ -50,38 +50,39 @@ export const OnBoardProvider = ({children, steps}: { children: React.ReactNode, 
     };
     const onSubmit = async (values: AccountObjType & ProfileDataType &AccountType,
                             helper: FormikHelpers<AccountObjType & ProfileDataType & AccountType>) => {
+        const {
+            first_name, last_name, email, birthday, gender, terms_and_conditions,
+            phone_number, addresses, dietary_restrictions,
+            injuries, about, qualifications, additional_info, avatar,
+        } = values;
+        const user = initialData?.user as AccountObjType;
+        logger.info('SUBMITTING 1');
         try {
-            const {
-                first_name, last_name, email, birthday, gender,
-                phone_number, addresses, dietary_restrictions, injuries, about, qualifications,
-                additional_info, postal_code
-            } = values;
-            const authPayload = fillExist({
-                first_name,
-                last_name,
-                email,
-                birthday,
-                gender,
-                postal_code,
-            });
+            const payload: any = {
+                user: fillExist({
+                    first_name, last_name, email, birthday, gender
+                }),
+                profile: {
+                    phone_number, dietary_restrictions, injuries, about, qualifications, additional_info
+                },
 
-            const res = (await api.put(EP_UPDATE_USER, authPayload).then(res => res.data.data)) as AccountObjType;
-            (initialData as AuthResponseType).user = res;
-            setInitialData({...initialData} as AuthResponseType);
-            cookieManager.set('auth', JSON.stringify(res));
-            const profilePayload = fillExist({
-                phone_number, dietary_restrictions, injuries, about, qualifications, additional_info
-            });
-            const res2 = (await api.put(EP_UPDATE_PROFILE, profilePayload).then(res => res.data.data)) as AccountType;
-            const account = initialUser.accounts.findIndex(acc => acc.is_current);
-            initialUser.accounts[account] = res2;
-            setInitialData({...initialData} as AuthResponseType);
-            cookieManager.set('auth', JSON.stringify(initialUser));
+            };
+            if (addresses?.length) {
+                payload.addresses = addresses.map(addr => ({
+                    ...addr,
+                    country_code: addr?.country?.code || undefined,
+                    id: addr?.id && addr.id > 0 ?addr?.id :undefined
+                }));
+            }
+            const authRes = await api.put<{data:AccountObjType}>(EP_UPDATE_PROFILE_CUSTOM, payload)
+                .then(res => res.data.data);
+            (initialData as AuthResponseType).user = authRes;
             if (step + 1 >= steps.length)
                 document.location.href = mainHost();
             else nextStep();
         } catch (e) {
-            return handleError(helper)(e);
+
+            handleError(helper)(e);
         }
     };
     return (
