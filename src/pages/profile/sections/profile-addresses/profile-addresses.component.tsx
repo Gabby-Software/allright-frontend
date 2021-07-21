@@ -80,9 +80,13 @@ const ProfileAddresses = ({}: Props) => {
                                                             >
                                                                 My default address
                                                             </div>
-                                                            <div className={'profile-addr__remove'}
-                                                                 onClick={() => removeAddr(helpers,form,i)}
-                                                            >{'remove address'}</div>
+                                                            {
+                                                                field.value.filter((d: AddressType)=>!d._delete).length < 2 ?null:(
+                                                                    <div className={'profile-addr__remove'}
+                                                                         onClick={() => removeAddr(helpers,form,i)}
+                                                                    >{'remove address'}</div>
+                                                                )
+                                                            }
                                                         </FormRow>
                                                     </React.Fragment>
                                                 ) : (_._delete ? null :
