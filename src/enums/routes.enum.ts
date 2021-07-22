@@ -12,5 +12,6 @@ export const Routes = {
     SUPPORT: '/support',
     ADD_ACCOUNT: '/add-account',
     ADD_ACCOUNT_ONBOARD: '/add-account/onboard',
-    PROFILE: '/profile'
+    PROFILE: '/profile',
+    INVITATIONS: '/invitations'
 };

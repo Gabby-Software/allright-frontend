@@ -61,6 +61,16 @@ const routes: RouteType[] = [
         title: 'Profile',
         url: Routes.PROFILE,
         Component: lazy(() => import('../pages/profile/profile.component'))
+    },
+    {
+        title: 'Accept Invitation',
+        url: Routes.INVITATIONS+'/:id/accept',
+        Component: lazy(() => import('../pages/invitations/accept-invitation/accept-invitation.component')),
+    },
+    {
+        title: 'Reject Invitation',
+        url: Routes.INVITATIONS+'/:id/reject',
+        Component: lazy(() => import('../pages/invitations/reject-invitation/reject-invitation.component')),
     }
 ];
 export default routes;
