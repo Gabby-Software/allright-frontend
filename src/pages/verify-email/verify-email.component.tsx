@@ -34,7 +34,6 @@ const VerifyEmail = () => {
                         ...data?.user,
                         email_verified_at: new Date().toUTCString(),
                     }), data?.expires_in);
-                    setVerified(verifiedState.SUCCESS);
                     setData({
                         access_token: data?.access_token as string,
                         expires_in: data?.expires_in,
@@ -43,6 +42,7 @@ const VerifyEmail = () => {
                             email_verified_at: new Date().toUTCString(),
                         } as AccountObjType
                     });
+                    setVerified(verifiedState.SUCCESS);
                 })
                 .catch(e => {
                     toast.show({type: 'error', msg: serverError(e)});
