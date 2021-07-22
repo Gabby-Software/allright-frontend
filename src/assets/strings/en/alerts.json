@@ -5,5 +5,7 @@
   "resend-verification-success": "Confirmation email was resent to your email address",
   "email-verification-success": "Email verified!",
   "email-verification-error": "Unable to verify email",
-  "reset-password-success": "Password reset successfully. please login"
+  "reset-password-success": "Password reset successfully. please login",
+  "invitation-accept": "Invitation accepted successfully",
+  "invitation-reject": "Invitation rejected successfully"
 }

@@ -28,6 +28,7 @@ const AcceptInvitation = () => {
         InvitationManager.acceptInvitation(id, expires, signature)
             .then(res => {
                 logger.success('INVITATION SUCCESS',res);
+                toast.show({type: 'success', msg: t('alerts:invitation-accept')});
                 setData(res);
                 setState(states.SUCCESS);
             })
