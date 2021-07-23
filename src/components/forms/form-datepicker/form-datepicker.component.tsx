@@ -25,6 +25,7 @@ const FormDatepicker = ({name, label, onUpdate, disabled, ...props}: Props) => {
                               {...props}
                               suffixIcon={<CalendarIcon/>}
                               disabled={disabled}
+                              defaultPickerValue={field.value?moment(field.value):moment().add(-16, 'years')}
                               value={field.value?moment(field.value):null} className={'text_input__input'}
                                       onChange={(date, dateString: string)=>{
                                           form.setFieldValue(name, dateString);
