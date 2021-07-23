@@ -24,7 +24,7 @@ const liveRightOnBoard: OnBoardStepType[] = [
                         name: 'birthday',
                         label: 'profile:birth-date',
                         props: {
-                            disabledDate: (d:Moment) => d.isAfter(moment()) || d.isBefore(moment().add(-120, 'years')),
+                            disabledDate: (d:Moment) => d.isAfter(moment().add(-16, 'years')) || d.isBefore(moment().add(-120, 'years')),
                         }
                     }
                 ]
