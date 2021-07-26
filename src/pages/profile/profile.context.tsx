@@ -136,11 +136,8 @@ export const ProfileProvider = ({children}: { children: ComponentProps<any> }) =
                 const tnbres = (await api.post(EP_UPDATE_TNB, fd).then(res => res.data.data)) as AccountType;
                 logger.success('TNB RESPONSE', tnbres);
                 logger.info('SUBMITTING 4');
-                const idx = user.accounts.findIndex(acc => acc.is_current);
-                user.accounts[idx] = tnbres;
-                setData({
-                    ...data
-                } as AuthResponseType);
+                const idx = (data as AuthResponseType).user.accounts.findIndex(acc => acc.is_current);
+                (data as AuthResponseType).user.accounts[idx] = tnbres;
             }
             if (avatarFile) {
                 const fd = new FormData();
@@ -149,12 +146,13 @@ export const ProfileProvider = ({children}: { children: ComponentProps<any> }) =
                 logger.success('AVATAR RESPONSE', res);
                 (data as AuthResponseType).user.avatar = res;
                 logger.info('SUBMITTING 5', user, data);
-                setData({...data} as AuthResponseType);
             } else if (avatar?.file_name && !avatar?.url) {
                 await api.delete(EP_UPDATE_AVATAR);
                 (data as AuthResponseType).user.avatar = null;
-                setData({...data} as AuthResponseType);
             }
+            setData({
+                ...data
+            } as AuthResponseType);
             setEditMode(false);
         } catch (e) {
 
