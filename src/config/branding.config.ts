@@ -6,16 +6,16 @@ import eatfavicon from "../assets/media/favicon-eat.ico";
 
 const brands: {[key: string]:BrandingType} = {
     default: {
-        primaryColor: "#F74057",
-        primaryLightColor: "#F97081",
+        primaryColor: "#ED1731",
+        primaryLightColor: "#ed4452",
         logo: LiverightIcon,
         icon:livefavicon,
         name: 'LiveRight',
         multiple_accounts: true
     },
     'identity.liverightdev.xyz': {
-        primaryColor: "#F74057",
-        primaryLightColor: "#F97081",
+        primaryColor: "#ED1731",
+        primaryLightColor: "#ed4452",
         logo: LiverightIcon,
         icon:livefavicon,
         name: 'LiveRight',
@@ -30,8 +30,8 @@ const brands: {[key: string]:BrandingType} = {
         multiple_accounts: false
     },
     'identity.liverightstaging.xyz': {
-        primaryColor: "#F74057",
-        primaryLightColor: "#F97081",
+        primaryColor: "#ED1731",
+        primaryLightColor: "#ed4452",
         logo: LiverightIcon,
         icon:livefavicon,
         name: 'LiveRight',
