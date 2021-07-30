@@ -20,7 +20,7 @@ const cookieManager = {
         let d: Date = new Date();
         d.setTime(d.getTime() + expiry * 1000);
         let expires = "expires=" + d.toUTCString();
-        document.cookie = `${name}=${value};${expires};path=/;domain=${document.location.hostname.split('.').slice(1).join('.')}`;
+        document.cookie = `${name}=${encodeURIComponent(value)};${expires};path=/;domain=${document.location.hostname.split('.').slice(1).join('.')}`;
     },
     remove(name: string) {
         this.set(name, '', 0);
