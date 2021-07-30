@@ -36,7 +36,10 @@ const SignUpForm = () => {
     const handleSubmit = async (form: LoginDataType, helper: FormikHelpers<AuthFormFieldsType>) => {
         logger.info('submitting form', form);
         const {first_name, last_name, email, password, type, gender} = form;
-        const defaults = await ipstack.getDefaults();
+        let defaults = {};
+        try {
+            defaults = await ipstack.getDefaults();
+        }catch(e){}
         api.post<AuthResponseType>(EP_REGISTER, {
             ...defaults,
             first_name, last_name, email, password, gender,
