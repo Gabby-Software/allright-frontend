@@ -6,8 +6,8 @@ export const invitationOnBoardData: OnBoardStepType[] = [
     {
         desc: 'onboard-set-password',
         validationSchema: Yup.object({
-            password: Yup.string().nullable().password(),
-            password_confirmation: Yup.string().equals([Yup.ref('password')], 'passwords-not-match').nullable()
+            password: Yup.string().password(),
+            password_confirmation: Yup.string().equals([Yup.ref('password')], 'passwords-not-match')
         }),
         fields: [
             {

@@ -26,17 +26,17 @@ const AcceptInvitation = () => {
         if(!(id && expires && signature)) {
             return setState(states.ERROR);
         }
-        InvitationManager.acceptInvitation(id, expires, signature)
+        InvitationManager.rejectInvitation(id, expires, signature)
             .then(res => {
                 logger.success('INVITATION REJECT SUCCESS',res);
                 toast.show({type: 'success', msg: t('alerts:invitation-reject')});
                 setNewUser(res.user.is_new_user);
                 setData(res);
-                // setState(states.SUCCESS);
+                setState(states.SUCCESS);
             })
             .catch(e => {
                 toast.show({type: 'error', msg: serverError(e)});
-                // setState(states.ERROR);
+                setState(states.ERROR);
             })
     }, []);
     if (state === states.SUCCESS){
