@@ -18,6 +18,7 @@ export const EP_GET_ADDRESSES = '/user/account/addresses';
 export const EP_UPDATE_ADDRESSES = '/user/account/addresses';
 export const EP_UPDATE_PROFILE_CUSTOM = '/user/generic-profile';
 export const EP_UPDATE_PASSWORD = '/user/password';
+export const EP_SET_PASSWORD = '/set-password';
 export const EP_CHECK_EMAIL_EXIST = '/invitations/check';
 export const EP_INVITE_NEW_USER = '/invitations';
 

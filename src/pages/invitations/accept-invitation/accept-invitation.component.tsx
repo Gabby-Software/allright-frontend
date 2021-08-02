@@ -18,6 +18,8 @@ const AcceptInvitation = () => {
     const [state, setState] = useState(states.NONE);
     const {data, setData} = useContext(AuthDataContext);
     const [newUser, setNewUser] = useState(true);
+    const [query, setQuery] = useState('');
+
     const {t} = useTranslation();
     useEffect(() => {
         const query = new URLSearchParams(document.location.search);
@@ -32,6 +34,7 @@ const AcceptInvitation = () => {
                 toast.show({type: 'success', msg: t('alerts:invitation-accept')});
                 setData(res);
                 setNewUser(res.user.is_new_user);
+                setQuery(res.user.set_password_url.split('?')[1]);
                 setState(states.SUCCESS);
             })
             .catch(e => {
@@ -44,7 +47,7 @@ const AcceptInvitation = () => {
             document.location.href = mainHost();
             return null;
         } else {
-            return <Redirect to={Routes.INVITATIONS_ONBOARD}/>;
+            return <Redirect to={Routes.INVITATIONS_ONBOARD+`?${query}`}/>;
         }
     }
     if (state === states.ERROR) {
