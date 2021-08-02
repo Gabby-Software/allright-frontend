@@ -17,6 +17,7 @@ const AcceptInvitation = () => {
     const {id} = useParams<{ id: string }>();
     const [state, setState] = useState(states.NONE);
     const {data, setData} = useContext(AuthDataContext);
+    const [newUser, setNewUser] = useState(true);
     const {t} = useTranslation();
     useEffect(() => {
         const query = new URLSearchParams(document.location.search);
@@ -27,22 +28,23 @@ const AcceptInvitation = () => {
         }
         InvitationManager.acceptInvitation(id, expires, signature)
             .then(res => {
-                logger.success('INVITATION SUCCESS',res);
+                logger.success('INVITATION REJECT SUCCESS',res);
                 toast.show({type: 'success', msg: t('alerts:invitation-reject')});
+                setNewUser(res.user.is_new_user);
                 setData(res);
-                setState(states.SUCCESS);
+                // setState(states.SUCCESS);
             })
             .catch(e => {
                 toast.show({type: 'error', msg: serverError(e)});
-                setState(states.ERROR);
+                // setState(states.ERROR);
             })
     }, []);
     if (state === states.SUCCESS){
-        if(data?.access_token) {
+        if(!newUser) {
             document.location.href = mainHost();
             return null;
         } else {
-            return <Redirect to={Routes.REGISTER_ON_BOARD}/>;
+            return <Redirect to={Routes.INVITATIONS_ONBOARD}/>;
         }
     }
     if (state === states.ERROR) {
