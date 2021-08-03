@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import styled from 'styled-components';
 import FormButton from "../../components/forms/form-button/form-button.component";
 import {useTranslation} from "../../modules/i18n/i18n.hook";
 import {mainHost} from "../../pipes/main-host";
+import {OnBoardContext} from "../onboard/onboard.context";
 
 const SkipBtn = styled(FormButton)`
             margin-top: 10px;
@@ -12,10 +13,11 @@ const SkipBtn = styled(FormButton)`
             max-width: 100px;
 `;
 export const Skip = () => {
+    const {nextStep} = useContext(OnBoardContext);
     const {t} = useTranslation();
     return (
         <SkipBtn type={'link'}>
-            <a href={mainHost()}>{t('skip')}</a>
+            <a onClick={nextStep}>{t('skip')}</a>
         </SkipBtn>
     );
 };

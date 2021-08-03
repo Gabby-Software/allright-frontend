@@ -19,8 +19,12 @@ export default styled.div`
             background-color: ${p => p.theme.vars.colors.secondary2};
             transition: ${p => p.theme.vars.defaults.transition};
             margin: 0 15px;
+            cursor: pointer;
             &__active {
                 background-color: ${p => p.theme.vars.colors.primary};
+            }
+            &__past {
+                cursor: pointer;
             }
         }
         &__step {

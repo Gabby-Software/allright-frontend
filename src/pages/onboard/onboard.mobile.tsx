@@ -8,11 +8,11 @@ import OnboardStep from "./onboard-step.component";
 import IdentityMobileLayout from "../../layouts/identity-mobile-layout/identity-mobile-layout.component";
 
 const OnBoardMobile = () => {
-    const {steps, step, data} = useContext(OnBoardContext);
+    const {steps, step, data, goTo} = useContext(OnBoardContext);
     const {t} = useTranslation();
     return (
         <IdentityMobileLayout title={`Hello ${data?.first_name}`} desc={t(`auth:${steps[step]?.desc}`)}>
-                <Steps currentStep={step} dots>
+                <Steps currentStep={step} dots changeStep={goTo}>
                     {
                         steps.map(stepData => <OnboardStep {...stepData}/>)
                     }

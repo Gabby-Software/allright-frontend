@@ -7,7 +7,7 @@ import Steps from "../../components/steps/steps.component";
 import OnboardStep from "./onboard-step.component";
 
 const OnboardDesktop = () => {
-    const {step, steps, data} = useContext(OnBoardContext);
+    const {step, steps, data, goTo} = useContext(OnBoardContext);
     const {t} = useTranslation();
     return (
         <IdentityLayout sidebar={() => (
@@ -16,7 +16,7 @@ const OnboardDesktop = () => {
                 <IdentitySidebar.Subtitle>{t(`auth:${steps[step]?.desc}`)}</IdentitySidebar.Subtitle>
             </>
         )}>
-            <Steps currentStep={step} dots>
+            <Steps currentStep={step} dots changeStep={goTo}>
                 {
                     steps.map(stepData => <OnboardStep {...stepData}/>)
                 }
