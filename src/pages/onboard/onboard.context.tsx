@@ -29,6 +29,7 @@ export type OnBoardContextType = {
     nextStep: () => void;
     onSubmit: (values: ProfileFormType, helper: FormikHelpers<ProfileFormType>) => void;
     goTo: (step:number) => void;
+    preSubmit: () => void;
 };
 export type OnBoardContextTypeNotNull = OnBoardContextType & {
     data: ProfileFormType;
@@ -43,9 +44,10 @@ export const OnBoardContext = createContext<OnBoardContextType>({
     },
     onSubmit: () => {
     },
-    goTo: () => {}
+    goTo: () => {},
+    preSubmit: () => {},
 });
-export const OnBoardProvider = ({children, steps}: { children: React.ReactNode, steps: OnBoardStepType[] }) => {
+export const OnBoardProvider = ({children, steps, preSubmit=()=>{}}: { children: React.ReactNode, steps: OnBoardStepType[], preSubmit?: ()=>void }) => {
     const {data: initialData, setData: setInitialData} = useContext(AuthDataContext);
     const initialUser = (initialData as AuthResponseType).user;
     const [step, setStep] = useState(0);
@@ -64,6 +66,7 @@ export const OnBoardProvider = ({children, steps}: { children: React.ReactNode, 
     };
     const onSubmit = async (values: ProfileFormType,
                             helper: FormikHelpers<ProfileFormType>) => {
+        await preSubmit();
         const {
             first_name, last_name, email, birthday, gender, terms_and_conditions,
             phone_number, addresses, dietary_restrictions,
@@ -119,7 +122,8 @@ export const OnBoardProvider = ({children, steps}: { children: React.ReactNode, 
             nextStep,
             onSubmit,
             goTo,
-            steps
+            steps,
+            preSubmit
         }}>
             {children}
         </OnBoardContext.Provider>

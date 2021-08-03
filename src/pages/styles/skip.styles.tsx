@@ -13,11 +13,14 @@ const SkipBtn = styled(FormButton)`
             max-width: 100px;
 `;
 export const Skip = () => {
-    const {nextStep} = useContext(OnBoardContext);
+    const {nextStep, preSubmit} = useContext(OnBoardContext);
     const {t} = useTranslation();
     return (
         <SkipBtn type={'link'}>
-            <a onClick={nextStep}>{t('skip')}</a>
+            <a onClick={async () => {
+                await preSubmit();
+                nextStep();
+            }}>{t('skip')}</a>
         </SkipBtn>
     );
 };
