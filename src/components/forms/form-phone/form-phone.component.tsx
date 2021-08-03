@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import Styles from './form-phone.styles';
+import Styles, {PhoneInputStyles} from './form-phone.styles';
 import {Field, FieldProps} from "formik";
 import FormError from "../form-error/form-error.component";
 import {ReactComponent as WarningIcon} from '../../../assets/media/icons/warning.svg';
@@ -13,7 +13,7 @@ type Props = {
     icon?: React.ReactNode,
     onUpdate?: (name: string, value: string) => void
 };
-const FormPhone = ({name, label, type, onUpdate, icon}: Props) => {
+const FormPhone = ({name, label, onUpdate, type, icon}: Props) => {
     return (
         <Field name={name}>
             {
@@ -22,7 +22,41 @@ const FormPhone = ({name, label, type, onUpdate, icon}: Props) => {
                         'text_input__wrapper',
                         form.errors[name] && form.touched[name] && 'text_input__error',
                         icon && 'text_input__icon'
-
+                    )}>
+                        {logger.info('FORM DATA + ERRORS', field, form.values, form.errors, form.values.addresses[0]?.country?.code)}
+                        <div className={'text_input__cont'}>
+                            <div className={'text_input__label'}>{label}</div>
+                            <div className={'text_input__content'}>
+                                <PhoneInputStyles
+                                    defaultCountry={form.values.addresses[0]?.country?.code}
+                                    className={'text_input__input'} type={type || 'text'}
+                                    name={name} value={field.value} onBlur={field.onBlur}
+                                    onChange={value => {
+                                        form.setFieldValue(name, value);
+                                        onUpdate && onUpdate(name, value);
+                                    }}/>
+                                {icon || null}
+                                {
+                                    form.errors[name] && form.touched[name] ? (
+                                        <WarningIcon className={'text_input__error'}/>
+                                    ) : null
+                                }
+                            </div>
+                        </div>
+                        <FormError name={name}/>
+                    </Styles>
+                )
+            }
+        </Field>
+    );
+    return (
+        <Field name={name}>
+            {
+                ({field, form}: FieldProps) => (
+                    <Styles className={classes(
+                        'text_input__wrapper',
+                        form.errors[name] && form.touched[name] && 'text_input__error',
+                        icon && 'text_input__icon'
                     )}>
                         {logger.info('FORM DATA + ERRORS', field, form.values, form.errors)}
                         <label className={'text_input__cont'}>

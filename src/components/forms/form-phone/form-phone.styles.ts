@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import PhoneInput from "react-phone-number-input";
 
 export default styled.div`
 
@@ -10,20 +11,10 @@ export default styled.div`
     &__content {
         position: relative;
         svg {
+            width: 18px;
+            height: auto;
             display: block;
-            position: absolute;
-            top:0;
-            bottom:0;
-            right: 16px;
-            margin: auto;
-            &:not(.text_input__error) {
-                width: 18px;
-                cursor: pointer;
-                z-index:2;
-                &:active+svg {
-                    display: none;
-                }
-            }
+            margin: auto 0;
         }
     }
     &__label {
@@ -78,5 +69,44 @@ export default styled.div`
             }
         }
     }
+}
+`;
+export const PhoneInputStyles = styled(PhoneInput)`
+position: relative;
+display: flex !important;
+
+&.PhoneInput--focus {
+
+}
+.PhoneInputCountry {
+    ${p =>p.theme.extend.flexCenter}
+    margin-right: 10px;
+    position: relative;
+}
+.PhoneInputCountryIconImg {
+    width: 18px;
+    height: auto;
+    object-fit: contain;
+}
+.PhoneInputCountrySelect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    border: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+.PhoneInputCountryIconImg {
+
+}
+input {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    background-color:#fbfbfb;
+    width: 100%;
 }
 `;
