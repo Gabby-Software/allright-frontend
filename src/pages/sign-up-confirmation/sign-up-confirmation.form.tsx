@@ -5,7 +5,7 @@ import {AuthFormContext} from "../../modules/auth/auth.context";
 import {AuthFormFieldsType, AuthFormTypeNotNull} from "../../modules/auth/auth-form.type";
 import {AuthDataContext} from "../../modules/auth/auth-data.context";
 import api from "../../managers/api.manager";
-import {EP_VERIFY_EMAIL_RESEND} from "../../enums/api.enum";
+import {EP_UPDATE_PROFILE_CUSTOM, EP_VERIFY_EMAIL_RESEND} from "../../enums/api.enum";
 import {toast} from "../../components/toast/toast.component";
 import {serverError} from "../../pipes/server-error.pipe";
 import {Form, Formik} from "formik";
@@ -16,21 +16,27 @@ import FormButton from "../../components/forms/form-button/form-button.component
 import ButtonSubmit from "../../components/forms/button-submit/button-submit.component";
 import {SwitchState} from "../styles";
 import {Routes} from "../../enums/routes.enum";
+import {AccountObjType} from "../../modules/auth/account.type";
+import {AuthResponseType} from "../../hooks/authorization.hook";
 
 const SignUpConfirmationForm = () => {
     const {t} = useTranslation();
     const {form, update} = useContext(AuthFormContext) as AuthFormTypeNotNull;
-    const {setData} = useContext(AuthDataContext);
+    const {data,setData} = useContext(AuthDataContext);
     const [isChangingEmail, setIsChangingEmail] = useState(false);
     const resendEmail = () => {
         api.post(EP_VERIFY_EMAIL_RESEND)
             .then(()=>toast.show({type: "success", msg: t("alerts:resend-verification-success")}))
             .catch(e => toast.show({type: "error", msg: serverError(e)}))
     };
-    const changeEmail = (values: AuthFormFieldsType) => {
-        // api.post()
-
-        setIsChangingEmail(false);
+    const changeEmail = ({email}: AuthFormFieldsType) => {
+        api.put<{data:AccountObjType}>(EP_UPDATE_PROFILE_CUSTOM, {user:{email}})
+            .then((res) => res.data.data)
+            .then(user => setData({...(data as AuthResponseType), user}))
+            .then(resendEmail)
+            .then(()=>toast.show({type: "success", msg: t("alerts:update-email-success")}))
+            .then(() => setIsChangingEmail(false))
+            .catch(e => toast.show({type: "error", msg: serverError(e)}));
     };
     return (
         <Styles>
@@ -47,7 +53,7 @@ const SignUpConfirmationForm = () => {
                         {
                             (form) => (
                                 <Form>
-                                    <FormInputLabeled name={'email'} label={'Email'}/>
+                                    <FormInputLabeled name={'email'} label={'Email'} onUpdate={update}/>
                                     <FormRow>
                                         <FormButton type={'default'} onClick={() => {
                                             form.resetForm();

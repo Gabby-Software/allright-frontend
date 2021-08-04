@@ -10,6 +10,8 @@ import FormDatepicker from "../../components/forms/form-datepicker/form-datepick
 import {useTranslation} from "../../modules/i18n/i18n.hook";
 import FormRadio from "../../components/forms/form-radio-button/form-radio-button.component";
 import {FieldArray, Field, ArrayHelpers, FieldProps} from 'formik';
+import FormPhone from "../../components/forms/form-phone/form-phone.component";
+import FormPassword from "../../components/forms/form-password/form-password.component";
 
 const OnboardItem = ({type, name, label, data, options, props}: OnBoardItemType) => {
     const {update} = useContext(OnBoardContext);
@@ -19,6 +21,8 @@ const OnboardItem = ({type, name, label, data, options, props}: OnBoardItemType)
             return <FormRow>{data?.map(p => <OnboardItem {...p}/>)}</FormRow>;
         case 'text':
             return <FormInputLabeled name={name || ''} label={t(label || '')} onUpdate={update}/>;
+        case 'phone':
+            return <FormPhone name={name||''} label={t(label||'')} onUpdate={update}/>
         case 'country-select':
             return <FormCountrySelect name={name} label={t(label || '')} onUpdate={val => update(name || '', val)}/>;
         case 'textarea':
@@ -27,6 +31,8 @@ const OnboardItem = ({type, name, label, data, options, props}: OnBoardItemType)
             return <FormDatepicker {...props} name={name || ''} label={t(label || '')} onUpdate={update}/>;
         case 'radio':
             return <FormRadio name={name || ''} label={t(label || '')} options={options || []}/>;
+        case 'password':
+            return <FormPassword name={name||''} label={t(label||'')} onUpdate={update}/>;
         case 'list':
             return (
                 <Field name={name}>

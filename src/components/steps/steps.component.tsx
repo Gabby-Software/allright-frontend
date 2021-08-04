@@ -6,6 +6,7 @@ type StepsProps = {
     children: React.ReactNode;
     currentStep: number;
     dots?:boolean;
+    changeStep?: (step:number) => void
 }
 type StepProp = {
     children: React.ReactNode;
@@ -18,7 +19,7 @@ const Step = ({children, active}:StepProp) => {
         </div>
     )
 };
-const Steps = ({children, currentStep = 0, dots}: StepsProps) => {
+const Steps = ({children, currentStep = 0, dots, changeStep}: StepsProps) => {
     const count = useMemo(() => {
         let c = 0;
         Children.forEach(children, _ => c++);
@@ -44,7 +45,14 @@ const Steps = ({children, currentStep = 0, dots}: StepsProps) => {
                     <div className={'steps__dots'}>
                         {
                             Children.map(children, ((_, i) => (
-                                <div className={classes('steps__dot', i===currentStep&&'steps__dot__active')}/>
+                                <div
+                                    onClick={() => changeStep && changeStep(i)}
+                                    className={classes(
+                                        'steps__dot',
+                                        i===currentStep&&'steps__dot__active',
+                                        i<= currentStep&&'steps__dot__past',
+                                        i
+                                    )}/>
                             )))
                         }
                     </div>

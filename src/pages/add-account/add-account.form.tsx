@@ -1,4 +1,4 @@
-import React, {ComponentType, useState, useContext} from 'react';
+import React, {ComponentType, useContext, useState} from 'react';
 import Styles from './add-account.styles';
 import {useTranslation} from "../../modules/i18n/i18n.hook";
 import FormButton from "../../components/forms/form-button/form-button.component";
@@ -9,15 +9,9 @@ import {ReactComponent as TrainerImage} from "../../assets/media/trainer.svg";
 import {ReactComponent as OrgImage} from "../../assets/media/organization.svg";
 import {AuthDataContext} from "../../modules/auth/auth-data.context";
 import {AccessOptionType} from "../../modules/auth/access-option.type";
-import api from "../../managers/api.manager";
-import {EP_ADD_ACCOUNT} from "../../enums/api.enum";
-import logger from "../../managers/logger.manager";
-import cookieManager from "../../managers/cookie.manager";
 import {Routes} from "../../enums/routes.enum";
 import {Redirect} from 'react-router-dom';
-import {AccountObjType} from "../../modules/auth/account.type";
-import {toast} from "../../components/toast/toast.component";
-import {serverError} from "../../pipes/server-error.pipe";
+import {AddAccountContext, AddAccountSteps} from "./add-account.context";
 
 type AccountOptionType = {
     image: ComponentType<any>;
@@ -56,6 +50,7 @@ const AddAccountForm = () => {
     const [selected, setSelected] = useState<string>('');
     const [submitted, setSubmitted] = useState(false);
     const {data, setData} = useContext(AuthDataContext);
+    const {setStep, setAccountType} = useContext(AddAccountContext);
     const types = data?.user?.accounts?.map(acc => acc.type);
     const options: AccountOptionType[] = [
         {
@@ -79,17 +74,8 @@ const AddAccountForm = () => {
         },
     ];
     const handleSubmit = () => {
-        api.post(EP_ADD_ACCOUNT, {type:selected})
-            .then(res => res.data.data)
-            .then(res => {
-                logger.success('ADD ACCOUNT SUCCESS', res);
-                const user = data?.user as AccountObjType;
-                user.accounts.push(res);
-                user.accounts = user.accounts.map(acc => ({...acc, is_current: acc.uuid === res.uuid}));
-                cookieManager.set('auth', JSON.stringify(user));
-                setSubmitted(true);
-            })
-            .catch(e => toast.show({type: 'error', msg: serverError(e)}))
+        setAccountType(selected);
+        setStep(AddAccountSteps.ONBOARD);
     };
     if(submitted)
         return <Redirect to={Routes.ADD_ACCOUNT_ONBOARD}/>;

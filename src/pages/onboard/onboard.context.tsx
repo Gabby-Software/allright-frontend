@@ -9,24 +9,31 @@ import {mainHost} from "../../pipes/main-host";
 import {OnBoardStepType} from "./onboard.type";
 import api, {handleError} from "../../managers/api.manager";
 import logger from "../../managers/logger.manager";
-import {EP_UPDATE_PASSWORD, EP_UPDATE_PROFILE, EP_UPDATE_PROFILE_CUSTOM, EP_UPDATE_USER} from "../../enums/api.enum";
+import {
+    EP_SET_PASSWORD,
+    EP_UPDATE_PASSWORD,
+    EP_UPDATE_PROFILE,
+    EP_UPDATE_PROFILE_CUSTOM,
+    EP_UPDATE_USER
+} from "../../enums/api.enum";
 import {fillExist} from "../../pipes/fill-exist.pipe";
+import {ProfileFormType} from "../profile/profile.type";
+import {useHistory, useLocation} from "react-router";
+import brand from "../../config/branding.config";
+
 
 export type OnBoardContextType = {
-    data: null | (AccountObjType & ProfileDataType & AccountType);
+    data: null | ProfileFormType;
     update: (name: string, value: any) => void;
     step: number;
     steps: OnBoardStepType[];
     nextStep: () => void;
-    onSubmit: (values: AccountObjType & AccountType & ProfileDataType, helper: FormikHelpers<AccountType & AccountObjType & ProfileDataType>) => void;
+    onSubmit: (values: ProfileFormType, helper: FormikHelpers<ProfileFormType>) => void;
+    goTo: (step:number) => void;
+    preSubmit: () => void;
 };
-export type OnBoardContextTypeNotNull = {
-    data: AccountObjType & ProfileDataType &AccountType;
-    update: (name: string, value: any) => void;
-    step: number;
-    steps: OnBoardStepType[];
-    nextStep: () => void;
-    onSubmit: (values: AccountObjType & AccountType & ProfileDataType, helper: FormikHelpers<AccountType&AccountObjType & ProfileDataType>) => void;
+export type OnBoardContextTypeNotNull = OnBoardContextType & {
+    data: ProfileFormType;
 };
 export const OnBoardContext = createContext<OnBoardContextType>({
     data: null,
@@ -37,48 +44,85 @@ export const OnBoardContext = createContext<OnBoardContextType>({
     nextStep: () => {
     },
     onSubmit: () => {
-    }
+    },
+    goTo: () => {},
+    preSubmit: () => {},
 });
-export const OnBoardProvider = ({children, steps}: { children: React.ReactNode, steps: OnBoardStepType[] }) => {
+type OnBoardProviderType = {
+    children: React.ReactNode, steps: OnBoardStepType[], preSubmit?: ()=>void;
+    disableBackToFirstStep?: boolean
+}
+export const OnBoardProvider = ({children, steps, preSubmit=()=>{}, disableBackToFirstStep}: OnBoardProviderType) => {
     const {data: initialData, setData: setInitialData} = useContext(AuthDataContext);
     const initialUser = (initialData as AuthResponseType).user;
     const [step, setStep] = useState(0);
-    const [data, setData] = useState<AccountObjType & AccountType & ProfileDataType>({...initialUser, ...initialUser?.accounts?.find(acc => acc.is_current) as AccountType,...initialUser?.accounts?.find(acc => acc.is_current)?.profile as ProfileDataType});
+    const history = useHistory();
+    const location = useLocation();
+    const [data, setData] = useState<AccountObjType & AccountType & ProfileDataType>({...initialUser, ...initialUser?.accounts?.find(acc => acc.is_current) as AccountType, ...initialUser?.accounts?.find(acc => acc.is_current)?.profile as ProfileDataType});
     const update = (name: string, val: any) => setData({...data, [name]: val});
     const nextStep = () => {
-        setStep(step + 1);
+        if (step + 1 >= steps.length)
+            document.location.href = mainHost();
+        else
+            setStep(step + 1);
     };
-    const onSubmit = async (values: AccountObjType & ProfileDataType &AccountType,
-                            helper: FormikHelpers<AccountObjType & ProfileDataType & AccountType>) => {
+    const goTo = (newStep: number) => {
+        if(step===0 && disableBackToFirstStep)return;
+        if(newStep===0 && disableBackToFirstStep) return;
+        setStep(newStep);
+    };
+    const onSubmit = async (values: ProfileFormType,
+                            helper: FormikHelpers<ProfileFormType>) => {
+        await preSubmit();
         const {
             first_name, last_name, email, birthday, gender, terms_and_conditions,
             phone_number, addresses, dietary_restrictions,
             injuries, about, qualifications, additional_info, avatar,
+            password, password_confirmation
         } = values;
         const user = initialData?.user as AccountObjType;
         logger.info('SUBMITTING 1');
         try {
+            if (password && password_confirmation) {
+                await api.post(EP_SET_PASSWORD + document.location.search, {
+                    password, password_confirmation
+                }).then(() => {
+                    history.replace(location.pathname);
+                })
+                return nextStep();
+            }
             const payload: any = {
                 user: fillExist({
                     first_name, last_name, email, birthday, gender
-                }),
-                profile: {
-                    phone_number, dietary_restrictions, injuries, about, qualifications, additional_info
-                },
+                }) || undefined,
+
 
             };
+            if (phone_number || dietary_restrictions || injuries || about || qualifications || additional_info) {
+                payload.profile = fillExist({
+                    phone_number, dietary_restrictions, injuries, about, qualifications, additional_info
+                })
+            }
             if (addresses?.length) {
                 payload.addresses = addresses.map(addr => ({
                     ...addr,
                     country_code: addr?.country?.code || undefined,
-                    id: addr?.id && addr.id > 0 ?addr?.id :undefined
+                    id: addr?.id && addr.id > 0 ? addr?.id : undefined,
+                    is_default: true
                 }));
             }
-            const authRes = await api.put<{data:AccountObjType}>(EP_UPDATE_PROFILE_CUSTOM, payload)
+            const authRes = await api.put<{ data: AccountObjType }>(EP_UPDATE_PROFILE_CUSTOM, payload)
                 .then(res => res.data.data);
             (initialData as AuthResponseType).user = authRes;
+            setInitialData({...(initialData as AuthResponseType)});
             if (step + 1 >= steps.length)
-                document.location.href = mainHost();
+            {
+                try {
+                    document.location.replace(mainHost());
+                } catch(e){
+                    document.location.href = mainHost();
+                }
+            }
             else nextStep();
         } catch (e) {
 
@@ -86,7 +130,16 @@ export const OnBoardProvider = ({children, steps}: { children: React.ReactNode, 
         }
     };
     return (
-        <OnBoardContext.Provider value={{data, update, step, nextStep, onSubmit, steps}}>
+        <OnBoardContext.Provider value={{
+            data: {...data, password: '', password_confirmation: '', current_password: ''},
+            update,
+            step,
+            nextStep,
+            onSubmit,
+            goTo,
+            steps,
+            preSubmit
+        }}>
             {children}
         </OnBoardContext.Provider>
     );

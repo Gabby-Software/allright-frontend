@@ -92,7 +92,7 @@ export const profileBasic: OnBoardItemType[] = [
             {
                 name: 'phone_number',
                 label: 'profile:phone',
-                type: 'text'
+                type: 'phone'
             },
             {
                 name: 'gender',

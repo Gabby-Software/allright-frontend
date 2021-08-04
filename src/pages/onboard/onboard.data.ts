@@ -15,7 +15,7 @@ const liveRightOnBoard: OnBoardStepType[] = [
                 type: 'row',
                 data: [
                     {
-                        type: 'text',
+                        type: 'phone',
                         name: 'phone_number',
                         label: 'profile:phone'
                     },
