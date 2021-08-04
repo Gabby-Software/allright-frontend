@@ -112,7 +112,7 @@ export const OnBoardProvider = ({children, steps, preSubmit=()=>{}}: { children:
             if (step + 1 >= steps.length)
             {
                 try {
-                    window.history.replaceState({}, brand.name, mainHost());
+                    document.location.replace(mainHost());
                 } catch(e){
                     document.location.href = mainHost();
                 }
