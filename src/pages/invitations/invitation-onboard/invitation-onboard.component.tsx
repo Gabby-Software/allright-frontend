@@ -17,7 +17,7 @@ const SkipOnboard = () => {
 const InvitationOnboard = ({}:Props) => {
     const isMobile = useIsMobile();
     return (
-        <OnBoardProvider steps={invitationOnBoardData}>
+        <OnBoardProvider steps={invitationOnBoardData} disableBackToFirstStep>
             {isMobile ? <OnBoardMobile/> : <OnboardDesktop/>}
             <SkipOnboard/>
         </OnBoardProvider>
