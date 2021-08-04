@@ -33,6 +33,7 @@ const SignUpConfirmationForm = () => {
         api.put<{data:AccountObjType}>(EP_UPDATE_PROFILE_CUSTOM, {user:{email}})
             .then((res) => res.data.data)
             .then(user => setData({...(data as AuthResponseType), user}))
+            .then(resendEmail)
             .then(()=>toast.show({type: "success", msg: t("alerts:update-email-success")}))
             .then(() => setIsChangingEmail(false))
             .catch(e => toast.show({type: "error", msg: serverError(e)}));
