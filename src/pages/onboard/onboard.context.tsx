@@ -19,6 +19,7 @@ import {
 import {fillExist} from "../../pipes/fill-exist.pipe";
 import {ProfileFormType} from "../profile/profile.type";
 import {useHistory, useLocation} from "react-router";
+import brand from "../../config/branding.config";
 
 
 export type OnBoardContextType = {
@@ -109,7 +110,13 @@ export const OnBoardProvider = ({children, steps, preSubmit=()=>{}}: { children:
             (initialData as AuthResponseType).user = authRes;
             setInitialData({...(initialData as AuthResponseType)});
             if (step + 1 >= steps.length)
-                document.location.href = mainHost();
+            {
+                try {
+                    window.history.replaceState({}, brand.name, mainHost());
+                } catch(e){
+                    document.location.href = mainHost();
+                }
+            }
             else nextStep();
         } catch (e) {
 
