@@ -23,12 +23,11 @@ const FormPhone = ({name, label, onUpdate, type, icon}: Props) => {
                         form.errors[name] && form.touched[name] && 'text_input__error',
                         icon && 'text_input__icon'
                     )}>
-                        {logger.info('FORM DATA + ERRORS', field, form.values, form.errors, form.values.addresses[0]?.country?.code)}
                         <div className={'text_input__cont'}>
                             <div className={'text_input__label'}>{label}</div>
                             <div className={'text_input__content'}>
                                 <PhoneInputStyles
-                                    defaultCountry={form.values.addresses[0]?.country?.code}
+                                    defaultCountry={form.values.addresses&&form.values.addresses[0]?.country?.code}
                                     className={'text_input__input'} type={type || 'text'}
                                     name={name} value={field.value} onBlur={field.onBlur}
                                     onChange={value => {
