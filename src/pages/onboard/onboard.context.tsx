@@ -100,12 +100,14 @@ export const OnBoardProvider = ({children, steps, preSubmit=()=>{}}: { children:
                 payload.addresses = addresses.map(addr => ({
                     ...addr,
                     country_code: addr?.country?.code || undefined,
-                    id: addr?.id && addr.id > 0 ? addr?.id : undefined
+                    id: addr?.id && addr.id > 0 ? addr?.id : undefined,
+                    is_default: true
                 }));
             }
             const authRes = await api.put<{ data: AccountObjType }>(EP_UPDATE_PROFILE_CUSTOM, payload)
                 .then(res => res.data.data);
             (initialData as AuthResponseType).user = authRes;
+            setInitialData({...(initialData as AuthResponseType)});
             if (step + 1 >= steps.length)
                 document.location.href = mainHost();
             else nextStep();
