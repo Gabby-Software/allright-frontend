@@ -71,18 +71,18 @@ const extend = {
     `,
     radioCircle: `
             &:before {
-            content: '';
-            display: block;
-            border-radius: 50%;
-            border: 2px solid ${vars.colors.inputBorder};
-            width: 16px;
-            height: 16px;
-            padding:2px;
-            margin-right: 13px;
+                content: '';
+                display: block;
+                border-radius: 50%;
+                border: 2px solid ${vars.colors.inputBorder};
+                width: 16px;
+                height: 16px;
+                padding:2px;
+                margin-right: 13px;
             }
             &__active {
                 &:before {
-                    background: radial-gradient(circle at center, ${vars.colors.primaryDark} 40%, transparent 40%);
+                    background: radial-gradient(circle at 6px 6px, ${vars.colors.primaryDark} 40%, transparent 40%);
                     border-color: ${vars.colors.primaryDark};
                 } 
             }
