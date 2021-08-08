@@ -77,6 +77,7 @@ const extend = {
                 border: 2px solid ${vars.colors.inputBorder};
                 width: 16px;
                 height: 16px;
+                flex-shrink:0;
                 padding:2px;
                 margin-right: 13px;
             }
