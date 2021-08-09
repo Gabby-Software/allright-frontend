@@ -45,6 +45,10 @@ const ProfileAddresses = ({}: Props) => {
             form.setFieldValue(`addresses.${i}.is_default`, i===idx);
         }
     };
+    const emptyAddress = (addresses: AddressType[]) => {
+        const addr = addresses.filter(d => !d._delete)[0];
+        return !addr.country?.code && !addr.city && !addr.address && !addr.postal_code
+    }
     return (
         <Styles>
             <ProfileTitle title={'Addresses'}/>
@@ -109,7 +113,8 @@ const ProfileAddresses = ({}: Props) => {
                                             ))
                                         }
                                         {
-                                            editMode && field.value.filter((d: AddressType)=>!d._delete).length < 2? (
+                                            editMode && field.value.filter((d: AddressType)=>!d._delete).length < 2
+                                                && !emptyAddress(field.value)? (
                                                 <p className={'profile-addr__add'}
                                                    onClick={() => addAddr(helpers, field.value.filter((d: AddressType)=>!d._delete).length)}>{t('profile:add-address')}</p>
                                             ) : null
