@@ -41,7 +41,7 @@ Yup.addMethod(Yup.string, 'zip', function() {
         name: 'zip',
         message: 'invalid-zip',
         test: (value) => {
-            return !value || /^[a-zA-Z\d\-\s]{5,10}$/.test(value||'');
+            return !value || /^[a-zA-Z\d\-\s]{4,10}$/.test(value||'');
         }
     });
 });
