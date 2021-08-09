@@ -11,9 +11,10 @@ type Props = {
     label: string,
     type?: string,
     icon?: React.ReactNode,
-    onUpdate?: (name: string, value: string) => void
+    onUpdate?: (name: string, value: string) => void,
+    disabled?: boolean;
 };
-const FormInputLabeled = ({name, label, type, onUpdate, icon}: Props) => {
+const FormInputLabeled = ({name, label, type, onUpdate, icon, disabled}: Props) => {
     return (
         <Field name={name}>
             {
@@ -24,12 +25,12 @@ const FormInputLabeled = ({name, label, type, onUpdate, icon}: Props) => {
                         icon && 'text_input__icon'
 
                     )}>
-                        {logger.info('FORM DATA + ERRORS', field, form.values, form.errors)}
                         <label className={'text_input__cont'}>
                             <div className={'text_input__label'}>{label}</div>
                             <div className={'text_input__content'}>
                                 <input className={'text_input__input'} type={type || 'text'}
                                        name={name} value={field.value} onBlur={field.onBlur}
+                                       disabled={disabled}
                                        onChange={e => {
                                            form.setFieldValue(name, e.target.value);
                                            onUpdate && onUpdate(name, e.target.value);
