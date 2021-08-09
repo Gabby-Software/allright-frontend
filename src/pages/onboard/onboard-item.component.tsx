@@ -20,7 +20,7 @@ const OnboardItem = ({type, name, label, data, options, props}: OnBoardItemType)
         case 'row':
             return <FormRow>{data?.map(p => <OnboardItem {...p}/>)}</FormRow>;
         case 'text':
-            return <FormInputLabeled name={name || ''} label={t(label || '')} onUpdate={update}/>;
+            return <FormInputLabeled {...props} name={name || ''} label={t(label || '')} onUpdate={update}/>;
         case 'phone':
             return <FormPhone name={name||''} label={t(label||'')} onUpdate={update}/>
         case 'country-select':

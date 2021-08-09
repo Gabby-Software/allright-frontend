@@ -64,7 +64,7 @@ export const profileBasic: OnBoardItemType[] = [
             {
                 name: 'first_name',
                 label: 'profile:first-name',
-                type: 'text'
+                type: 'text',
             },
             {
                 name: 'last_name',
@@ -87,7 +87,10 @@ export const profileBasic: OnBoardItemType[] = [
             {
                 name: 'email',
                 label: 'profile:email',
-                type: 'text'
+                type: 'text',
+                props: {
+                    disabled: true
+                }
             },
             {
                 name: 'phone_number',
