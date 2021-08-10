@@ -6,6 +6,7 @@ import {ReactComponent as AddIcon} from "../../../assets/media/icons/add.svg";
 import {ReactComponent as TrashIcon} from "../../../assets/media/icons/trash.svg";
 import fileManager from "../../../managers/file.manager";
 import {useTranslation} from "../../../modules/i18n/i18n.hook";
+import {toast} from "../../toast/toast.component";
 
 type Props = {
     name: string;
@@ -19,6 +20,10 @@ const FormFileUpload = ({name, label, initialFilename, onUpdate}: Props) => {
     const handleChange = (e: ChangeEvent<HTMLInputElement>, form: FormikProps<any>) => {
         if (!e?.target?.files || !e?.target?.files[0]) return;
         const file = e?.target?.files[0];
+        const size = file.size/1024/1024;
+        if(size >= 5) {
+            return toast.show({type: 'error', msg: t('errors:max-filesize')});
+        }
         fileManager.readAsUrl(e.target.files[0])
             .then(url => {
                 setFilename(file.name);
