@@ -18,8 +18,13 @@ export const Skip = () => {
     return (
         <SkipBtn type={'link'}>
             <a onClick={async () => {
-                await preSubmit();
-                nextStep();
+                if(preSubmit){
+                    await preSubmit();
+                    setTimeout(nextStep, 400);
+                } else {
+                    nextStep();
+                }
+
             }}>{t('skip')}</a>
         </SkipBtn>
     );
