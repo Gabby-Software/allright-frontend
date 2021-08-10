@@ -30,10 +30,10 @@ const VerifyEmail = () => {
             api.get<AuthResponseType>(`${EP_VERIFY_EMAIL}/${id}/${token}${location.search}`)
                 .then(res => {
                     logger.success('EMAIL VERIFIED', res);
-                    cookieManager.set('auth', JSON.stringify({
-                        ...data?.user,
-                        email_verified_at: new Date().toUTCString(),
-                    }), data?.expires_in);
+                    // cookieManager.set('auth', JSON.stringify({
+                    //     ...data?.user,
+                    //     email_verified_at: new Date().toUTCString(),
+                    // }), data?.expires_in);
                     setData({
                         access_token: data?.access_token as string,
                         expires_in: data?.expires_in,

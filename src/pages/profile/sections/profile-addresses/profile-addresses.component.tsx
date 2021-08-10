@@ -10,6 +10,7 @@ import {AddressType} from "../../../../types/address.type";
 import {useProfileContext} from "../../profile.context";
 import ProfileField from "../../components/profile-field/profile-field.component";
 import {classes} from "../../../../pipes/classes.pipe";
+import logger from "../../../../managers/logger.manager";
 
 type Props = {};
 const ProfileAddresses = ({}: Props) => {
@@ -34,10 +35,17 @@ const ProfileAddresses = ({}: Props) => {
         helpers.insert(i, empty_addr);
     };
     const removeAddr = (helpers:ArrayHelpers, form: FormikProps<any>, i:number) => {
+        const isDefault = form.values.addresses[i].is_default;
         if(form.values.addresses[i].id) {
             form.setFieldValue(`addresses.${i}._delete`, true);
         } else {
             helpers.remove(i);
+        }
+        if(isDefault) {
+            form.values.addresses[i]._delete=true;
+            const idx = form.values.addresses.findIndex((addr:AddressType) => !addr._delete);
+            logger.info('ADDR', idx, form.values.addresses);
+            form.setFieldValue(`addresses.${idx}.is_default`, true);
         }
     };
     const markAsDefault = (idx: number, total: number, form: FormikProps<any>) => {
@@ -116,7 +124,7 @@ const ProfileAddresses = ({}: Props) => {
                                             editMode && field.value.filter((d: AddressType)=>!d._delete).length < 2
                                                 && !emptyAddress(field.value)? (
                                                 <p className={'profile-addr__add'}
-                                                   onClick={() => addAddr(helpers, field.value.filter((d: AddressType)=>!d._delete).length)}>{t('profile:add-address')}</p>
+                                                   onClick={() => addAddr(helpers, field.value.length)}>{t('profile:add-address')}</p>
                                             ) : null
                                         }
                                     </>

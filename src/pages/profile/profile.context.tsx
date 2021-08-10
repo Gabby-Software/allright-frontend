@@ -103,7 +103,7 @@ export const ProfileProvider = ({children}: { children: ComponentProps<any> }) =
                     ...addr,
                     country_code: addr?.country?.code || undefined,
                     id: addr?.id && addr.id > 0 ?addr?.id :undefined
-                }));
+                })).slice(0,2);
             }
             const authRes = await api.put<{data:AccountObjType}>(EP_UPDATE_PROFILE_CUSTOM, payload)
                 .then(res => res.data.data);
@@ -130,15 +130,9 @@ export const ProfileProvider = ({children}: { children: ComponentProps<any> }) =
             //     ...data
             // } as AuthResponseType);
             // logger.info('SUBMITTING 3');
-            if (terms_and_conditions?.file_name || tnbFile) {
-                const fd = new FormData();
-                tnbFile && fd.append('terms_conditions', tnbFile || '');
-                const tnbres = (await api.post(EP_UPDATE_TNB, fd).then(res => res.data.data)) as AccountType;
-                logger.success('TNB RESPONSE', tnbres);
-                logger.info('SUBMITTING 4');
-                const idx = (data as AuthResponseType).user.accounts.findIndex(acc => acc.is_current);
-                (data as AuthResponseType).user.accounts[idx] = tnbres;
-            }
+            // setData({
+            //     ...data
+            // } as AuthResponseType);
             if (avatarFile) {
                 const fd = new FormData();
                 fd.append('avatar', avatarFile);
@@ -150,13 +144,26 @@ export const ProfileProvider = ({children}: { children: ComponentProps<any> }) =
                 await api.delete(EP_UPDATE_AVATAR);
                 (data as AuthResponseType).user.avatar = null;
             }
+            if (terms_and_conditions?.file_name || tnbFile) {
+                const fd = new FormData();
+                tnbFile && fd.append('terms_conditions', tnbFile || '');
+                const tnbres = (await api.post(EP_UPDATE_TNB, fd).then(res => res.data.data)) as AccountType;
+                logger.success('TNB RESPONSE', tnbres);
+                logger.info('SUBMITTING 4');
+                const idx = (data as AuthResponseType).user.accounts.findIndex(acc => acc.is_current);
+                (data as AuthResponseType).user.accounts[idx].profile = tnbres.profile;
+            }
             setData({
                 ...data
             } as AuthResponseType);
             setEditMode(false);
         } catch (e) {
-
+            setData({
+                ...data
+            } as AuthResponseType);
             handleError(helper)(e);
+        } finally {
+
         }
     };
     return (

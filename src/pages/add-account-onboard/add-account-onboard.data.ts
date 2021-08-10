@@ -17,7 +17,7 @@ export const addAccountOnboardData: OnBoardStepType[] = [
                 label: 'profile:injuries'
             },
         ],
-        trainer: [
+        client: [
             {
                 type: 'textarea',
                 name: 'about',
@@ -34,7 +34,7 @@ export const addAccountOnboardData: OnBoardStepType[] = [
                 label: 'profile:additional-information'
             }
         ],
-        client: [
+        trainer: [
             {
                 type: 'textarea',
                 name: 'dietary_restrictions',

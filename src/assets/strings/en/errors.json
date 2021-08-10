@@ -12,5 +12,6 @@
   "invalid-phone": "Invalid phone number",
   "network-error": "Something went's wrong! please try again later.",
   "invalid-zip": "Invalid postal code",
-  "age-16": "Must be at least 16 years old"
+  "age-16": "Must be at least 16 years old",
+  "max-filesize": "Cannot upload files larger then 5MB"
 }

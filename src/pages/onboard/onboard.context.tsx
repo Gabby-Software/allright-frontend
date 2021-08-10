@@ -59,7 +59,21 @@ export const OnBoardProvider = ({children, steps, preSubmit=()=>{}, disableBackT
     const history = useHistory();
     const location = useLocation();
     const [data, setData] = useState<AccountObjType & AccountType & ProfileDataType>({...initialUser, ...initialUser?.accounts?.find(acc => acc.is_current) as AccountType, ...initialUser?.accounts?.find(acc => acc.is_current)?.profile as ProfileDataType});
-    const update = (name: string, val: any) => setData({...data, [name]: val});
+    const update = (name: string, val: any) => {
+        const names = name.split('.');
+        let key: any = data;
+        while (names.length > 1) {
+            const n = names.shift();
+            if(!n) return;
+            if(Array.isArray(key))
+                key = key[+n];
+            else {
+                key = key[n];
+            }
+        }
+        key[names.shift() as string] = val;
+        setData({...data})
+    };
     const nextStep = () => {
         if (step + 1 >= steps.length)
             document.location.href = mainHost();
@@ -115,6 +129,7 @@ export const OnBoardProvider = ({children, steps, preSubmit=()=>{}, disableBackT
                 .then(res => res.data.data);
             (initialData as AuthResponseType).user = authRes;
             setInitialData({...(initialData as AuthResponseType)});
+            setData({...authRes, ...authRes?.accounts?.find(acc => acc.is_current) as AccountType, ...authRes?.accounts?.find(acc => acc.is_current)?.profile as ProfileDataType});
             if (step + 1 >= steps.length)
             {
                 try {
