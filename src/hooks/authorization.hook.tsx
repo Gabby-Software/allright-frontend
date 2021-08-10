@@ -1,4 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
+import {useEvent} from "./event.hook";
+import cookieManager from "../managers/cookie.manager";
+import {AuthDataContext} from "../modules/auth/auth-data.context";
 import {AccountObjType} from "../modules/auth/account.type";
 type IframeEventType = {
     event: string;
@@ -16,20 +19,11 @@ export type AuthResponseType = {
     user: AccountObjType;
 }
 
-export const useAuthorization = (isAuthCallback: () => AuthResponseType, handleAuthCallback: (auth: AuthResponseType) => void) => {
-
-    useEffect(() => {
-        const handler = ({data:{key, event, ...payload}}: MessageEvent<IframeEventType>) => {
-            switch (event) {
-                case messages.CHECK_LOGIN:
-                    window.parent.postMessage({key, response: isAuthCallback()}, '*');
-                    break;
-                case messages.DO_LOGIN:
-                    handleAuthCallback(payload as AuthResponseType);
-                    window.parent.postMessage({key, response: 1}, '*');
-            }
-        };
-        window.addEventListener('message', handler);
-        return () => window.removeEventListener('message', handler);
-    }, []);
+export const useAuthorization = () => {
+    const {data,setData} = useContext(AuthDataContext);
+    useEvent('focus', () => {
+        const user = cookieManager.get('auth');
+        const access_token = cookieManager.get('access_token');
+        setData(access_token?({access_token, user: JSON.parse(user)}):null);
+    });
 };

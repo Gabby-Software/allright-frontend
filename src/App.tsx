@@ -12,7 +12,7 @@ import {mainHost} from "./pipes/main-host";
 import IframeManager from "./managers/iframe.manager";
 import logger from "./managers/logger.manager";
 import {auth} from "./managers/auth.manager";
-import {AuthResponseType} from "./hooks/authorization.hook";
+import {AuthResponseType, useAuthorization} from "./hooks/authorization.hook";
 import {AuthDataContext} from "./modules/auth/auth-data.context";
 import cookieManager from "./managers/cookie.manager";
 import PageNotFound from "./pages/page-not-found/page-not-found.component";
@@ -22,7 +22,7 @@ const Styles = styled.div`
 `;
 function App() {
   useSeo();
-
+  useAuthorization();
   return (
       <Styles>
         <Switch>
