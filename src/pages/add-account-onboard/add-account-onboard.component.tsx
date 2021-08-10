@@ -30,6 +30,7 @@ const AddAccountOnboard = ({}:Props) => {
                 const user = data?.user as AccountObjType;
                 user.accounts.push(res);
                 user.accounts = user.accounts.map(acc => ({...acc, is_current: acc.type === accountType}));
+                cookieManager.set('auth', JSON.stringify(user));
                 setData({
                     ...(data as AuthResponseType),
                     user
