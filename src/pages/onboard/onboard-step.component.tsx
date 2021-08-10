@@ -17,6 +17,7 @@ const OnboardStep = ({validationSchema, fields, trainer, client}:OnBoardStepType
                 initialValues={data}
                 onSubmit={onSubmit}
                 validationSchema={validationSchema}
+                enableReinitialize
             >
                 <Form>
                     {

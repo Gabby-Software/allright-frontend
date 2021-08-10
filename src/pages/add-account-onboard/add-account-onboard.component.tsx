@@ -15,6 +15,7 @@ import {toast} from "../../components/toast/toast.component";
 import {serverError} from "../../pipes/server-error.pipe";
 import {AuthDataContext} from "../../modules/auth/auth-data.context";
 import {AddAccountContext} from "../add-account/add-account.context";
+import {AuthResponseType} from "../../hooks/authorization.hook";
 
 type Props = {};
 const AddAccountOnboard = ({}:Props) => {
@@ -28,8 +29,11 @@ const AddAccountOnboard = ({}:Props) => {
                 logger.success('ADD ACCOUNT SUCCESS', res);
                 const user = data?.user as AccountObjType;
                 user.accounts.push(res);
-                user.accounts = user.accounts.map(acc => ({...acc, is_current: acc.uuid === res.uuid}));
-                cookieManager.set('auth', JSON.stringify(user));
+                user.accounts = user.accounts.map(acc => ({...acc, is_current: acc.type === accountType}));
+                setData({
+                    ...(data as AuthResponseType),
+                    user
+                });
             })
             .catch(e => toast.show({type: 'error', msg: serverError(e)}))
     };
