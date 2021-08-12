@@ -27,5 +27,27 @@ export const invitationOnBoardData: OnBoardStepType[] = [
             }
         ]
     },
-    ...onBoardData
+    ...onBoardData.slice(0,2),
+    {
+        desc: 'onboard-restrictions',
+        validationSchema: Yup.object({
+            tnb: Yup.boolean().required('You did not accept trainer\'s Terms and Conditions')
+                .nullable().oneOf([true], 'You did not accept trainer\'s Terms and Conditions')
+        }),
+        fields: [
+            {
+                type: 'textarea',
+                name: 'dietary_restrictions',
+                label: 'profile:dietary-restrictions'
+            },
+            {
+                type: 'textarea',
+                name: 'injuries',
+                label: 'profile:injuries'
+            },
+            {
+                type: 'checkbox'
+            }
+        ]
+    }
 ];

@@ -14,10 +14,11 @@ const OnboardStep = ({validationSchema, fields, trainer, client}:OnBoardStepType
     return (
         <Steps.Step>
             <Formik
-                initialValues={data}
+                initialValues={{...data}}
                 onSubmit={onSubmit}
                 validationSchema={validationSchema}
                 enableReinitialize
+                initialTouched={{tnb: true}}
             >
                 <Form>
                     {

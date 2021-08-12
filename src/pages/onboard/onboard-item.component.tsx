@@ -12,6 +12,7 @@ import FormRadio from "../../components/forms/form-radio-button/form-radio-butto
 import {FieldArray, Field, ArrayHelpers, FieldProps} from 'formik';
 import FormPhone from "../../components/forms/form-phone/form-phone.component";
 import FormPassword from "../../components/forms/form-password/form-password.component";
+import TnbCheckbox from "./onboard-tnb.component";
 
 const OnboardItem = ({type, name, label, data, options, props}: OnBoardItemType) => {
     const {update} = useContext(OnBoardContext);
@@ -33,6 +34,8 @@ const OnboardItem = ({type, name, label, data, options, props}: OnBoardItemType)
             return <FormRadio name={name || ''} label={t(label || '')} options={options || []}/>;
         case 'password':
             return <FormPassword name={name||''} label={t(label||'')} onUpdate={update}/>;
+        case 'checkbox':
+            return <TnbCheckbox/>
         case 'list':
             return (
                 <Field name={name}>
