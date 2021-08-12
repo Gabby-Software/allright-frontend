@@ -68,7 +68,7 @@ const routes: RouteType[] = [
         Component: lazy(() => import('../pages/invitations/accept-invitation/accept-invitation.component')),
     },
     {
-        title: 'Reject Invitation',
+        title: 'Onboarding',
         url: Routes.INVITATIONS_ONBOARD,
         Component: lazy(() => import('../pages/invitations/invitation-onboard/invitation-onboard.component')),
     },

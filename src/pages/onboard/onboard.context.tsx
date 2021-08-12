@@ -31,6 +31,7 @@ export type OnBoardContextType = {
     onSubmit: (values: ProfileFormType, helper: FormikHelpers<ProfileFormType>) => void;
     goTo: (step:number) => void;
     preSubmit: () => void;
+    requireTNB?: boolean;
 };
 export type OnBoardContextTypeNotNull = OnBoardContextType & {
     data: ProfileFormType;
@@ -50,9 +51,10 @@ export const OnBoardContext = createContext<OnBoardContextType>({
 });
 type OnBoardProviderType = {
     children: React.ReactNode, steps: OnBoardStepType[], preSubmit?: ()=>void;
-    disableBackToFirstStep?: boolean
+    disableBackToFirstStep?: boolean;
+    requireTNB?: boolean;
 }
-export const OnBoardProvider = ({children, steps, preSubmit=()=>{}, disableBackToFirstStep}: OnBoardProviderType) => {
+export const OnBoardProvider = ({children, steps, preSubmit=()=>{}, disableBackToFirstStep, requireTNB}: OnBoardProviderType) => {
     const {data: initialData, setData: setInitialData} = useContext(AuthDataContext);
     const initialUser = (initialData as AuthResponseType).user;
     const [step, setStep] = useState(0);
@@ -146,14 +148,15 @@ export const OnBoardProvider = ({children, steps, preSubmit=()=>{}, disableBackT
     };
     return (
         <OnBoardContext.Provider value={{
-            data: {...data, password: '', password_confirmation: '', current_password: ''},
+            data: {...data, password: '', password_confirmation: '', current_password: '', tnb: true},
             update,
             step,
             nextStep,
             onSubmit,
             goTo,
             steps,
-            preSubmit
+            preSubmit,
+            requireTNB
         }}>
             {children}
         </OnBoardContext.Provider>

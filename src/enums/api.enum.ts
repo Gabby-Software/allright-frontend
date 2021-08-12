@@ -21,5 +21,6 @@ export const EP_UPDATE_PASSWORD = '/user/password';
 export const EP_SET_PASSWORD = '/set-password';
 export const EP_CHECK_EMAIL_EXIST = '/invitations/check';
 export const EP_INVITE_NEW_USER = '/invitations';
+export const EP_GET_TRAINER = '/training/trainer';
 
 

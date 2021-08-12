@@ -9,8 +9,8 @@ import {invitationOnBoardData} from "./invitation-onboard.data";
 
 type Props = {};
 const SkipOnboard = () => {
-    const {step} = useContext(OnBoardContext);
-    if(step!==0)
+    const {step, steps} = useContext(OnBoardContext);
+    if(step!==0 && step !== steps.length-1)
         return <Skip/>;
     return null;
 };
