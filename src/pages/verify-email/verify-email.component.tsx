@@ -28,20 +28,14 @@ const VerifyEmail = () => {
         logger.info('PARAMS', id, token, location.search);
         if(id && token) {
             api.get<AuthResponseType>(`${EP_VERIFY_EMAIL}/${id}/${token}${location.search}`)
+                .then(res => res.data)
                 .then(res => {
                     logger.success('EMAIL VERIFIED', res);
                     // cookieManager.set('auth', JSON.stringify({
                     //     ...data?.user,
                     //     email_verified_at: new Date().toUTCString(),
                     // }), data?.expires_in);
-                    setData({
-                        access_token: data?.access_token as string,
-                        expires_in: data?.expires_in,
-                        user: {
-                            ...data?.user,
-                            email_verified_at: new Date().toUTCString(),
-                        } as AccountObjType
-                    });
+                    setData(res);
                     setVerified(verifiedState.SUCCESS);
                 })
                 .catch(e => {
