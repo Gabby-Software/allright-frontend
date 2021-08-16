@@ -31,6 +31,7 @@ const VerifyEmail = () => {
                 .then(res => res.data)
                 .then(res => {
                     logger.success('EMAIL VERIFIED', res);
+                    res.user.accounts[0].is_current =true;
                     // cookieManager.set('auth', JSON.stringify({
                     //     ...data?.user,
                     //     email_verified_at: new Date().toUTCString(),
