@@ -23,13 +23,14 @@ const AddAccountOnboard = ({}:Props) => {
     const {data, setData} = useContext(AuthDataContext);
     const {accountType} = useContext(AddAccountContext);
     const preSubmit = () => {
-        api.post(EP_ADD_ACCOUNT, {type:accountType})
+        return api.post(EP_ADD_ACCOUNT, {type:accountType})
             .then(res => res.data.data)
             .then(res => {
                 logger.success('ADD ACCOUNT SUCCESS', res);
                 const user = data?.user as AccountObjType;
                 user.accounts.push(res);
                 user.accounts = user.accounts.map(acc => ({...acc, is_current: acc.type === accountType}));
+                console.log('SETTING COOKIE 4', user)
                 cookieManager.set('auth', JSON.stringify(user));
                 setData({
                     ...(data as AuthResponseType),

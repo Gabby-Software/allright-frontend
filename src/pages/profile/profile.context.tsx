@@ -60,11 +60,13 @@ export const ProfileProvider = ({children}: { children: ComponentProps<any> }) =
             .then(res => res.data.data)
             .then(res => {
                 const d = data as AuthResponseType;
+                res.user?.accounts?.forEach((acc: AccountType) => acc.is_current = acc.uuid === uuid)
                 d.user = res;
                 setData({...d});
+                console.log('SETTING COOKIE 6')
                 cookieManager.set('auth', JSON.stringify(res));
             });
-    }, [uuid]);
+    }, []);
     const switchAccount = (new_uuid: string) => {
         if(uuid === new_uuid) return;
         (data as AuthResponseType).user.accounts = data?.user.accounts.map(acc => ({
@@ -72,6 +74,7 @@ export const ProfileProvider = ({children}: { children: ComponentProps<any> }) =
             is_current: acc.uuid === new_uuid
         })) || [];
         setData({...data} as AuthResponseType);
+        console.log('SETTING COOKIE 7')
         cookieManager.set('auth', JSON.stringify(data?.user));
     };
     const handleSubmit = async (values: ProfileFormType, helper: FormikHelpers<ProfileFormType>) => {

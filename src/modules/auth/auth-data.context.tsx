@@ -7,6 +7,7 @@ import {Routes} from "../../enums/routes.enum";
 import {useLocation} from 'react-router-dom';
 import api from "../../managers/api.manager";
 import {EP_GET_USER} from "../../enums/api.enum";
+import logger from "../../managers/logger.manager";
 
 export const AuthDataContext = createContext<{
     data:AuthResponseType|null;
@@ -29,12 +30,15 @@ export const AuthDataProvider = ({children}:{children: any}) => {
                 const d = data as AuthResponseType;
                 d.user = res;
                 setData({...d});
+                console.log('SETTING COOKIE 2')
                 cookieManager.set('auth', JSON.stringify(res));
             });
     }, []);
     return (
         <AuthDataContext.Provider value={{data, setData: (data: AuthResponseType|null) => {
                 setData(data);
+                logger.info('setting user cookie', data, data?.user)
+                console.log('SETTING COOKIE 3')
                 data && cookieManager.set('access_token', data?.access_token);
                 data && cookieManager.set('auth', JSON.stringify(data?.user));
             }}}>{children}</AuthDataContext.Provider>

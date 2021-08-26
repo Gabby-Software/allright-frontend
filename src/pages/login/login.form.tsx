@@ -33,6 +33,7 @@ const LoginForm = () => {
         api.post<AuthResponseType>(EP_LOGIN, {email,password})
             .then(res => res.data)
             .then(res => {
+                console.log('SETTING COOKIE 5')
                 cookieManager.set('access_token', res.access_token, res.expires_in);
                 cookieManager.set('auth', JSON.stringify(res.user), res.expires_in);
                 if(res.user.email_verified_at) {
