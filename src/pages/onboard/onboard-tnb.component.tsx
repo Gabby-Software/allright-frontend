@@ -48,6 +48,7 @@ const TnbCheckbox = () => {
                 setTnb(res?.url || '');
                 form?.setFieldValue('tnb', false)
             })
+            .catch(e => console.error(e))
     }, [form]);
     useEffect(() => {
         form?.setFieldValue('tnb', !tnb);

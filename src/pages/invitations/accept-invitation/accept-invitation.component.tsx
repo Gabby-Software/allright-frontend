@@ -34,9 +34,10 @@ const AcceptInvitation = () => {
                 logger.success('INVITATION SUCCESS',res, res.user.is_new_user);
                 toast.show({type: 'success', msg: t('alerts:invitation-accept')});
                 setData(res);
+                console.log('res.access_token, JSON.stringify(res.access_token)', res.access_token, JSON.stringify(res.access_token))
                 console.log('SETTING COOKIE 1')
                 cookieManager.set('auth', JSON.stringify(res.user));
-                cookieManager.set('access_token', JSON.stringify(res.access_token));
+                cookieManager.set('access_token', res.access_token);
                 setNewUser(res.user.is_new_user);
                 setQuery(res.user.set_password_url.split('?')[1]);
                 setState(states.SUCCESS);
