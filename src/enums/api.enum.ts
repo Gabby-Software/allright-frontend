@@ -1,4 +1,7 @@
 // https://documenter.getpostman.com/view/8741108/Tzeak6s7#intro
+
+export const LIVERIGHT_API = process.env.REACT_APP_LIVERIGHT_API_URL
+
 export const EP_CSRF = '/sanctum/csrf-cookie';
 export const EP_REGISTER = '/register';
 export const EP_LOGIN = '/login';
@@ -21,6 +24,7 @@ export const EP_UPDATE_PASSWORD = '/user/password';
 export const EP_SET_PASSWORD = '/set-password';
 export const EP_CHECK_EMAIL_EXIST = '/invitations/check';
 export const EP_INVITE_NEW_USER = '/invitations';
-export const EP_GET_TRAINER = '/training/trainer';
+// export const EP_GET_TRAINER = '/training/trainer';
+export const EP_GET_TRAINER =  LIVERIGHT_API + '/training/trainer-users';
 
 

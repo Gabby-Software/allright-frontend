@@ -49,18 +49,22 @@ export const OnBoardContext = createContext<OnBoardContextType>({
     goTo: () => {},
     preSubmit: () => {},
 });
+
 type OnBoardProviderType = {
     children: React.ReactNode, steps: OnBoardStepType[], preSubmit?: ()=>void;
     disableBackToFirstStep?: boolean;
     requireTNB?: boolean;
 }
+
 export const OnBoardProvider = ({children, steps, preSubmit=()=>{}, disableBackToFirstStep, requireTNB}: OnBoardProviderType) => {
     const {data: initialData, setData: setInitialData} = useContext(AuthDataContext);
-    const initialUser = (initialData as AuthResponseType).user;
+    const initialUser = (initialData as AuthResponseType)?.user || {};
     const [step, setStep] = useState(0);
     const history = useHistory();
     const location = useLocation();
+
     const [data, setData] = useState<AccountObjType & AccountType & ProfileDataType>({...initialUser, ...initialUser?.accounts?.find(acc => acc.is_current) as AccountType, ...initialUser?.accounts?.find(acc => acc.is_current)?.profile as ProfileDataType});
+
     const update = (name: string, val: any) => {
         const names = name.split('.');
         let key: any = data;
@@ -76,17 +80,20 @@ export const OnBoardProvider = ({children, steps, preSubmit=()=>{}, disableBackT
         key[names.shift() as string] = val;
         setData({...data})
     };
+
     const nextStep = () => {
         if (step + 1 >= steps.length)
             document.location.href = mainHost();
         else
             setStep(step + 1);
     };
+
     const goTo = (newStep: number) => {
         if(step===0 && disableBackToFirstStep)return;
         if(newStep===0 && disableBackToFirstStep) return;
         setStep(newStep);
     };
+
     const onSubmit = async (values: ProfileFormType,
                             helper: FormikHelpers<ProfileFormType>) => {
         await preSubmit();
