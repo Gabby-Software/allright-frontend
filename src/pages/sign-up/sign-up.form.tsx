@@ -58,7 +58,7 @@ const SignUpForm = () => {
             .catch(handleError(helper))
     };
     const userTypeOptions = [
-        {label: 'Client', value: userTypes.CLIENT},
+        {label: 'Individual', value: userTypes.CLIENT},
         {label: 'Trainer', value: userTypes.TRAINER},
     ];
     const genderOptions = [

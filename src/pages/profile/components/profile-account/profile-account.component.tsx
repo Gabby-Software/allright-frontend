@@ -3,6 +3,7 @@ import Styles from './profile-account.styles';
 import {classes} from "../../../../pipes/classes.pipe";
 import {noImage} from "../../../../pipes/no-image.pipe";
 import {capitalize} from "../../../../pipes/capitalize.pipe";
+import { ACCOUNT_TYPES_LABEL } from '../../../../utils/accounts'
 
 type Prop = {
     type: string;
@@ -21,7 +22,7 @@ const ProfileAccount = ({type, active, className, noRadio, onClick, disabled}: P
                 )
             }
             <div className={'account__data'}>
-                <div className={'account__type'}>{capitalize(type)}</div>
+                <div className={'account__type'}>{capitalize(ACCOUNT_TYPES_LABEL[type] || type)}</div>
             </div>
         </Styles>
     );
