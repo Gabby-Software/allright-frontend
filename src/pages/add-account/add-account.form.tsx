@@ -41,7 +41,7 @@ const AddAccountOption = ({
                 <h3 className={'add-account__option__title'}>{title}</h3>
                 <p className={'add-account__option__desc'}>{desc}</p>
             </div>
-            <small className={'add-account__option__note'}>{disabled?t('auth:add-account.coming-soon'):exist?t('auth:add-account.already',{type}):null}</small>
+            <small className={'add-account__option__note'}>{disabled?t('auth:add-account.coming-soon'):exist? type === 'client' ? t('auth:add-account.already-client') : t('auth:add-account.already',{type}):null}</small>
         </div>
     );
 };
