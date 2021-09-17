@@ -1,12 +1,9 @@
-import React, {useState, useEffect} from 'react';
-import Button from './form-button.styles';
-import {ButtonProps} from "antd/lib/button";
-
+import React, { useState, useEffect } from 'react'
+import Button from './form-button.styles'
+import { ButtonProps } from 'antd/lib/button'
 
 const FormButton = (props: ButtonProps) => {
-    return (
-        <Button {...props}/>
-    )
-};
+  return <Button {...props} />
+}
 
-export default FormButton;
+export default FormButton

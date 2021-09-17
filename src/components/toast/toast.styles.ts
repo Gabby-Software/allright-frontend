@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export default styled.div`
     position: fixed;
@@ -9,14 +9,14 @@ export default styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    z-index: ${p => p.theme.vars.zIndex.toast};
+    z-index: ${(p) => p.theme.vars.zIndex.toast};
     svg {
         flex-shrink:0;
     }
     .alert {
         margin: 5px 20px;
         border-radius: 12px;
-        ${p => p.theme.extend.flexCenter}
+        ${(p) => p.theme.extend.flexCenter}
         padding: 18px;
         &__success {
             background-color: #EBF7EE;
@@ -38,4 +38,4 @@ export default styled.div`
             height: 12px;
         }
     }
-`;
+`
