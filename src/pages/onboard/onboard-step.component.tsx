@@ -21,8 +21,6 @@ const OnboardStep = ({
   const { type } = data
   const { t } = useTranslation()
 
-  console.log({ data, fields })
-
   return (
     <Steps.Step>
       {step === steps.length - 1 ? null : (
