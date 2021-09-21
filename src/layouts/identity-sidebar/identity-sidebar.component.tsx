@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import Styles from './identity-sidebar.styles'
-import config from '../../config/branding.config'
-import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+
+import config from '../../config/branding.config'
+import Styles from './identity-sidebar.styles'
 
 type Props = {
   children: React.ReactNode
@@ -13,6 +13,9 @@ const IdentitySidebar = ({ children }: Props) => {
     <Styles className={'sidebar'}>
       <Logo className={'sidebar__logo'} />
       <div className={'sidebar__body'}>{children}</div>
+      <p className={'sidebar__footer'}>
+        © LiveRight DMCC, 2021 - Some Rights Reserved
+      </p>
     </Styles>
   )
 }
@@ -23,12 +26,13 @@ IdentitySidebar.Title = styled.h1`
   margin: 0;
 `
 IdentitySidebar.Link = styled(Link)`
-  font-size: 20px;
-  font-weight: 700;
-  color: white;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: normal;
+  color: ${(p) => p.theme.vars.colors.defaultWhite};
   text-decoration: none;
   &:hover {
-    color: white;
+    color: ${(p) => p.theme.vars.colors.neutral_50};
   }
 `
 IdentitySidebar.ExtLink = styled.a`
@@ -48,18 +52,20 @@ IdentitySidebar.ExtLink = styled.a`
   }
 `
 IdentitySidebar.Desc = styled.div`
-  color: white;
-  font-size: 20px;
-  font-weight: 500;
+  color: ${(p) => p.theme.vars.colors.neutral_50};
+  font-size: 0.875rem;
+  line-height: 1.75rem;
+  font-weight: normal;
 `
 IdentitySidebar.Subtitle = styled.div`
-  color: white;
-  font-size: 18px;
-  font-weight: 500;
+  color: ${(p) => p.theme.vars.colors.neutral_40};
+  font-size: 1rem;
+  font-weight: normal;
 `
 IdentitySidebar.Hr = styled.div`
-  margin: 40px 0;
-  border-bottom: 1px solid white;
+  margin: 50px 0;
+  border-top 0;
+  border-bottom: 1px solid ${(p) => p.theme.vars.colors.neutral_40};
   max-width: 50px;
 `
 IdentitySidebar.Space = styled.div`

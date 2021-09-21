@@ -1,13 +1,18 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import styled from 'styled-components'
+
 import FormButton from '../../components/forms/form-button/form-button.component'
 import { useTranslation } from '../../modules/i18n/i18n.hook'
-import { mainHost } from '../../pipes/main-host'
+// import { mainHost } from '../../pipes/main-host'
 import { OnBoardContext } from '../onboard/onboard.context'
 
 const SkipBtn = styled(FormButton)`
+  margin-top: 0;
+  margin-bottom: 40px;
+  padding-right: 0;
+
   margin-top: 10px;
-  position: absolute;
+  position: relative;
   top: 0;
   right: 0;
   max-width: 100px;

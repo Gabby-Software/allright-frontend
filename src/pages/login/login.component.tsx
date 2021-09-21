@@ -1,8 +1,9 @@
 import React from 'react'
+
 import { onlyGuest } from '../../guards/guest.guard'
 import { useIsMobile } from '../../hooks/is-mobile.hook'
-import LoginMobile from './login.mobile'
 import LoginDesktop from './login.desktop'
+import LoginMobile from './login.mobile'
 
 const Login = () => {
   const isMobile = useIsMobile()

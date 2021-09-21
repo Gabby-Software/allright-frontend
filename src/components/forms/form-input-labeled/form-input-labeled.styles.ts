@@ -26,18 +26,18 @@ export default styled.div`
       }
     }
     &__label {
-      color: ${(p) => p.theme.vars.colors.primaryDark};
+      color: ${(p) => p.theme.vars.colors.neutral_60};
       transition: ${(p) => p.theme.vars.defaults.transition};
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 400;
       margin-bottom: 8px;
       text-align: left;
     }
     &__input {
       display: block;
       padding: 14px 16px;
-      background-color: #fbfbfb;
-      border: 1px solid #c4c4c4;
+      background-color: ${(p) => p.theme.vars.colors.gray_1};
+      border: 1px solid ${(p) => p.theme.vars.colors.neutral_30};
       color: ${(p) => p.theme.vars.colors.dark};
       border-radius: ${(p) => p.theme.vars.sizes.borderRadius};
       outline: none;

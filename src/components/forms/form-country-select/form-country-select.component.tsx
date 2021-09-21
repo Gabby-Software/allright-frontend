@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import { useTranslation } from '../../../modules/i18n/i18n.hook'
-import FormSelect from '../form-select/form-select.component'
-import { OptionType } from '../../../types/option.type'
-import api from '../../../managers/api.manager'
+import React, { useEffect, useState } from 'react'
+
 import { EP_GET_COUNTRIES } from '../../../enums/api.enum'
-import logger from '../../../managers/logger.manager'
+import api from '../../../managers/api.manager'
+// import logger from '../../../managers/logger.manager'
+import { useTranslation } from '../../../modules/i18n/i18n.hook'
 import { CountryType } from '../../../types/country.type'
+import { OptionType } from '../../../types/option.type'
+import FormSelect from '../form-select/form-select.component'
 
 type FormCountrySelectPropsType = {
   name?: string

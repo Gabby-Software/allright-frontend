@@ -11,7 +11,6 @@ type Props = {
   desc: string
 }
 const IdentityMobileLayout = ({ children, title, desc }: Props) => {
-  const { t } = useTranslation()
   return (
     <Styles>
       <Wrapper>

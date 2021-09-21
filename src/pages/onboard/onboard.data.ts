@@ -1,7 +1,8 @@
-import { OnBoardItemType, OnBoardStepType } from './onboard.type'
-import config from '../../config/branding.config'
-import * as Yup from 'yup'
 import moment, { Moment } from 'moment'
+import * as Yup from 'yup'
+
+import config from '../../config/branding.config'
+import { /* OnBoardItemType, */ OnBoardStepType } from './onboard.type'
 
 const liveRightOnBoard: OnBoardStepType[] = [
   {
@@ -13,6 +14,7 @@ const liveRightOnBoard: OnBoardStepType[] = [
     fields: [
       {
         type: 'row',
+        // type: 'text',
         data: [
           {
             type: 'phone',

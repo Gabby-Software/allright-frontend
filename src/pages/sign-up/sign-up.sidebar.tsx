@@ -1,8 +1,9 @@
 import React from 'react'
-import { useTranslation } from '../../modules/i18n/i18n.hook'
-import IdentitySidebar from '../../layouts/identity-sidebar/identity-sidebar.component'
+
+// import config from '../../config/branding.config'
 import { Routes } from '../../enums/routes.enum'
-import config from '../../config/branding.config'
+import IdentitySidebar from '../../layouts/identity-sidebar/identity-sidebar.component'
+import { useTranslation } from '../../modules/i18n/i18n.hook'
 
 const SignUpSidebar = () => {
   const { t } = useTranslation()

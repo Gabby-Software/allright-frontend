@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import Styles from './identity-mobile-footer.styles'
-import { useTranslation } from '../../modules/i18n/i18n.hook'
-import config from '../../config/branding.config'
 import { Link } from 'react-router-dom'
+
+import config from '../../config/branding.config'
+import { useTranslation } from '../../modules/i18n/i18n.hook'
+import Styles from './identity-mobile-footer.styles'
 
 const IdentityMobileFooter = () => {
   const { t } = useTranslation()

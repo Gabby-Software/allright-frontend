@@ -1,6 +1,7 @@
-import React, { useState, useEffect, Children, useMemo } from 'react'
-import Styles from './steps.styles'
+import React, { Children, useMemo } from 'react'
+
 import { classes } from '../../pipes/classes.pipe'
+import Styles from './steps.styles'
 
 type StepsProps = {
   children: React.ReactNode

@@ -1,7 +1,8 @@
 import React from 'react'
+
 import IdentityLayout from '../../layouts/identity-layout/identity-layout.component'
-import SignUpSidebar from './sign-up.sidebar'
 import SignUpForm from './sign-up.form'
+import SignUpSidebar from './sign-up.sidebar'
 
 const SignUpDesktop = () => {
   return (

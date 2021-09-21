@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import Styles, { PhoneInputStyles } from './form-phone.styles'
 import { Field, FieldProps } from 'formik'
-import FormError from '../form-error/form-error.component'
+import React from 'react'
+
 import { ReactComponent as WarningIcon } from '../../../assets/media/icons/warning.svg'
 import { classes } from '../../../pipes/classes.pipe'
-import logger from '../../../managers/logger.manager'
+import FormError from '../form-error/form-error.component'
+import Styles, { PhoneInputStyles } from './form-phone.styles'
 
 type Props = {
   name: string
@@ -39,7 +39,7 @@ const FormPhone = ({ name, label, onUpdate, type, icon }: Props) => {
                 onBlur={field.onBlur}
                 onChange={(value) => {
                   form.setFieldValue(name, value)
-                  onUpdate && onUpdate(name, value)
+                  onUpdate && onUpdate(name, value as string)
                 }}
               />
               {icon || null}

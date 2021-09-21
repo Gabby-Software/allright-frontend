@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { Select } from 'antd'
 
 export const MobileStyles = styled.div`
   .select_input {
@@ -8,17 +7,17 @@ export const MobileStyles = styled.div`
       display: block;
     }
     &__label {
-      color: ${(p) => p.theme.vars.colors.primaryDark};
+      color: ${(p) => p.theme.vars.colors.neutral_60};
       transition: ${(p) => p.theme.vars.defaults.transition};
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 400;
       margin-bottom: 8px;
       text-align: left;
     }
     &__input {
       display: block;
       padding: 14px 16px;
-      background-color: #fbfbfb;
+      background-color: ${(p) => p.theme.vars.colors.gray_1};
       border: 1px solid #c4c4c4;
       color: ${(p) => p.theme.vars.colors.dark};
       border-radius: ${(p) => p.theme.vars.sizes.borderRadius};
@@ -27,6 +26,14 @@ export const MobileStyles = styled.div`
       box-sizing: border-box;
       &:focus {
         border-color: black;
+      }
+      .ant-select-selector {
+        background-color: transparent;
+        border: 0px;
+        height: 22px;
+        .ant-select-selection-item {
+          line-height: 24px;
+        }
       }
     }
   }
@@ -40,10 +47,10 @@ export const DesktopStyles = styled.div`
       display: block;
     }
     &__label {
-      color: ${(p) => p.theme.vars.colors.primaryDark};
+      color: ${(p) => p.theme.vars.colors.neutral_60};
       transition: ${(p) => p.theme.vars.defaults.transition};
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 400;
       margin-bottom: 8px;
       text-align: left;
     }
@@ -51,8 +58,8 @@ export const DesktopStyles = styled.div`
   .ant-select {
     display: block;
     padding: 9px 3px;
-    background-color: #fbfbfb;
-    border: 1px solid #c4c4c4;
+    background-color: ${(p) => p.theme.vars.colors.gray_1};
+    border: 1px solid ${(p) => p.theme.vars.colors.neutral_30};
     color: ${(p) => p.theme.vars.colors.dark};
     border-radius: ${(p) => p.theme.vars.sizes.borderRadius};
     outline: none;

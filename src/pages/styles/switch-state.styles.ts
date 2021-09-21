@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export default styled.p`
   font-size: 14px;
-  color: #333333;
+  color: ${(p) => p.theme.vars.colors.neutral_70};
   font-weight: 400;
   margin-top: 54px;
   margin-bottom: 0;
@@ -10,7 +10,7 @@ export default styled.p`
     margin-top: 20px;
   }
   a {
-    margin-top: 5px;
+    margin-top: 10px;
     display: block;
     color: ${(p) => p.theme.vars.colors.primary};
     font-weight: 700;

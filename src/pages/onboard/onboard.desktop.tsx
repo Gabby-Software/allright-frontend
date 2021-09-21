@@ -1,9 +1,10 @@
-import React, { useContext } from 'react'
-import { OnBoardContext } from './onboard.context'
-import { useTranslation } from '../../modules/i18n/i18n.hook'
+import { useContext } from 'react'
+
+import Steps from '../../components/steps/steps.component'
 import IdentityLayout from '../../layouts/identity-layout/identity-layout.component'
 import IdentitySidebar from '../../layouts/identity-sidebar/identity-sidebar.component'
-import Steps from '../../components/steps/steps.component'
+import { useTranslation } from '../../modules/i18n/i18n.hook'
+import { OnBoardContext } from './onboard.context'
 import OnboardStep from './onboard-step.component'
 
 const OnboardDesktop = () => {

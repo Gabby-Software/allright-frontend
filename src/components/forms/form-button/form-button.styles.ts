@@ -1,12 +1,12 @@
-import styled from 'styled-components'
 import { Button } from 'antd'
+import styled from 'styled-components'
 
 export default styled(Button)`
-  border-radius: ${(p) => p.theme.vars.sizes.borderRadius};
+  border-radius: 10px;
   padding: 15px 30px;
   height: auto;
   width: 100%;
-  font-weight: 600;
+  font-weight: 400;
   transition: ${(p) => p.theme.vars.defaults.transition};
   font-family: ${(p) => p.theme.vars.defaults.font};
   box-shadow: 0px 4px 8px 1px rgba(242, 96, 96, 0.15);

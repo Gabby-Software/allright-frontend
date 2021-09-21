@@ -2,7 +2,8 @@ import styled from 'styled-components'
 
 export default styled.div`
   display: flex;
-  font-family: 'Work Sans', sans-serif;
+  /* font-family: 'Work Sans', sans-serif; */
+  font-family: 'Circular Std', sans-serif;
   ${(p) => p.theme.extend.flexCenter}
   justify-content: flex-center;
   background-color: white;
@@ -18,7 +19,7 @@ export default styled.div`
   .text_input__wrapper,
   .radio__wrapper,
   .textarea__wrapper {
-    margin-bottom: 12px;
+    margin-bottom: 1.375rem;
   }
   .sign-up__name {
     @media all and (min-width: ${(p) => p.theme.vars.media.tablet}px) {
@@ -29,8 +30,14 @@ export default styled.div`
       }
     }
   }
+  @media all and (max-width: ${(p) => p.theme.vars.media.mobile}px) {
+    .text_input__wrapper {
+      margin-bottom: 22px;
+    }
+  }
   .ant-btn {
     margin-top: 36px;
+    font-size: 1rem;
   }
   .layout {
     &__main {
@@ -41,7 +48,7 @@ export default styled.div`
       flex-direction: column;
     }
     &__wrapper {
-      padding: 80px 0 180px 0;
+      padding: 80px 0 0 0;
       margin: auto;
       width: 100%;
       max-width: 395px;

@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import Styles from './form-input-labeled.styles'
 import { Field, FieldProps } from 'formik'
-import FormError from '../form-error/form-error.component'
+import React, { useEffect, useState } from 'react'
+
 import { ReactComponent as WarningIcon } from '../../../assets/media/icons/warning.svg'
-import { classes } from '../../../pipes/classes.pipe'
 import logger from '../../../managers/logger.manager'
+import { classes } from '../../../pipes/classes.pipe'
+import FormError from '../form-error/form-error.component'
+import Styles from './form-input-labeled.styles'
 
 type Props = {
   name: string

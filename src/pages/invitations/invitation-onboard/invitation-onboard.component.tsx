@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react'
-import Styles from './invitation-onboard.styles'
+import React, { useContext } from 'react'
+
 import { useIsMobile } from '../../../hooks/is-mobile.hook'
 import { OnBoardContext, OnBoardProvider } from '../../onboard/onboard.context'
-import OnBoardMobile from '../../onboard/onboard.mobile'
 import OnboardDesktop from '../../onboard/onboard.desktop'
+import OnBoardMobile from '../../onboard/onboard.mobile'
 import { Skip } from '../../styles/skip.styles'
 import { invitationOnBoardData } from './invitation-onboard.data'
 

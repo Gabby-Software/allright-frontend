@@ -4,10 +4,18 @@ const vars = {
   colors: {
     primary: brand.primaryColor,
     primaryLight: brand.primaryLightColor,
+    defaultWhite: '#FFFFFF',
     primaryDark: '#40424D',
     secondary: '#BDBDBD',
     secondary2: '#d5d5d5',
     secondary3: '#818799',
+    gray_1: '#F8F8F8',
+    neutral_30: '#EDEDED',
+    neutral_40: '#E0E0E0',
+    neutral_50: '#C2C2C2',
+    neutral_60: '#9E9E9E',
+    neutral_70: '#757575',
+    neutral_80: '#5E5E5E',
     dark: '#5A5A5A',
     dark2: '#39393d',
     light: '#EBEBEB',
@@ -40,7 +48,8 @@ const vars = {
   },
   defaults: {
     transition: 'all .3s ease',
-    font: "'Work Sans', sans-serif"
+    // font: "'Work Sans', sans-serif"
+    font: "'Circular Std', sans-serif"
   }
 }
 export default vars

@@ -31,6 +31,25 @@ export default styled.div`
       width: 100%;
       overflow: hidden;
       padding: 0 1px;
+      &:last-child {
+        padding-top: 80px;
+        @media all and (max-width: ${(p) => p.theme.vars.media.mobile}px) {
+          padding-top: 56px;
+        }
+      }
+    }
+  }
+
+  @media all and (max-width: ${(p) => p.theme.vars.media.mobile}px) {
+    .onboard__row {
+      display: flex;
+      > * {
+        width: 100%;
+        margin-right: 10px;
+        &:last-child {
+          margin-right: 0;
+        }
+      }
     }
   }
 `

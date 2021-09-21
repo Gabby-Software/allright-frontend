@@ -1,19 +1,22 @@
-import React, { useState, useEffect } from 'react'
-import Styles from './form-switch.styles'
-import { FormikProps, Field, FieldProps, ErrorMessage } from 'formik'
+import { Field, FieldProps } from 'formik'
+
 import { classes } from '../../../pipes/classes.pipe'
 import FormError from '../form-error/form-error.component'
+import Styles, { FormSwitchNoBorder } from './form-switch.styles'
 
 type Props = {
   name: string
   onUpdate?: (name: string, value: string) => void
   options: { label: string; value: string }[]
+  border?: boolean
 }
-const FormSwitch = ({ name, options, onUpdate }: Props) => {
+
+const FormSwitch = ({ name, options, onUpdate, border = false }: Props) => {
+  const Wrapper = border ? FormSwitchNoBorder : Styles
   return (
     <Field name={name}>
       {({ field, form }: FieldProps) => (
-        <Styles className={'switch__wrapper'}>
+        <Wrapper className={'switch__wrapper'}>
           <div className={'switch__cont'}>
             <div className={'switch'}>
               <div
@@ -44,7 +47,7 @@ const FormSwitch = ({ name, options, onUpdate }: Props) => {
             </div>
           </div>
           <FormError name={name} />
-        </Styles>
+        </Wrapper>
       )}
     </Field>
   )

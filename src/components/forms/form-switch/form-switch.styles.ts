@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export default styled.div`
+const FormSwitch = styled.div`
   display: flex;
   flex-direction: column;
   .switch {
@@ -42,3 +42,28 @@ export default styled.div`
     }
   }
 `
+
+export const FormSwitchNoBorder = styled(FormSwitch)`
+  .switch {
+    &__cont {
+      border: 0px;
+    }
+    &__item {
+      &:nth-child(2) {
+        margin-right: 10px;
+      }
+      &:last-child {
+        margin-left: 10px;
+      }
+      font-weight: 400;
+      color: ${(p) => p.theme.vars.colors.neutral_50};
+      &:not(.switch__item__active) {
+        background-color: ${(p) => p.theme.vars.colors.gray_1};
+      }
+      &__active {
+        color: white;
+      }
+    }
+  }
+`
+export default FormSwitchNoBorder

@@ -1,17 +1,21 @@
+import { ArrayHelpers, Field, FieldArray, FieldProps } from 'formik'
 import React, { useContext } from 'react'
-import { OnBoardItemType } from './onboard.type'
-import { AuthFormContext } from '../../modules/auth/auth.context'
-import FormRow from '../../components/forms/form-row/form-row.component'
-import FormInputLabeled from '../../components/forms/form-input-labeled/form-input-labeled.component'
+
 import FormCountrySelect from '../../components/forms/form-country-select/form-country-select.component'
-import FormTextarea from '../../components/forms/form-textarea/form-textarea.component'
-import { OnBoardContext } from './onboard.context'
 import FormDatepicker from '../../components/forms/form-datepicker/form-datepicker.component'
-import { useTranslation } from '../../modules/i18n/i18n.hook'
-import FormRadio from '../../components/forms/form-radio-button/form-radio-button.component'
-import { FieldArray, Field, ArrayHelpers, FieldProps } from 'formik'
-import FormPhone from '../../components/forms/form-phone/form-phone.component'
+import FormInputLabeled from '../../components/forms/form-input-labeled/form-input-labeled.component'
 import FormPassword from '../../components/forms/form-password/form-password.component'
+import FormPhone from '../../components/forms/form-phone/form-phone.component'
+import FormRadio from '../../components/forms/form-radio-button/form-radio-button.component'
+import FormRow, {
+  FormRowColumn
+} from '../../components/forms/form-row/form-row.component'
+import FormTextarea from '../../components/forms/form-textarea/form-textarea.component'
+import { useIsMobile } from '../../hooks/is-mobile.hook'
+// import { AuthFormContext } from '../../modules/auth/auth.context'
+import { useTranslation } from '../../modules/i18n/i18n.hook'
+import { OnBoardContext } from './onboard.context'
+import { OnBoardItemType } from './onboard.type'
 import TnbCheckbox from './onboard-tnb.component'
 
 const OnboardItem = ({
@@ -24,14 +28,33 @@ const OnboardItem = ({
 }: OnBoardItemType) => {
   const { update } = useContext(OnBoardContext)
   const { t } = useTranslation()
+  const labels = data?.map(({ label }) => label)
+  const isMobile = useIsMobile()
+
+  const orientation =
+    isMobile &&
+    labels?.includes('profile:city') &&
+    labels?.includes('profile:postal-code')
+      ? 'onboard__row'
+      : 'onboard__column'
+
+  const FormRowWrapper =
+    (labels?.includes('profile:phone') && labels?.includes('profile:phone')) ||
+    (labels?.includes('profile:new-password') &&
+      labels?.includes('profile:confirm-password'))
+      ? FormRowColumn
+      : FormRow
+
   switch (type) {
     case 'row':
       return (
-        <FormRow>
+        <FormRowWrapper className={orientation}>
           {data?.map((p) => (
             <OnboardItem key={p.name} {...p} />
+            // why the need for recursion here?
+            // ans: If the type prop is 'row', then the data prop will not be undefined, this is then used to render multiple inputs.
           ))}
-        </FormRow>
+        </FormRowWrapper>
       )
     case 'text':
       return (

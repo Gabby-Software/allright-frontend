@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useContext, useRef } from 'react'
 import { onlyGuest } from '../../guards/guest.guard'
 import { useIsMobile } from '../../hooks/is-mobile.hook'
-import SignUpMobile from './sign-up.mobile'
 import SignUpDesktop from './sign-up.desktop'
+import SignUpMobile from './sign-up.mobile'
 
 const SignUp = () => {
   const isMobile = useIsMobile()

@@ -1,20 +1,21 @@
 import React, {
-  createContext,
-  useContext,
-  useState,
   ComponentType,
+  createContext,
   ElementType,
-  useEffect
+  useContext,
+  useEffect,
+  useState
 } from 'react'
-import { AuthResponseType } from '../../hooks/authorization.hook'
-import cookieManager from '../../managers/cookie.manager'
-import { mainHost } from '../../pipes/main-host'
-import { AccountObjType } from './account.type'
-import { Routes } from '../../enums/routes.enum'
 import { useLocation } from 'react-router-dom'
-import api from '../../managers/api.manager'
+
 import { EP_GET_USER } from '../../enums/api.enum'
+import { Routes } from '../../enums/routes.enum'
+import { AuthResponseType } from '../../hooks/authorization.hook'
+import api from '../../managers/api.manager'
+import cookieManager from '../../managers/cookie.manager'
 import logger from '../../managers/logger.manager'
+// import { mainHost } from '../../pipes/main-host'
+import { AccountObjType } from './account.type'
 
 export const AuthDataContext = createContext<{
   data: AuthResponseType | null

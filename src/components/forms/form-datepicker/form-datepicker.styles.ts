@@ -1,8 +1,9 @@
 import styled from 'styled-components'
 
+// color: ${(p) => p.theme.vars.colors.dark2};
 export default styled.div`
   .ant-picker-suffix {
-    color: ${(p) => p.theme.vars.colors.dark2};
+    color: ${(p) => p.color};
   }
   .text_input {
     &__cont {
@@ -10,10 +11,10 @@ export default styled.div`
       display: block;
     }
     &__label {
-      color: ${(p) => p.theme.vars.colors.primaryDark};
+      color: ${(p) => p.theme.vars.colors.neutral_60};
       transition: ${(p) => p.theme.vars.defaults.transition};
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 400;
       margin-bottom: 8px;
       text-align: left;
     }

@@ -1,5 +1,6 @@
-import { OptionType } from '../../types/option.type'
 import { AnyObjectSchema } from 'yup'
+
+import { OptionType } from '../../types/option.type'
 
 export type OnBoardFieldType =
   | 'text'

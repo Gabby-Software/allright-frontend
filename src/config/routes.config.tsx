@@ -1,5 +1,6 @@
-import { Routes } from '../enums/routes.enum'
 import { lazy } from 'react'
+
+import { Routes } from '../enums/routes.enum'
 import { RouteType } from '../types/route.type'
 const routes: RouteType[] = [
   {

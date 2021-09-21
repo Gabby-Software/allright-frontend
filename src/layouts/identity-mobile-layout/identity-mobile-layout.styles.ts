@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export default styled.div`
-  font-family: 'Work Sans', sans-serif;
+  font-family: 'Circular Std', sans-serif;
   background-color: white;
   .center {
     text-align: center;
@@ -21,6 +21,9 @@ export default styled.div`
   .radio__wrapper,
   .textarea__wrapper {
     margin-bottom: 12px;
+    @media all and (max-width: ${(p) => p.theme.vars.media.mobile}px) {
+      margin-bottom: 22px;
+    }
   }
   .sign-up__name {
     @media all and (min-width: ${(p) => p.theme.vars.media.tablet}px) {
@@ -33,6 +36,14 @@ export default styled.div`
   }
   .ant-btn {
     margin-top: 36px;
+  }
+  @media (max-width: ${(p) => p.theme.vars.media.mobile}px) {
+    .ant-btn {
+      margin-top: 0;
+      &.button-submit {
+        margin-top: 44px;
+      }
+    }
   }
   .sign-up__skip {
     // @media all and (max-width: ${(p) => p.theme.vars.media.tablet}px) {
@@ -57,6 +68,10 @@ export default styled.div`
       margin: 0 auto 50px auto;
       color: ${(p) => p.theme.vars.colors.light2};
       max-width: 500px;
+      font-weight: 400;
+      @media (max-width: ${(p) => p.theme.vars.media.mobile}px) {
+        font-size: 14px;
+      }
     }
     &__hr {
       @media all and (min-width: ${(p) => p.theme.vars.media.tablet}px) {

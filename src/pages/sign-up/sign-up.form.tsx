@@ -1,28 +1,29 @@
-import React, { useContext, useRef, useState } from 'react'
-import { useTranslation } from '../../modules/i18n/i18n.hook'
+import { Form, Formik, FormikHelpers } from 'formik'
+import { useContext } from 'react'
+import * as Yup from 'yup'
+
+import ButtonSubmit from '../../components/forms/button-submit/button-submit.component'
+import FormInputLabeled from '../../components/forms/form-input-labeled/form-input-labeled.component'
+import FormPassword from '../../components/forms/form-password/form-password.component'
+import FormRadio from '../../components/forms/form-radio-button/form-radio-button.component'
+import FormSwitch from '../../components/forms/form-switch/form-switch.component'
+import brand from '../../config/branding.config'
+import { EP_REGISTER } from '../../enums/api.enum'
+import genderTypes from '../../enums/gender-types'
+import userTypes from '../../enums/user-types.enum'
+import { AuthResponseType } from '../../hooks/authorization.hook'
+import api, { handleError } from '../../managers/api.manager'
+import cookieManager from '../../managers/cookie.manager'
+import { ipstack } from '../../managers/ipstack.manager'
+import logger from '../../managers/logger.manager'
 import { AuthFormContext } from '../../modules/auth/auth.context'
+import { AuthDataContext } from '../../modules/auth/auth-data.context'
 import {
   AuthFormFieldsType,
   AuthFormTypeNotNull
 } from '../../modules/auth/auth-form.type'
-import { AuthDataContext } from '../../modules/auth/auth-data.context'
-import { Form, Formik, FormikHelpers } from 'formik'
-import * as Yup from 'yup'
-import logger from '../../managers/logger.manager'
-import { ipstack } from '../../managers/ipstack.manager'
-import api, { handleError } from '../../managers/api.manager'
-import { AuthResponseType } from '../../hooks/authorization.hook'
-import { EP_REGISTER } from '../../enums/api.enum'
-import cookieManager from '../../managers/cookie.manager'
-import userTypes from '../../enums/user-types.enum'
-import genderTypes from '../../enums/gender-types'
-import FormSwitch from '../../components/forms/form-switch/form-switch.component'
-import FormInputLabeled from '../../components/forms/form-input-labeled/form-input-labeled.component'
-import FormRadio from '../../components/forms/form-radio-button/form-radio-button.component'
-import FormPassword from '../../components/forms/form-password/form-password.component'
+import { useTranslation } from '../../modules/i18n/i18n.hook'
 import { MobileStickyBottom } from '../styles'
-import ButtonSubmit from '../../components/forms/button-submit/button-submit.component'
-import brand from '../../config/branding.config'
 
 type LoginDataType = {
   type: string
@@ -113,6 +114,7 @@ const SignUpForm = () => {
             name={'gender'}
             label={"What's your gender?"}
             options={genderOptions}
+            brandColors={true}
           />
           <FormInputLabeled name={'email'} label={'Email'} onUpdate={update} />
           <FormPassword

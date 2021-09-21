@@ -1,13 +1,15 @@
-import { BrandingType } from '../types/branding.type'
-import { ReactComponent as LiverightIcon } from '../assets/media/logo-compact.svg'
 import { ReactComponent as EatrightIcon } from '../assets/media/eatright-logo-compact.svg'
-import livefavicon from '../assets/media/favicon-live.ico'
 import eatfavicon from '../assets/media/favicon-eat.ico'
+import livefavicon from '../assets/media/favicon-live.ico'
+import { ReactComponent as LiverightIcon } from '../assets/media/logo-compact.svg'
+import { BrandingType } from '../types/branding.type'
 
 const brands: { [key: string]: BrandingType } = {
   default: {
     primaryColor: '#ED1731',
     primaryLightColor: '#ed4452',
+    primaryColor_2: '#FFEBEB',
+    primaryColor_3: '#FDB6B7',
     logo: LiverightIcon,
     icon: livefavicon,
     name: 'LiveRight',
@@ -15,6 +17,8 @@ const brands: { [key: string]: BrandingType } = {
   },
   'identity.liverightdev.xyz': {
     primaryColor: '#ED1731',
+    primaryColor_2: '#FFEBEB',
+    primaryColor_3: '#FDB6B7',
     primaryLightColor: '#ed4452',
     logo: LiverightIcon,
     icon: livefavicon,
@@ -24,6 +28,8 @@ const brands: { [key: string]: BrandingType } = {
   'identity.eatrightdev.xyz': {
     primaryColor: '#96BE35',
     primaryLightColor: '#84a72f',
+    primaryColor_2: '',
+    primaryColor_3: '',
     logo: EatrightIcon,
     icon: eatfavicon,
     name: 'EatRight',
@@ -32,6 +38,8 @@ const brands: { [key: string]: BrandingType } = {
   'identity.liverightstaging.xyz': {
     primaryColor: '#ED1731',
     primaryLightColor: '#ed4452',
+    primaryColor_2: '#FFEBEB',
+    primaryColor_3: '#FDB6B7',
     logo: LiverightIcon,
     icon: livefavicon,
     name: 'LiveRight',
@@ -40,6 +48,8 @@ const brands: { [key: string]: BrandingType } = {
   'identity.eatrightstaging.xyz': {
     primaryColor: '#96BE35',
     primaryLightColor: '#84a72f',
+    primaryColor_2: '',
+    primaryColor_3: '',
     logo: EatrightIcon,
     icon: eatfavicon,
     name: 'EatRight',
@@ -48,6 +58,8 @@ const brands: { [key: string]: BrandingType } = {
   localhost: {
     primaryColor: '#96BE35',
     primaryLightColor: '#84a72f',
+    primaryColor_2: '',
+    primaryColor_3: '',
     logo: EatrightIcon,
     icon: livefavicon,
     name: 'Localhost',

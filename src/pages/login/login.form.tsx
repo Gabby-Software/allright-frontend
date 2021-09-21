@@ -1,24 +1,25 @@
+import { Form, Formik, FormikHelpers } from 'formik'
 import React, { useContext } from 'react'
-import { AuthDataContext } from '../../modules/auth/auth-data.context'
+import * as Yup from 'yup'
+
+import ButtonSubmit from '../../components/forms/button-submit/button-submit.component'
+import FormInputLabeled from '../../components/forms/form-input-labeled/form-input-labeled.component'
+import FormPassword from '../../components/forms/form-password/form-password.component'
+import { EP_LOGIN } from '../../enums/api.enum'
+import { AuthResponseType } from '../../hooks/authorization.hook'
+import api, { handleError } from '../../managers/api.manager'
+import { auth } from '../../managers/auth.manager'
+import cookieManager from '../../managers/cookie.manager'
+import logger from '../../managers/logger.manager'
 import { AuthFormContext } from '../../modules/auth/auth.context'
+import { AuthDataContext } from '../../modules/auth/auth-data.context'
 import {
   AuthFormFieldsType,
   AuthFormTypeNotNull
 } from '../../modules/auth/auth-form.type'
-import { Form, Formik, FormikHelpers } from 'formik'
-import logger from '../../managers/logger.manager'
-import api, { handleError } from '../../managers/api.manager'
-import { AuthResponseType } from '../../hooks/authorization.hook'
-import { EP_LOGIN } from '../../enums/api.enum'
-import cookieManager from '../../managers/cookie.manager'
-import { mainHost } from '../../pipes/main-host'
-import { auth } from '../../managers/auth.manager'
-import FormInputLabeled from '../../components/forms/form-input-labeled/form-input-labeled.component'
-import FormPassword from '../../components/forms/form-password/form-password.component'
-import { ForgetPassword, MobileStickyBottom } from '../styles'
-import ButtonSubmit from '../../components/forms/button-submit/button-submit.component'
 import { useTranslation } from '../../modules/i18n/i18n.hook'
-import * as Yup from 'yup'
+import { mainHost } from '../../pipes/main-host'
+import { ForgetPassword, MobileStickyBottom } from '../styles'
 
 type LoginDataType = {
   type: string
@@ -64,7 +65,11 @@ const LoginForm = () => {
       {() => (
         <Form>
           {/*<FormSwitch name={'type'} options={userTypeOptions} onUpdate={update}/>*/}
-          <FormInputLabeled name={'email'} label={'Email'} onUpdate={update} />
+          <FormInputLabeled
+            name={'email'}
+            label={t('auth:email')}
+            onUpdate={update}
+          />
           <FormPassword
             name={'password'}
             label={'Password'}

@@ -1,5 +1,5 @@
-import styled from 'styled-components'
 import PhoneInput from 'react-phone-number-input'
+import styled from 'styled-components'
 
 export default styled.div`
   .text_input {
@@ -17,10 +17,10 @@ export default styled.div`
       }
     }
     &__label {
-      color: ${(p) => p.theme.vars.colors.primaryDark};
+      color: ${(p) => p.theme.vars.colors.neutral_60};
       transition: ${(p) => p.theme.vars.defaults.transition};
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 400;
       margin-bottom: 8px;
       text-align: left;
     }

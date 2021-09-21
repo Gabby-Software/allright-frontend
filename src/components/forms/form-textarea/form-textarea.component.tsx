@@ -1,7 +1,8 @@
-import React, { useState, useEffect, ChangeEvent, useRef } from 'react'
-import Styles from './form-textarea.styles'
 import { Field, FieldProps, FormikProps } from 'formik'
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
+
 import FormError from '../form-error/form-error.component'
+import Styles from './form-textarea.styles'
 
 type Props = {
   name: string
@@ -11,7 +12,7 @@ type Props = {
 const FormTextarea = ({ name, label, onUpdate }: Props) => {
   const minHeight = 20
   const maxHeight = 300
-  const [height, setHeight] = useState(0)
+  const [height, setHeight] = useState(20)
   const inputRef = useRef<HTMLTextAreaElement>(null)
   const handleUpdate = (
     e: ChangeEvent<HTMLTextAreaElement>,
@@ -39,7 +40,7 @@ const FormTextarea = ({ name, label, onUpdate }: Props) => {
               className={'text_input__input'}
               ref={inputRef}
               name={name}
-              style={height ? { height: `${height}px` } : {}}
+              // style={height ? { height: `${height}px` } : {}}
               value={field.value}
               onBlur={field.onBlur}
               onChange={(e) => handleUpdate(e, form)}

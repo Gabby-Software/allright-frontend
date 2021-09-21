@@ -1,13 +1,14 @@
-import React, { useState, useEffect, useMemo } from 'react'
-import { MobileStyles, DesktopStyles } from './form-select.styles'
-import { Field, FieldProps, FormikProps } from 'formik'
-import { OptionType } from '../../../types/option.type'
-import { useIsMobile } from '../../../hooks/is-mobile.hook'
-import SmallModal from '../../small-modal/small-modal.component'
-import { ReactComponent as DownArrow } from '../../../assets/media/icons/down-arrow.svg'
 import { Select } from 'antd'
+import { Field, FieldProps, FormikProps } from 'formik'
+import React, { useState } from 'react'
+
+import { ReactComponent as DownArrow } from '../../../assets/media/icons/down-arrow.svg'
+import { useIsMobile } from '../../../hooks/is-mobile.hook'
+// import logger from '../../../managers/logger.manager'
+import { OptionType } from '../../../types/option.type'
+import SmallModal from '../../small-modal/small-modal.component'
 import FormError from '../form-error/form-error.component'
-import logger from '../../../managers/logger.manager'
+import { DesktopStyles, MobileStyles } from './form-select.styles'
 
 type FormSelectPropsType = {
   name: string
@@ -34,8 +35,22 @@ const FormSelect = ({
           <MobileStyles className={'select_input__wrapper'}>
             <label className={'select_input__cont'}>
               <div className={'select_input__label'}>{label}</div>
-              <input
+              {/* <input
                 onFocus={(e) => e.target.blur()}
+                className={'select_input__input'}
+                onClick={() => setIsModalOpen(true)}
+                value={
+                  options.find(
+                    (op) => op.value.toString() === field.value?.toString()
+                  )?.label
+                }
+              /> */}
+              <Select
+                suffixIcon={<DownArrow />}
+                onFocus={(e) => {
+                  e.preventDefault()
+                  e.target.blur()
+                }}
                 className={'select_input__input'}
                 onClick={() => setIsModalOpen(true)}
                 value={

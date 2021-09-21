@@ -1,20 +1,22 @@
-import React, { useState, useEffect } from 'react'
-import Styles from './form-radio-button.styles'
 import { Field, FieldProps } from 'formik'
-import FormError from '../form-error/form-error.component'
+
 import { classes } from '../../../pipes/classes.pipe'
 import { OptionType } from '../../../types/option.type'
+import FormError from '../form-error/form-error.component'
+import Styles, { RadioWithBrandStyles } from './form-radio-button.styles'
 
 type Props = {
   name: string
   label: string
   options: OptionType[]
+  brandColors?: boolean
 }
-const FormRadio = ({ name, label, options }: Props) => {
+const FormRadio = ({ name, label, options, brandColors = false }: Props) => {
+  const Wrapper = brandColors ? RadioWithBrandStyles : Styles
   return (
     <Field name={name}>
       {({ field, form }: FieldProps) => (
-        <Styles className={'radio__wrapper'}>
+        <Wrapper className={'radio__wrapper'}>
           <div className={'radio__label'}>{label}</div>
           <div className={'radio__cont'}>
             <div className={'radio'}>
@@ -35,7 +37,7 @@ const FormRadio = ({ name, label, options }: Props) => {
             </div>
           </div>
           <FormError name={name} />
-        </Styles>
+        </Wrapper>
       )}
     </Field>
   )

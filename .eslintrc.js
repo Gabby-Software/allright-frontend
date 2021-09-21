@@ -31,6 +31,7 @@ module.exports = {
   rules: {
     'prettier/prettier': ['warn', { usePrettierrc: true, endOfLine: 'auto' }],
     'no-unused-vars': 'off',
+    'react/jsx-props-no-spreading': 'warn', // TODO change this to error so that code will not compile with props spreading
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/no-unescaped-entities': 'warn',

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import Styles from './form-password.styles'
+import React, { useEffect, useState } from 'react'
+
+import { ReactComponent as ViewIcon } from '../../../assets/media/icons/view_2.svg'
+import { ReactComponent as ViewOffIcon } from '../../../assets/media/icons/view-off_2.svg'
 import FormInputLabeled from '../form-input-labeled/form-input-labeled.component'
-import { ReactComponent as ViewIcon } from '../../../assets/media/icons/view.svg'
-import { ReactComponent as ViewOffIcon } from '../../../assets/media/icons/view-off.svg'
 
 type FormPasswordPropsType = {
   name: string
@@ -23,9 +23,12 @@ const FormPassword = ({ name, label, onUpdate }: FormPasswordPropsType) => {
       onUpdate={onUpdate}
       icon={
         type === types.PASSWORD ? (
-          <ViewIcon onClick={() => setType(types.TEXT)} />
+          <ViewIcon color="inherit" onClick={() => setType(types.TEXT)} />
         ) : (
-          <ViewOffIcon onClick={() => setType(types.PASSWORD)} />
+          <ViewOffIcon
+            color="inherit"
+            onClick={() => setType(types.PASSWORD)}
+          />
         )
       }
     />

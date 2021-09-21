@@ -1,14 +1,8 @@
-import React, { createContext, useState, useContext } from 'react'
-import { AccountObjType, AccountType } from '../../modules/auth/account.type'
-import { ProfileDataType } from '../../modules/auth/profile-data.type'
-import cookieManager from '../../managers/cookie.manager'
-import { AuthDataContext } from '../../modules/auth/auth-data.context'
-import { AuthResponseType } from '../../hooks/authorization.hook'
 import { FormikHelpers } from 'formik'
-import { mainHost } from '../../pipes/main-host'
-import { OnBoardStepType } from './onboard.type'
-import api, { handleError } from '../../managers/api.manager'
-import logger from '../../managers/logger.manager'
+import React, { createContext, useContext, useState } from 'react'
+import { useHistory, useLocation } from 'react-router'
+
+import brand from '../../config/branding.config'
 import {
   EP_SET_PASSWORD,
   EP_UPDATE_PASSWORD,
@@ -16,10 +10,17 @@ import {
   EP_UPDATE_PROFILE_CUSTOM,
   EP_UPDATE_USER
 } from '../../enums/api.enum'
+import { AuthResponseType } from '../../hooks/authorization.hook'
+import api, { handleError } from '../../managers/api.manager'
+// import cookieManager from '../../managers/cookie.manager'
+import logger from '../../managers/logger.manager'
+import { AccountObjType, AccountType } from '../../modules/auth/account.type'
+import { AuthDataContext } from '../../modules/auth/auth-data.context'
+import { ProfileDataType } from '../../modules/auth/profile-data.type'
 import { fillExist } from '../../pipes/fill-exist.pipe'
+import { mainHost } from '../../pipes/main-host'
 import { ProfileFormType } from '../profile/profile.type'
-import { useHistory, useLocation } from 'react-router'
-import brand from '../../config/branding.config'
+import { OnBoardStepType } from './onboard.type'
 
 export type OnBoardContextType = {
   data: null | ProfileFormType

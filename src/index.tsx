@@ -1,20 +1,22 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
 import './index.css'
-import App from './App'
-import * as serviceWorkerRegistration from './serviceWorkerRegistration'
-import reportWebVitals from './reportWebVitals'
 import './config/validation.config'
 import 'antd/dist/antd.css'
-import { I18nProvider } from './modules/i18n/i18n.context'
-import { ThemeProvider } from 'styled-components'
-import theme from './assets/styles'
+
+import React from 'react'
+import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
+import { ThemeProvider } from 'styled-components'
+
+import App from './App'
+import theme from './assets/styles'
+import qa from './managers/qa.manager'
 import {
   AuthDataContext,
   AuthDataProvider
 } from './modules/auth/auth-data.context'
-import qa from './managers/qa.manager'
+import { I18nProvider } from './modules/i18n/i18n.context'
+import reportWebVitals from './reportWebVitals'
+import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 window.QA = qa
 
 ReactDOM.render(
