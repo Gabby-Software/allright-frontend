@@ -1,5 +1,5 @@
-import React from 'react';
+import React from 'react'
 
 test('SignUp initial test', () => {
-    expect(true).toBeTruthy();
-});
+  expect(true).toBeTruthy()
+})

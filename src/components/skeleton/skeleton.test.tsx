@@ -1,4 +1,4 @@
-import Skeleton from "./skeleton.component";
+import Skeleton from './skeleton.component'
 test('Skeleton initial test', () => {
-    expect(true).toBeTruthy();
-});
+  expect(true).toBeTruthy()
+})

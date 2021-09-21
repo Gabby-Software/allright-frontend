@@ -1,5 +1,5 @@
-import FormButton from "./form-button.component";
+import FormButton from './form-button.component'
 
 test('FormButton initial test', () => {
-    expect(true).toBeTruthy();
-});
+  expect(true).toBeTruthy()
+})

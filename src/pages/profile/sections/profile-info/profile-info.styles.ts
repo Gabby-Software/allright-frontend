@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export default styled.section`
-.form-row {
+  .form-row {
     margin-bottom: 24px;
-}
-`;
+  }
+`

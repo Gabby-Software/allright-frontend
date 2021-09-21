@@ -1,8 +1,8 @@
-import React from 'react';
-import Styles from './skeleton.styles';
+import React from 'react'
+import Styles from './skeleton.styles'
 
 const Skeleton = () => {
-    return <Styles/>
-};
+  return <Styles />
+}
 
-export default Skeleton;
+export default Skeleton
