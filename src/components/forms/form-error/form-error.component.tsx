@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Styles from './form-error.styles'
 import { ErrorMessage } from 'formik'
 import { useTranslation } from '../../../modules/i18n/i18n.hook'
-export type FormErrorProps = { name: string }
+export type FormErrorProps = { name: string, className?: string }
 export type FormErrorType = string | { key: string; values: any }
 const FormError = ({ name }: FormErrorProps) => {
   const { t } = useTranslation()

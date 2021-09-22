@@ -108,6 +108,11 @@ const routes: RouteType[] = [
           '../pages/invitations/reject-invitation/reject-invitation.component'
         )
     )
+  },
+  {
+    title: 'Pay Invoice',
+    url: Routes.INVOICE_PAY,
+    Component: lazy(() => import('../pages/invoice-pay/invoice-pay.component'))
   }
 ]
 export default routes
