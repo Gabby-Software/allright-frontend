@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { getColorCarry } from '../../../pipes/theme-color.pipe'
+import { mediaQueries } from '../../../enums/screen-sizes.enum'
 
 export const Styles = styled.div`
   * {
@@ -19,7 +20,11 @@ export const Styles = styled.div`
       width: 100%;
       max-width: 1060px;
       margin: 0 auto;
-      padding-top: 1.875rem;
+      padding: 1.875rem 1.25rem 2rem 1.25rem;
     }
+  }
+
+  @media ${mediaQueries.MOBILE} {
+    background-color: #fff;
   }
 `

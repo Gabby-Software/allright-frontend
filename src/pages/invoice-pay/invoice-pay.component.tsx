@@ -8,19 +8,23 @@ import PaymentMethodCard from '../../components/cards/payment-method-card/paymen
 import {
   AmexIcon,
   BtcIcon,
+  CaretDownIcon,
   McIcon,
   SecureIcon,
-  VisaIcon,
+  VisaIcon
 } from '../../assets/media/icons'
 import { useState } from 'react'
+import { useIsMobile } from '../../hooks/is-mobile.hook'
 
 type Method = 'card' | 'crypto' | null
 
 export default function InvoicePay() {
   const [method, setMethod] = useState<Method>(null)
+  const [detailsOpen, setDetailsOpen] = useState(false)
+  const isMobile = useIsMobile()
   return (
     <Page>
-      <Styles>
+      <Styles $expand={detailsOpen}>
         <div className="invoice-pay__details">
           <div className="invoice-pay__title-container">
             <h2 className="invoice-pay__title">
@@ -34,40 +38,58 @@ export default function InvoicePay() {
             <UserBadge firstName="Coach" lastName="Rob" size="sm" />
           </div>
 
-          <div className="invoice-pay__items">
-            <div className="invoice-pay__item-card">
-              <div className="invoice-pay__item-card-row">
-                <p className="invoice-pay__item-card-text">Coaching</p>
-                <p className="invoice-pay__item-card-text">450 AED</p>
+          {isMobile && (
+            <div
+              className="invoice-pay__expand"
+              onClick={() => setDetailsOpen(!detailsOpen)}
+            >
+              <p className="invoice-pay__expand-text">
+                <span>See Invoice Details</span>
+                <CaretDownIcon />
+              </p>
+            </div>
+          )}
+
+          {(isMobile ? detailsOpen : true) && (
+            <>
+              <div className="invoice-pay__items">
+                <div className="invoice-pay__item-card">
+                  <div className="invoice-pay__item-card-row">
+                    <p className="invoice-pay__item-card-text">Coaching</p>
+                    <p className="invoice-pay__item-card-text">450 AED</p>
+                  </div>
+                  <p className="invoice-pay__item-card-text invoice-pay__item-card-text_secondary">
+                    Consultation for one
+                  </p>
+                  <p className="invoice-pay__item-card-text invoice-pay__item-card-text_secondary">
+                    1x + 451 AED + VAT (5%)
+                  </p>
+                </div>
               </div>
-              <p className="invoice-pay__item-card-text invoice-pay__item-card-text_secondary">
-                Consultation for one
-              </p>
-              <p className="invoice-pay__item-card-text invoice-pay__item-card-text_secondary">
-                1x + 451 AED + VAT (5%)
-              </p>
-            </div>
-          </div>
 
-          <div className="invoice-pay__summary">
-            <div className="invoice-pay__summary-row">
-              <p className="invoice-pay__summary-text">Subtotal</p>
-              <span>900 AED</span>
-            </div>
-            <div className="invoice-pay__summary-row">
-              <p className="invoice-pay__summary-text">Tax (3%)</p>
-              <span>34 AED</span>
-            </div>
-            <div className="invoice-pay__summary-row">
-              <p className="invoice-pay__summary-row-text">Voucher/Coupon</p>
-              <span>-</span>
-            </div>
-          </div>
+              <div className="invoice-pay__summary">
+                <div className="invoice-pay__summary-row">
+                  <p className="invoice-pay__summary-text">Subtotal</p>
+                  <span>900 AED</span>
+                </div>
+                <div className="invoice-pay__summary-row">
+                  <p className="invoice-pay__summary-text">Tax (3%)</p>
+                  <span>34 AED</span>
+                </div>
+                <div className="invoice-pay__summary-row">
+                  <p className="invoice-pay__summary-row-text">
+                    Voucher/Coupon
+                  </p>
+                  <span>-</span>
+                </div>
+              </div>
 
-          <div className="invoice-pay__total">
-            <p className="invoice-pay__total-text">Total Payable</p>
-            <span>934 AED</span>
-          </div>
+              <div className="invoice-pay__total">
+                <p className="invoice-pay__total-text">Total Payable</p>
+                <span>934 AED</span>
+              </div>
+            </>
+          )}
         </div>
 
         <div className="invoice-pay__payment">
@@ -129,9 +151,7 @@ export default function InvoicePay() {
               </div>
             </div>
 
-            <Button className="invoice-pay__submit">
-              Pay 902 AED
-            </Button>
+            <Button className="invoice-pay__submit">Pay 902 AED</Button>
           </Card>
         </div>
       </Styles>

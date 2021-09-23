@@ -4,6 +4,7 @@ const vars = {
   colors: {
     primary: brand.primaryColor,
     primaryLight: brand.primaryLightColor,
+    primaryTransparent: brand.primaryColor_2,
     defaultWhite: '#FFFFFF',
     primaryDark: '#40424D',
     secondary: '#BDBDBD',

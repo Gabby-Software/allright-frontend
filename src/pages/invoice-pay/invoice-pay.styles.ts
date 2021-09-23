@@ -1,8 +1,9 @@
 import styled from 'styled-components'
 import Card from '../../components/cards/card/card.component'
 import { getColorCarry } from '../../pipes/theme-color.pipe'
+import { mediaQueries } from '../../enums/screen-sizes.enum'
 
-export const Styles = styled(Card)`
+export const Styles = styled(Card)<any>`
   display: flex;
 
   .invoice-pay {
@@ -73,6 +74,17 @@ export const Styles = styled(Card)`
       
       &-container {
         margin-bottom: 1.5rem;
+      }
+    }
+    
+    &__expand {
+      margin-bottom: ${props => props.$expand ? '1.5rem' : '0'};
+      
+      &-text {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.5rem 0;
       }
     }
     
@@ -153,4 +165,42 @@ export const Styles = styled(Card)`
       margin-top: 3rem;
     }
   }
+
+  @media ${mediaQueries.MOBILE} {
+    flex-direction: column;
+    padding: 0;
+
+    .invoice-pay {
+      &__details {
+        width: 100%;
+        max-width: 100%;
+        min-width: auto;
+        padding-right: 0;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid ${getColorCarry('neutral_30')};
+        margin-bottom: 1.875rem;
+      }
+
+      &__payment {
+        width: 100%;
+        max-width: 100%;
+        min-width: auto;
+
+        &-title {
+          font-size: 1rem;
+
+          & span {
+            font-size: 1.375rem;
+          }
+        }
+      }
+
+      &__title {
+        font-size: 1.375rem;
+
+        &-container {
+          margin-bottom: 2rem;
+        }
+      }
+    }
 `

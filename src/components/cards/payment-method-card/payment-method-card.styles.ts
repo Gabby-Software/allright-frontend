@@ -12,11 +12,11 @@ export const Styles = styled.div<any>`
   cursor: pointer;
 
   &:hover {
-    border-color: ${getColorCarry('red')};
+    border-color: ${getColorCarry('primary')};
 
     .payment-method-card {
       &__circle {
-        border-color: ${getColorCarry('red')};
+        border-color: ${getColorCarry('primary')};
         border-width: 5px;
         background-color: #fff;
       }
@@ -26,8 +26,8 @@ export const Styles = styled.div<any>`
   ${(props) =>
     props.$active &&
     css`
-      background-color: ${getColorCarry('red_10')};
-      border-color: ${getColorCarry('red')};
+      background-color: ${getColorCarry('primaryTransparent')};
+      border-color: ${getColorCarry('primary')};
     `}
 
   ${(props) =>
@@ -62,7 +62,7 @@ export const Styles = styled.div<any>`
       ${(props) =>
         props.$active &&
         css`
-          border-color: ${getColorCarry('red')};
+          border-color: ${getColorCarry('primary')};
           border-width: 5px;
           background-color: #fff;
         `}
