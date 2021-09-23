@@ -17,6 +17,7 @@ import { useState } from 'react'
 import { useIsMobile } from '../../hooks/is-mobile.hook'
 import { useParams } from 'react-router-dom'
 import useInvoice from '../../hooks/api/invoices/useInvoice'
+import CreditCardForm  from '../../components/payments/credit-card-form/credit-card-form.component'
 
 type Method = 'card' | 'crypto' | null
 
@@ -27,7 +28,6 @@ export default function InvoicePay() {
   const params = useParams<any>()
 
   const { invoice } = useInvoice({ id: params.id })
-  console.log(invoice)
 
   return (
     <Page>
@@ -152,6 +152,11 @@ export default function InvoicePay() {
                     </>
                   }
                 />
+
+                {method === 'card' && (
+                  <CreditCardForm hint="*Your card will be charged for a one-time payment of 902 AED once you submit" />
+                )}
+
                 <PaymentMethodCard
                   disabled
                   title="Crypto"
@@ -163,6 +168,7 @@ export default function InvoicePay() {
                     </>
                   }
                 />
+
                 <p className="invoice-pay__payment-hint">
                   <SecureIcon />
                   260bit secure encrypted payments
