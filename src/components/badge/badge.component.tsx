@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Styles from './badge.styles'
 import { classes } from '../../pipes/classes.pipe'
 

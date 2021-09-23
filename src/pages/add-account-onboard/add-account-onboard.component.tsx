@@ -15,7 +15,6 @@ import { AddAccountContext } from '../add-account/add-account.context'
 import { OnBoardProvider } from '../onboard/onboard.context'
 import OnboardDesktop from '../onboard/onboard.desktop'
 import OnBoardMobile from '../onboard/onboard.mobile'
-import { Skip } from '../styles/skip.styles'
 import { addAccountOnboardData } from './add-account-onboard.data'
 
 type Props = {}

@@ -4,12 +4,14 @@ const vars = {
   colors: {
     primary: brand.primaryColor,
     primaryLight: brand.primaryLightColor,
+    primaryTransparent: brand.primaryColor_2,
     defaultWhite: '#FFFFFF',
     primaryDark: '#40424D',
     secondary: '#BDBDBD',
     secondary2: '#d5d5d5',
     secondary3: '#818799',
     gray_1: '#F8F8F8',
+    neutral_10: '#FAFAFA',
     neutral_30: '#EDEDED',
     neutral_40: '#E0E0E0',
     neutral_50: '#C2C2C2',
@@ -18,6 +20,8 @@ const vars = {
     neutral_80: '#5E5E5E',
     neutral_90: '#404040',
     neutral_100: '#2E2F31',
+    red_10: '#FFEBEB',
+    red: '#EF1733',
     dark: '#5A5A5A',
     dark2: '#39393d',
     light: '#EBEBEB',
@@ -30,6 +34,7 @@ const vars = {
     success: '#56EC53',
     successDark: '#43b840',
     info: '#2F86EC',
+    blue_70: '#1268E4',
     warning: '#FC7D08',
     warningDark: '#c46106',
     red_70: '#E41216',
@@ -56,4 +61,6 @@ const vars = {
     font: "'Circular Std', sans-serif"
   }
 }
+
+export type VarsType = typeof vars
 export default vars

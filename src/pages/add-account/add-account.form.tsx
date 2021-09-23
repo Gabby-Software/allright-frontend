@@ -145,7 +145,7 @@ const AddAccountForm = () => {
         <FormButton
           className={'add-account__submit'}
           type={'primary'}
-          // disabled={!selected}
+          disabled={types?.includes('trainer') && types?.includes('client')}
           style={{
             visibility: isMobile ? 'visible' : !selected ? 'hidden' : 'visible'
           }}

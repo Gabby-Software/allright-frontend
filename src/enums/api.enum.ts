@@ -26,3 +26,4 @@ export const EP_CHECK_EMAIL_EXIST = '/invitations/check'
 export const EP_INVITE_NEW_USER = '/invitations'
 // export const EP_GET_TRAINER = '/training/trainer';
 export const EP_GET_TRAINER = LIVERIGHT_API + '/training/trainer-users'
+export const EP_GET_INVOICES = '/invoices'
