@@ -1,4 +1,5 @@
 import React from 'react'
+
 import IdentityLayout from '../../layouts/identity-layout/identity-layout.component'
 import ForgotPasswordForm from './forgot-password.form'
 import ForgotPasswordSidebar from './forgot-password.sidebar'
