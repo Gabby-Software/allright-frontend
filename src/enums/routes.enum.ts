@@ -14,5 +14,6 @@ export const Routes = {
   ADD_ACCOUNT_ONBOARD: '/add-account/onboard',
   PROFILE: '/profile',
   INVITATIONS: '/invitations',
-  INVITATIONS_ONBOARD: '/invitations/onboard'
+  INVITATIONS_ONBOARD: '/invitations/onboard',
+  INVOICE_PAY: '/invoices/:id/pay'
 }

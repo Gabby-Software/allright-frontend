@@ -28,7 +28,7 @@ const brands: { [key: string]: BrandingType } = {
   'identity.eatrightdev.xyz': {
     primaryColor: '#96BE35',
     primaryLightColor: '#84a72f',
-    primaryColor_2: '',
+    primaryColor_2: '#f4f8ea',
     primaryColor_3: '',
     logo: EatrightIcon,
     icon: eatfavicon,
@@ -48,7 +48,7 @@ const brands: { [key: string]: BrandingType } = {
   'identity.eatrightstaging.xyz': {
     primaryColor: '#96BE35',
     primaryLightColor: '#84a72f',
-    primaryColor_2: '',
+    primaryColor_2: '#f4f8ea',
     primaryColor_3: '',
     logo: EatrightIcon,
     icon: eatfavicon,
@@ -58,7 +58,7 @@ const brands: { [key: string]: BrandingType } = {
   localhost: {
     primaryColor: '#96BE35',
     primaryLightColor: '#84a72f',
-    primaryColor_2: '',
+    primaryColor_2: '#f4f8ea',
     primaryColor_3: '',
     logo: EatrightIcon,
     icon: livefavicon,
@@ -72,18 +72,11 @@ const branding = new Proxy(brands, {
 
 const { NODE_ENV, REACT_APP_LOCAL_DEV_MODE } = process.env
 
-console.log({ NODE_ENV, REACT_APP_LOCAL_DEV_MODE })
-
 const brand: BrandingType =
   NODE_ENV === 'development' && REACT_APP_LOCAL_DEV_MODE === 'liveright'
     ? branding.default
     : branding[document.location.hostname]
-console.log(
-  'BRAND',
-  document.location.hostname,
-  branding[document.location.hostname],
-  brand
-)
+
 ;(document.head.querySelector('[rel="icon"]') as HTMLLinkElement).href =
   brand.icon
 export default brand
