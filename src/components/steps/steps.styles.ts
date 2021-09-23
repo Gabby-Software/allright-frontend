@@ -1,12 +1,17 @@
 import styled from 'styled-components'
 
-export default styled.div`
+const Style = styled.div.attrs(() => ({
+  path: window.location.pathname as string
+}))`
   overflow: hidden;
   width: 100%;
   .steps {
     &__wrapper {
       display: flex;
-      transition: ${(p) => p.theme.vars.defaults.transition};
+      transition: ${(p) => {
+        console.log({ p })
+        return p.theme.vars.defaults.transition
+      }};
     }
     &__dots {
       ${(p) => p.theme.extend.flexCenter}
@@ -32,7 +37,7 @@ export default styled.div`
       overflow: hidden;
       padding: 0 1px;
       &:last-child {
-        padding-top: 80px;
+        padding-top: ${(p) => (p.path === '/add-account' ? '0px' : '80px')};
         @media all and (max-width: ${(p) => p.theme.vars.media.mobile}px) {
           padding-top: 56px;
         }
@@ -53,3 +58,5 @@ export default styled.div`
     }
   }
 `
+
+export default Style

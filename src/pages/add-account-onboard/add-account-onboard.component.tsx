@@ -1,21 +1,22 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { useIsMobile } from '../../hooks/is-mobile.hook'
-import { OnBoardProvider } from '../onboard/onboard.context'
-import OnBoardMobile from '../onboard/onboard.mobile'
-import OnboardDesktop from '../onboard/onboard.desktop'
-import { addAccountOnboardData } from './add-account-onboard.data'
-import { Skip } from '../styles/skip.styles'
-import { onlyActive } from '../../guards/active.guard'
-import api from '../../managers/api.manager'
+import React, { useContext } from 'react'
+
+import { toast } from '../../components/toast/toast.component'
 import { EP_ADD_ACCOUNT } from '../../enums/api.enum'
+import { onlyActive } from '../../guards/active.guard'
+import { AuthResponseType } from '../../hooks/authorization.hook'
+import { useIsMobile } from '../../hooks/is-mobile.hook'
+import api from '../../managers/api.manager'
+import cookieManager from '../../managers/cookie.manager'
 import logger from '../../managers/logger.manager'
 import { AccountObjType } from '../../modules/auth/account.type'
-import cookieManager from '../../managers/cookie.manager'
-import { toast } from '../../components/toast/toast.component'
-import { serverError } from '../../pipes/server-error.pipe'
 import { AuthDataContext } from '../../modules/auth/auth-data.context'
+import { serverError } from '../../pipes/server-error.pipe'
 import { AddAccountContext } from '../add-account/add-account.context'
-import { AuthResponseType } from '../../hooks/authorization.hook'
+import { OnBoardProvider } from '../onboard/onboard.context'
+import OnboardDesktop from '../onboard/onboard.desktop'
+import OnBoardMobile from '../onboard/onboard.mobile'
+import { Skip } from '../styles/skip.styles'
+import { addAccountOnboardData } from './add-account-onboard.data'
 
 type Props = {}
 const AddAccountOnboard = ({}: Props) => {
@@ -46,7 +47,7 @@ const AddAccountOnboard = ({}: Props) => {
   return (
     <OnBoardProvider steps={addAccountOnboardData} preSubmit={preSubmit}>
       {isMobile ? <OnBoardMobile /> : <OnboardDesktop />}
-      <Skip />
+      {/* <Skip /> */}
     </OnBoardProvider>
   )
 }

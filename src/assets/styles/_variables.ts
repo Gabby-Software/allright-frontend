@@ -16,6 +16,8 @@ const vars = {
     neutral_60: '#9E9E9E',
     neutral_70: '#757575',
     neutral_80: '#5E5E5E',
+    neutral_90: '#404040',
+    neutral_100: '#2E2F31',
     dark: '#5A5A5A',
     dark2: '#39393d',
     light: '#EBEBEB',
@@ -29,7 +31,9 @@ const vars = {
     successDark: '#43b840',
     info: '#2F86EC',
     warning: '#FC7D08',
-    warningDark: '#c46106'
+    warningDark: '#c46106',
+    red_70: '#E41216',
+    blue_60: '#2E81ED'
   },
   sizes: {
     borderRadius: '6px',

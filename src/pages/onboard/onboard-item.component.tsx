@@ -45,8 +45,6 @@ const OnboardItem = ({
       ? FormRowColumn
       : FormRow
 
-  console.log('Hello')
-
   switch (type) {
     case 'row':
       return (
