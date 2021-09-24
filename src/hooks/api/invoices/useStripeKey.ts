@@ -12,7 +12,7 @@ interface StripeResponse {
 
 interface UseStripeKey {
   isLoading: boolean
-  stripe: StripeResponse
+  stripeConfig: StripeResponse
 }
 
 export default function useStripeKey(): UseStripeKey {
@@ -22,6 +22,6 @@ export default function useStripeKey(): UseStripeKey {
   const stripe = data || {}
   return {
     isLoading,
-    stripe
+    stripeConfig: stripe
   }
 }

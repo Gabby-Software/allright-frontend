@@ -1,5 +1,5 @@
 import Page from '../../components/containers/page/page.component'
-import { Styles } from './invoice-pay.styles'
+import { Styles, Success } from './invoice-pay.styles'
 import Card from '../../components/cards/card/card.component'
 import UserBadge from '../../components/user-badge/user-badge.component'
 import Button from '../../components/buttons/button/button.component'
@@ -9,6 +9,7 @@ import {
   AmexIcon,
   BtcIcon,
   CaretDownIcon,
+  CheckmarkIcon,
   McIcon,
   SecureIcon,
   VisaIcon
@@ -17,7 +18,8 @@ import { useState } from 'react'
 import { useIsMobile } from '../../hooks/is-mobile.hook'
 import { useParams } from 'react-router-dom'
 import useInvoice from '../../hooks/api/invoices/useInvoice'
-import CreditCardForm  from '../../components/payments/credit-card-form/credit-card-form.component'
+import CreditCardForm from '../../components/payments/credit-card-form/credit-card-form.component'
+import { mainHost } from '../../pipes/main-host'
 
 type Method = 'card' | 'crypto' | null
 
@@ -26,8 +28,30 @@ export default function InvoicePay() {
   const [detailsOpen, setDetailsOpen] = useState(false)
   const isMobile = useIsMobile()
   const params = useParams<any>()
+  const [isSuccess, setSuccess] = useState(true)
 
   const { invoice } = useInvoice({ id: params.id })
+
+  if (isSuccess) {
+    return (
+      <Page>
+        <Success>
+          <div className="invoice-pay-success__icon">
+            <CheckmarkIcon />
+          </div>
+
+          <p className="invoice-pay-success__title">Thank You</p>
+          <p className="invoice-pay-success__subtitle">
+            Coach Bob got your payment
+          </p>
+
+          <a href={`${mainHost()}/invoices/${params.id}`}>
+            <Button>Get Back</Button>
+          </a>
+        </Success>
+      </Page>
+    )
+  }
 
   return (
     <Page>
@@ -154,7 +178,11 @@ export default function InvoicePay() {
                 />
 
                 {method === 'card' && (
-                  <CreditCardForm hint="*Your card will be charged for a one-time payment of 902 AED once you submit" />
+                  <CreditCardForm
+                    hint="*Your card will be charged for a one-time payment of 902 AED once you submit"
+                    invoiceId={invoice.id}
+                    onSuccess={() => setSuccess(true)}
+                  />
                 )}
 
                 <PaymentMethodCard
@@ -176,9 +204,16 @@ export default function InvoicePay() {
               </div>
             </div>
 
-            <Button className="invoice-pay__submit">
-              Pay {invoice.total} AED
-            </Button>
+            <div>
+              <Button
+                className="invoice-pay__submit"
+                htmlType="submit"
+                id="pay-invoice-submit"
+                form="pay-invoice-form"
+              >
+                Pay {invoice.total} AED
+              </Button>
+            </div>
           </Card>
         </div>
       </Styles>
