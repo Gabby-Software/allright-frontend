@@ -14,6 +14,7 @@ export default function Button({
   disabled,
   htmlType,
   form,
+  id,
   ...props
 }: PropsWithChildren<ButtonProps>) {
   let content = (
@@ -25,6 +26,7 @@ export default function Button({
       disabled={disabled}
       htmlType={htmlType}
       form={form}
+      id={id}
       {...props}
     >
       {children}
