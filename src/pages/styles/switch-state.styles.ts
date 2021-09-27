@@ -15,4 +15,8 @@ export default styled.p`
     color: ${(p) => p.theme.vars.colors.primary};
     font-weight: 700;
   }
+
+  .black__link {
+    color: ${(p) => p.theme.vars.colors.neutral_100};
+  }
 `

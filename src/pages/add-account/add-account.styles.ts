@@ -3,19 +3,32 @@ import styled from 'styled-components'
 export default styled.div`
   .add-account {
     &__title {
-      color: ${(p) => p.theme.vars.colors.primaryDark};
-      font-weight: 700;
-      font-size: 1.5rem;
-      margin: 0 0 24px 0;
+      color: ${(p) => p.theme.vars.colors.neutral_90};
+      font-weight: bold;
+      font-size: 22px;
+      line-height: 32px;
+      margin: 0;
+      text-align: center;
+    }
+    &__sub-title {
+      margin: 17px 0 0;
+      color: ${(p) => p.theme.vars.colors.neutral_70};
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+      font-weight: 400;
       text-align: center;
     }
     &__options {
+      margin-top: 5rem;
       @media all and (min-width: ${(p) => p.theme.vars.media.tablet + 1}px) {
         display: flex;
         justify-content: center;
       }
     }
     &__option {
+      &:hover {
+        background-color: ${(p) => p.theme.vars.colors.gray_1};
+      }
       transition: ${(p) => p.theme.vars.defaults.transition};
       background-color: white;
       border: 1px solid ${(p) => p.theme.vars.colors.secondary2};
@@ -34,14 +47,23 @@ export default styled.div`
         text-align: center;
         margin: 20px 13px;
       }
+      @media (max-width: ${(p) => p.theme.vars.media.mobile}px) {
+        height: 177px;
+      }
       &__active {
-        background-color: ${(p) => p.theme.vars.colors.primaryDark};
-        border: 1px solid ${(p) => p.theme.vars.colors.secondary2};
+        &:hover {
+          color: white;
+          background-color: ${(p) => p.theme.vars.colors.neutral_100};
+        }
+        background-color: ${(p) => p.theme.vars.colors.neutral_100};
         color: white;
+        border: 1px solid ${(p) => p.theme.vars.colors.secondary2};
         box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.15);
       }
       &__disabled {
-        filter: grayscale(100%);
+        &:hover {
+          background-color: white;
+        }
         opacity: 0.5;
         cursor: default;
       }
@@ -70,13 +92,31 @@ export default styled.div`
         top: 100%;
         left: 0;
         right: 0;
-        margin-top: 2px;
+        font-weight: normal;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        margin-top: 26px;
+        @media (max-width: ${(p) => p.theme.vars.media.mobile}px) {
+          position: unset;
+          margin-top: 12px;
+          display: block;
+        }
+        &__red {
+          color: ${(p) => p.theme.vars.colors.red_70};
+        }
+        &__blue {
+          color: ${(p) => p.theme.vars.colors.blue_60};
+        }
       }
     }
     &__submit {
       display: block;
       max-width: 320px;
-      margin: 40px auto;
+      margin: 0px auto;
+      &__wrapper {
+        padding: 55px 0;
+        margin-top: 2rem;
+      }
       @media all and (max-width: 720px) {
         position: sticky;
         bottom: 20px;

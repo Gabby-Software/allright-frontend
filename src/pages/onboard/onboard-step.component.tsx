@@ -13,7 +13,8 @@ const OnboardStep = ({
   validationSchema,
   fields,
   trainer,
-  client
+  client,
+  desc
 }: OnBoardStepType) => {
   const { steps, data, onSubmit, step } = useContext(
     OnBoardContext
@@ -25,7 +26,8 @@ const OnboardStep = ({
     console.log({ desc: steps[step].desc })
     if (
       steps[step].desc === 'onboard-set-password' ||
-      step === steps.length - 1
+      step === steps.length - 1 ||
+      (step === steps.length - 1 && desc !== 'add-account.onboard')
     ) {
       return null
     }

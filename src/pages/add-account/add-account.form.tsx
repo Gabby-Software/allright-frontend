@@ -1,17 +1,19 @@
 import React, { ComponentType, useContext, useState } from 'react'
-import Styles from './add-account.styles'
-import { useTranslation } from '../../modules/i18n/i18n.hook'
-import FormButton from '../../components/forms/form-button/form-button.component'
-import { classes } from '../../pipes/classes.pipe'
-import userTypes from '../../enums/user-types.enum'
-import { ReactComponent as ClientImage } from '../../assets/media/client.svg'
-import { ReactComponent as TrainerImage } from '../../assets/media/trainer.svg'
-import { ReactComponent as OrgImage } from '../../assets/media/organization.svg'
-import { AuthDataContext } from '../../modules/auth/auth-data.context'
-import { AccessOptionType } from '../../modules/auth/access-option.type'
-import { Routes } from '../../enums/routes.enum'
 import { Redirect } from 'react-router-dom'
+
+import { ReactComponent as ClientImage } from '../../assets/media/client-2.svg'
+import { ReactComponent as OrgImage } from '../../assets/media/organization-2.svg'
+import { ReactComponent as TrainerImage } from '../../assets/media/trainer-2.svg'
+import FormButton from '../../components/forms/form-button/form-button.component'
+import { Routes } from '../../enums/routes.enum'
+import userTypes from '../../enums/user-types.enum'
+import { useIsMobile } from '../../hooks/is-mobile.hook'
+import { AccessOptionType } from '../../modules/auth/access-option.type'
+import { AuthDataContext } from '../../modules/auth/auth-data.context'
+import { useTranslation } from '../../modules/i18n/i18n.hook'
+import { classes } from '../../pipes/classes.pipe'
 import { AddAccountContext, AddAccountSteps } from './add-account.context'
+import Styles from './add-account.styles'
 
 type AccountOptionType = {
   image: ComponentType<any>
@@ -36,6 +38,7 @@ const AddAccountOption = ({
   exist
 }: AccountOptionType & AccountOptionActionType) => {
   const { t } = useTranslation()
+  const isMobile = useIsMobile()
   return (
     <div
       className={classes(
@@ -49,16 +52,41 @@ const AddAccountOption = ({
       <div>
         <h3 className={'add-account__option__title'}>{title}</h3>
         <p className={'add-account__option__desc'}>{desc}</p>
+        {isMobile && (
+          <small
+            className={`add-account__option__note ${
+              disabled || exist
+                ? 'add-account__option__note__red'
+                : 'add-account__option__note__blue'
+            }`}
+          >
+            {disabled
+              ? t('auth:add-account.coming-soon')
+              : exist
+              ? type === 'client'
+                ? t('auth:add-account.already-client')
+                : t('auth:add-account.already', { type })
+              : t('auth:add-account.available')}
+          </small>
+        )}
       </div>
-      <small className={'add-account__option__note'}>
-        {disabled
-          ? t('auth:add-account.coming-soon')
-          : exist
-          ? type === 'client'
-            ? t('auth:add-account.already-client')
-            : t('auth:add-account.already', { type })
-          : null}
-      </small>
+      {!isMobile && (
+        <small
+          className={`add-account__option__note ${
+            disabled || exist
+              ? 'add-account__option__note__red'
+              : 'add-account__option__note__blue'
+          }`}
+        >
+          {disabled
+            ? t('auth:add-account.coming-soon')
+            : exist
+            ? type === 'client'
+              ? t('auth:add-account.already-client')
+              : t('auth:add-account.already', { type })
+            : t('auth:add-account.available')}
+        </small>
+      )}
     </div>
   )
 }
@@ -94,10 +122,14 @@ const AddAccountForm = () => {
     setAccountType(selected)
     setStep(AddAccountSteps.ONBOARD)
   }
+  const isMobile = useIsMobile()
   if (submitted) return <Redirect to={Routes.ADD_ACCOUNT_ONBOARD} />
   return (
     <Styles>
       <h2 className={'add-account__title'}>{t('auth:add-account.title')}</h2>
+      <p className={'add-account__sub-title'}>
+        {t('auth:add-account.subtitle')}
+      </p>
       <div className={'add-account__options'}>
         {options.map((o) => (
           <AddAccountOption
@@ -109,14 +141,19 @@ const AddAccountForm = () => {
           />
         ))}
       </div>
-      <FormButton
-        className={'add-account__submit'}
-        type={'primary'}
-        disabled={!selected}
-        onClick={handleSubmit}
-      >
-        {t('proceed')}
-      </FormButton>
+      <div className={'add-account__submit__wrapper'}>
+        <FormButton
+          className={'add-account__submit'}
+          type={'primary'}
+          disabled={types?.includes('trainer') && types?.includes('client')}
+          style={{
+            visibility: isMobile ? 'visible' : !selected ? 'hidden' : 'visible'
+          }}
+          onClick={handleSubmit}
+        >
+          {t('proceed')}
+        </FormButton>
+      </div>
     </Styles>
   )
 }
