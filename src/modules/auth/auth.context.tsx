@@ -1,13 +1,14 @@
 import React, {
-  createContext,
-  useContext,
-  useState,
   ComponentType,
-  ElementType
+  createContext,
+  ElementType,
+  useContext,
+  useState
 } from 'react'
-import { AuthFormFieldsType, AuthFormType } from './auth-form.type'
-import userTypes from '../../enums/user-types.enum'
+
 import genderTypes from '../../enums/gender-types'
+import userTypes from '../../enums/user-types.enum'
+import { AuthFormFieldsType, AuthFormType } from './auth-form.type'
 
 export const AuthFormContext = createContext<AuthFormType>(null)
 export const AuthFormProvider = ({ children }: { children: any }) => {

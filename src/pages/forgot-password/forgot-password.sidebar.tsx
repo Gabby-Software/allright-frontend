@@ -1,7 +1,9 @@
 import React from 'react'
-import { useTranslation } from '../../modules/i18n/i18n.hook'
-import IdentitySidebar from '../../layouts/identity-sidebar/identity-sidebar.component'
+
 import { Routes } from '../../enums/routes.enum'
+import IdentitySidebar from '../../layouts/identity-sidebar/identity-sidebar.component'
+import { useTranslation } from '../../modules/i18n/i18n.hook'
+import Flex from './forgot-password.styles'
 
 const ForgotPasswordSidebar = () => {
   const { t } = useTranslation()
@@ -19,10 +21,14 @@ const ForgotPasswordSidebar = () => {
         {t('auth:create-account')}
       </IdentitySidebar.Link>
       <IdentitySidebar.Space />
-      <IdentitySidebar.Desc>{t('auth:remember-password')}</IdentitySidebar.Desc>
-      <IdentitySidebar.Link to={Routes.LOGIN}>
-        {t('auth:back-login')}
-      </IdentitySidebar.Link>
+      <Flex>
+        <IdentitySidebar.Desc>
+          {t('auth:remember-password')}
+        </IdentitySidebar.Desc>
+        <IdentitySidebar.Link to={Routes.LOGIN}>
+          {t('auth:back-login')}
+        </IdentitySidebar.Link>
+      </Flex>
     </>
   )
 }
