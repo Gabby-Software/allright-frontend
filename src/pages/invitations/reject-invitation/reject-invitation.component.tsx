@@ -8,6 +8,7 @@ import { toast } from '../../../components/toast/toast.component'
 import { serverError } from '../../../pipes/server-error.pipe'
 import { AuthDataContext } from '../../../modules/auth/auth-data.context'
 import { mainHost } from '../../../pipes/main-host'
+import { unblockCookies } from '../../../utils/cookie'
 
 enum states {
   NONE,
@@ -45,6 +46,7 @@ const AcceptInvitation = () => {
   }, [])
   if (state === states.SUCCESS) {
     if (!newUser) {
+      unblockCookies()
       document.location.href = mainHost()
       return null
     } else {

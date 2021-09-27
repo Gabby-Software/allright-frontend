@@ -17,9 +17,9 @@ const AddAccountMobile = () => {
       desc={t('auth:add-account.desc')}
     >
       <AddAccountForm />
-      <SwitchState>
+      {/* <SwitchState>
         <a href={mainHost()}>{t('back-home', { name: brand.name })}</a>
-      </SwitchState>
+      </SwitchState> */}
     </IdentityMobileLayout>
   )
 }

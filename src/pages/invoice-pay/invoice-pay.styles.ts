@@ -3,6 +3,46 @@ import Card from '../../components/cards/card/card.component'
 import { getColorCarry } from '../../pipes/theme-color.pipe'
 import { mediaQueries } from '../../enums/screen-sizes.enum'
 
+export const Success = styled(Card)`
+  padding: 4rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .invoice-pay-success {
+    &__icon {
+      width: 119px;
+      height: 119px;
+      border-radius: 9999px;
+      background-color: ${getColorCarry('primaryTransparent')};
+      color: ${getColorCarry('primary')};
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      & svg {
+        width: 50px;
+        height: 50px;
+      }
+    }
+
+    &__title {
+      font-size: 1.325rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    &__subtitle {
+      font-size: 0.875rem;
+      font-weight: 400;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+  }
+`
+
 export const Styles = styled(Card)<any>`
   display: flex;
 
@@ -78,7 +118,7 @@ export const Styles = styled(Card)<any>`
     }
     
     &__expand {
-      margin-bottom: ${props => props.$expand ? '1.5rem' : '0'};
+      margin-bottom: ${(props) => (props.$expand ? '1.5rem' : '0')};
       
       &-text {
         display: flex;

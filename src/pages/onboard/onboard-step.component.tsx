@@ -13,7 +13,8 @@ const OnboardStep = ({
   validationSchema,
   fields,
   trainer,
-  client
+  client,
+  desc
 }: OnBoardStepType) => {
   const { steps, data, onSubmit, step } = useContext(
     OnBoardContext
@@ -21,11 +22,9 @@ const OnboardStep = ({
   const { type } = data
   const { t } = useTranslation()
 
-  console.log({ data, fields })
-
   return (
     <Steps.Step>
-      {step === steps.length - 1 ? null : (
+      {step === steps.length - 1 && desc !== 'add-account.onboard' ? null : (
         <div style={{ display: 'flex', justifyContent: 'right' }}>
           <Skip />
         </div>
