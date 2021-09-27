@@ -21,6 +21,8 @@ const Step = ({ children, active }: StepProp) => {
   )
 }
 const Steps = ({ children, currentStep = 0, dots, changeStep }: StepsProps) => {
+  const path = window.location.pathname
+
   const count = useMemo(() => {
     let c = 0
     Children.forEach(children, (_) => c++)

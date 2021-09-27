@@ -37,6 +37,8 @@ const vars = {
     blue_70: '#1268E4',
     warning: '#FC7D08',
     warningDark: '#c46106',
+    red_70: '#E41216',
+    blue_60: '#2E81ED'
   },
   sizes: {
     borderRadius: '6px',
