@@ -1,2 +1,2 @@
-import React, {useState, useEffect} from 'react';
-export const useUseAddress = () => {};
+import React, { useState, useEffect } from 'react'
+export const useUseAddress = () => {}

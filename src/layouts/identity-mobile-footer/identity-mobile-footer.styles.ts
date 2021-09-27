@@ -1,26 +1,29 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export default styled.div`
-    padding: 20px 20px 30px 20px;
-    border-top: 1px solid ${p => p.theme.vars.colors.light2};
-    font-weight: 500;
-    font-size: 12px;
-    margin-top: 40px;
-    .footer {
-        &__copyright {
-            text-align: center;
-            color: ${p => p.theme.vars.colors.light2};
-        }
-        &__links {
-            ${p => p.theme.extend.flexCenter}
-            justify-content: space-between;
-            margin-top: 18px;
-        }
-        &__link {
-            color: ${p => p.theme.vars.colors.primaryDark};
-            &:hover {
-                color: ${p => p.theme.vars.colors.primaryDark};
-            }
-        }
+  padding: 24px 33px 30px;
+  border-top: 1px solid ${(p) => p.theme.vars.colors.light2};
+  font-weight: 400;
+  font-size: 12px;
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column-reverse;
+  .footer {
+    &__copyright {
+      margin-top: 20px;
+      text-align: center;
+      color: ${(p) => p.theme.vars.colors.neutral_60};
     }
-`;
+    &__links {
+      ${(p) => p.theme.extend.flexCenter}
+      justify-content: space-between;
+      margin-top: 18px;
+    }
+    &__link {
+      color: ${(p) => p.theme.vars.colors.neutral_80};
+      &:hover {
+        color: ${(p) => p.theme.vars.colors.primaryDark};
+      }
+    }
+  }
+`

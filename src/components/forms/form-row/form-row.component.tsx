@@ -1,6 +1,8 @@
-import React, {useState, useEffect} from 'react';
-import Styles from './form-row.styles';
+import styled from 'styled-components'
 
-const FormRow = Styles;
+import Styles from './form-row.styles'
 
-export default FormRow;
+const FormRow = Styles
+
+export const FormRowColumn = styled.div``
+export default FormRow
