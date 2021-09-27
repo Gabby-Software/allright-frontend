@@ -20,6 +20,7 @@ import {
 import { useTranslation } from '../../modules/i18n/i18n.hook'
 import { mainHost } from '../../pipes/main-host'
 import { ForgetPassword, MobileStickyBottom } from '../styles'
+import { unblockCookies } from '../../utils/cookie'
 
 type LoginDataType = {
   type: string
@@ -43,6 +44,7 @@ const LoginForm = () => {
         cookieManager.set('auth', JSON.stringify(res.user), res.expires_in)
 
         if (res.user.email_verified_at) {
+          unblockCookies()
           document.location.href = mainHost()
         } else {
           auth.current = res

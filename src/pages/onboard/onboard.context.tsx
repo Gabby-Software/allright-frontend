@@ -21,6 +21,7 @@ import { fillExist } from '../../pipes/fill-exist.pipe'
 import { mainHost } from '../../pipes/main-host'
 import { ProfileFormType } from '../profile/profile.type'
 import { OnBoardStepType } from './onboard.type'
+import { unblockCookies } from '../../utils/cookie'
 
 export type OnBoardContextType = {
   data: null | ProfileFormType
@@ -97,7 +98,10 @@ export const OnBoardProvider = ({
   }
 
   const nextStep = () => {
-    if (step + 1 >= steps.length) document.location.href = mainHost()
+    if (step + 1 >= steps.length) {
+      unblockCookies()
+      document.location.href = mainHost()
+    }
     else setStep(step + 1)
   }
 
@@ -194,6 +198,7 @@ export const OnBoardProvider = ({
         try {
           document.location.replace(mainHost())
         } catch (e) {
+          unblockCookies()
           document.location.href = mainHost()
         }
       } else nextStep()
