@@ -19,6 +19,7 @@ api.interceptors.request.use(
     const uuid = JSON.parse(cookieManager.get('auth') || '{}')?.accounts?.find(
       (acc: AccountType) => acc.is_current
     ).uuid
+
     if (token) config.headers['Authorization'] = `Bearer ${token}`
     if (uuid) config.headers['Account-Token'] = uuid
     return config
