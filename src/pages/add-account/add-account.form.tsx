@@ -23,10 +23,12 @@ type AccountOptionType = {
   disabled?: boolean
   exist?: boolean
 }
+
 type AccountOptionActionType = {
   onClick: () => void
   active: string
 }
+
 const AddAccountOption = ({
   image: Image,
   title,
@@ -93,8 +95,8 @@ const AddAccountOption = ({
 const AddAccountForm = () => {
   const { t } = useTranslation()
   const [selected, setSelected] = useState<string>('')
-  const [submitted, setSubmitted] = useState(false)
-  const { data, setData } = useContext(AuthDataContext)
+  const [submitted] = useState(false)
+  const { data } = useContext(AuthDataContext)
   const { setStep, setAccountType } = useContext(AddAccountContext)
   const types = data?.user?.accounts?.map((acc) => acc.type)
   const options: AccountOptionType[] = [
@@ -118,12 +120,16 @@ const AddAccountForm = () => {
       disabled: true
     }
   ]
+
   const handleSubmit = () => {
     setAccountType(selected)
     setStep(AddAccountSteps.ONBOARD)
   }
+
   const isMobile = useIsMobile()
+
   if (submitted) return <Redirect to={Routes.ADD_ACCOUNT_ONBOARD} />
+
   return (
     <Styles>
       <h2 className={'add-account__title'}>{t('auth:add-account.title')}</h2>

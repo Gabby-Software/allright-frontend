@@ -22,6 +22,7 @@ const AddAccountOnboard = ({}: Props) => {
   const isMobile = useIsMobile()
   const { data, setData } = useContext(AuthDataContext)
   const { accountType } = useContext(AddAccountContext)
+
   const preSubmit = () => {
     return api
       .post(EP_ADD_ACCOUNT, { type: accountType })
@@ -43,6 +44,7 @@ const AddAccountOnboard = ({}: Props) => {
       })
       .catch((e) => toast.show({ type: 'error', msg: serverError(e) }))
   }
+
   return (
     <OnBoardProvider steps={addAccountOnboardData} preSubmit={preSubmit}>
       {isMobile ? <OnBoardMobile /> : <OnboardDesktop />}
