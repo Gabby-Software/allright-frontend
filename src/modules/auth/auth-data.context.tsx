@@ -53,7 +53,6 @@ export const AuthDataProvider = ({ children }: { children: any }) => {
       value={{
         data,
         setData: (data: AuthResponseType | null) => {
-          console.log('Set Data SETTING COOKIES', data)
           setData(data)
           data && cookieManager.set('access_token', data?.access_token)
           data && cookieManager.set('auth', JSON.stringify(data?.user))
