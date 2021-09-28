@@ -28,7 +28,7 @@ export default function InvoicePay() {
   const [detailsOpen, setDetailsOpen] = useState(false)
   const isMobile = useIsMobile()
   const params = useParams<any>()
-  const [isSuccess, setSuccess] = useState(true)
+  const [isSuccess, setSuccess] = useState(false)
 
   const { invoice } = useInvoice({ id: params.id })
 
@@ -42,7 +42,7 @@ export default function InvoicePay() {
 
           <p className="invoice-pay-success__title">Thank You</p>
           <p className="invoice-pay-success__subtitle">
-            Coach Bob got your payment
+            Coach got your payment
           </p>
 
           <a href={`${mainHost()}/invoices/${params.id}`}>
