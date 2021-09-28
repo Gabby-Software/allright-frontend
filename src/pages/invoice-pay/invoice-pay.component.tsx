@@ -20,6 +20,7 @@ import { useParams } from 'react-router-dom'
 import useInvoice from '../../hooks/api/invoices/useInvoice'
 import CreditCardForm from '../../components/payments/credit-card-form/credit-card-form.component'
 import { mainHost } from '../../pipes/main-host'
+import { isEatRight } from '../../utils/domains'
 
 type Method = 'card' | 'crypto' | null
 
@@ -142,21 +143,23 @@ export default function InvoicePay() {
               <span>{invoice.total} AED</span>
             </h2>
 
-            <div className="invoice-pay__payment-voucher">
-              <p className="invoice-pay__payment-label">
-                Do you have a voucher or coupon?
-              </p>
+            {isEatRight() && (
+              <div className="invoice-pay__payment-voucher">
+                <p className="invoice-pay__payment-label">
+                  Do you have a voucher or coupon?
+                </p>
 
-              <div className="invoice-pay__payment-input-container">
-                <Input
-                  id="invoice-voucher"
-                  className="invoice-pay__payment-input"
-                  placeholder="ex: FRXXX"
-                />
+                <div className="invoice-pay__payment-input-container">
+                  <Input
+                    id="invoice-voucher"
+                    className="invoice-pay__payment-input"
+                    placeholder="ex: FRXXX"
+                  />
 
-                <Button variant="secondary">Apply</Button>
+                  <Button variant="secondary">Apply</Button>
+                </div>
               </div>
-            </div>
+            )}
 
             <div>
               <p className="invoice-pay__payment-label">
@@ -179,7 +182,7 @@ export default function InvoicePay() {
 
                 {method === 'card' && (
                   <CreditCardForm
-                    hint="*Your card will be charged for a one-time payment of 902 AED once you submit"
+                    hint={`*Your card will be charged for a one-time payment of ${invoice.total} AED once you submit`}
                     invoiceId={invoice.id}
                     onSuccess={() => setSuccess(true)}
                   />
