@@ -1,10 +1,6 @@
-import Page from '../../components/containers/page/page.component'
-import { Styles, Success } from './invoice-pay.styles'
-import Card from '../../components/cards/card/card.component'
-import UserBadge from '../../components/user-badge/user-badge.component'
-import Button from '../../components/buttons/button/button.component'
-import Input from '../../components/form/input/input.component'
-import PaymentMethodCard from '../../components/cards/payment-method-card/payment-method-card.component'
+import { useState } from 'react'
+import { useParams } from 'react-router-dom'
+
 import {
   AmexIcon,
   BtcIcon,
@@ -14,13 +10,18 @@ import {
   SecureIcon,
   VisaIcon
 } from '../../assets/media/icons'
-import { useState } from 'react'
-import { useIsMobile } from '../../hooks/is-mobile.hook'
-import { useParams } from 'react-router-dom'
-import useInvoice from '../../hooks/api/invoices/useInvoice'
+import Button from '../../components/buttons/button/button.component'
+import Card from '../../components/cards/card/card.component'
+import PaymentMethodCard from '../../components/cards/payment-method-card/payment-method-card.component'
+import Page from '../../components/containers/page/page.component'
+import Input from '../../components/form/input/input.component'
 import CreditCardForm from '../../components/payments/credit-card-form/credit-card-form.component'
+import UserBadge from '../../components/user-badge/user-badge.component'
+import useInvoice from '../../hooks/api/invoices/useInvoice'
+import { useIsMobile } from '../../hooks/is-mobile.hook'
 import { mainHost } from '../../pipes/main-host'
 import { isEatRight } from '../../utils/domains'
+import { Styles, Success } from './invoice-pay.styles'
 
 type Method = 'card' | 'crypto' | null
 
@@ -93,7 +94,9 @@ export default function InvoicePay() {
                 <div className="invoice-pay__items" key={item.id}>
                   <div className="invoice-pay__item-card">
                     <div className="invoice-pay__item-card-row">
-                      <p className="invoice-pay__item-card-text">{item.type}</p>
+                      <p className="invoice-pay__item-card-text">
+                        {item.type === 'meal_plan' ? 'Meal Plan' : item.type}
+                      </p>
                       <p className="invoice-pay__item-card-text">
                         {item.total} AED
                       </p>
