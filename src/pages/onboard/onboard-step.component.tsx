@@ -42,7 +42,7 @@ const OnboardStep = ({
               <OnboardItem key={field.type} {...field} /> // props spreading is difficult to read/understand!!!
             )
           )}
-          <ButtonSubmit>
+          <ButtonSubmit className={'steps__button'}>
             {t(steps.length - 1 > step ? 'next' : 'finish')}
           </ButtonSubmit>
         </Form>

@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import { getColorCarry } from '../../pipes/theme-color.pipe'
+
 export default styled.div`
   font-family: 'Circular Std', sans-serif;
   background-color: white;
@@ -43,6 +45,11 @@ export default styled.div`
       &.button-submit {
         margin-top: 44px;
       }
+      &.confirm__cancel-btn {
+        margin-top: 1rem;
+        border-color: ${getColorCarry('blue_60')};
+        color:  ${getColorCarry('blue_60')};
+      }
     }
   }
   .sign-up__skip {
@@ -57,7 +64,7 @@ export default styled.div`
   .layout {
     &__title {
       font-weight: 700;
-      font-size: 1.5rem;
+      font-size: 1.375rem;
       margin: 0 0 5px 0;
       @media all and (max-height: 700px) {
         margin-top: 0px;
@@ -66,9 +73,10 @@ export default styled.div`
     &__desc {
       font-size: 18px;
       margin: 0 auto 50px auto;
-      color: ${(p) => p.theme.vars.colors.light2};
+      color: ${getColorCarry('neutral_70')};
       max-width: 500px;
       font-weight: 400;
+      text-align: center;
       @media (max-width: ${(p) => p.theme.vars.media.mobile}px) {
         font-size: 14px;
       }

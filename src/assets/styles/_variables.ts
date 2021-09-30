@@ -38,7 +38,9 @@ const vars = {
     warning: '#FC7D08',
     warningDark: '#c46106',
     red_70: '#E41216',
-    blue_60: '#2E81ED'
+    red_80: '##D70004',
+    blue_60: '#2E81ED',
+    defaultBlack: '#2E2F31'
   },
   sizes: {
     borderRadius: '6px',

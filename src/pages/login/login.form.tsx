@@ -2,15 +2,16 @@ import { Form, Formik, FormikHelpers } from 'formik'
 import React, { useContext } from 'react'
 import * as Yup from 'yup'
 
+import AuthLink from '../../components/auth-link/auth-liks.component'
 import ButtonSubmit from '../../components/forms/button-submit/button-submit.component'
 import FormInputLabeled from '../../components/forms/form-input-labeled/form-input-labeled.component'
 import FormPassword from '../../components/forms/form-password/form-password.component'
 import { EP_LOGIN } from '../../enums/api.enum'
+import { Routes } from '../../enums/routes.enum'
 import { AuthResponseType } from '../../hooks/authorization.hook'
 import api, { handleError } from '../../managers/api.manager'
 import { auth } from '../../managers/auth.manager'
 import cookieManager from '../../managers/cookie.manager'
-import logger from '../../managers/logger.manager'
 import { AuthFormContext } from '../../modules/auth/auth.context'
 import { AuthDataContext } from '../../modules/auth/auth-data.context'
 import {
@@ -19,8 +20,8 @@ import {
 } from '../../modules/auth/auth-form.type'
 import { useTranslation } from '../../modules/i18n/i18n.hook'
 import { mainHost } from '../../pipes/main-host'
-import { ForgetPassword, MobileStickyBottom } from '../styles'
 import { unblockCookies } from '../../utils/cookie'
+import { ForgetPassword, MobileStickyBottom } from '../styles'
 
 type LoginDataType = {
   type: string
@@ -82,6 +83,12 @@ const LoginForm = () => {
           <MobileStickyBottom>
             <ButtonSubmit>{t('auth:sign-in')}</ButtonSubmit>
           </MobileStickyBottom>
+
+          <AuthLink
+            linkText={t('auth:create-account')}
+            message={t('auth:dont-have-account')}
+            url={Routes.REGISTER}
+          />
         </Form>
       )}
     </Formik>

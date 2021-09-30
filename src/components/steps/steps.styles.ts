@@ -27,6 +27,8 @@ const Style = styled.div.attrs(() => ({
       cursor: pointer;
       &__active {
         background-color: ${(p) => p.theme.vars.colors.primary};
+        width: 14px;
+        height: 14px;
       }
       &__past {
         cursor: pointer;
@@ -43,6 +45,14 @@ const Style = styled.div.attrs(() => ({
         }
       }
     }
+  }
+
+  .steps__button {
+    font-weight: 500;
+  }
+
+  .text_input__label, .select_input__label {
+    font-weight: 500 !important;
   }
 
   @media all and (max-width: ${(p) => p.theme.vars.media.mobile}px) {

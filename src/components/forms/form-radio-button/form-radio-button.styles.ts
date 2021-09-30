@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 import brand from '../../../config/branding.config'
+import { getColorCarry } from '../../../pipes/theme-color.pipe'
 
 const Styles = styled.div`
   .radio {
@@ -63,6 +64,7 @@ const RadioWithBrandStyles = styled(Styles)`
     &__active {
       background-color: ${brand.primaryColor_2};
       border: 1px solid ${brand.primaryColor_3};
+      color: ${getColorCarry('primary')};
       &:before {
         background: transparent;
         border: 5px solid ${brand.primaryColor};

@@ -1,8 +1,10 @@
 import styled from 'styled-components'
 
+import { getColorCarry } from '../../pipes/theme-color.pipe'
+
 export default styled.div`
   padding: 24px 33px 30px;
-  border-top: 1px solid ${(p) => p.theme.vars.colors.light2};
+  border-top: 1px solid ${getColorCarry('neutral_30')};
   font-weight: 400;
   font-size: 12px;
   margin-top: 36px;
