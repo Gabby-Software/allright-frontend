@@ -60,6 +60,28 @@ const brands: { [key: string]: BrandingType } = {
     multiple_accounts: false,
     showUserInfo: false
   },
+  'payments.eatrightdev.xyz': {
+    primaryColor: '#96BE35',
+    primaryLightColor: '#84a72f',
+    primaryColor_2: '#f4f8ea',
+    primaryColor_3: '',
+    logo: EatrightIcon,
+    icon: eatfavicon,
+    name: 'EatRight',
+    multiple_accounts: false,
+    showUserInfo: false
+  },
+  'payments.eatrightstaging.xyz': {
+    primaryColor: '#96BE35',
+    primaryLightColor: '#84a72f',
+    primaryColor_2: '#f4f8ea',
+    primaryColor_3: '',
+    logo: EatrightIcon,
+    icon: eatfavicon,
+    name: 'EatRight',
+    multiple_accounts: false,
+    showUserInfo: false
+  },
   localhost: {
     primaryColor: '#96BE35',
     primaryLightColor: '#84a72f',
