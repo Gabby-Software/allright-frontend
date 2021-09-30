@@ -93,7 +93,9 @@ export default function InvoicePay() {
                 <div className="invoice-pay__items" key={item.id}>
                   <div className="invoice-pay__item-card">
                     <div className="invoice-pay__item-card-row">
-                      <p className="invoice-pay__item-card-text">{item.type}</p>
+                      <p className="invoice-pay__item-card-text">
+                        {item.type === 'meal_plan' ? 'Meal Plan' : item.type}
+                      </p>
                       <p className="invoice-pay__item-card-text">
                         {item.total} AED
                       </p>
