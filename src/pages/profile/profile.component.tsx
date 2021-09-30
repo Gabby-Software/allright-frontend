@@ -49,7 +49,7 @@ const ProfileContent = () => {
             <ProfileImage />
             <ProfileBasic />
             <ProfileAddresses />
-            <ProfileInfo />
+            {brand.showUserInfo ? <ProfileInfo /> : null}
             {auth?.type === 'trainer' ? <ProfileTnb /> : null}
             <ProfilePassword />
             {brand.multiple_accounts ? <ProfileAccounts /> : null}

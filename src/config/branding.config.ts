@@ -13,7 +13,8 @@ const brands: { [key: string]: BrandingType } = {
     logo: LiverightIcon,
     icon: livefavicon,
     name: 'LiveRight',
-    multiple_accounts: true
+    multiple_accounts: true,
+    showUserInfo: true
   },
   'identity.liverightdev.xyz': {
     primaryColor: '#ED1731',
@@ -23,7 +24,8 @@ const brands: { [key: string]: BrandingType } = {
     logo: LiverightIcon,
     icon: livefavicon,
     name: 'LiveRight',
-    multiple_accounts: true
+    multiple_accounts: true,
+    showUserInfo: true
   },
   'identity.eatrightdev.xyz': {
     primaryColor: '#96BE35',
@@ -33,7 +35,8 @@ const brands: { [key: string]: BrandingType } = {
     logo: EatrightIcon,
     icon: eatfavicon,
     name: 'EatRight',
-    multiple_accounts: false
+    multiple_accounts: false,
+    showUserInfo: false
   },
   'identity.liverightstaging.xyz': {
     primaryColor: '#ED1731',
@@ -43,7 +46,8 @@ const brands: { [key: string]: BrandingType } = {
     logo: LiverightIcon,
     icon: livefavicon,
     name: 'LiveRight',
-    multiple_accounts: true
+    multiple_accounts: true,
+    showUserInfo: true
   },
   'identity.eatrightstaging.xyz': {
     primaryColor: '#96BE35',
@@ -53,7 +57,8 @@ const brands: { [key: string]: BrandingType } = {
     logo: EatrightIcon,
     icon: eatfavicon,
     name: 'EatRight',
-    multiple_accounts: false
+    multiple_accounts: false,
+    showUserInfo: false
   },
   localhost: {
     primaryColor: '#96BE35',
@@ -63,7 +68,8 @@ const brands: { [key: string]: BrandingType } = {
     logo: EatrightIcon,
     icon: livefavicon,
     name: 'Localhost',
-    multiple_accounts: true
+    multiple_accounts: false,
+    showUserInfo: false
   }
 }
 const branding = new Proxy(brands, {
