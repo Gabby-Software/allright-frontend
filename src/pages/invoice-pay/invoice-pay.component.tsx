@@ -14,6 +14,7 @@ import {
   SecureIcon,
   VisaIcon
 } from '../../assets/media/icons'
+import EatRightProfile from '../../assets/media/eatright-profile.png';
 import { useState } from 'react'
 import { useIsMobile } from '../../hooks/is-mobile.hook'
 import { useParams } from 'react-router-dom'
@@ -21,6 +22,7 @@ import useInvoice from '../../hooks/api/invoices/useInvoice'
 import CreditCardForm from '../../components/payments/credit-card-form/credit-card-form.component'
 import { mainHost } from '../../pipes/main-host'
 import { isEatRight } from '../../utils/domains'
+import { InvoiceItemType } from '../../types/invoice.type'
 
 type Method = 'card' | 'crypto' | null
 
@@ -32,6 +34,16 @@ export default function InvoicePay() {
   const [isSuccess, setSuccess] = useState(false)
 
   const { invoice } = useInvoice({ id: params.id })
+
+  const renderItemType = (item: InvoiceItemType) => {
+    if (item.type === 'meal_plan' && item.name === 'Bag deposit fee') {
+      return 'Bag deposit fee'
+    } else if (item.type === 'meal_plan') {
+      return 'Meal Plan'
+    }
+
+    return item.type
+  }
 
   if (isSuccess) {
     return (
@@ -66,13 +78,21 @@ export default function InvoicePay() {
 
           <div className="invoice-pay__from">
             <p className="invoice-pay__label">From</p>
-
-            <UserBadge
-              firstName={invoice.invoice_from?.user?.first_name}
-              lastName={invoice.invoice_from?.user?.last_name}
-              avatar={invoice.invoice_from?.user?.avatar?.url}
-              size="sm"
-            />
+            {
+                isEatRight() ?
+                <UserBadge
+                  firstName="Eat"
+                  lastName="Right"
+                  avatar={EatRightProfile}
+                  size="md"
+                /> : 
+                <UserBadge
+                  firstName={invoice.invoice_from?.user?.first_name}
+                  lastName={invoice.invoice_from?.user?.last_name}
+                  avatar={invoice.invoice_from?.user?.avatar?.url}
+                  size="sm"
+                />
+            }
           </div>
 
           {isMobile && (
@@ -94,14 +114,14 @@ export default function InvoicePay() {
                   <div className="invoice-pay__item-card">
                     <div className="invoice-pay__item-card-row">
                       <p className="invoice-pay__item-card-text">
-                        {item.type === 'meal_plan' ? 'Meal Plan' : item.type}
+                        {renderItemType(item)}
                       </p>
                       <p className="invoice-pay__item-card-text">
                         {item.total} AED
                       </p>
                     </div>
                     <p className="invoice-pay__item-card-text invoice-pay__item-card-text_secondary">
-                      {item.description}
+                      {item.name === 'Bag deposit fee' ? '' : item.description}
                     </p>
                     <p className="invoice-pay__item-card-text invoice-pay__item-card-text_secondary">
                       {item.quantity}x + {item.unit_price} AED + VAT (
