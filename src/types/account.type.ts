@@ -1,10 +1,9 @@
-import { AddressType } from '../../types/address.type'
-import { CountryType } from '../../types/country.type'
 import { AccessOptionType } from './access-option.type'
+import { AddressType } from './address.type'
 import { FileType } from './file.type'
 import { ProfileDataType } from './profile-data.type'
-
 export type AccountType = {
+  id?: number
   account_level: null | number
   is_active: boolean
   is_current: boolean
@@ -14,6 +13,21 @@ export type AccountType = {
   profile: null | ProfileDataType
   addresses: AddressType[]
 }
+
+export type ProfileType = {
+  about: string
+  additional_info: string
+  phone_number: string
+  qualifications: string
+  terms_and_conditions: any
+  injuries: string
+  dietary_restrictions: string
+}
+
+interface ExtrasType {
+  status?: string
+}
+
 export type AccountObjType = {
   accounts: AccountType[]
   avatar: FileType | null
@@ -27,8 +41,6 @@ export type AccountObjType = {
   is_active: boolean
   last_name: string
   uuid: string
-  city: null | string
-  country: null | CountryType
-  region_name: string
-  postal_code: string
+  id?: number
+  extras?: ExtrasType
 }

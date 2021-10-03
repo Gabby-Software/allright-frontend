@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useLocation } from 'react-router'
+
 import routes from '../config/routes.config'
 export const usePage = () => {
   const location = useLocation()

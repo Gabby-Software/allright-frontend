@@ -6,16 +6,19 @@ import Styles from './identity-sidebar.styles'
 
 type Props = {
   children: React.ReactNode
+  noFooter?: boolean
 }
-const IdentitySidebar = ({ children }: Props) => {
+const IdentitySidebar = ({ children, noFooter = false }: Props) => {
   const Logo = config.logo
   return (
     <Styles className={'sidebar'}>
       <Logo className={'sidebar__logo'} />
       <div className={'sidebar__body'}>{children}</div>
-      <p className={'sidebar__footer'}>
-        © LiveRight DMCC, 2021 - Some Rights Reserved
-      </p>
+      {noFooter ? null : (
+        <p className={'sidebar__footer'}>
+          © LiveRight DMCC, 2021 - Some Rights Reserved
+        </p>
+      )}
     </Styles>
   )
 }

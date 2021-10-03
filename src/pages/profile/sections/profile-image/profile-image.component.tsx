@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import Styles from './profile-image.styles'
-import { classes } from '../../../../pipes/classes.pipe'
-import { useAuth } from '../../../../hooks/use-auth.hook'
-import { noImage } from '../../../../pipes/no-image.pipe'
-import { useProfileContext } from '../../profile.context'
-import { useTranslation } from '../../../../modules/i18n/i18n.hook'
+import React, { useEffect, useState } from 'react'
+
 import FormImageUpload from '../../../../components/forms/form-image-upload/form-image-upload.component'
 import ProfileImage from '../../../../components/profile-image/profile-image.component'
+import { useAuth } from '../../../../hooks/use-auth.hook'
+import { useTranslation } from '../../../../modules/i18n/i18n.hook'
+import { classes } from '../../../../pipes/classes.pipe'
+import { noImage } from '../../../../pipes/no-image.pipe'
+import { useProfileContext } from '../../profile.context'
+import Styles from './profile-image.styles'
 
 const ProfileImageSection = () => {
   const { editMode, setAvatarFile } = useProfileContext()

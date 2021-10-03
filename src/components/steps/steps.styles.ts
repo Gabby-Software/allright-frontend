@@ -9,7 +9,6 @@ const Style = styled.div.attrs(() => ({
     &__wrapper {
       display: flex;
       transition: ${(p) => {
-        console.log({ p })
         return p.theme.vars.defaults.transition
       }};
     }
