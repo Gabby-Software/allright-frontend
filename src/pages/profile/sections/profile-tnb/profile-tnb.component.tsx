@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react'
-import Styles from './profile-tnb.styles'
-import { useProfileContext } from '../../profile.context'
-import { useTranslation } from '../../../../modules/i18n/i18n.hook'
+import React, { useEffect, useState } from 'react'
+
 import { ReactComponent as DownloadIcon } from '../../../../assets/media/icons/download.svg'
-import { useProfile } from '../../../../hooks/use-profile.hook'
-import ProfileTitle from '../../components/profile-title/profile-title.component'
 import FormFileUpload from '../../../../components/forms/form-file-upload/form-file-upload.component'
+import { useProfile } from '../../../../hooks/use-profile.hook'
 import fileManager from '../../../../managers/file.manager'
+import { useTranslation } from '../../../../modules/i18n/i18n.hook'
 import { excerpt } from '../../../../pipes/excerpt.pipe'
+import ProfileTitle from '../../components/profile-title/profile-title.component'
+import { useProfileContext } from '../../profile.context'
+import Styles from './profile-tnb.styles'
 
 const ProfileTnb = () => {
   const { editMode, setTnbFile } = useProfileContext()

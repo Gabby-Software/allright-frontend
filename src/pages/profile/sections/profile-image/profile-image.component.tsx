@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from 'react'
-
 import FormImageUpload from '../../../../components/forms/form-image-upload/form-image-upload.component'
 import ProfileImage from '../../../../components/profile-image/profile-image.component'
 import { useAuth } from '../../../../hooks/use-auth.hook'

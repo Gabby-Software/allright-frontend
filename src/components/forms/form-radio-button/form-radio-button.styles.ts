@@ -45,7 +45,7 @@ const Styles = styled.div`
   }
 `
 
-const RadioWithBrandStyles = styled(Styles)`
+const RadioWithBrandStyles = styled(Styles)<any>`
   .radio__button {
     background-color: ${(p) => p.theme.vars.colors.gray_1};
     color: ${(p) => p.theme.vars.colors.neutral_60};
@@ -62,12 +62,19 @@ const RadioWithBrandStyles = styled(Styles)`
       margin-right: 13px;
     }
     &__active {
-      background-color: ${brand.primaryColor_2};
-      border: 1px solid ${brand.primaryColor_3};
-      color: ${getColorCarry('primary')};
+      background-color: ${(p) =>
+        p.disabled ? getColorCarry('neutral_10') : brand.primaryColor_2};
+      // border: 1px solid ${brand.primaryColor_3};
+      border: 1px solid
+        ${(p) =>
+          p.disabled ? getColorCarry('neutral_10') : brand.primaryColor_3};
+      color: ${(p) =>
+        p.disabled ? getColorCarry('neutral_60') : getColorCarry('primary')};
       &:before {
         background: transparent;
-        border: 5px solid ${brand.primaryColor};
+        border: 5px solid
+          ${(p) =>
+            p.disabled ? getColorCarry('neutral_60') : brand.primaryColor};
       }
     }
   }

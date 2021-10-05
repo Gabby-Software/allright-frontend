@@ -22,6 +22,7 @@ const TnCButton = styled(Button)`
 `
 
 export default function ProfileTnC({ profile }: { profile: ProfileType }) {
+  console.log({ profile })
   return (
     <>
       <Card>
@@ -30,14 +31,16 @@ export default function ProfileTnC({ profile }: { profile: ProfileType }) {
           variant={'text'}
           onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             e.preventDefault()
-            fileManager.downloadUrl(
-              profile.terms_and_conditions.url,
-              profile.terms_and_conditions.file_name
-            )
+            if (profile?.terms_and_conditions) {
+              fileManager.downloadUrl(
+                profile?.terms_and_conditions?.url,
+                profile?.terms_and_conditions?.file_name
+              )
+            }
           }}
           to="#"
         >
-          {profile.terms_and_conditions.file_name} <DownloadIcon_2 />
+          {profile?.terms_and_conditions?.file_name} <DownloadIcon_2 />
         </TnCButton>
       </Card>
     </>

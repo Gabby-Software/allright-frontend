@@ -6,7 +6,9 @@ import MobileBack from '../../components/mobile-back/mobile-back.component'
 import { Card, CardTitle } from '../../components/profile-components'
 import ProfileBody from '../../components/profile-components/profile-body.component'
 import ProfileBodyEdit from '../../components/profile-components/profile-body-edit.component'
+import ProfileBodyMobile from '../../components/profile-components/profile-body-mobile.component'
 import ProfileTnC from '../../components/profile-components/profile-tnc.component'
+// import React, { useEffect, useState } from 'react'
 import brand from '../../config/branding.config'
 import { Routes } from '../../enums/routes.enum'
 import userTypes from '../../enums/user-types.enum'
@@ -29,23 +31,8 @@ import {
 } from './profile.context'
 import { profileSchema } from './profile.schema'
 import ProfileLayout from './profile-layout.component'
-import ProfileMobile from './profile-mobile.component'
 
-const SideBar = () => {
-  const { t } = useTranslation()
-  return (
-    <>
-      <IdentitySidebar.Title>
-        {t('profile:sidebar-title')}
-      </IdentitySidebar.Title>
-      <IdentitySidebar.Subtitle>
-        {t('profile:sidebar-subtitle')}
-      </IdentitySidebar.Subtitle>
-    </>
-  )
-}
-
-const ProfileContent = () => {
+export default function ProfileMobile() {
   const auth = useAuth()
   const { t } = useTranslation()
   const {
@@ -126,11 +113,12 @@ const ProfileContent = () => {
     label: capitalize(type),
     value: type
   }))
-
-  return isMobile ? (
-    <ProfileMobile />
-  ) : (
-    <ProfileLayout sidebar={SideBar}>
+  return (
+    <IdentityMobileLayout
+      title={t('profile:sidebar-title')}
+      desc={t('profile:sidebar-subtitle')}
+      footer={false}
+    >
       <MobileBack to={Routes.HOME} alias={t('home')} />
       {editMode ? (
         <Formik
@@ -157,16 +145,13 @@ const ProfileContent = () => {
           </Form>
         </Formik>
       ) : (
-        <ProfileBody
-          account={account}
-          address={auth.addresses[0]}
-          mobileTitle=""
+        <ProfileBodyMobile
           profile={_profile}
+          setEdit={setEditMode}
           user={user}
-          actionText={t('profile:edit-profile')}
-          setEdit={() => {
-            setEditMode(!editMode)
-          }}
+          account={account}
+          address={addresses[0]}
+          title={'title'}
         >
           <Card>
             <CardTitle>{t('profile:security')}</CardTitle>
@@ -182,31 +167,32 @@ const ProfileContent = () => {
           {account.type === userTypes.TRAINER && (
             <ProfileTnC profile={_profile} />
           )}
-          <Card>
+          <Card className="profile__account-type-card">
             <CardTitle>{t('profile:account-type')}</CardTitle>
-            <div className="profile__account-type-content-wrapper">
-              <FormRadio
-                label=""
-                options={accountOptions}
-                name=""
-                brandColors={true}
-                onChange={(value) => switchAccount(uuids[value])}
-                noForm={true}
-                defaultValue={type}
-              />
-              <Button variant="secondary" to={Routes.ADD_ACCOUNT}>
-                {t('profile:add-account')}
-              </Button>
-            </div>
+            <FormRadio
+              label=""
+              options={accountOptions}
+              name=""
+              brandColors={true}
+              onChange={(value) => switchAccount(uuids[value])}
+              noForm={true}
+              defaultValue={type}
+            />
+            <Button
+              className="profile__add-account-btn"
+              variant="secondary"
+              to={Routes.ADD_ACCOUNT}
+            >
+              {t('profile:add-account')}
+            </Button>
           </Card>
-        </ProfileBody>
+          <div className="profile__edit-button-wrapper">
+            <Button onClick={() => setEditMode(true)}>
+              {t('profile:edit-profile')}
+            </Button>
+          </div>
+        </ProfileBodyMobile>
       )}
-    </ProfileLayout>
+    </IdentityMobileLayout>
   )
 }
-const Profile = () => (
-  <ProfileProvider>
-    <ProfileContent />
-  </ProfileProvider>
-)
-export default onlyActive(Profile)

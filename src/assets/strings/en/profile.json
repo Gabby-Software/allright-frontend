@@ -45,6 +45,7 @@
   "account-type": "Account Type",
   "other-info":"Other Info",
   "personal-info":"Personal Info",
+  "personal-information": "Personal information",
   "payment-info": {
     "title": "Payment Info",
     "bank": "Bank",

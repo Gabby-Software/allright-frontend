@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react'
-import Styles, {
-  PTitle,
-  PSubtitle,
-  PSpace,
-  PExtLink,
-  PHr
-} from './profile-sidebar.styles'
-import { Logo, MobileStickyBottom } from '../../../styles'
+import React, { useEffect, useState } from 'react'
+
+import { ReactComponent as BackIcon } from '../../../../assets/media/icons/back-arrow.svg'
+import ButtonSubmit from '../../../../components/forms/button-submit/button-submit.component'
+import FormButton from '../../../../components/forms/form-button/form-button.component'
 import { useTranslation } from '../../../../modules/i18n/i18n.hook'
 import { mainHost } from '../../../../pipes/main-host'
-import FormButton from '../../../../components/forms/form-button/form-button.component'
-import { ReactComponent as BackIcon } from '../../../../assets/media/icons/back-arrow.svg'
+import { Logo, MobileStickyBottom } from '../../../styles'
 import { useProfileContext } from '../../profile.context'
-import ButtonSubmit from '../../../../components/forms/button-submit/button-submit.component'
+import Styles, {
+  PExtLink,
+  PHr,
+  PSpace,
+  PSubtitle,
+  PTitle
+} from './profile-sidebar.styles'
 
 const ProfileSidebar = () => {
   const { t } = useTranslation()

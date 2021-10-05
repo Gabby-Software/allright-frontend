@@ -58,19 +58,20 @@ export const Grid = styled.div`
   }
 `
 
-export const Preview = styled.div`
+export const Preview = styled.div<any>`
   display: flex;
   align-items: center;
   width: 100%;
+  justify-content: ${(p) => (p.center ? 'center' : 'unset')};
 `
 
-export const PreviewImage = styled.div`
-  width: 100px;
-  height: 100px;
-  border-radius: 9999px;
+export const PreviewImage = styled.div<any>`
+  width: ${(p) => (p.noWidth ? 'unset' : '100px')};
+  height: ${(p) => (p.noWidth ? 'unset' : '100px')};
+  border-radius: ${(p) => (p.noRadius ? '0' : '9999px')};
   border: none;
-  background-color: ${getColorCarry('primary_v2')};
-  overflow: hidden;
+  // background-color: ${getColorCarry('primary_v2')};
+  overflow: ${(p) => (p.noOverflow ? 'unset' : 'hidden')};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -84,11 +85,14 @@ export const PreviewImage = styled.div`
   }
 
   & img {
-    width: 100%;
-    height: 100%;
+    width: 100px;
+    height: 100px;
     position: absolute;
     top: 0;
     left: 0;
+    @media ${mediaQueries.MOBILE} {
+      position: unset;
+    }
   }
 `
 
@@ -122,4 +126,8 @@ export const CardTitle = styled.h2`
   font-weight: 700;
   color: ${getColorCarry('primaryDark_v2')};
   margin-bottom: 1.25rem;
+
+  @media ${mediaQueries.MOBILE} {
+    text-align: left;
+  }
 `

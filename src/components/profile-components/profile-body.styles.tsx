@@ -13,23 +13,100 @@ export default styled.div<ProfileBodyStyleProps>`
   .profile {
     &__main {
       // padding-top: 26px;
-      .add-address-btn {
-        margin-top: 36px;
-        font-size: 1rem;
-        border: none;
-        box-shadow: none;
-        display: inline-flex;
-        width: unset;
-        padding: 0;
-        color: ${getColorCarry('blue_60')};
-        font-weight: 500;
-        font-size: 14px;
-        svg {
-          margin-left: 0.5rem;
+      .add-address-btn__wrapper {
+        text-align: left;
+        .add-address-btn {
+          margin-top: 36px;
+          font-size: 1rem;
+          border: none;
+          box-shadow: none;
+          display: inline-flex;
+          width: unset;
+          padding: 0;
+          color: ${getColorCarry('blue_60')};
+          font-weight: 500;
+          font-size: 14px;
+          svg {
+            margin-left: 0.5rem;
+          }
         }
       }
+
+      .profile__edit-image {
+        width: 100%;
+        height: 100%;
+        background: white;
+        & > div {
+          width: 100%;
+          height: 100%;
+        }
+        .image-upload__wrapper {
+          width: 100%;
+          height: 100%;
+        }
+        .profile__image-placeholder {
+          display: inline-block;
+          width: 100%;
+          text-align: center;
+          line-height: 100px;
+        }
+        .profile__image {
+          border-radius: 50%;
+        }
+      }
+
       .address__grid {
         margin-bottom: 20px;
+      }
+      .account-type__wrapper {
+        display: grid;
+        grid-template-columns: 3fr 2fr 1fr;
+        column-gap: 1rem;
+        .radio__button {
+          padding: 10px 12px;
+        }
+        & > a {
+          width: 100%;
+        }
+        .ant-btn {
+          width: 100%;
+          margin-top: 0.5rem;
+        }
+        @media ${mediaQueries.MOBILE} {
+          display: block;
+        }
+      }
+
+      .profile__edit-button-wrapper {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 1rem 1.25rem;
+        background-color: white;
+        .ant-btn {
+          width: 100%;
+        }
+      }
+      .file_input__card {
+        .file_input__wrapper {
+          width: 100%;
+          .file_input__add {
+            width: 400px;
+            display: flex;
+            flex-direction: column;
+            .file_input__inner_label {
+              margin-top: 11px;
+              color: ${getColorCarry('neutral_60')};
+            }
+            @media ${mediaQueries.MOBILE} {
+              width: 100%;
+            }
+          }
+          .file_input__delete {
+            color: ${getColorCarry('secondary')};
+          }
+        }
       }
     }
     &__card_row {
@@ -145,6 +222,7 @@ export default styled.div<ProfileBodyStyleProps>`
       padding-bottom: 0;
       &__grid {
         grid-template-columns: 1fr;
+        text-align: left;
 
         &-user-names-desktop {
           display: none;
@@ -197,6 +275,42 @@ export default styled.div<ProfileBodyStyleProps>`
 
     .dark-cards {
       flex-direction: column-reverse;
+    }
+  }
+
+  @media ${mediaQueries.MOBILE} {
+    .account-type__wrapper,
+    .profile__account-type-card {
+      .radio__wrapper {
+        .radio__cont {
+          .radio {
+            flex-direction: column;
+            .radio__button {
+              margin-bottom: 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .form-radio__wrapper {
+    .radio__button {
+      margin-right: 6px;
+    }
+  }
+
+  .profile {
+    &__account-type-card {
+      @media ${mediaQueries.MOBILE} {
+        margin-bottom: 3rem;
+      }
+      a {
+        width: 100%;
+      }
+    }
+    &__add-account-btn {
+      width: 100%;
     }
   }
 `

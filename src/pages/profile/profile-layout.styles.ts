@@ -13,7 +13,21 @@ const ProfileLayoutStyles = styled(IdentityLayoutStyles)`
       padding: 0 2.5rem;
       .profile {
         &__main {
-          paddinng-top: 0 !important;
+          padding-top: 0 !important;
+          .profile__account-type-content-wrapper {
+            display: flex;
+            .radio__button {
+              width: 200px;
+              height: 46px;
+            }
+            & > a {
+              margin-left: auto;
+            }
+            .ant-btn {
+              margin-top: 8px;
+              font-weight: 400;
+            }
+          }
         }
       }
     }
