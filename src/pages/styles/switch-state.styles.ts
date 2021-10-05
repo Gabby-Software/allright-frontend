@@ -29,4 +29,8 @@ export default styled.p<any>`
   .black__link {
     color: ${(p) => p.theme.vars.colors.neutral_100};
   }
+
+  .black__link {
+    color: ${(p) => p.theme.vars.colors.neutral_100};
+  }
 `

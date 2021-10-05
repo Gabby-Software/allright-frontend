@@ -22,13 +22,30 @@ const OnboardStep = ({
   const { type } = data
   const { t } = useTranslation()
 
+  const renderSkip = () => {
+    console.log({ desc: steps[step].desc })
+    if (
+      steps[step].desc === 'onboard-set-password' ||
+      step === steps.length - 1 ||
+      (step === steps.length - 1 && desc !== 'add-account.onboard')
+    ) {
+      return null
+    }
+    return (
+      <div style={{ display: 'flex', justifyContent: 'right' }}>
+        <Skip />
+      </div>
+    )
+  }
+
   return (
     <Steps.Step>
-      {step === steps.length - 1 && desc !== 'add-account.onboard' ? null : (
+      {/* {step === steps.length - 1 ? null : (
         <div style={{ display: 'flex', justifyContent: 'right' }}>
           <Skip />
         </div>
-      )}
+      )} */}
+      {renderSkip()}
       <Formik
         initialValues={{ ...data }}
         onSubmit={onSubmit}

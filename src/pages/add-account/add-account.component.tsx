@@ -13,10 +13,14 @@ import AddAccountMobile from './add-account.mobile'
 const AddAccountContent = () => {
   const { width } = useWindowSize()
   const { step } = useContext(AddAccountContext)
-  if (step === AddAccountSteps.SELECT_TYPE)
+
+  if (step === AddAccountSteps.SELECT_TYPE) {
     return width < 1200 ? <AddAccountMobile /> : <AddAccountDesktop />
+  }
+
   return <AddAccountOnboard />
 }
+
 const AddAccount = () => (
   <AddAccountProvider>
     <AddAccountContent />

@@ -9,4 +9,5 @@ export type BrandingType = {
   icon: string
   name: string
   multiple_accounts: boolean
+  showUserInfo: boolean
 }
