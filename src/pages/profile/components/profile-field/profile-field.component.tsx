@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import Styles from './profile-field.styles'
-import FormRow from '../../../../components/forms/form-row/form-row.component'
 import { Field, FieldProps } from 'formik'
-import { useTranslation } from '../../../../modules/i18n/i18n.hook'
+import React, { useEffect, useState } from 'react'
+
+import FormRow from '../../../../components/forms/form-row/form-row.component'
 import { useAuth } from '../../../../hooks/use-auth.hook'
-import { OnBoardItemType } from '../../../onboard/onboard.type'
+import { useTranslation } from '../../../../modules/i18n/i18n.hook'
 import { date } from '../../../../pipes/date.pipe'
+import { OnBoardItemType } from '../../../onboard/onboard.type'
+import Styles from './profile-field.styles'
 
 const ProfileField = ({ name, label, data, type }: OnBoardItemType) => {
   const { t } = useTranslation()

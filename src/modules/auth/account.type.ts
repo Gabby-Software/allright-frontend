@@ -1,8 +1,8 @@
-import { AccessOptionType } from './access-option.type'
-import { ProfileDataType } from './profile-data.type'
-import { CountryType } from '../../types/country.type'
-import { FileType } from './file.type'
 import { AddressType } from '../../types/address.type'
+import { CountryType } from '../../types/country.type'
+import { AccessOptionType } from './access-option.type'
+import { FileType } from './file.type'
+import { ProfileDataType } from './profile-data.type'
 
 export type AccountType = {
   account_level: null | number

@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { AuthDataContext } from '../modules/auth/auth-data.context'
+import React, { useContext, useEffect, useState } from 'react'
+
 import { AccountObjType, AccountType } from '../modules/auth/account.type'
+import { AuthDataContext } from '../modules/auth/auth-data.context'
 import { CountryType } from '../types/country.type'
 export const useAuth = () => {
   const { data } = useContext(AuthDataContext)

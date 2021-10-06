@@ -8,6 +8,15 @@
   "back-home": "Back to {{name}} dashboard",
   "no-data": "No data yet",
   "not-found-desc": "You seem to be lost, or maybe this page never existed?",
+  "back-to": "Return To {{to}}",
+  "first-name": "First Name",
+  "last-name": "Last Name",
+  "email": "Email",
+  "phone-number": "Phone Number",
+  "dob": "Date of Birth",
+  "menu": {
+    "home": "Home"
+  },
   "footer": {
     "copyright": "© {{name}} DMCC, {{year}} - Some Rights Reserved",
     "support": "Support",

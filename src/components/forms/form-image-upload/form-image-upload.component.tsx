@@ -1,16 +1,17 @@
-import React, {
-  useState,
-  useEffect,
-  ChangeEventHandler,
-  ChangeEvent
-} from 'react'
-import Styles from './form-image-upload.styles'
 import { Field, FieldProps, FormikProps } from 'formik'
+import React, {
+  ChangeEvent,
+  ChangeEventHandler,
+  useEffect,
+  useState
+} from 'react'
+
 import { ReactComponent as TrashIcon } from '../../../assets/media/icons/trash.svg'
+import { useIsMobile } from '../../../hooks/is-mobile.hook'
 import fileManager from '../../../managers/file.manager'
 import Badge from '../../badge/badge.component'
-import { useIsMobile } from '../../../hooks/is-mobile.hook'
 import SmallModal from '../../small-modal/small-modal.component'
+import Styles from './form-image-upload.styles'
 
 type Props = {
   name: string

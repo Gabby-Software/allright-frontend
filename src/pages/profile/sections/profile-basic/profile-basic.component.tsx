@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import Styles from './profile-basic.styles'
-import ProfileTitle from '../../components/profile-title/profile-title.component'
+import React, { useEffect, useState } from 'react'
+
 import { useTranslation } from '../../../../modules/i18n/i18n.hook'
-import ProfileImage from '../profile-image/profile-image.component'
+import OnboardItem from '../../../onboard/onboard-item.component'
+import ProfileField from '../../components/profile-field/profile-field.component'
+import ProfileTitle from '../../components/profile-title/profile-title.component'
 import { useProfileContext } from '../../profile.context'
 import { profileBasic, profileInfo } from '../../profile.data'
-import ProfileField from '../../components/profile-field/profile-field.component'
-import OnboardItem from '../../../onboard/onboard-item.component'
+import ProfileImage from '../profile-image/profile-image.component'
+import Styles from './profile-basic.styles'
 
 const ProfileBasic = () => {
   const { t } = useTranslation()

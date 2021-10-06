@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import Styles from './profile-image.styles'
-import { noImage } from '../../pipes/no-image.pipe'
+import React, { useEffect, useState } from 'react'
+
 import { classes } from '../../pipes/classes.pipe'
+import { noImage } from '../../pipes/no-image.pipe'
+import Styles from './profile-image.styles'
 
 type Props = {
   url: string | null

@@ -77,7 +77,7 @@ export default styled.div`
         display: block;
         height: 60px;
         width: auto;
-        margin: auto 33px auto 5px;
+        margin: 8px 33px auto 5px;
         flex-shrink: 0;
         @media all and (min-width: ${(p) => p.theme.vars.media.tablet + 1}px) {
           margin: 27px auto 50px auto;
@@ -113,6 +113,7 @@ export default styled.div`
       display: block;
       max-width: 320px;
       margin: 0px auto;
+      font-weight: 500;
       &__wrapper {
         padding: 55px 0;
         margin-top: 2rem;

@@ -1,6 +1,5 @@
 import React from 'react'
 
-// import config from '../../config/branding.config'
 import { Routes } from '../../enums/routes.enum'
 import IdentitySidebar from '../../layouts/identity-sidebar/identity-sidebar.component'
 import { useTranslation } from '../../modules/i18n/i18n.hook'

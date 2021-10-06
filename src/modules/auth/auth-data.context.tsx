@@ -1,8 +1,4 @@
-import React, {
-  createContext,
-  useEffect,
-  useState
-} from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 
 import { EP_GET_USER } from '../../enums/api.enum'

@@ -1,10 +1,11 @@
 import React, { useContext } from 'react'
-import IdentitySidebar from '../../layouts/identity-sidebar/identity-sidebar.component'
-import { useTranslation } from '../../modules/i18n/i18n.hook'
+
 import config from '../../config/branding.config'
 import { Routes } from '../../enums/routes.enum'
+import IdentitySidebar from '../../layouts/identity-sidebar/identity-sidebar.component'
 import cookieManager from '../../managers/cookie.manager'
 import { AuthDataContext } from '../../modules/auth/auth-data.context'
+import { useTranslation } from '../../modules/i18n/i18n.hook'
 
 const SignUpConfirmationSidebar = () => {
   const { t } = useTranslation()
@@ -23,6 +24,7 @@ const SignUpConfirmationSidebar = () => {
           cookieManager.removeAll()
           setData(null)
         }}
+        underline
       >
         {t('auth:back-login')}
       </IdentitySidebar.Link>

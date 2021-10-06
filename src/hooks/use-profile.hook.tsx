@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import { useAuth } from './use-auth.hook'
+import React, { useEffect, useState } from 'react'
+
+import { FileType } from '../modules/auth/file.type'
+import { PaymentInfoType } from '../modules/auth/payment-info.type'
 import { ProfileDataType } from '../modules/auth/profile-data.type'
 import { AddressType } from '../types/address.type'
-import { PaymentInfoType } from '../modules/auth/payment-info.type'
-import { FileType } from '../modules/auth/file.type'
+import { useAuth } from './use-auth.hook'
 
 export const useProfile = () => {
   const auth = useAuth()

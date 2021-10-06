@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import Styles from './profile-account.styles'
+import React, { useEffect, useState } from 'react'
+
+import { capitalize } from '../../../../pipes/capitalize.pipe'
 import { classes } from '../../../../pipes/classes.pipe'
 import { noImage } from '../../../../pipes/no-image.pipe'
-import { capitalize } from '../../../../pipes/capitalize.pipe'
 import { ACCOUNT_TYPES_LABEL } from '../../../../utils/accounts'
+import Styles from './profile-account.styles'
 
 type Prop = {
   type: string

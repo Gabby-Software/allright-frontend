@@ -6,16 +6,19 @@ import Styles from './identity-sidebar.styles'
 
 type Props = {
   children: React.ReactNode
+  noFooter?: boolean
 }
-const IdentitySidebar = ({ children }: Props) => {
+const IdentitySidebar = ({ children, noFooter = false }: Props) => {
   const Logo = config.logo
   return (
     <Styles className={'sidebar'}>
       <Logo className={'sidebar__logo'} />
       <div className={'sidebar__body'}>{children}</div>
-      <p className={'sidebar__footer'}>
-        © LiveRight DMCC, 2021 - Some Rights Reserved
-      </p>
+      {noFooter ? null : (
+        <p className={'sidebar__footer'}>
+          © LiveRight DMCC, 2021 - Some Rights Reserved
+        </p>
+      )}
     </Styles>
   )
 }
@@ -25,12 +28,12 @@ IdentitySidebar.Title = styled.h1`
   font-weight: 600;
   margin: 0;
 `
-IdentitySidebar.Link = styled(Link)`
+IdentitySidebar.Link = styled(Link)<any>`
   font-size: 1rem;
   line-height: 1.5rem;
   font-weight: normal;
   color: ${(p) => p.theme.vars.colors.defaultWhite};
-  text-decoration: none;
+  text-decoration: ${(p) => (p.underline ? 'underline' : 'none')};
   &:hover {
     color: ${(p) => p.theme.vars.colors.neutral_50};
   }
@@ -62,11 +65,13 @@ IdentitySidebar.Subtitle = styled.div`
   font-size: 1rem;
   font-weight: normal;
 `
-IdentitySidebar.Hr = styled.div`
-  margin: 50px 0;
+IdentitySidebar.Hr = styled.div<any>`
+  // margin: 50px 0;
+  margin: ${(p) => (p.spaced ? '50px 0 0.5rem' : '50px 0')};
   border-top 0;
   border-bottom: 1px solid ${(p) => p.theme.vars.colors.neutral_40};
-  max-width: 50px;
+  max-width: ${(p) => (p.width ? p.width : '50px')};
+  width: ${(p) => (p.width ? p.width : 'unset')};
 `
 IdentitySidebar.Space = styled.div`
   margin-top: 40px;

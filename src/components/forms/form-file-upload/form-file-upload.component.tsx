@@ -1,20 +1,31 @@
-import React, { useState, useEffect, ChangeEvent } from 'react'
-import Styles from './form-file-upload.styles'
 import { Field, FieldProps, FormikProps } from 'formik'
-import FormError from '../form-error/form-error.component'
+import React, { ChangeEvent, useEffect, useState } from 'react'
+
+import { TnCUploadIcon } from '../../../assets/media/icons'
 import { ReactComponent as AddIcon } from '../../../assets/media/icons/add.svg'
 import { ReactComponent as TrashIcon } from '../../../assets/media/icons/trash.svg'
 import fileManager from '../../../managers/file.manager'
 import { useTranslation } from '../../../modules/i18n/i18n.hook'
 import { toast } from '../../toast/toast.component'
+import FormError from '../form-error/form-error.component'
+import Styles from './form-file-upload.styles'
 
 type Props = {
   name: string
   label?: string
   initialFilename?: string
   onUpdate: (file: File | null) => void
+  innerLabel?: boolean
+  deleteIcon?: any
 }
-const FormFileUpload = ({ name, label, initialFilename, onUpdate }: Props) => {
+const FormFileUpload = ({
+  name,
+  label,
+  initialFilename,
+  onUpdate,
+  innerLabel,
+  deleteIcon
+}: Props) => {
   const [filename, setFilename] = useState<string>(initialFilename || '')
   const { t } = useTranslation()
   const handleChange = (
@@ -43,20 +54,30 @@ const FormFileUpload = ({ name, label, initialFilename, onUpdate }: Props) => {
       {({ field, form }: FieldProps) => (
         <Styles className={'file_input__wrapper'}>
           {label ? <div className={'file_input__label'}>{label}</div> : null}
-          <div className={'file_input__accept'}>
-            {'Available formats: txt, pdf, doc'}
-          </div>
-          <label className={'file_input__add'}>
-            <AddIcon />
-            <input
-              type={'file'}
-              accept={'.txt,.pdf,.doc'}
-              style={{ display: 'none' }}
-              onChange={(e) => handleChange(e, form)}
-              onBlur={form.handleBlur}
-              name={name}
-            />
-          </label>
+          {form.values[name] ? null : (
+            <label className={'file_input__add'}>
+              {/* <AddIcon /> */}
+              <TnCUploadIcon />
+              <input
+                type={'file'}
+                accept={'.txt,.pdf,.doc'}
+                style={{ display: 'none' }}
+                onChange={(e) => handleChange(e, form)}
+                onBlur={form.handleBlur}
+                name={name}
+              />
+              {innerLabel && (
+                <span className="file_input__inner_label">
+                  Available formats: txt, pdf, doc
+                </span>
+              )}
+            </label>
+          )}
+          {form.values[name] ? null : (
+            <div className={'file_input__accept'}>
+              {!innerLabel && 'Available formats: txt, pdf, doc'}
+            </div>
+          )}
           <div className={'file_input__bottom'}>
             <div className={'file_input__filename'}>{filename}</div>
             {field.value ? (
@@ -64,7 +85,7 @@ const FormFileUpload = ({ name, label, initialFilename, onUpdate }: Props) => {
                 className={'file_input__delete'}
                 onClick={() => remove(form)}
               >
-                {t('remove')}
+                {deleteIcon || t('remove')}
               </span>
             ) : null}
           </div>
