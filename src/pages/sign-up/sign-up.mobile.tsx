@@ -5,7 +5,7 @@ import brand from '../../config/branding.config'
 import { Routes } from '../../enums/routes.enum'
 import IdentityMobileLayout from '../../layouts/identity-mobile-layout/identity-mobile-layout.component'
 import { useTranslation } from '../../modules/i18n/i18n.hook'
-import { SwitchState, Wrapper } from '../styles'
+import { SwitchState } from '../styles'
 import SignUpForm from './sign-up.form'
 
 const SignUpMobile = () => {
