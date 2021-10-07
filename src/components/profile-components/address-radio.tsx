@@ -1,3 +1,4 @@
+import { Radio } from 'antd'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -26,7 +27,7 @@ const Wrapper = styled.div`
 
   label::before {
     content: '';
-    width: 17px;
+    width: 18px;
     height: 18px;
     background: blue;
     border-radius: 50%;
@@ -39,7 +40,7 @@ const Wrapper = styled.div`
     border-radius: 50%;
     border-width: 3px;
     border: 6px solid ${getColorCarry('primary')};
-    width: 17px;
+    width: 18px;
     height: 18px;
     background-color: transparent;
   }
@@ -50,7 +51,7 @@ const Wrapper = styled.div`
     border-radius: 50%;
     border-width: 3px;
     border: 6px solid ${getColorCarry('neutral_70')};
-    width: 17px;
+    width: 18px;
     height: 18px;
     background-color: transparent;
     margin-right: 10px;
@@ -58,6 +59,33 @@ const Wrapper = styled.div`
 
   [type='radio']:checked + label {
     color: ${getColorCarry('primary')};
+  }
+`
+
+export const Radio_2 = styled(Radio)`
+
+  .ant-radio-inner {
+    border-width: 5px;
+  }
+  .ant-radio-checked {
+    + span {
+      color: ${getColorCarry('primary')};
+    }
+    .ant-radio-inner {
+      border-color: ${getColorCarry('primary')};
+      &:after {
+        opacity: 0;
+      }
+    }
+  }
+
+  .ant-radio-input:focus + .ant-radio-inner {
+    box-shadow: none;
+  }
+
+  .ant-radio-inner {
+    width: 18px;
+    height: 18px;
   }
 `
 

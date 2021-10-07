@@ -10,7 +10,7 @@ export default styled.div`
       cursor: pointer;
     }
     &__default {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       margin-bottom: 12px;
       cursor: pointer;

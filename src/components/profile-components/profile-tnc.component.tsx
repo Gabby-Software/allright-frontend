@@ -27,21 +27,29 @@ export default function ProfileTnC({ profile }: { profile: ProfileType }) {
     <>
       <Card>
         <CardTitle>{'Terms & Conditions'}</CardTitle>
-        <TnCButton
-          variant={'text'}
-          onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-            e.preventDefault()
-            if (profile?.terms_and_conditions) {
-              fileManager.downloadUrl(
-                profile?.terms_and_conditions?.url,
-                profile?.terms_and_conditions?.file_name
-              )
-            }
-          }}
-          to="#"
-        >
-          {profile?.terms_and_conditions?.file_name} <DownloadIcon_2 />
-        </TnCButton>
+        {profile?.terms_and_conditions ? (
+          <TnCButton
+            variant={'text'}
+            onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+              e.preventDefault()
+              if (profile?.terms_and_conditions) {
+                fileManager.downloadUrl(
+                  profile?.terms_and_conditions?.url,
+                  profile?.terms_and_conditions?.file_name
+                )
+              }
+            }}
+            to="#"
+          >
+            {profile?.terms_and_conditions?.file_name} <DownloadIcon_2 />
+          </TnCButton>
+        ) : (
+          <div className="profile__grid">
+            <div className="profile__grid-item">
+              <div className="profile__grid-item-value">-</div>
+            </div>
+          </div>
+        )}
       </Card>
     </>
   )

@@ -1,4 +1,6 @@
+import { Radio } from 'antd'
 import { useFormikContext } from 'formik'
+import moment, { Moment } from 'moment'
 
 import {
   HidePSIcon,
@@ -9,6 +11,7 @@ import {
 import { ReactComponent as CalendarIcon } from '../../assets/media/icons/calendar.svg'
 import genderTypes from '../../enums/gender-types'
 import { Routes } from '../../enums/routes.enum'
+import userTypes from '../../enums/user-types.enum'
 import { useIsMobile } from '../../hooks/is-mobile.hook'
 import useImage from '../../hooks/ui/useImage'
 import { useAuth } from '../../hooks/use-auth.hook'
@@ -17,13 +20,12 @@ import { AccountObjType, AccountType } from '../../modules/auth/account.type'
 import { ProfileDataType } from '../../modules/auth/profile-data.type'
 import { useTranslation } from '../../modules/i18n/i18n.hook'
 import { useProfileContext } from '../../pages/profile/profile.context'
+import ProfileAddresses from '../../pages/profile/sections/profile-addresses/profile-addresses.component'
 import { capitalize } from '../../pipes/capitalize.pipe'
 import { noImage } from '../../pipes/no-image.pipe'
 import { getColorCarry } from '../../pipes/theme-color.pipe'
 import { OptionType } from '../../types/option.type'
 import Input from '../form/input/input.component'
-import Button from '../forms/form-button/form-button.component'
-import FormCountrySelect from '../forms/form-country-select/form-country-select.component'
 import FormDatePicker from '../forms/form-datepicker/form-datepicker.component'
 import FormFileUpload from '../forms/form-file-upload/form-file-upload.component'
 import FormImageUpload from '../forms/form-image-upload/form-image-upload.component'
@@ -43,9 +45,8 @@ import {
   PreviewName,
   PreviewSub
 } from '.'
-import AddressRadio from './address-radio'
+import AddressRadio, { Radio_2 } from './address-radio'
 import Styles from './profile-body.styles'
-import userTypes from '../../enums/user-types.enum'
 
 type ProfileBodyEditProps = {
   user: AccountObjType
@@ -81,8 +82,8 @@ export default function ProfileBodyEdit({
     value: type
   }))
 
-  const uuid: string = accounts.find(({ is_current }) => !is_current)
-    ?.uuid as string
+  // const uuid: string = accounts.find(({ is_current }) => !is_current)
+  //   ?.uuid as string
   const currentType: string = accounts.find(({ is_current }) => is_current)
     ?.type as string
 
@@ -187,7 +188,7 @@ export default function ProfileBodyEdit({
                   setFieldValue('email', e.target.value)
                 }}
                 value={values.email}
-                placeholder="john@doe.com"
+                disabled
               />
             </div>
             <div className="profile__grid-item">
@@ -207,6 +208,10 @@ export default function ProfileBodyEdit({
                   <CalendarIcon color={getColorCarry('neutral_70')} />
                 }
                 className="profile__date-input"
+                disabledDate={(d: Moment) =>
+                  d.isAfter(moment().add(-16, 'years')) ||
+                  d.isBefore(moment().add(-120, 'years'))
+                }
               />
             </div>
             <div className="profile__grid-item">
@@ -232,152 +237,18 @@ export default function ProfileBodyEdit({
         </Card>
         <Card>
           <CardTitle>{t('profile:addresses')}</CardTitle>
-          {values.addresses?.map((address, index) => {
-            return (
-              <>
-                <div style={{ marginBottom: '22px' }}>
-                  <AddressRadio
-                    id={`checkbox__${index}`}
-                    className="add-radio"
-                    label={t('profile:default-address')}
-                    name="addresses"
-                    checked={address?.is_default}
-                    value={index}
-                    onChange={() => {
-                      const newAddresses = values.addresses.map(
-                        (address, i) => ({
-                          ...address,
-                          is_default: i === index
-                        })
-                      )
-                      console.log({
-                        newAddresses,
-                        oldAddresses: values.addresses
-                      })
-                      setFieldValue('addresses', newAddresses)
-                    }}
-                  />
-                </div>
-                <div key={address.id} className="profile__grid address__grid">
-                  <div className="profile__grid-item">
-                    <p className="profile__grid-item-name">
-                      {t('profile:address-line-1')}
-                    </p>
-                    <Input
-                      id={`input_${index}`}
-                      name="address"
-                      onChange={(e) => {
-                        setFieldValue(
-                          `addresses[${index}].address`,
-                          e.target.value
-                        )
-                      }}
-                      value={address.address}
-                    />
-                  </div>
-                  <div className="profile__grid-item">
-                    <p className="profile__grid-item-name">
-                      {t('profile:address-line-2')}
-                    </p>
-                    <Input
-                      id={`input_${index}`}
-                      onChange={(e) => {
-                        setFieldValue(
-                          `addresses[${index}].address_2`,
-                          e.target.value
-                        )
-                      }}
-                      // value={address.address} what value should I use here?
-                    />
-                  </div>
-                  <div className="profile__grid-item">
-                    <p className="profile__grid-item-name">
-                      {t('profile:postal-code')}
-                    </p>
-                    <Input
-                      id={`postal_code${index}`}
-                      name="postal_code"
-                      onChange={(e) => {
-                        setFieldValue(
-                          `addresses[${index}].postal_code`,
-                          e.target.value
-                        )
-                      }}
-                      value={address.postal_code}
-                    />
-                  </div>
-                  <div className="profile__grid-item">
-                    <p className="profile__grid-item-name">
-                      {t('profile:city')}
-                    </p>
-                    <Input
-                      id="city"
-                      name="city"
-                      onChange={(e) => {
-                        setFieldValue(
-                          `addresses[${index}].city`,
-                          e.target.value
-                        )
-                      }}
-                      value={address.city as string}
-                      placeholder="john@doe.com"
-                    />
-                  </div>
-                  <div className="profile__grid-item">
-                    <FormCountrySelect
-                      onUpdate={(v) =>
-                        setFieldValue(`addresses[${index}].country`, v)
-                      }
-                      label={t('profile:country')}
-                      name={`addresses[${index}].country.code`}
-                    />
-                  </div>
-                </div>
-              </>
-            )
-          })}
-
-          <div className="add-address-btn__wrapper">
-            <Button
-              className="add-address-btn"
-              type="text"
-              onClick={() => {
-                const newAddresses = [
-                  ...values.addresses,
-                  {
-                    address: '',
-                    city: '',
-                    country: {
-                      id:
-                        values.addresses[0].country.id +
-                        values.addresses.length,
-                      code: '',
-                      is_active: false,
-                      name_english: '',
-                      name_local: ''
-                    },
-                    postal_code: '',
-                    is_default: false,
-                    region: ''
-                  }
-                ]
-                setFieldValue('addresses', newAddresses)
-              }}
-            >
-              {t('profile:add-address')} <PlusIcon />
-            </Button>
-          </div>
+          <ProfileAddresses />
         </Card>
         {currentType === userTypes.TRAINER ? (
           <Card>
-            <CardTitle>{t('profile:personal-information')}</CardTitle>
+            <CardTitle>{t('profile:other-info')}</CardTitle>
             <div className="profile__grid address__grid">
               <div className="profile__grid-item">
                 <div className="other-info__input">
                   <FormTextArea
-                    label={t('profile:dietary-restrictions')}
+                    label={t('profile:personal-information')}
                     onUpdate={setFieldValue}
-                    name="personal_information"
+                    name="about"
                   />
                 </div>
               </div>
@@ -395,7 +266,7 @@ export default function ProfileBodyEdit({
                   <FormTextArea
                     label={t('profile:additional-information')}
                     onUpdate={setFieldValue}
-                    name="additional_information"
+                    name="additional_info"
                   />
                 </div>
               </div>
@@ -431,7 +302,7 @@ export default function ProfileBodyEdit({
           <div className="profile__grid">
             <div className="profile__grid-item">
               <FormPassword
-                name="password"
+                name="current_password"
                 onUpdate={setFieldValue}
                 label={t('profile:current-password')}
                 MaskIcon={HidePSIcon}
@@ -449,7 +320,7 @@ export default function ProfileBodyEdit({
             </div>
             <div className="profile__grid-item">
               <FormPassword
-                name="password"
+                name="password_confirmation"
                 onUpdate={setFieldValue}
                 label={t('profile:confirm-password')}
                 MaskIcon={HidePSIcon}
@@ -458,7 +329,7 @@ export default function ProfileBodyEdit({
             </div>
           </div>
         </Card>
-        {values.type === 'trainer' && (
+        {values.type === userTypes.TRAINER && (
           <Card className="file_input__card">
             <CardTitle>{t('profile:tnb')}</CardTitle>
             <FormFileUpload

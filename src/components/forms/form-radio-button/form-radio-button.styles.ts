@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 
+import RadioButton from '../../../assets/media/icons/radio-button.svg'
 import brand from '../../../config/branding.config'
 import { getColorCarry } from '../../../pipes/theme-color.pipe'
 
@@ -50,13 +51,15 @@ const RadioWithBrandStyles = styled(Styles)<any>`
     background-color: ${(p) => p.theme.vars.colors.gray_1};
     color: ${(p) => p.theme.vars.colors.neutral_60};
     border: 1px solid ${(p) => p.theme.vars.colors.gray_1};
+    // position: relative;
+    // padding-left: 42px;
     &:before {
       content: '';
       display: block;
       border-radius: 50%;
       border: 2px solid ${(p) => p.theme.vars.colors.neutral_60};
-      width: 16px;
-      height: 16px;
+      width: 18px;
+      height: 18px;
       flex-shrink: 0;
       padding: 2px;
       margin-right: 13px;

@@ -49,6 +49,8 @@ export default styled.div<ProfileBodyStyleProps>`
           width: 100%;
           text-align: center;
           line-height: 100px;
+          background-color: ${getColorCarry('primary')};
+          border-radius: 50%;
         }
         .profile__image {
           border-radius: 50%;
@@ -203,10 +205,28 @@ export default styled.div<ProfileBodyStyleProps>`
         &-value {
           color: ${getColorCarry('primaryDark_v2')};
         }
+
+        .ant-select-selector {
+          padding: 0;
+        }
       }
 
       &__dob-mobile {
         display: none;
+      }
+    }
+    &__address-controls {
+      margin-top: 2rem;
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      .profile-addr__remove {
+        width: 30px;
+        height: 30px;
+        padding: 0.6rem;
+        background: ${getColorCarry('primary')};
+        border-radius: 50%;
+        color: white;
       }
     }
   }
