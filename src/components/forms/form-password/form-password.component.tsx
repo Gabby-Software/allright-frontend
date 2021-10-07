@@ -8,12 +8,20 @@ type FormPasswordPropsType = {
   name: string
   label: string
   onUpdate?: (name: string, value: string) => void
+  MaskIcon?: any
+  UnmaskIcon?: any
 }
 const types = {
   PASSWORD: 'password',
   TEXT: 'text'
 }
-const FormPassword = ({ name, label, onUpdate }: FormPasswordPropsType) => {
+const FormPassword = ({
+  name,
+  label,
+  onUpdate,
+  MaskIcon,
+  UnmaskIcon
+}: FormPasswordPropsType) => {
   const [type, setType] = useState(types.PASSWORD)
   return (
     <FormInputLabeled
@@ -23,12 +31,13 @@ const FormPassword = ({ name, label, onUpdate }: FormPasswordPropsType) => {
       onUpdate={onUpdate}
       icon={
         type === types.PASSWORD ? (
-          <ViewIcon color="inherit" onClick={() => setType(types.TEXT)} />
+          <span onClick={() => setType(types.TEXT)}>
+            {UnmaskIcon ? <UnmaskIcon /> : <ViewIcon color="inherit" />}
+          </span>
         ) : (
-          <ViewOffIcon
-            color="inherit"
-            onClick={() => setType(types.PASSWORD)}
-          />
+          <span onClick={() => setType(types.PASSWORD)}>
+            {MaskIcon ? <MaskIcon /> : <ViewOffIcon color="inherit" />}
+          </span>
         )
       }
     />

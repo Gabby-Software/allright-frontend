@@ -77,7 +77,9 @@ export const PhoneInputStyles = styled(PhoneInput)`
   &.PhoneInput--focus {
   }
   .PhoneInputCountry {
-    ${(p) => p.theme.extend.flexCenter}
+    ${(p) => {
+      return p.theme.extend.flexCenter
+    }}
     margin-right: 10px;
     position: relative;
   }

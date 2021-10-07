@@ -1,4 +1,5 @@
 import React from 'react'
+
 import IdentityLayout from '../../layouts/identity-layout/identity-layout.component'
 import AddAccountForm from './add-account.form'
 import AddAccountSidebar from './add-account-sidebar'

@@ -34,12 +34,14 @@ function Content({ hint, invoiceId, onSuccess }: CreditCardFormProps) {
       ) as HTMLButtonElement
 
       if (!stripe || !elements || !clientSecret) {
+        toast.show({ type: 'error', msg: 'Error :( Try again later' })
         return
       }
 
       const cardElement = elements.getElement(CardNumberElement)
 
       if (!cardElement) {
+        toast.show({ type: 'error', msg: 'Error :( Try again later' })
         return
       }
 

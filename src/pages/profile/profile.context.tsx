@@ -1,16 +1,12 @@
-import React, {
-  useState,
-  createContext,
-  ComponentProps,
-  useContext,
-  useEffect
-} from 'react'
-import { AccountObjType, AccountType } from '../../modules/auth/account.type'
-import { ProfileDataType } from '../../modules/auth/profile-data.type'
 import { FormikHelpers } from 'formik'
-import { ProfileFormType } from './profile.type'
-import logger from '../../managers/logger.manager'
-import api, { handleError } from '../../managers/api.manager'
+import React, {
+  ComponentProps,
+  createContext,
+  useContext,
+  useEffect,
+  useState
+} from 'react'
+
 import {
   EP_GET_ADDRESSES,
   EP_GET_USER,
@@ -21,14 +17,19 @@ import {
   EP_UPDATE_TNB,
   EP_UPDATE_USER
 } from '../../enums/api.enum'
-import { FileType } from '../../modules/auth/file.type'
+import { AuthResponseType } from '../../hooks/authorization.hook'
 import { useAuth } from '../../hooks/use-auth.hook'
 import { useProfile } from '../../hooks/use-profile.hook'
-import { AuthDataContext } from '../../modules/auth/auth-data.context'
-import { AuthResponseType } from '../../hooks/authorization.hook'
-import { AddressType } from '../../types/address.type'
-import { fillExist } from '../../pipes/fill-exist.pipe'
+import api, { handleError } from '../../managers/api.manager'
 import cookieManager from '../../managers/cookie.manager'
+import logger from '../../managers/logger.manager'
+import { AccountObjType, AccountType } from '../../modules/auth/account.type'
+import { AuthDataContext } from '../../modules/auth/auth-data.context'
+import { FileType } from '../../modules/auth/file.type'
+import { ProfileDataType } from '../../modules/auth/profile-data.type'
+import { fillExist } from '../../pipes/fill-exist.pipe'
+import { AddressType } from '../../types/address.type'
+import { ProfileFormType } from './profile.type'
 
 export type ProfileContextType = {
   editMode: boolean

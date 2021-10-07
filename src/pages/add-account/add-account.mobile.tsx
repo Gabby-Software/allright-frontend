@@ -1,11 +1,12 @@
 import React, { useContext } from 'react'
+
+// import brand from '../../config/branding.config'
 import IdentityMobileLayout from '../../layouts/identity-mobile-layout/identity-mobile-layout.component'
-import AddAccountForm from './add-account.form'
-import { useTranslation } from '../../modules/i18n/i18n.hook'
 import { AuthDataContext } from '../../modules/auth/auth-data.context'
-import { SwitchState } from '../styles'
-import { mainHost } from '../../pipes/main-host'
-import brand from '../../config/branding.config'
+import { useTranslation } from '../../modules/i18n/i18n.hook'
+// import { mainHost } from '../../pipes/main-host'
+// import { SwitchState } from '../styles'
+import AddAccountForm from './add-account.form'
 
 const AddAccountMobile = () => {
   const { t } = useTranslation()
@@ -16,9 +17,9 @@ const AddAccountMobile = () => {
       desc={t('auth:add-account.desc')}
     >
       <AddAccountForm />
-      <SwitchState>
+      {/* <SwitchState>
         <a href={mainHost()}>{t('back-home', { name: brand.name })}</a>
-      </SwitchState>
+      </SwitchState> */}
     </IdentityMobileLayout>
   )
 }

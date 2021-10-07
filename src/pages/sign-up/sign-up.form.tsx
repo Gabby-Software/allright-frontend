@@ -2,6 +2,7 @@ import { Form, Formik, FormikHelpers } from 'formik'
 import { useContext } from 'react'
 import * as Yup from 'yup'
 
+// import AuthLink from '../../components/auth-link/auth-liks.component'
 import ButtonSubmit from '../../components/forms/button-submit/button-submit.component'
 import FormInputLabeled from '../../components/forms/form-input-labeled/form-input-labeled.component'
 import FormPassword from '../../components/forms/form-password/form-password.component'
@@ -10,6 +11,7 @@ import FormSwitch from '../../components/forms/form-switch/form-switch.component
 import brand from '../../config/branding.config'
 import { EP_REGISTER } from '../../enums/api.enum'
 import genderTypes from '../../enums/gender-types'
+// import { Routes } from '../../enums/routes.enum'
 import userTypes from '../../enums/user-types.enum'
 import { AuthResponseType } from '../../hooks/authorization.hook'
 import api, { handleError } from '../../managers/api.manager'
@@ -125,6 +127,11 @@ const SignUpForm = () => {
           <MobileStickyBottom>
             <ButtonSubmit>{t('auth:sign-up')}</ButtonSubmit>
           </MobileStickyBottom>
+          {/* <AuthLink
+            url={Routes.LOGIN}
+            linkText={t('auth:sign-in')}
+            message={t('auth:have-account')}
+          /> */}
         </Form>
       )}
     </Formik>

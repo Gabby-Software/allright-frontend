@@ -10,6 +10,7 @@ import OnboardStep from './onboard-step.component'
 const OnboardDesktop = () => {
   const { step, steps, data, goTo } = useContext(OnBoardContext)
   const { t } = useTranslation()
+
   return (
     <IdentityLayout
       sidebar={() => (

@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import Styles from './profile-accounts.styles'
-import ProfileTitle from '../../components/profile-title/profile-title.component'
-import ProfileAccount from '../../components/profile-account/profile-account.component'
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+
+import { Routes } from '../../../../enums/routes.enum'
 import { useAuth } from '../../../../hooks/use-auth.hook'
 import { useTranslation } from '../../../../modules/i18n/i18n.hook'
-import { Link } from 'react-router-dom'
-import { Routes } from '../../../../enums/routes.enum'
+import ProfileAccount from '../../components/profile-account/profile-account.component'
+import ProfileTitle from '../../components/profile-title/profile-title.component'
 import { useProfileContext } from '../../profile.context'
+import Styles from './profile-accounts.styles'
 
 const ProfileAccounts = () => {
   const { accounts } = useAuth()

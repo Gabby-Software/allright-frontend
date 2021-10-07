@@ -1,27 +1,29 @@
-import React, { Suspense, useContext, useEffect, useRef } from 'react'
 import './App.css'
-import styled from 'styled-components'
-import { useSeo } from './hooks/seo.hook'
+
+import React, { Suspense, useContext, useEffect, useRef } from 'react'
 import {
-  Switch,
-  Route,
   Redirect,
-  useLocation,
-  useHistory
+  Route,
+  Switch,
+  useHistory,
+  useLocation
 } from 'react-router-dom'
-import routes from './config/routes.config'
-import { AuthFormProvider } from './modules/auth/auth.context'
+import styled from 'styled-components'
+
 import Skeleton from './components/skeleton/skeleton.component'
-import { Routes } from './enums/routes.enum'
 import Toast from './components/toast/toast.component'
-import { mainHost } from './pipes/main-host'
+import routes from './config/routes.config'
+import { Routes } from './enums/routes.enum'
+import { AuthResponseType, useAuthorization } from './hooks/authorization.hook'
+import { useSeo } from './hooks/seo.hook'
+import { auth } from './managers/auth.manager'
+import cookieManager from './managers/cookie.manager'
 import IframeManager from './managers/iframe.manager'
 import logger from './managers/logger.manager'
-import { auth } from './managers/auth.manager'
-import { AuthResponseType, useAuthorization } from './hooks/authorization.hook'
+import { AuthFormProvider } from './modules/auth/auth.context'
 import { AuthDataContext } from './modules/auth/auth-data.context'
-import cookieManager from './managers/cookie.manager'
 import PageNotFound from './pages/page-not-found/page-not-found.component'
+import { mainHost } from './pipes/main-host'
 
 const Styles = styled.div`
   font-family: 'Work Sans', sans-serif;

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import Styles from './identity-mobile-layout.styles'
+import React, { useContext } from 'react'
+
+import { AuthDataContext } from '../../modules/auth/auth-data.context'
 import { Logo, Wrapper } from '../../pages/styles'
-import { useTranslation } from '../../modules/i18n/i18n.hook'
-import IdentityFooter from '../identity-footer/identity-footer.component'
 import IdentityMobileFooter from '../identity-mobile-footer/identity-mobile-footer.component'
+import Styles from './identity-mobile-layout.styles'
 
 type Props = {
   children: React.ReactNode
@@ -11,6 +11,8 @@ type Props = {
   desc: string
 }
 const IdentityMobileLayout = ({ children, title, desc }: Props) => {
+  const { data } = useContext(AuthDataContext)
+
   return (
     <Styles>
       <Wrapper>
@@ -19,7 +21,7 @@ const IdentityMobileLayout = ({ children, title, desc }: Props) => {
         <h2 className={'layout__desc'}>{desc}</h2>
         {children}
       </Wrapper>
-      <IdentityMobileFooter />
+      <IdentityMobileFooter showLegals={!data?.user} />
     </Styles>
   )
 }

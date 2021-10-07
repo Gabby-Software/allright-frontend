@@ -30,7 +30,6 @@ const ResetPasswordForm = () => {
     form: PasswordType,
     helper: FormikHelpers<AuthFormFieldsType>
   ) => {
-    console.log(form)
     const params = new URLSearchParams(window.location.search)
     const email = params.get('email')
     const token = params.get('token')

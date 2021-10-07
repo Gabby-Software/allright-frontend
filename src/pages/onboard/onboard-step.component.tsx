@@ -13,7 +13,8 @@ const OnboardStep = ({
   validationSchema,
   fields,
   trainer,
-  client
+  client,
+  desc
 }: OnBoardStepType) => {
   const { steps, data, onSubmit, step } = useContext(
     OnBoardContext
@@ -21,15 +22,30 @@ const OnboardStep = ({
   const { type } = data
   const { t } = useTranslation()
 
-  console.log({ data, fields })
+  const renderSkip = () => {
+    console.log({ desc: steps[step].desc })
+    if (
+      steps[step].desc === 'onboard-set-password' ||
+      step === steps.length - 1 ||
+      (step === steps.length - 1 && desc !== 'add-account.onboard')
+    ) {
+      return null
+    }
+    return (
+      <div style={{ display: 'flex', justifyContent: 'right' }}>
+        <Skip />
+      </div>
+    )
+  }
 
   return (
     <Steps.Step>
-      {step === steps.length - 1 ? null : (
+      {/* {step === steps.length - 1 ? null : (
         <div style={{ display: 'flex', justifyContent: 'right' }}>
           <Skip />
         </div>
-      )}
+      )} */}
+      {renderSkip()}
       <Formik
         initialValues={{ ...data }}
         onSubmit={onSubmit}
@@ -43,7 +59,7 @@ const OnboardStep = ({
               <OnboardItem key={field.type} {...field} /> // props spreading is difficult to read/understand!!!
             )
           )}
-          <ButtonSubmit>
+          <ButtonSubmit className={'steps__button'}>
             {t(steps.length - 1 > step ? 'next' : 'finish')}
           </ButtonSubmit>
         </Form>

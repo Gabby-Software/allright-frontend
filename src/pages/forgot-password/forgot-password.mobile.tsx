@@ -1,10 +1,11 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+
+import { Routes } from '../../enums/routes.enum'
 import IdentityMobileLayout from '../../layouts/identity-mobile-layout/identity-mobile-layout.component'
 import { useTranslation } from '../../modules/i18n/i18n.hook'
-import ForgotPasswordForm from './forgot-password.form'
-import { Link } from 'react-router-dom'
-import { Routes } from '../../enums/routes.enum'
 import { SwitchState } from '../styles'
+import ForgotPasswordForm from './forgot-password.form'
 
 const ForgotPasswordMobile = ({ onSubmit }: { onSubmit: () => void }) => {
   const { t } = useTranslation()
@@ -20,7 +21,7 @@ const ForgotPasswordMobile = ({ onSubmit }: { onSubmit: () => void }) => {
       </SwitchState>
       <SwitchState>
         {t('auth:remember-password')}{' '}
-        <Link to={Routes.LOGIN}>{t('auth:back-login')}</Link>
+        <Link className={'black__link'} to={Routes.LOGIN}>{t('auth:back-login')}</Link>
       </SwitchState>
     </IdentityMobileLayout>
   )

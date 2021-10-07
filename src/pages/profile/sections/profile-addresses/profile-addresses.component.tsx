@@ -1,22 +1,34 @@
-import React, { useState, useEffect } from 'react'
-import Styles from './profile-addresses.styles'
-import ProfileTitle from '../../components/profile-title/profile-title.component'
 import {
   ArrayHelpers,
   Field,
   FieldArray,
   FieldProps,
-  FormikProps
+  FormikProps,
+  useFormikContext
 } from 'formik'
-import FormRow from '../../../../components/forms/form-row/form-row.component'
-import FormInputLabeled from '../../../../components/forms/form-input-labeled/form-input-labeled.component'
-import { useTranslation } from '../../../../modules/i18n/i18n.hook'
+import React, { useEffect, useState } from 'react'
+
+import {
+  PlusIcon,
+  ThrashIcon_2,
+  TrashIcon
+} from '../../../../assets/media/icons'
+import Input from '../../../../components/form/input/input.component'
+import Button from '../../../../components/forms/form-button/form-button.component'
 import FormCountrySelect from '../../../../components/forms/form-country-select/form-country-select.component'
-import { AddressType } from '../../../../types/address.type'
-import { useProfileContext } from '../../profile.context'
-import ProfileField from '../../components/profile-field/profile-field.component'
-import { classes } from '../../../../pipes/classes.pipe'
+import FormInputLabeled from '../../../../components/forms/form-input-labeled/form-input-labeled.component'
+import FormRow from '../../../../components/forms/form-row/form-row.component'
+import AddressRadio, {
+  Radio_2
+} from '../../../../components/profile-components/address-radio'
 import logger from '../../../../managers/logger.manager'
+import { useTranslation } from '../../../../modules/i18n/i18n.hook'
+import { classes } from '../../../../pipes/classes.pipe'
+import { AddressType } from '../../../../types/address.type'
+import ProfileField from '../../components/profile-field/profile-field.component'
+import ProfileTitle from '../../components/profile-title/profile-title.component'
+import { useProfileContext } from '../../profile.context'
+import Styles from './profile-addresses.styles'
 
 type Props = {}
 const ProfileAddresses = ({}: Props) => {
@@ -75,102 +87,152 @@ const ProfileAddresses = ({}: Props) => {
       !addr.country?.code && !addr.city && !addr.address && !addr.postal_code
     )
   }
+
+  const { setFieldValue } = useFormikContext()
+
   return (
     <Styles>
-      <ProfileTitle title={'Addresses'} />
       <Field name={'addresses'}>
         {({ field, form }: FieldProps) => (
           <FieldArray name={'addresses'}>
-            {(helpers: ArrayHelpers) => (
-              <>
-                {field?.value?.map((_: any, i: number) =>
-                  editMode ? (
-                    _._delete ? null : (
-                      <React.Fragment key={_.id}>
-                        <FormRow>
-                          <FormInputLabeled
-                            name={`addresses.${i}.address`}
-                            label={t('profile:address')}
-                          />
-                          <FormRow>
-                            <FormInputLabeled
-                              name={`addresses.${i}.postal_code`}
-                              label={t('profile:postal-code')}
-                            />
-                            <FormInputLabeled
-                              name={`addresses.${i}.city`}
-                              label={t('profile:city')}
-                            />
-                          </FormRow>
-                          <FormCountrySelect
-                            name={`addresses.${i}.country.code`}
-                            label={t('profile:country')}
-                          />
-                        </FormRow>
-                        <FormRow>
-                          <div
-                            className={classes(
-                              'profile-addr__default',
-                              field?.value[i].is_default &&
-                                'profile-addr__default__active'
-                            )}
-                            onClick={() =>
-                              markAsDefault(i, field.value.length, form)
-                            }
-                          >
-                            My default address
-                          </div>
-                          {field.value.filter((d: AddressType) => !d._delete)
-                            .length < 2 ? null : (
-                            <div
-                              className={'profile-addr__remove'}
-                              onClick={() => removeAddr(helpers, form, i)}
-                            >
-                              {'remove address'}
+            {(helpers: ArrayHelpers) => {
+              return (
+                <>
+                  {field?.value?.map((_: any, i: number) => {
+                    return editMode ? (
+                      _._delete ? null : (
+                        <React.Fragment key={_.id}>
+                          <>
+                            <div className="profile__address-controls">
+                              <AddressRadio
+                                onChange={() =>
+                                  markAsDefault(i, field.value.length, form)
+                                }
+                                name={'isDefault'}
+                                id={i.toString()}
+                                label="My default address"
+                                checked={_.is_default}
+                              />
+                              {field.value.filter(
+                                (d: AddressType) => !d._delete
+                              ).length < 2 ? null : (
+                                <div
+                                  className={'profile-addr__remove'}
+                                  onClick={() => removeAddr(helpers, form, i)}
+                                >
+                                  <TrashIcon />
+                                </div>
+                              )}
                             </div>
-                          )}
-                        </FormRow>
-                      </React.Fragment>
-                    )
-                  ) : _._delete ? null : (
-                    <FormRow key={i}>
-                      <ProfileField
-                        type={'text'}
-                        name={`addresses.${i}.address`}
-                        label={t('profile:address')}
-                      />
-                      <FormRow>
+                            <div className="profile__grid address__grid">
+                              <div className="profile__grid-item">
+                                <p className="profile__grid-item-name">
+                                  {t('profile:address')}
+                                </p>
+                                <Input
+                                  id={`input_${i}`}
+                                  name={`addresses.${i}.address`}
+                                  onChange={(e) => {
+                                    setFieldValue(
+                                      `addresses[${i}].address`,
+                                      e.target.value
+                                    )
+                                  }}
+                                  value={_.address}
+                                />
+                              </div>
+                              <div className="profile__grid-item">
+                                <p className="profile__grid-item-name">
+                                  {t('profile:postal-code')}
+                                </p>
+                                <Input
+                                  id={`postal_code${i}`}
+                                  name={`addresses.${i}.postal_code`}
+                                  onChange={(e) => {
+                                    setFieldValue(
+                                      `addresses[${i}].postal_code`,
+                                      e.target.value
+                                    )
+                                  }}
+                                  value={_.postal_code}
+                                />
+                              </div>
+                              <div className="profile__grid-item">
+                                <p className="profile__grid-item-name">
+                                  {t('profile:city')}
+                                </p>
+                                <Input
+                                  id={'city' + i}
+                                  name={`addresses.${i}.city`}
+                                  onChange={(e) => {
+                                    setFieldValue(
+                                      `addresses[${i}].city`,
+                                      e.target.value
+                                    )
+                                  }}
+                                  value={_.city as string}
+                                />
+                              </div>
+                              <div className="profile__grid-item">
+                                <FormCountrySelect
+                                  onUpdate={(v) =>
+                                    setFieldValue(
+                                      `addresses[${i}].country.code`,
+                                      v
+                                    )
+                                  }
+                                  label={t('profile:country')}
+                                  name={`addresses[${i}].country.code`}
+                                />
+                              </div>
+                            </div>
+                          </>
+                        </React.Fragment>
+                      )
+                    ) : _._delete ? null : (
+                      <FormRow key={i}>
                         <ProfileField
                           type={'text'}
-                          name={`addresses.${i}.postal_code`}
-                          label={t('profile:postal-code')}
+                          name={`addresses.${i}.address`}
+                          label={t('profile:address')}
                         />
+                        <FormRow>
+                          <ProfileField
+                            type={'text'}
+                            name={`addresses.${i}.postal_code`}
+                            label={t('profile:postal-code')}
+                          />
+                          <ProfileField
+                            type={'text'}
+                            name={`addresses.${i}.city`}
+                            label={t('profile:city')}
+                          />
+                        </FormRow>
                         <ProfileField
                           type={'text'}
-                          name={`addresses.${i}.city`}
-                          label={t('profile:city')}
+                          name={`addresses.${i}.country.name_english`}
+                          label={t('profile:country')}
                         />
                       </FormRow>
-                      <ProfileField
-                        type={'text'}
-                        name={`addresses.${i}.country.name_english`}
-                        label={t('profile:country')}
-                      />
-                    </FormRow>
-                  )
-                )}
-                {editMode &&
-                field.value.filter((d: AddressType) => !d._delete).length < 2 &&
-                !emptyAddress(field.value) ? (
-                  <p
-                    className={'profile-addr__add'}
-                    onClick={() => addAddr(helpers, field.value.length)}
-                  >
-                    {t('profile:add-address')}
-                  </p>
-                ) : null}
-              </>
-            )}
+                    )
+                  })}
+                  {editMode &&
+                  field.value.filter((d: AddressType) => !d._delete).length <
+                    2 &&
+                  !emptyAddress(field.value) ? (
+                    <div className="add-address-btn__wrapper">
+                      <Button
+                        className="add-address-btn"
+                        type="text"
+                        onClick={() => addAddr(helpers, field.value.length)}
+                      >
+                        {t('profile:add-address')} <PlusIcon />
+                      </Button>
+                    </div>
+                  ) : null}
+                </>
+              )
+            }}
           </FieldArray>
         )}
       </Field>
