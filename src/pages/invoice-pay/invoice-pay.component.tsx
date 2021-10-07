@@ -58,7 +58,11 @@ export default function InvoicePay() {
             Coach got your payment
           </p>
 
-          <a href={`${mainHost()}/invoices/${params.id}`}>
+          <a
+            href={
+              isEatRight() ? mainHost() : `${mainHost()}/invoices/${params.id}`
+            }
+          >
             <Button>Get Back</Button>
           </a>
         </Success>
