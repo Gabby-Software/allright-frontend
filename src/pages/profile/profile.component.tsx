@@ -159,7 +159,7 @@ const ProfileContent = () => {
       ) : (
         <ProfileBody
           account={account}
-          address={auth.addresses[0]}
+          addresses={auth.addresses}
           mobileTitle=""
           profile={_profile}
           user={user}

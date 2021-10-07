@@ -25,7 +25,7 @@ import Styles from './profile-body.styles'
 type ProfileBodyProps = {
   user: AccountObjType
   profile: ProfileDataType
-  address: AddressType
+  addresses: AddressType[]
   account: AccountType
   actionText?: string
   mobileTitle: string
@@ -36,7 +36,7 @@ type ProfileBodyProps = {
 export default function ProfileBody({
   user,
   profile,
-  address,
+  addresses,
   account,
   actionText,
   // mobileTitle,
@@ -127,32 +127,44 @@ export default function ProfileBody({
         <Card>
           <CardTitle>{t('profile:address')}</CardTitle>
 
-          <div className="profile__grid">
-            <div className="profile__grid-item">
-              <p className="profile__grid-item-name">{t('profile:address')}</p>
-              <p className="profile__grid-item-value">
-                {address.address || '-'}
-              </p>
+          {addresses.map((address, i) => (
+            <div
+              key={address.address + i}
+              className="profile__grid"
+              style={{ marginBottom: '1.25rem' }}
+            >
+              <div className="profile__grid-item">
+                <p className="profile__grid-item-name">
+                  {t('profile:address')}
+                </p>
+                <p className="profile__grid-item-value">
+                  {address.address || '-'}
+                </p>
+              </div>
+              <div className="profile__grid-item">
+                <p className="profile__grid-item-name">
+                  {t('profile:postal-code')}
+                </p>
+                <p className="profile__grid-item-value">
+                  {address.postal_code || '-'}
+                </p>
+              </div>
+              <div className="profile__grid-item">
+                <p className="profile__grid-item-name">{t('profile:city')}</p>
+                <p className="profile__grid-item-value">
+                  {address.city || '-'}
+                </p>
+              </div>
+              <div className="profile__grid-item">
+                <p className="profile__grid-item-name">
+                  {t('profile:country')}
+                </p>
+                <p className="profile__grid-item-value">
+                  {address.country?.name_english || '-'}
+                </p>
+              </div>
             </div>
-            <div className="profile__grid-item">
-              <p className="profile__grid-item-name">
-                {t('profile:postal-code')}
-              </p>
-              <p className="profile__grid-item-value">
-                {address.postal_code || '-'}
-              </p>
-            </div>
-            <div className="profile__grid-item">
-              <p className="profile__grid-item-name">{t('profile:city')}</p>
-              <p className="profile__grid-item-value">{address.city || '-'}</p>
-            </div>
-            <div className="profile__grid-item">
-              <p className="profile__grid-item-name">{t('profile:country')}</p>
-              <p className="profile__grid-item-value">
-                {address.country?.name_english || '-'}
-              </p>
-            </div>
-          </div>
+          ))}
         </Card>
 
         {account?.type === 'trainer' ? (

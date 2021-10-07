@@ -1,5 +1,5 @@
-import * as Yup from 'yup'
 import moment from 'moment'
+import * as Yup from 'yup'
 
 export const profileSchema = Yup.object({
   birthday: Yup.date().nullable().max(moment().add(-16, 'years'), 'age-16'),

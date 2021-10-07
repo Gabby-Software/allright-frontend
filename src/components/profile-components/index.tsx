@@ -82,6 +82,13 @@ export const PreviewImage = styled.div<any>`
     font-weight: 700;
     color: #fff;
     text-transform: uppercase;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 100px;
+    background-color: ${getColorCarry('primary')};
+    border: 2px solid white;
+    border-radius: 50%;
   }
 
   & img {
@@ -90,8 +97,11 @@ export const PreviewImage = styled.div<any>`
     position: absolute;
     top: 0;
     left: 0;
-    @media ${mediaQueries.MOBILE} {
-      position: unset;
+  }
+
+  .profile__edit-image {
+    img {
+      position: relative;
     }
   }
 `

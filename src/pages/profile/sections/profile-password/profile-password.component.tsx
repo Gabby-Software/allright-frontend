@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import Styles from './profile-password.styles'
+import React, { useEffect, useState } from 'react'
+
 import FormPassword from '../../../../components/forms/form-password/form-password.component'
-import { useProfileContext } from '../../profile.context'
-import ProfileTitle from '../../components/profile-title/profile-title.component'
-import { useTranslation } from '../../../../modules/i18n/i18n.hook'
 import FormRow from '../../../../components/forms/form-row/form-row.component'
+import { useTranslation } from '../../../../modules/i18n/i18n.hook'
+import ProfileTitle from '../../components/profile-title/profile-title.component'
+import { useProfileContext } from '../../profile.context'
+import Styles from './profile-password.styles'
 
 const ProfilePassword = () => {
   const { editMode } = useProfileContext()
