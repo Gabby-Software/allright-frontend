@@ -3,12 +3,6 @@ import { getColorCarry } from '../../../pipes/theme-color.pipe'
 import { mediaQueries } from '../../../enums/screen-sizes.enum'
 
 export const Styles = styled.div`
-  * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-  }
-  
   width: 100%;
   min-height: 100vh;
   background-color: #F1F4F7;

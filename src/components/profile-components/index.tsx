@@ -70,7 +70,6 @@ export const PreviewImage = styled.div<any>`
   height: ${(p) => (p.noWidth ? 'unset' : '100px')};
   border-radius: ${(p) => (p.noRadius ? '0' : '9999px')};
   border: none;
-  // background-color: ${getColorCarry('primary_v2')};
   overflow: ${(p) => (p.noOverflow ? 'unset' : 'hidden')};
   display: flex;
   align-items: center;
