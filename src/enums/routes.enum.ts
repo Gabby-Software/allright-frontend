@@ -15,5 +15,6 @@ export const Routes = {
   PROFILE: '/profile',
   INVITATIONS: '/invitations',
   INVITATIONS_ONBOARD: '/invitations/onboard',
+  INVOICE: '/invoices/:id',
   INVOICE_PAY: '/invoices/:id/pay'
 }

@@ -1,14 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 
 import { AccountObjType, AccountType } from '../modules/auth/account.type'
 import { AuthDataContext } from '../modules/auth/auth-data.context'
-import { CountryType } from '../types/country.type'
+
 export const useAuth = () => {
   const { data } = useContext(AuthDataContext)
+
   const user = data?.user as AccountObjType
   const account = data?.user.accounts.find(
     (acc) => acc.is_current
   ) as AccountType
+
   return {
     ...user,
     ...account,

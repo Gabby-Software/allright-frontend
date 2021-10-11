@@ -6,7 +6,7 @@ interface PageProps {}
 
 export default function Page({ children }: PropsWithChildren<PageProps>) {
   return (
-    <Styles>
+    <Styles className="page">
       <Header />
 
       <div className="page__content">
