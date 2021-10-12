@@ -4,96 +4,47 @@ import livefavicon from '../assets/media/favicon-live.ico'
 import { ReactComponent as LiverightIcon } from '../assets/media/logo-compact.svg'
 import { BrandingType } from '../types/branding.type'
 
-const brands: { [key: string]: BrandingType } = {
-  default: {
-    primaryColor: '#ED1731',
-    primaryLightColor: '#ed4452',
-    primaryColor_2: '#FFEBEB',
-    primaryColor_3: '#FDB6B7',
-    logo: LiverightIcon,
-    icon: livefavicon,
-    name: 'LiveRight',
-    multiple_accounts: true,
-    showUserInfo: true
-  },
-  'identity.liverightdev.xyz': {
-    primaryColor: '#ED1731',
-    primaryColor_2: '#FFEBEB',
-    primaryColor_3: '#FDB6B7',
-    primaryLightColor: '#ed4452',
-    logo: LiverightIcon,
-    icon: livefavicon,
-    name: 'LiveRight',
-    multiple_accounts: true,
-    showUserInfo: true
-  },
-  'identity.eatrightdev.xyz': {
-    primaryColor: '#96BE35',
-    primaryLightColor: '#84a72f',
-    primaryColor_2: '#f4f8ea',
-    primaryColor_3: '',
-    logo: EatrightIcon,
-    icon: eatfavicon,
-    name: 'EatRight',
-    multiple_accounts: false,
-    showUserInfo: false
-  },
-  'identity.liverightstaging.xyz': {
-    primaryColor: '#ED1731',
-    primaryLightColor: '#ed4452',
-    primaryColor_2: '#FFEBEB',
-    primaryColor_3: '#FDB6B7',
-    logo: LiverightIcon,
-    icon: livefavicon,
-    name: 'LiveRight',
-    multiple_accounts: true,
-    showUserInfo: true
-  },
-  'identity.eatrightstaging.xyz': {
-    primaryColor: '#96BE35',
-    primaryLightColor: '#84a72f',
-    primaryColor_2: '#f4f8ea',
-    primaryColor_3: '',
-    logo: EatrightIcon,
-    icon: eatfavicon,
-    name: 'EatRight',
-    multiple_accounts: false,
-    showUserInfo: false
-  },
-  'payments.eatrightdev.xyz': {
-    primaryColor: '#96BE35',
-    primaryLightColor: '#84a72f',
-    primaryColor_2: '#f4f8ea',
-    primaryColor_3: '',
-    logo: EatrightIcon,
-    icon: eatfavicon,
-    name: 'EatRight',
-    multiple_accounts: false,
-    showUserInfo: false
-  },
-  'payments.eatrightstaging.xyz': {
-    primaryColor: '#96BE35',
-    primaryLightColor: '#84a72f',
-    primaryColor_2: '#f4f8ea',
-    primaryColor_3: '',
-    logo: EatrightIcon,
-    icon: eatfavicon,
-    name: 'EatRight',
-    multiple_accounts: false,
-    showUserInfo: false
-  },
-  localhost: {
-    primaryColor: '#96BE35',
-    primaryLightColor: '#84a72f',
-    primaryColor_2: '#f4f8ea',
-    primaryColor_3: '',
-    logo: EatrightIcon,
-    icon: livefavicon,
-    name: 'Localhost',
-    multiple_accounts: false,
-    showUserInfo: false
-  }
+const EAT_RIGHT_BRANDING: BrandingType = {
+  primaryColor: '#96BE35',
+  primaryLightColor: '#84a72f',
+  primaryColor_2: '#f4f8ea',
+  primaryColor_3: '',
+  logo: EatrightIcon,
+  icon: eatfavicon,
+  name: 'EatRight',
+  multiple_accounts: false,
+  showUserInfo: false
 }
+
+const LIVE_RIGHT_BRANDING: BrandingType = {
+  primaryColor: '#ED1731',
+  primaryLightColor: '#ed4452',
+  primaryColor_2: '#FFEBEB',
+  primaryColor_3: '#FDB6B7',
+  logo: LiverightIcon,
+  icon: livefavicon,
+  name: 'LiveRight',
+  multiple_accounts: true,
+  showUserInfo: true
+}
+
+const brands: { [key: string]: BrandingType } = {
+  default: LIVE_RIGHT_BRANDING,
+  localhost: EAT_RIGHT_BRANDING,
+  'identity.liverightdev.xyz': LIVE_RIGHT_BRANDING,
+  'identity.eatrightdev.xyz': EAT_RIGHT_BRANDING,
+  'identity.liverightstaging.xyz': LIVE_RIGHT_BRANDING,
+  'identity.eatrightstaging.xyz': EAT_RIGHT_BRANDING,
+  'payments.eatrightdev.xyz': EAT_RIGHT_BRANDING,
+  'payments.eatrightstaging.xyz': EAT_RIGHT_BRANDING,
+  'payments.liverightdev.xyz': EAT_RIGHT_BRANDING,
+  'payments.liverightstaging.xyz': EAT_RIGHT_BRANDING,
+  'invoices.eatrightdev.xyz': EAT_RIGHT_BRANDING,
+  'invoices.eatrightstaging.xyz': EAT_RIGHT_BRANDING,
+  'invoices.liverightdev.xyz': LIVE_RIGHT_BRANDING,
+  'invoices.liverightstaging.xyz': LIVE_RIGHT_BRANDING,
+}
+
 const branding = new Proxy(brands, {
   get: (target, prop: string) => target[prop] || target['default']
 })
@@ -107,4 +58,5 @@ const brand: BrandingType =
 
 ;(document.head.querySelector('[rel="icon"]') as HTMLLinkElement).href =
   brand.icon
+
 export default brand
