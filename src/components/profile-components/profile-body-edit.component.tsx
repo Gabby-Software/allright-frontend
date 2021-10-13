@@ -16,6 +16,7 @@ import { useIsMobile } from '../../hooks/is-mobile.hook'
 import useImage from '../../hooks/ui/useImage'
 import { useAuth } from '../../hooks/use-auth.hook'
 import { useProfile } from '../../hooks/use-profile.hook'
+import { isEatRight } from '../../utils/domains'
 import { AccountObjType, AccountType } from '../../modules/auth/account.type'
 import { ProfileDataType } from '../../modules/auth/profile-data.type'
 import { useTranslation } from '../../modules/i18n/i18n.hook'
@@ -341,20 +342,21 @@ export default function ProfileBodyEdit({
             />
           </Card>
         )}
-        <Card className="profile__account-type-card">
-          <CardTitle>{t('profile:account-type')}</CardTitle>
-          <div className="account-type__wrapper">
-            <FormRadio
-              label=""
-              options={accountOptions}
-              name="type"
-              brandColors={true}
-              disabled={true}
-              defaultValue={currentType}
-            />
-          </div>
-        </Card>
-
+        {!isEatRight() && (
+          <Card className="profile__account-type-card">
+            <CardTitle>{t('profile:account-type')}</CardTitle>
+            <div className="account-type__wrapper">
+              <FormRadio
+                label=""
+                options={accountOptions}
+                name="type"
+                brandColors={true}
+                disabled={true}
+                defaultValue={currentType}
+              />
+            </div>
+          </Card>
+        )}
         {isMobile ? (
           <div className="profile__edit-button-wrapper">
             <ActionButton

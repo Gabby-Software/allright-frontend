@@ -9,6 +9,7 @@ import { AuthDataContext } from '../../modules/auth/auth-data.context'
 import { useTranslation } from '../../modules/i18n/i18n.hook'
 import { SwitchState } from '../styles'
 import SignUpConfirmationForm from './sign-up-confirmation.form'
+import { isEatRight } from '../../utils/domains'
 
 const SignUpConfirmationMobile = () => {
   const { t } = useTranslation()
@@ -16,7 +17,10 @@ const SignUpConfirmationMobile = () => {
   return (
     <IdentityMobileLayout
       title={t('auth:sign-up-title')}
-      desc={t('auth:sign-up-subtitle', { name: config.name })}
+      desc={t(
+        isEatRight()
+        ? 'auth:sign-up-subtitle-eatright'
+          : 'auth:sign-up-subtitle', { name: config.name })}
     >
       <SignUpConfirmationForm />
       <SwitchState back>

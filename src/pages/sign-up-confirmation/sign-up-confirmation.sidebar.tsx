@@ -6,6 +6,7 @@ import IdentitySidebar from '../../layouts/identity-sidebar/identity-sidebar.com
 import cookieManager from '../../managers/cookie.manager'
 import { AuthDataContext } from '../../modules/auth/auth-data.context'
 import { useTranslation } from '../../modules/i18n/i18n.hook'
+import { isEatRight } from '../../utils/domains'
 
 const SignUpConfirmationSidebar = () => {
   const { t } = useTranslation()
@@ -14,7 +15,9 @@ const SignUpConfirmationSidebar = () => {
     <>
       <IdentitySidebar.Title>{t('auth:sign-up-title')}</IdentitySidebar.Title>
       <IdentitySidebar.Subtitle>
-        {t('auth:sign-up-subtitle', { name: config.name })}
+        {t(isEatRight()
+          ? 'auth:sign-up-subtitle-eatright'
+            : 'auth:sign-up-subtitle', { name: config.name })}
       </IdentitySidebar.Subtitle>
       <IdentitySidebar.Hr />
       <IdentitySidebar.Desc>{t('auth:all-solved')}</IdentitySidebar.Desc>

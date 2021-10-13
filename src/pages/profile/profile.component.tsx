@@ -14,6 +14,7 @@ import { onlyActive } from '../../guards/active.guard'
 import { useIsMobile } from '../../hooks/is-mobile.hook'
 import { useAuth } from '../../hooks/use-auth.hook'
 import { useProfile } from '../../hooks/use-profile.hook'
+import { isEatRight } from '../../utils/domains'
 import IdentityLayout from '../../layouts/identity-layout/identity-layout.component'
 import IdentityMobileLayout from '../../layouts/identity-mobile-layout-2/identity-mobile-layout.component'
 import IdentitySidebar from '../../layouts/identity-sidebar/identity-sidebar.component'
@@ -182,23 +183,25 @@ const ProfileContent = () => {
           {account.type === userTypes.TRAINER && (
             <ProfileTnC profile={_profile} />
           )}
-          <Card>
-            <CardTitle>{t('profile:account-type')}</CardTitle>
-            <div className="profile__account-type-content-wrapper">
-              <FormRadio
-                label=""
-                options={accountOptions}
-                name=""
-                brandColors={true}
-                onChange={(value) => switchAccount(uuids[value])}
-                noForm={true}
-                defaultValue={type}
-              />
-              <Button variant="secondary" to={Routes.ADD_ACCOUNT}>
-                {t('profile:add-account')}
-              </Button>
-            </div>
-          </Card>
+          {!isEatRight() && (
+            <Card>
+              <CardTitle>{t('profile:account-type')}</CardTitle>
+              <div className="profile__account-type-content-wrapper">
+                <FormRadio
+                  label=""
+                  options={accountOptions}
+                  name=""
+                  brandColors={true}
+                  onChange={(value) => switchAccount(uuids[value])}
+                  noForm={true}
+                  defaultValue={type}
+                />
+                <Button variant="secondary" to={Routes.ADD_ACCOUNT}>
+                  {t('profile:add-account')}
+                </Button>
+              </div>
+            </Card>
+          )}
         </ProfileBody>
       )}
     </ProfileLayout>
