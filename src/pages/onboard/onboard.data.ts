@@ -116,7 +116,7 @@ const liveRightOnBoard: OnBoardStepType[] = [
 ]
 const eatRightOnBoard: OnBoardStepType[] = [
   {
-    desc: 'onboard-location',
+    desc: 'onboard-location-eatright',
     validationSchema: Yup.object({ postal_code: Yup.string().zip() }),
     fields: [
       {

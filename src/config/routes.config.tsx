@@ -2,6 +2,7 @@ import { lazy } from 'react'
 
 import { Routes } from '../enums/routes.enum'
 import { RouteType } from '../types/route.type'
+
 const routes: RouteType[] = [
   {
     title: 'Login',
@@ -110,9 +111,15 @@ const routes: RouteType[] = [
     )
   },
   {
+    title: 'Invoice',
+    url: Routes.INVOICE,
+    Component: lazy(() => import('../pages/invoice/invoice.component'))
+  },
+  {
     title: 'Pay Invoice',
     url: Routes.INVOICE_PAY,
     Component: lazy(() => import('../pages/invoice-pay/invoice-pay.component'))
   }
 ]
+
 export default routes
