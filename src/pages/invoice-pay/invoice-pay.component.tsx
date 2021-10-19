@@ -55,7 +55,7 @@ export default function InvoicePay() {
 
           <p className="invoice-pay-success__title">Thank You</p>
           <p className="invoice-pay-success__subtitle">
-            Coach got your payment
+            {isEatRight() ? "We've got your payment" : 'Coach got your payment'}
           </p>
 
           <a
