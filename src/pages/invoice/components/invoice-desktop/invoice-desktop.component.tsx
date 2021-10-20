@@ -34,7 +34,7 @@ export default function InvoiceDesktop() {
   const { t } = useTranslation()
   const { type } = useAuth()
 
-  const { invoice, isInvoiceLoading } = useInvoice({
+  const { invoice, isInvoiceLoading, onMarkPaid } = useInvoice({
     id: params.id
   })
 
@@ -101,6 +101,17 @@ export default function InvoiceDesktop() {
                   {t('invoices:pay')}
                 </Button>
               )}
+
+          {type === userTypes.TRAINER &&
+            invoice.status !== invoiceStatuses.DRAFT &&
+            invoice.status !== invoiceStatuses.PAID && (
+              <Button
+                className="invoice__send-btn"
+                onClick={() => onMarkPaid(invoice.id)}
+              >
+                Mark as Paid
+              </Button>
+            )}
 
           <IconActions {...invoice} />
         </div>
