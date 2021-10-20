@@ -9,6 +9,7 @@ import { capitalize } from '../../pipes/capitalize.pipe'
 import { date } from '../../pipes/date.pipe'
 import { noImage } from '../../pipes/no-image.pipe'
 import { AddressType } from '../../types/address.type'
+import { isEatRight } from '../../utils/domains'
 import {
   ActionButton,
   ActionContainer,
@@ -167,60 +168,64 @@ export default function ProfileBody({
           ))}
         </Card>
 
-        {account?.type === 'trainer' ? (
-          <Card>
-            <CardTitle>{t('profile:other-info')}</CardTitle>
+        {!isEatRight() && (
+          <>
+            {account?.type === 'trainer' ? (
+              <Card>
+                <CardTitle>{t('profile:other-info')}</CardTitle>
 
-            <div className="profile__grid">
-              <div className="profile__grid-item">
-                <p className="profile__grid-item-name">
-                  {t('profile:personal-information')}
-                </p>
-                <p className="profile__grid-item-value">
-                  {profile?.about || '-'}
-                </p>
-              </div>
-              <div className="profile__grid-item">
-                <p className="profile__grid-item-name">
-                  {t('profile:qualifications')}
-                </p>
-                <p className="profile__grid-item-value">
-                  {profile?.qualifications || '-'}
-                </p>
-              </div>
-              <div className="profile__grid-item">
-                <p className="profile__grid-item-name">
-                  {t('profile:additional-information')}
-                </p>
-                <p className="profile__grid-item-value">
-                  {profile?.additional_info || '-'}
-                </p>
-              </div>
-            </div>
-          </Card>
-        ) : (
-          <Card>
-            <CardTitle>Other Info</CardTitle>
+                <div className="profile__grid">
+                  <div className="profile__grid-item">
+                    <p className="profile__grid-item-name">
+                      {t('profile:personal-information')}
+                    </p>
+                    <p className="profile__grid-item-value">
+                      {profile?.about || '-'}
+                    </p>
+                  </div>
+                  <div className="profile__grid-item">
+                    <p className="profile__grid-item-name">
+                      {t('profile:qualifications')}
+                    </p>
+                    <p className="profile__grid-item-value">
+                      {profile?.qualifications || '-'}
+                    </p>
+                  </div>
+                  <div className="profile__grid-item">
+                    <p className="profile__grid-item-name">
+                      {t('profile:additional-information')}
+                    </p>
+                    <p className="profile__grid-item-value">
+                      {profile?.additional_info || '-'}
+                    </p>
+                  </div>
+                </div>
+              </Card>
+            ) : (
+              <Card>
+                <CardTitle>Other Info</CardTitle>
 
-            <div className="profile__grid">
-              <div className="profile__grid-item">
-                <p className="profile__grid-item-name">
-                  {t('profile:dietary-restrictions')}
-                </p>
-                <p className="profile__grid-item-value">
-                  {profile.dietary_restrictions || '-'}
-                </p>
-              </div>
-              <div className="profile__grid-item">
-                <p className="profile__grid-item-name">
-                  {t('profile:injuries')}
-                </p>
-                <p className="profile__grid-item-value">
-                  {profile.injuries || '-'}
-                </p>
-              </div>
-            </div>
-          </Card>
+                <div className="profile__grid">
+                  <div className="profile__grid-item">
+                    <p className="profile__grid-item-name">
+                      {t('profile:dietary-restrictions')}
+                    </p>
+                    <p className="profile__grid-item-value">
+                      {profile.dietary_restrictions || '-'}
+                    </p>
+                  </div>
+                  <div className="profile__grid-item">
+                    <p className="profile__grid-item-name">
+                      {t('profile:injuries')}
+                    </p>
+                    <p className="profile__grid-item-value">
+                      {profile.injuries || '-'}
+                    </p>
+                  </div>
+                </div>
+              </Card>
+            )}
+          </>
         )}
         {children}
       </div>

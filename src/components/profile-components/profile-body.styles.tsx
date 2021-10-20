@@ -240,6 +240,11 @@ export default styled.div<ProfileBodyStyleProps>`
 
     .profile {
       padding-bottom: 0;
+
+      &__main {
+        margin-bottom: 60px;
+      }
+
       &__grid {
         grid-template-columns: 1fr;
         text-align: left;
