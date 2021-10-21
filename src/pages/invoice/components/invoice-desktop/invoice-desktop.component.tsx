@@ -36,11 +36,11 @@ export default function InvoiceDesktop() {
   const { t } = useTranslation()
   const { type, first_name, last_name, addresses } = useAuth()
 
-  const { invoice, isInvoiceLoading, onMarkPaid } = useInvoice({
+  const { invoice, isInvoiceLoading, onMarkPaid, onSend } = useInvoice({
     id: params.id
   })
 
-  const userAddress = addresses.find((address) => address.is_default);
+  const userAddress = addresses.find((address) => address.is_default)
 
   const renderItemType = (type: string, name: string) => {
     if (type === 'meal_plan' && name === 'Bag deposit fee') {
@@ -49,7 +49,7 @@ export default function InvoiceDesktop() {
       return 'Meal Plan'
     }
 
-    return type;
+    return type
   }
 
   if (isInvoiceLoading) {
@@ -68,26 +68,26 @@ export default function InvoiceDesktop() {
                 <p className="invoice-text-item__name">
                   {t('invoices:issued-by')}
                 </p>
-                {
-                  isEatRight() ?
-                  <> 
+                {isEatRight() ? (
+                  <>
                     <EatrightLogo />
                     <p className="invoice-text-item__sub">
                       Eat Right DMCC, Nook Office, <br /> unit 02/02, One JLT,
                       Dubai
                     </p>
-                  </> :
-                  <>
-                  <p className="invoice-text-item__value">
-                    {invoice.invoice_from.user.first_name}{' '}
-                    {invoice.invoice_from.user.last_name}
-                  </p>
-                  <p className="invoice-text-item__sub">
-                  {addressLine(invoice.invoice_from.address)}
-                </p>
                   </>
-                }
-            </div>
+                ) : (
+                  <>
+                    <p className="invoice-text-item__value">
+                      {invoice.invoice_from.user.first_name}{' '}
+                      {invoice.invoice_from.user.last_name}
+                    </p>
+                    <p className="invoice-text-item__sub">
+                      {addressLine(invoice.invoice_from.address)}
+                    </p>
+                  </>
+                )}
+              </div>
             </div>
             <div className="invoice__row-item">
               <div className="invoice-text-item">
@@ -95,11 +95,20 @@ export default function InvoiceDesktop() {
                   {t('invoices:issued-to')}
                 </p>
                 <p className="invoice-text-item__value">
-                  {isEatRight() ? first_name : invoice.invoice_to.user.first_name}{' '}
+                  {isEatRight()
+                    ? first_name
+                    : invoice.invoice_to.user.first_name}{' '}
                   {isEatRight() ? last_name : invoice.invoice_to.user.last_name}
                 </p>
-                <p className="invoice-text-item__sub" style = {{ marginTop: isEatRight() ? '7px' : '' }}>
-                  {addressLine(isEatRight() && userAddress ? userAddress : invoice.invoice_to.address)}
+                <p
+                  className="invoice-text-item__sub"
+                  style={{ marginTop: isEatRight() ? '7px' : '' }}
+                >
+                  {addressLine(
+                    isEatRight() && userAddress
+                      ? userAddress
+                      : invoice.invoice_to.address
+                  )}
                 </p>
               </div>
             </div>
@@ -139,6 +148,16 @@ export default function InvoiceDesktop() {
               </Button>
             )}
 
+          {type === userTypes.TRAINER &&
+            invoice.status === invoiceStatuses.DRAFT && (
+              <Button
+                className="invoice__send-btn"
+                onClick={() => onSend(invoice.id)}
+              >
+                Send to Client
+              </Button>
+            )}
+
           <IconActions {...invoice} />
         </div>
       </div>
@@ -169,8 +188,15 @@ export default function InvoiceDesktop() {
           render={{
             item: ({ type, name }) => (
               <div className={'invoice-info__item'}>
-                <div className={'invoice-info__type'}>{renderItemType(type, name)}</div>
-                <div className={'invoice-info__desc'} style ={{ color: isEatRight() ? '#9E9E9E' : '' }}>{name === 'Bag deposit fee' ? '' : name}</div>
+                <div className={'invoice-info__type'}>
+                  {renderItemType(type, name)}
+                </div>
+                <div
+                  className={'invoice-info__desc'}
+                  style={{ color: isEatRight() ? '#9E9E9E' : '' }}
+                >
+                  {name === 'Bag deposit fee' ? '' : name}
+                </div>
               </div>
             ),
             qty: ({ quantity }) => `${quantity}x`,
@@ -189,7 +215,13 @@ export default function InvoiceDesktop() {
           <div className="invoice__row">
             <div className="invoice__row-item">
               <p className="invoice-text-item__name">
-                {t(`invoices:${ isEatRight() ? 'default-payment-method-eatright' : 'default-payment-method'}`)}
+                {t(
+                  `invoices:${
+                    isEatRight()
+                      ? 'default-payment-method-eatright'
+                      : 'default-payment-method'
+                  }`
+                )}
               </p>
               <p className="invoice-text-item__value">
                 {t(`invoices:${invoice.payment_method}`)}

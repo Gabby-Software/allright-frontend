@@ -30,3 +30,4 @@ export const EP_GET_INVOICES = '/invoices'
 export const EP_STRIPE_KEY = '/payment-methods/name/stripe'
 export const EP_STRIPE_CHECKOUT = '/stripe/checkout'
 export const EP_MARK_INVOICE_AS_PAID = (id: number) => `/invoices/${id}/mark-as-paid`
+export const EP_EDIT_INVOICE = '/invoices'
