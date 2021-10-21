@@ -2,6 +2,7 @@ import { Skeleton } from 'antd'
 import React from 'react'
 import { useParams } from 'react-router'
 
+import { ReactComponent as EatrightLogo } from '../../../../assets/media/eatright-logo-small.svg'
 import Button from '../../../../components/buttons/button/button.component'
 import StatusBadge from '../../../../components/status-badge/status-badge.component'
 import { invoiceStatuses } from '../../../../enums/invoice-statuses'
@@ -18,6 +19,7 @@ import IconActions from '../icon-actions/icon-actions.component'
 import Styles from './invoice-desktop.styles'
 import DataTable from '../../../../components/data-table/data-table.component'
 import { getRoute } from '../../../../utils/routes'
+import { isEatRight } from '../../../../utils/domains'
 
 const labels = [
   'invoices:item',
@@ -32,11 +34,23 @@ const keys = ['item', 'qty', 'price', 'discount', 'vat', 'subtotal']
 export default function InvoiceDesktop() {
   const params = useParams<any>()
   const { t } = useTranslation()
-  const { type } = useAuth()
+  const { type, first_name, last_name, addresses } = useAuth()
 
-  const { invoice, isInvoiceLoading } = useInvoice({
+  const { invoice, isInvoiceLoading, onMarkPaid, onSend } = useInvoice({
     id: params.id
   })
+
+  const userAddress = addresses.find((address) => address.is_default)
+
+  const renderItemType = (type: string, name: string) => {
+    if (type === 'meal_plan' && name === 'Bag deposit fee') {
+      return 'Bag deposit fee'
+    } else if (type === 'meal_plan') {
+      return 'Meal Plan'
+    }
+
+    return type
+  }
 
   if (isInvoiceLoading) {
     return <Skeleton />
@@ -54,13 +68,25 @@ export default function InvoiceDesktop() {
                 <p className="invoice-text-item__name">
                   {t('invoices:issued-by')}
                 </p>
-                <p className="invoice-text-item__value">
-                  {invoice.invoice_from.user.first_name}{' '}
-                  {invoice.invoice_from.user.last_name}
-                </p>
-                <p className="invoice-text-item__sub">
-                  {addressLine(invoice.invoice_from.address)}
-                </p>
+                {isEatRight() ? (
+                  <>
+                    <EatrightLogo />
+                    <p className="invoice-text-item__sub">
+                      Eat Right DMCC, Nook Office, <br /> unit 02/02, One JLT,
+                      Dubai
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p className="invoice-text-item__value">
+                      {invoice.invoice_from.user.first_name}{' '}
+                      {invoice.invoice_from.user.last_name}
+                    </p>
+                    <p className="invoice-text-item__sub">
+                      {addressLine(invoice.invoice_from.address)}
+                    </p>
+                  </>
+                )}
               </div>
             </div>
             <div className="invoice__row-item">
@@ -69,11 +95,20 @@ export default function InvoiceDesktop() {
                   {t('invoices:issued-to')}
                 </p>
                 <p className="invoice-text-item__value">
-                  {invoice.invoice_to.user.first_name}{' '}
-                  {invoice.invoice_to.user.last_name}
+                  {isEatRight()
+                    ? first_name
+                    : invoice.invoice_to.user.first_name}{' '}
+                  {isEatRight() ? last_name : invoice.invoice_to.user.last_name}
                 </p>
-                <p className="invoice-text-item__sub">
-                  {addressLine(invoice.invoice_to.address)}
+                <p
+                  className="invoice-text-item__sub"
+                  style={{ marginTop: isEatRight() ? '7px' : '' }}
+                >
+                  {addressLine(
+                    isEatRight() && userAddress
+                      ? userAddress
+                      : invoice.invoice_to.address
+                  )}
                 </p>
               </div>
             </div>
@@ -101,6 +136,27 @@ export default function InvoiceDesktop() {
                   {t('invoices:pay')}
                 </Button>
               )}
+
+          {type === userTypes.TRAINER &&
+            invoice.status !== invoiceStatuses.DRAFT &&
+            invoice.status !== invoiceStatuses.PAID && (
+              <Button
+                className="invoice__send-btn"
+                onClick={() => onMarkPaid(invoice.id)}
+              >
+                Mark as Paid
+              </Button>
+            )}
+
+          {type === userTypes.TRAINER &&
+            invoice.status === invoiceStatuses.DRAFT && (
+              <Button
+                className="invoice__send-btn"
+                onClick={() => onSend(invoice.id)}
+              >
+                Send to Client
+              </Button>
+            )}
 
           <IconActions {...invoice} />
         </div>
@@ -132,8 +188,15 @@ export default function InvoiceDesktop() {
           render={{
             item: ({ type, name }) => (
               <div className={'invoice-info__item'}>
-                <div className={'invoice-info__type'}>{type}</div>
-                <div className={'invoice-info__desc'}>{name}</div>
+                <div className={'invoice-info__type'}>
+                  {renderItemType(type, name)}
+                </div>
+                <div
+                  className={'invoice-info__desc'}
+                  style={{ color: isEatRight() ? '#9E9E9E' : '' }}
+                >
+                  {name === 'Bag deposit fee' ? '' : name}
+                </div>
               </div>
             ),
             qty: ({ quantity }) => `${quantity}x`,
@@ -152,7 +215,13 @@ export default function InvoiceDesktop() {
           <div className="invoice__row">
             <div className="invoice__row-item">
               <p className="invoice-text-item__name">
-                {t('invoices:default-payment-method')}
+                {t(
+                  `invoices:${
+                    isEatRight()
+                      ? 'default-payment-method-eatright'
+                      : 'default-payment-method'
+                  }`
+                )}
               </p>
               <p className="invoice-text-item__value">
                 {t(`invoices:${invoice.payment_method}`)}
