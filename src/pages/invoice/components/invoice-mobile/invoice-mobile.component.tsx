@@ -44,7 +44,7 @@ export default function InvoiceMobile({}: Props) {
   const { type } = useAuth()
   const [showDetails, setShowDetails] = useState(false)
 
-  const { invoice, isInvoiceLoading, onMarkPaid } = useInvoice({
+  const { invoice, isInvoiceLoading, onMarkPaid, onSend } = useInvoice({
     id: params.id
   })
 
@@ -100,6 +100,17 @@ export default function InvoiceMobile({}: Props) {
                         onClick={() => onMarkPaid(invoice.id)}
                       >
                         Mark as Paid
+                      </Button>
+                    )}
+
+                  {type === userTypes.TRAINER &&
+                    invoice.status === invoiceStatuses.DRAFT && (
+                      <Button
+                        className="invoice__btn"
+                        size="sm"
+                        onClick={() => onSend(invoice.id)}
+                      >
+                        Send to Client
                       </Button>
                     )}
 
