@@ -79,7 +79,7 @@ const SignUpForm = () => {
 
         // If user was redirected from EatRight cart, skip email confirmation and redirect back to EatRight
         if (session) {
-          window.location.href = `${mainHost()}?redirectToCheckout=true&deliveryDate=${searchParams.get('deliveryDate') || '' }&renewWeekly=${searchParams.get('renewWeekly') || ''}`
+          window.location.href = `${mainHost()}/plans?redirectToCheckout=true&deliveryDate=${searchParams.get('deliveryDate') || '' }&renewWeekly=${searchParams.get('renewWeekly') || ''}`
         }
         helper.setSubmitting(false)
       })
