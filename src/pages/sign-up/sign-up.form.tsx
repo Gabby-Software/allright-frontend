@@ -56,8 +56,6 @@ const SignUpForm = () => {
       // eslint-disable-next-line
     }
 
-    // eslint-disable-next-line no-debugger
-    debugger
     const session = searchParams.get('session') || ''
     api
       .post<AuthResponseType>(EP_REGISTER, {
