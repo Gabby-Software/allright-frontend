@@ -14,8 +14,8 @@ export const useAuth = () => {
   return {
     ...user,
     ...account,
-    addresses: account.addresses?.length
-      ? account.addresses
+    addresses: account?.addresses?.length
+      ? account?.addresses
       : [
           {
             address: '',
