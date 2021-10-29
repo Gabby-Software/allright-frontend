@@ -70,7 +70,7 @@ function getBgColor(props: any): string {
 function getBorderColor(props: any): string {
   switch (props.$var) {
     case 'secondary':
-      return getColor(props, 'blue_70')
+      return getColor(props, 'link')
     case 'text':
       return 'transparent'
     default:
@@ -82,7 +82,7 @@ function getTextColor(props: any): string {
   switch (props.$var) {
     case 'secondary':
     case 'text':
-      return getColor(props, 'blue_70')
+      return getColor(props, 'link')
     default:
       return '#fff'
   }
