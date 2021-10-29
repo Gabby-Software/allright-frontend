@@ -6,6 +6,7 @@ export type BrandingType = {
   primaryLightColor: string
   primaryColor_2: string
   primaryColor_3: string
+  link: string
   icon: string
   name: string
   multiple_accounts: boolean

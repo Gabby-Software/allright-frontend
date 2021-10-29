@@ -25,7 +25,10 @@ import {
   AuthFormTypeNotNull
 } from '../../modules/auth/auth-form.type'
 import { useTranslation } from '../../modules/i18n/i18n.hook'
+import { mainHost } from '../../pipes/main-host';
 import { MobileStickyBottom } from '../styles'
+
+const searchParams = new URLSearchParams(location.search)
 
 type LoginDataType = {
   type: string
@@ -52,9 +55,12 @@ const SignUpForm = () => {
       // why is catch block empty 🤔???
       // eslint-disable-next-line
     }
+
+    const session = searchParams.get('session') || ''
     api
       .post<AuthResponseType>(EP_REGISTER, {
         ...defaults,
+        session,
         first_name,
         last_name,
         email,
@@ -70,6 +76,11 @@ const SignUpForm = () => {
         cookieManager.set('access_token', res.access_token, res.expires_in)
         cookieManager.set('auth', JSON.stringify(res.user), res.expires_in)
         setData(res)
+
+        // If user was redirected from EatRight cart, skip email confirmation and redirect back to EatRight
+        if (session) {
+          window.location.href = `${mainHost()}/plans?redirectToCheckout=true&deliveryDate=${searchParams.get('deliveryDate') || '' }&renewWeekly=${searchParams.get('renewWeekly') || ''}`
+        }
         helper.setSubmitting(false)
       })
       .catch(handleError(helper))

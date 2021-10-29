@@ -36,7 +36,7 @@ export default styled.div<any>`
     &:focus,
     &:focus-within {
       border-color: ${(props) =>
-        props.$disabled ? '' : getColor(props, 'blue_70')};
+        props.$disabled ? '' : getColor(props, 'link')};
     }
   }
 `

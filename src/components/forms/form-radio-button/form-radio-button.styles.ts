@@ -66,18 +66,17 @@ const RadioWithBrandStyles = styled(Styles)<any>`
     }
     &__active {
       background-color: ${(p) =>
-        p.disabled ? getColorCarry('neutral_10') : brand.primaryColor_2};
-      // border: 1px solid ${brand.primaryColor_3};
+        p.disabled ? getColorCarry('neutral_10') : getColorCarry('primaryTransparent')};
       border: 1px solid
         ${(p) =>
-          p.disabled ? getColorCarry('neutral_10') : brand.primaryColor_3};
+          p.disabled ? getColorCarry('neutral_10') : getColorCarry('primary')};
       color: ${(p) =>
         p.disabled ? getColorCarry('neutral_60') : getColorCarry('primary')};
       &:before {
         background: transparent;
         border: 5px solid
           ${(p) =>
-            p.disabled ? getColorCarry('neutral_60') : brand.primaryColor};
+            p.disabled ? getColorCarry('neutral_60') : getColorCarry('primary')};
       }
     }
   }

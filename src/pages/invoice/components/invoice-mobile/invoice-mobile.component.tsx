@@ -31,6 +31,8 @@ import {
 } from './invoice-mobile.styles'
 import { invoiceStatuses } from '../../../../enums/invoice-statuses'
 import Button from '../../../../components/buttons/button/button.component'
+import { mainHost } from '../../../../pipes/main-host'
+import { BackLink } from '../../../../components/typography'
 
 const PAYMENT_METHODS: Record<string, any> = {
   credit_card: 'Credit Card'
@@ -55,6 +57,17 @@ export default function InvoiceMobile({}: Props) {
         <Skeleton />
       ) : (
         <Styles>
+          <BackLink
+            native
+            to={
+              type === userTypes.CLIENT
+                ? `${mainHost()}/invoices`
+                : `${mainHost()}/financials/receivables`
+            }
+          >
+            {`Back to ${type === userTypes.CLIENT ? 'Invoices' : 'Financials'}`}
+          </BackLink>
+
           {type === userTypes.CLIENT && (
             <InvoiceCard showDate showPay showDue asLink={false} {...invoice} />
           )}
