@@ -56,11 +56,23 @@ const SignUpForm = () => {
       // eslint-disable-next-line
     }
 
+    // search params that are passed from EatRight
     const session = searchParams.get('session') || ''
+    const address = searchParams.get('address') || ''
+    const city = searchParams.get('city') || ''
+    const postal_code = searchParams.get('postalCode') || ''
+    const country = searchParams.get('country') || ''
+    const phone_number = searchParams.get('phoneNo') || ''
+
     api
       .post<AuthResponseType>(EP_REGISTER, {
         ...defaults,
         session,
+        address,
+        city,
+        postal_code,
+        country,
+        phone_number,
         first_name,
         last_name,
         email,

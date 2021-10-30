@@ -36,7 +36,7 @@ export default function InvoicePay() {
   const { invoice } = useInvoice({ id: params.id })
 
   const renderItemType = (item: InvoiceItemType) => {
-    if (item.type === 'meal_plan' && item.name === 'Bag deposit fee') {
+    if (item.type === 'fee' && item.name === 'Bag deposit fee') {
       return 'Bag deposit fee'
     } else if (item.type === 'meal_plan') {
       return 'Meal Plan'
