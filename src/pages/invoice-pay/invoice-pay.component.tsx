@@ -157,7 +157,7 @@ export default function InvoicePay() {
                   <p className="invoice-pay__summary-row-text">
                     Voucher/Coupon
                   </p>
-                  <span>- {`${applyData?.discount_amount} AED`}</span>
+                  <span>- {`${applyData?.discount_amount || 0} AED`}</span>
                 </div>
               </div>
 
