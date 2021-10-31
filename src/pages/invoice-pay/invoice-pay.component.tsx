@@ -10,11 +10,12 @@ import {
   BtcIcon,
   CaretDownIcon,
   CheckmarkIcon,
+  GreenCheckIcon,
   McIcon,
   SecureIcon,
   VisaIcon
 } from '../../assets/media/icons'
-import EatRightProfile from '../../assets/media/eatright-profile.png';
+import EatRightProfile from '../../assets/media/eatright-profile.png'
 import { useState } from 'react'
 import { useIsMobile } from '../../hooks/is-mobile.hook'
 import { useParams } from 'react-router-dom'
@@ -23,6 +24,8 @@ import CreditCardForm from '../../components/payments/credit-card-form/credit-ca
 import { mainHost } from '../../pipes/main-host'
 import { isEatRight } from '../../utils/domains'
 import { InvoiceItemType } from '../../types/invoice.type'
+import useAppyCoupon from '../../hooks/api/coupon/useApplyCoupon'
+import { LoadingPlaceholder } from '../../components/placeholders'
 
 type Method = 'card' | 'crypto' | null
 
@@ -33,7 +36,9 @@ export default function InvoicePay() {
   const params = useParams<any>()
   const [isSuccess, setSuccess] = useState(false)
 
-  const { invoice } = useInvoice({ id: params.id })
+  const { invoice, mutate } = useInvoice({ id: params.id })
+  const { coupon, setCoupon, applyData, isCouponApplying, onApplyCoupon } =
+    useAppyCoupon()
 
   const renderItemType = (item: InvoiceItemType) => {
     if (item.type === 'fee' && item.name === 'Bag deposit fee') {
@@ -44,6 +49,8 @@ export default function InvoicePay() {
 
     return item.type
   }
+
+  console.log(applyData)
 
   if (isSuccess) {
     return (
@@ -82,21 +89,21 @@ export default function InvoicePay() {
 
           <div className="invoice-pay__from">
             <p className="invoice-pay__label">From</p>
-            {
-                isEatRight() ?
-                <UserBadge
-                  firstName="Eat"
-                  lastName="Right"
-                  avatar={EatRightProfile}
-                  size="md"
-                /> : 
-                <UserBadge
-                  firstName={invoice.invoice_from?.user?.first_name}
-                  lastName={invoice.invoice_from?.user?.last_name}
-                  avatar={invoice.invoice_from?.user?.avatar?.url}
-                  size="sm"
-                />
-            }
+            {isEatRight() ? (
+              <UserBadge
+                firstName="Eat"
+                lastName="Right"
+                avatar={EatRightProfile}
+                size="md"
+              />
+            ) : (
+              <UserBadge
+                firstName={invoice.invoice_from?.user?.first_name}
+                lastName={invoice.invoice_from?.user?.last_name}
+                avatar={invoice.invoice_from?.user?.avatar?.url}
+                size="sm"
+              />
+            )}
           </div>
 
           {isMobile && (
@@ -150,7 +157,7 @@ export default function InvoicePay() {
                   <p className="invoice-pay__summary-row-text">
                     Voucher/Coupon
                   </p>
-                  <span>-</span>
+                  <span>- {`${applyData?.discount_amount} AED`}</span>
                 </div>
               </div>
 
@@ -180,10 +187,30 @@ export default function InvoicePay() {
                     id="invoice-voucher"
                     className="invoice-pay__payment-input"
                     placeholder="ex: FRXXX"
+                    value={coupon}
+                    onChange={(e) => setCoupon(e.target.value)}
                   />
 
-                  <Button variant="secondary">Apply</Button>
+                  {isCouponApplying ? (
+                    <LoadingPlaceholder />
+                  ) : (
+                    <Button
+                      variant="secondary"
+                      onClick={() => {
+                        onApplyCoupon(invoice.id, Math.round(invoice.total))
+                        mutate()
+                      }}
+                    >
+                      Apply
+                    </Button>
+                  )}
                 </div>
+                {applyData && (
+                  <div className="invoice-pay__applied-coupon">
+                    <GreenCheckIcon />
+                    <p>Voucher Applied</p>
+                  </div>
+                )}
               </div>
             )}
 

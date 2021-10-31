@@ -20,7 +20,7 @@ export const Success = styled(Card)`
       display: flex;
       align-items: center;
       justify-content: center;
-      
+
       & svg {
         width: 50px;
         height: 50px;
@@ -203,6 +203,21 @@ export const Styles = styled(Card)<any>`
     &__submit {
       width: 100%;
       margin-top: 3rem;
+    }
+
+    &__applied-coupon {
+      display: inline-block;
+      margin: 10px 0;
+
+      svg {
+        display: inline-block;
+      }
+
+      p {
+        margin: 0;
+        margin-left: 10px;
+        display: inline-block;
+      }
     }
   }
 
