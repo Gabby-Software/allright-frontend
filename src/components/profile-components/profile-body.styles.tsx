@@ -46,7 +46,7 @@ export default styled.div<ProfileBodyStyleProps>`
         }
         .profile__image-placeholder {
           display: inline-block;
-          width: 100%;
+          width: 70%;
           text-align: center;
           line-height: 100px;
           background-color: ${getColorCarry('primary')};
@@ -194,6 +194,7 @@ export default styled.div<ProfileBodyStyleProps>`
         .textarea__wrapper {
           .text_input__input {
             height: 130px;
+            width: 100%;
           }
         }
         .text_input__input {
@@ -304,17 +305,10 @@ export default styled.div<ProfileBodyStyleProps>`
   }
 
   @media ${mediaQueries.MOBILE} {
-    .account-type__wrapper,
-    .profile__account-type-card {
-      .radio__wrapper {
-        .radio__cont {
-          .radio {
-            flex-direction: column;
-            .radio__button {
-              margin-bottom: 1rem;
-            }
-          }
-        }
+    .radio {
+      flex-direction: column;
+      .radio__button {
+        margin-bottom: 1rem;
       }
     }
   }
