@@ -8,6 +8,7 @@ interface UseApplyCoupon {
   setCoupon: (coupon: string) => void
   applyData: any
   isCouponApplying: boolean
+  couponError: string | null
   onApplyCoupon: (
     invoice_id: number,
     invoice_amount: number,
@@ -19,6 +20,7 @@ const useAppyCoupon = (): UseApplyCoupon => {
   const [coupon, setCoupon] = useState('')
   const [applyData, setApplyData] = useState(null)
   const [isCouponApplying, setIsCouponApplying] = useState(false)
+  const [couponError, setCouponError] = useState(null)
 
   const onApplyCoupon = async (
     invoice_id: number,
@@ -27,6 +29,7 @@ const useAppyCoupon = (): UseApplyCoupon => {
   ) => {
     try {
       setIsCouponApplying(true)
+      setCouponError(null)
       const data = await applyCoupon({
         code: coupon,
         invoice_id,
@@ -39,8 +42,19 @@ const useAppyCoupon = (): UseApplyCoupon => {
       setIsCouponApplying(false)
       toast.show({
         type: 'error',
-        msg: error.response?.data?.message
+        msg: error.response?.data?.errors?.code
+          ? 'Invalid Coupon! try entering a valid one.'
+          : error.response?.data?.message
+          ? error.response?.data?.message
+          : error.response?.message
       })
+      setCouponError(
+        error.response?.data?.errors?.code
+          ? 'Invalid Coupon! try entering a valid one.'
+          : error.response?.data?.message
+          ? error.response?.data?.message
+          : error.response?.message
+      )
     }
   }
 
@@ -49,6 +63,7 @@ const useAppyCoupon = (): UseApplyCoupon => {
     setCoupon,
     applyData,
     isCouponApplying,
+    couponError,
     onApplyCoupon
   }
 }

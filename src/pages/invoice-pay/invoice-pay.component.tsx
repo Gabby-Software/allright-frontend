@@ -37,8 +37,14 @@ export default function InvoicePay() {
   const [isSuccess, setSuccess] = useState(false)
 
   const { invoice, mutate } = useInvoice({ id: params.id })
-  const { coupon, setCoupon, applyData, isCouponApplying, onApplyCoupon } =
-    useAppyCoupon()
+  const {
+    coupon,
+    setCoupon,
+    applyData,
+    isCouponApplying,
+    couponError,
+    onApplyCoupon
+  } = useAppyCoupon()
 
   const renderItemType = (item: InvoiceItemType) => {
     if (item.type === 'fee' && item.name === 'Bag deposit fee') {
@@ -190,12 +196,13 @@ export default function InvoicePay() {
                 <div className="invoice-pay__payment-input-container">
                   <Input
                     id="invoice-voucher"
-                    className="invoice-pay__payment-input"
+                    className={`invoice-pay__payment-input${
+                      couponError ? ' error' : ''
+                    }`}
                     placeholder="ex: FRXXX"
                     value={coupon}
                     onChange={(e) => setCoupon(e.target.value)}
                   />
-
                   {isCouponApplying ? (
                     <LoadingPlaceholder />
                   ) : (
@@ -215,6 +222,11 @@ export default function InvoicePay() {
                     </Button>
                   )}
                 </div>
+                {couponError && (
+                  <p className="invoice-pay__payment-input-errorMessage">
+                    {couponError}
+                  </p>
+                )}
                 {applyData && (
                   <div className="invoice-pay__applied-coupon">
                     <GreenCheckIcon />

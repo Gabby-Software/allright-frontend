@@ -65,6 +65,17 @@ export const Styles = styled(Card)<any>`
         &-container {
           display: flex;
         }
+
+        &.error {
+          input {
+            border: 2px solid ${getColorCarry('error')};
+          }
+        }
+
+        &-errorMessage {
+          margin: 8px 0;
+          color: ${getColorCarry('error')}
+        }
       }
       
       &-title {
