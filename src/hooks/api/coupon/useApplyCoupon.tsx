@@ -8,7 +8,11 @@ interface UseApplyCoupon {
   setCoupon: (coupon: string) => void
   applyData: any
   isCouponApplying: boolean
-  onApplyCoupon: (invoice_id: number, invoice_amount: number) => void
+  onApplyCoupon: (
+    invoice_id: number,
+    invoice_amount: number,
+    onSuccess?: () => void
+  ) => void
 }
 
 const useAppyCoupon = (): UseApplyCoupon => {
@@ -16,7 +20,11 @@ const useAppyCoupon = (): UseApplyCoupon => {
   const [applyData, setApplyData] = useState(null)
   const [isCouponApplying, setIsCouponApplying] = useState(false)
 
-  const onApplyCoupon = async (invoice_id: number, invoice_amount: number) => {
+  const onApplyCoupon = async (
+    invoice_id: number,
+    invoice_amount: number,
+    onSuccess?: () => void
+  ) => {
     try {
       setIsCouponApplying(true)
       const data = await applyCoupon({
@@ -26,6 +34,7 @@ const useAppyCoupon = (): UseApplyCoupon => {
       })
       setApplyData(data)
       setIsCouponApplying(false)
+      onSuccess && onSuccess()
     } catch (error: any) {
       setIsCouponApplying(false)
       toast.show({

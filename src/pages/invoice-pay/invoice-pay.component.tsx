@@ -157,7 +157,12 @@ export default function InvoicePay() {
                   <p className="invoice-pay__summary-row-text">
                     Voucher/Coupon
                   </p>
-                  <span>- {`${applyData?.discount_amount || 0} AED`}</span>
+                  <span>
+                    -{' '}
+                    {`${
+                      applyData?.discount_amount || invoice.discount_amount || 0
+                    } AED`}
+                  </span>
                 </div>
               </div>
 
@@ -197,8 +202,13 @@ export default function InvoicePay() {
                     <Button
                       variant="secondary"
                       onClick={() => {
-                        onApplyCoupon(invoice.id, Math.round(invoice.total))
-                        mutate()
+                        onApplyCoupon(
+                          invoice.id,
+                          Math.round(invoice.total),
+                          () => {
+                            mutate()
+                          }
+                        )
                       }}
                     >
                       Apply
