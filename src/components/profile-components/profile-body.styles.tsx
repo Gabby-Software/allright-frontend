@@ -46,11 +46,15 @@ export default styled.div<ProfileBodyStyleProps>`
         }
         .profile__image-placeholder {
           display: inline-block;
-          width: 70%;
+          width: 100%;
           text-align: center;
           line-height: 100px;
           background-color: ${getColorCarry('primary')};
           border-radius: 50%;
+
+          @media ${mediaQueries.MOBILE} {
+            width: 70%;
+          }
         }
         .profile__image {
           border-radius: 50%;
