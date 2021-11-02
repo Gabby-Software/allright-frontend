@@ -37,7 +37,7 @@ const FormPhone = ({ name, label, onUpdate, type, icon }: Props) => {
                 name={name}
                 value={field.value}
                 onBlur={field.onBlur}
-                onChange={(value) => {
+                onChange={(value: any) => {
                   form.setFieldValue(name, value)
                   onUpdate && onUpdate(name, value as string)
                 }}

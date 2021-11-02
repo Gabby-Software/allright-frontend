@@ -240,63 +240,67 @@ export default function ProfileBodyEdit({
           <CardTitle>{t('profile:addresses')}</CardTitle>
           <ProfileAddresses />
         </Card>
-        {currentType === userTypes.TRAINER ? (
-          <Card>
-            <CardTitle>{t('profile:other-info')}</CardTitle>
-            <div className="profile__grid address__grid">
-              <div className="profile__grid-item">
-                <div className="other-info__input">
-                  <FormTextArea
-                    label={t('profile:personal-information')}
-                    onUpdate={setFieldValue}
-                    name="about"
-                  />
+        {!isEatRight() && (
+          <>
+            {currentType === userTypes.TRAINER ? (
+              <Card>
+                <CardTitle>{t('profile:other-info')}</CardTitle>
+                <div className="profile__grid address__grid">
+                  <div className="profile__grid-item">
+                    <div className="other-info__input">
+                      <FormTextArea
+                        label={t('profile:personal-information')}
+                        onUpdate={setFieldValue}
+                        name="about"
+                      />
+                    </div>
+                  </div>
+                  <div className="profile__grid-item">
+                    <div className="other-info__input">
+                      <FormTextArea
+                        label={t('profile:qualifications')}
+                        onUpdate={setFieldValue}
+                        name="qualifications"
+                      />
+                    </div>
+                  </div>
+                  <div className="profile__grid-item">
+                    <div className="other-info__input">
+                      <FormTextArea
+                        label={t('profile:additional-information')}
+                        onUpdate={setFieldValue}
+                        name="additional_info"
+                      />
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="profile__grid-item">
-                <div className="other-info__input">
-                  <FormTextArea
-                    label={t('profile:qualifications')}
-                    onUpdate={setFieldValue}
-                    name="qualifications"
-                  />
+              </Card>
+            ) : (
+              <Card>
+                <CardTitle>{t('profile:other-info')}</CardTitle>
+                <div className="profile__grid address__grid">
+                  <div className="profile__grid-item">
+                    <div className="other-info__input">
+                      <FormTextArea
+                        label={t('profile:dietary-restrictions')}
+                        onUpdate={setFieldValue}
+                        name="dietary_restrictions"
+                      />
+                    </div>
+                  </div>
+                  <div className="profile__grid-item">
+                    <div className="other-info__input">
+                      <FormTextArea
+                        label={t('profile:injuries')}
+                        onUpdate={setFieldValue}
+                        name="injuries"
+                      />
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="profile__grid-item">
-                <div className="other-info__input">
-                  <FormTextArea
-                    label={t('profile:additional-information')}
-                    onUpdate={setFieldValue}
-                    name="additional_info"
-                  />
-                </div>
-              </div>
-            </div>
-          </Card>
-        ) : (
-          <Card>
-            <CardTitle>{t('profile:other-info')}</CardTitle>
-            <div className="profile__grid address__grid">
-              <div className="profile__grid-item">
-                <div className="other-info__input">
-                  <FormTextArea
-                    label={t('profile:dietary-restrictions')}
-                    onUpdate={setFieldValue}
-                    name="dietary_restrictions"
-                  />
-                </div>
-              </div>
-              <div className="profile__grid-item">
-                <div className="other-info__input">
-                  <FormTextArea
-                    label={t('profile:injuries')}
-                    onUpdate={setFieldValue}
-                    name="injuries"
-                  />
-                </div>
-              </div>
-            </div>
-          </Card>
+              </Card>
+            )}
+          </>
         )}
         <Card>
           <CardTitle>{t('profile:security')}</CardTitle>

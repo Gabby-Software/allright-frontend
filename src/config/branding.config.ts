@@ -9,6 +9,7 @@ const EAT_RIGHT_BRANDING: BrandingType = {
   primaryLightColor: '#84a72f',
   primaryColor_2: '#f4f8ea',
   primaryColor_3: '',
+  link: '#2E81ED',
   logo: EatrightIcon,
   icon: eatfavicon,
   name: 'EatRight',
@@ -21,6 +22,7 @@ const LIVE_RIGHT_BRANDING: BrandingType = {
   primaryLightColor: '#ed4452',
   primaryColor_2: '#FFEBEB',
   primaryColor_3: '#FDB6B7',
+  link: '#2E81ED',
   logo: LiverightIcon,
   icon: livefavicon,
   name: 'LiveRight',
@@ -28,7 +30,22 @@ const LIVE_RIGHT_BRANDING: BrandingType = {
   showUserInfo: true
 }
 
-const brands: { [key: string]: BrandingType } = {
+const LIVE_RIGHT_TRAINER_BRANDING: BrandingType = {
+  primaryColor: '#3FC9AD',
+  primaryLightColor: '#8bdecd',
+  primaryColor_2: '#e3f7f3',
+  primaryColor_3: '#e3f7f3',
+  link: '#E49A0A',
+  logo: LiverightIcon,
+  icon: livefavicon,
+  name: 'LiveRight',
+  multiple_accounts: true,
+  showUserInfo: true
+}
+
+type Brands = { [key: string]: BrandingType }
+
+const brands: Brands = {
   default: LIVE_RIGHT_BRANDING,
   localhost: EAT_RIGHT_BRANDING,
   'identity.liverightdev.xyz': LIVE_RIGHT_BRANDING,
@@ -37,12 +54,42 @@ const brands: { [key: string]: BrandingType } = {
   'identity.eatrightstaging.xyz': EAT_RIGHT_BRANDING,
   'payments.eatrightdev.xyz': EAT_RIGHT_BRANDING,
   'payments.eatrightstaging.xyz': EAT_RIGHT_BRANDING,
-  'payments.liverightdev.xyz': EAT_RIGHT_BRANDING,
-  'payments.liverightstaging.xyz': EAT_RIGHT_BRANDING,
+  'payments.liverightdev.xyz': LIVE_RIGHT_BRANDING,
+  'payments.liverightstaging.xyz': LIVE_RIGHT_BRANDING,
   'invoices.eatrightdev.xyz': EAT_RIGHT_BRANDING,
   'invoices.eatrightstaging.xyz': EAT_RIGHT_BRANDING,
   'invoices.liverightdev.xyz': LIVE_RIGHT_BRANDING,
-  'invoices.liverightstaging.xyz': LIVE_RIGHT_BRANDING,
+  'invoices.liverightstaging.xyz': LIVE_RIGHT_BRANDING
+}
+
+export function getBrand(isClient?: boolean): BrandingType {
+  const LIVE_RIGHT_BRAND =
+    typeof isClient === 'boolean'
+      ? isClient
+        ? LIVE_RIGHT_BRANDING
+        : LIVE_RIGHT_TRAINER_BRANDING
+      : LIVE_RIGHT_BRANDING
+
+  const brands: Brands = {
+    default: LIVE_RIGHT_BRAND,
+    localhost: EAT_RIGHT_BRANDING,
+    'identity.liverightdev.xyz': LIVE_RIGHT_BRAND,
+    'identity.eatrightdev.xyz': EAT_RIGHT_BRANDING,
+    'identity.liverightstaging.xyz': LIVE_RIGHT_BRAND,
+    'identity.eatrightstaging.xyz': EAT_RIGHT_BRANDING,
+    'payments.eatrightdev.xyz': EAT_RIGHT_BRANDING,
+    'payments.eatrightstaging.xyz': EAT_RIGHT_BRANDING,
+    'payments.liverightdev.xyz': LIVE_RIGHT_BRAND,
+    'payments.liverightstaging.xyz': LIVE_RIGHT_BRAND,
+    'invoices.eatrightdev.xyz': EAT_RIGHT_BRANDING,
+    'invoices.eatrightstaging.xyz': EAT_RIGHT_BRANDING,
+    'invoices.liverightdev.xyz': LIVE_RIGHT_BRAND,
+    'invoices.liverightstaging.xyz': LIVE_RIGHT_BRAND
+  }
+
+  return NODE_ENV === 'development' && REACT_APP_LOCAL_DEV_MODE === 'liveright'
+    ? brands.default
+    : brands[document.location.hostname]
 }
 
 const branding = new Proxy(brands, {

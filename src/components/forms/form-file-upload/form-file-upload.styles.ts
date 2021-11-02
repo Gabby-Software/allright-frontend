@@ -22,7 +22,7 @@ width: 247px;
         font-size: 14px;
         color: ${(p) => p.theme.vars.colors.labelLight};
         svg {
-            color: ${getColorCarry('blue_70')};
+            color: ${getColorCarry('link')};
         }
 
         @media ${mediaQueries.MOBILE} {

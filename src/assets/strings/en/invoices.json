@@ -47,6 +47,7 @@
   "settle-now": "Settle Now",
   "no-data": "No invoices found",
   "default-payment-method": "Default Payment Method",
+  "default-payment-method-eatright": "Payment Method",
   "session-expiry": "Session Expiry",
   "never": "Never",
   "cost": "Cost",

@@ -3,9 +3,7 @@ import moment from 'moment'
 import React, { useState } from 'react'
 import { useParams } from 'react-router'
 
-import {
-  CaretDownIcon,
-} from '../../../../assets/media/icons'
+import { CaretDownIcon } from '../../../../assets/media/icons'
 import Card from '../../../../components/cards/card/card.component'
 import StatusBadge from '../../../../components/status-badge/status-badge.component'
 import userTypes from '../../../../enums/user-types.enum'
@@ -31,6 +29,12 @@ import {
   TableRow,
   Title
 } from './invoice-mobile.styles'
+import { invoiceStatuses } from '../../../../enums/invoice-statuses'
+import Button from '../../../../components/buttons/button/button.component'
+import { mainHost } from '../../../../pipes/main-host'
+import { BackLink } from '../../../../components/typography'
+import { ReactComponent as EatrightLogo } from '../../../../assets/media/eatright-logo-small.svg'
+import { isEatRight } from '../../../../utils/domains'
 
 const PAYMENT_METHODS: Record<string, any> = {
   credit_card: 'Credit Card'
@@ -44,10 +48,7 @@ export default function InvoiceMobile({}: Props) {
   const { type } = useAuth()
   const [showDetails, setShowDetails] = useState(false)
 
-  const {
-    invoice,
-    isInvoiceLoading
-  } = useInvoice({
+  const { invoice, isInvoiceLoading, onMarkPaid, onSend } = useInvoice({
     id: params.id
   })
 
@@ -58,6 +59,17 @@ export default function InvoiceMobile({}: Props) {
         <Skeleton />
       ) : (
         <Styles>
+          <BackLink
+            native
+            to={
+              type === userTypes.CLIENT
+                ? `${mainHost()}/invoices`
+                : `${mainHost()}/financials/receivables`
+            }
+          >
+            {`Back to ${type === userTypes.CLIENT ? 'Invoices' : 'Financials'}`}
+          </BackLink>
+
           {type === userTypes.CLIENT && (
             <InvoiceCard showDate showPay showDue asLink={false} {...invoice} />
           )}
@@ -95,6 +107,28 @@ export default function InvoiceMobile({}: Props) {
                     {t(`invoices:statuses.${invoice.status}`)}
                   </StatusBadge>
 
+                  {invoice.status !== invoiceStatuses.DRAFT &&
+                    invoice.status !== invoiceStatuses.PAID && (
+                      <Button
+                        className="invoice__btn"
+                        size="sm"
+                        onClick={() => onMarkPaid(invoice.id)}
+                      >
+                        Mark as Paid
+                      </Button>
+                    )}
+
+                  {type === userTypes.TRAINER &&
+                    invoice.status === invoiceStatuses.DRAFT && (
+                      <Button
+                        className="invoice__btn"
+                        size="sm"
+                        onClick={() => onSend(invoice.id)}
+                      >
+                        Send to Client
+                      </Button>
+                    )}
+
                   <IconActions {...invoice} />
                 </HeadActions>
               </HeadRow>
@@ -117,17 +151,29 @@ export default function InvoiceMobile({}: Props) {
                     <RowTitle className="invoice__issued-title">
                       Issued By:
                     </RowTitle>
-                    <RowText className="invoice__issued-text">
-                      {invoice.invoice_from?.user?.first_name}{' '}
-                      {invoice.invoice_from?.user?.last_name}
-                    </RowText>
-                    <RowTitle>
-                      {invoice.invoice_from?.address?.address || '-'}
-                    </RowTitle>
-                    <RowTitle>
-                      {invoice.invoice_from?.address?.country?.name_english ||
-                      '-'}
-                    </RowTitle>
+                    {isEatRight() ? (
+                      <>
+                        <EatrightLogo style={{ marginBottom: 8 }} />
+                        <RowTitle>
+                          Eat Right DMCC, Nook Office, <br /> unit 02/02, One
+                          JLT, Dubai
+                        </RowTitle>
+                      </>
+                    ) : (
+                      <>
+                        <RowText className="invoice__issued-text">
+                          {invoice.invoice_from?.user?.first_name}{' '}
+                          {invoice.invoice_from?.user?.last_name}
+                        </RowText>
+                        <RowTitle>
+                          {invoice.invoice_from?.address?.address || '-'}
+                        </RowTitle>
+                        <RowTitle>
+                          {invoice.invoice_from?.address?.country
+                            ?.name_english || '-'}
+                        </RowTitle>
+                      </>
+                    )}
                   </RowCell>
                 </Row>
 
@@ -145,7 +191,7 @@ export default function InvoiceMobile({}: Props) {
                     </RowTitle>
                     <RowTitle>
                       {invoice.invoice_to?.address?.country?.name_english ||
-                      '-'}
+                        '-'}
                     </RowTitle>
                   </RowCell>
                 </Row>
@@ -159,8 +205,8 @@ export default function InvoiceMobile({}: Props) {
                 <RowTitle>Default Payment Method</RowTitle>
                 <RowText>
                   {PAYMENT_METHODS[invoice.payment_method] ||
-                  invoice.payment_method ||
-                  '-'}
+                    invoice.payment_method ||
+                    '-'}
                 </RowText>
               </RowCell>
             </Row>

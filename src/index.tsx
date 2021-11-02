@@ -5,30 +5,27 @@ import 'antd/dist/antd.css'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
-import { ThemeProvider } from 'styled-components'
 
 import App from './App'
-import theme from './assets/styles'
 import qa from './managers/qa.manager'
-import {
-  AuthDataContext,
-  AuthDataProvider
-} from './modules/auth/auth-data.context'
+import { AuthDataProvider } from './modules/auth/auth-data.context'
 import { I18nProvider } from './modules/i18n/i18n.context'
 import reportWebVitals from './reportWebVitals'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
+import ThemeProvider from './components/theme-provider/theme-provider.component'
+
 window.QA = qa
 
 ReactDOM.render(
   <React.StrictMode>
     <I18nProvider>
-      <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <AuthDataProvider>
+      <BrowserRouter>
+        <AuthDataProvider>
+          <ThemeProvider>
             <App />
-          </AuthDataProvider>
-        </BrowserRouter>
-      </ThemeProvider>
+          </ThemeProvider>
+        </AuthDataProvider>
+      </BrowserRouter>
     </I18nProvider>
   </React.StrictMode>,
   document.getElementById('root')

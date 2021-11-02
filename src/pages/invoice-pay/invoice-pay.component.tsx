@@ -7,6 +7,7 @@ import {
   // BtcIcon,
   CaretDownIcon,
   CheckmarkIcon,
+  GreenCheckIcon,
   McIcon,
   SecureIcon,
   VisaIcon
@@ -17,7 +18,9 @@ import PaymentMethodCard from '../../components/cards/payment-method-card/paymen
 import Page from '../../components/containers/page/page.component'
 import Input from '../../components/form/input/input.component'
 import CreditCardForm from '../../components/payments/credit-card-form/credit-card-form.component'
+import { LoadingPlaceholder } from '../../components/placeholders'
 import UserBadge from '../../components/user-badge/user-badge.component'
+import useAppyCoupon from '../../hooks/api/coupon/useApplyCoupon'
 import useInvoice from '../../hooks/api/invoices/useInvoice'
 import { useIsMobile } from '../../hooks/is-mobile.hook'
 import { mainHost } from '../../pipes/main-host'
@@ -34,10 +37,18 @@ export default function InvoicePay() {
   const params = useParams<any>()
   const [isSuccess, setSuccess] = useState(false)
 
-  const { invoice } = useInvoice({ id: params.id })
+  const { invoice, mutate } = useInvoice({ id: params.id })
+  const {
+    coupon,
+    setCoupon,
+    applyData,
+    isCouponApplying,
+    couponError,
+    onApplyCoupon
+  } = useAppyCoupon()
 
   const renderItemType = (item: InvoiceItemType) => {
-    if (item.type === 'meal_plan' && item.name === 'Bag deposit fee') {
+    if (item.type === 'fee' && item.name === 'Bag deposit fee') {
       return 'Bag deposit fee'
     } else if (item.type === 'meal_plan') {
       return 'Meal Plan'
@@ -45,6 +56,8 @@ export default function InvoicePay() {
 
     return item.type
   }
+
+  console.log(applyData)
 
   if (isSuccess) {
     return (
@@ -56,7 +69,7 @@ export default function InvoicePay() {
 
           <p className="invoice-pay-success__title">Thank You</p>
           <p className="invoice-pay-success__subtitle">
-            Coach got your payment
+            {isEatRight() ? "We've got your payment" : 'Coach got your payment'}
           </p>
 
           <a
@@ -151,7 +164,12 @@ export default function InvoicePay() {
                   <p className="invoice-pay__summary-row-text">
                     Voucher/Coupon
                   </p>
-                  <span>-</span>
+                  <span>
+                    -{' '}
+                    {`${
+                      applyData?.discount_amount || invoice.discount_amount || 0
+                    } AED`}
+                  </span>
                 </div>
               </div>
 
@@ -179,12 +197,43 @@ export default function InvoicePay() {
                 <div className="invoice-pay__payment-input-container">
                   <Input
                     id="invoice-voucher"
-                    className="invoice-pay__payment-input"
+                    className={`invoice-pay__payment-input${
+                      couponError ? ' error' : ''
+                    }`}
                     placeholder="ex: FRXXX"
+                    value={coupon}
+                    onChange={(e) => setCoupon(e.target.value)}
                   />
-
-                  <Button variant="secondary">Apply</Button>
+                  {isCouponApplying ? (
+                    <LoadingPlaceholder />
+                  ) : (
+                    <Button
+                      variant="secondary"
+                      onClick={() => {
+                        onApplyCoupon(
+                          invoice.id,
+                          Math.round(invoice.total),
+                          () => {
+                            mutate()
+                          }
+                        )
+                      }}
+                    >
+                      Apply
+                    </Button>
+                  )}
                 </div>
+                {couponError && (
+                  <p className="invoice-pay__payment-input-errorMessage">
+                    {couponError}
+                  </p>
+                )}
+                {applyData && (
+                  <div className="invoice-pay__applied-coupon">
+                    <GreenCheckIcon />
+                    <p>Voucher Applied</p>
+                  </div>
+                )}
               </div>
             )}
 

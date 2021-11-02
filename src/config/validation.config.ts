@@ -52,7 +52,7 @@ Yup.setLocale({
     required: 'required-field',
     default: 'invalid-input',
     equals: 'passwords-not-match'
-  },
+  } as any,
   // use functions to generate an error object that includes the value from the schema
   number: {
     min: ({ min }: { min: number }) => ({ key: 'low-value', values: { min } }),
@@ -69,5 +69,5 @@ Yup.setLocale({
       key: 'field-too-long',
       values: { max }
     })
-  }
+  } as any
 })
