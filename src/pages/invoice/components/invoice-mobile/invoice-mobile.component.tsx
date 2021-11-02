@@ -33,6 +33,8 @@ import { invoiceStatuses } from '../../../../enums/invoice-statuses'
 import Button from '../../../../components/buttons/button/button.component'
 import { mainHost } from '../../../../pipes/main-host'
 import { BackLink } from '../../../../components/typography'
+import { ReactComponent as EatrightLogo } from '../../../../assets/media/eatright-logo-small.svg'
+import { isEatRight } from '../../../../utils/domains'
 
 const PAYMENT_METHODS: Record<string, any> = {
   credit_card: 'Credit Card'
@@ -149,17 +151,29 @@ export default function InvoiceMobile({}: Props) {
                     <RowTitle className="invoice__issued-title">
                       Issued By:
                     </RowTitle>
-                    <RowText className="invoice__issued-text">
-                      {invoice.invoice_from?.user?.first_name}{' '}
-                      {invoice.invoice_from?.user?.last_name}
-                    </RowText>
-                    <RowTitle>
-                      {invoice.invoice_from?.address?.address || '-'}
-                    </RowTitle>
-                    <RowTitle>
-                      {invoice.invoice_from?.address?.country?.name_english ||
-                        '-'}
-                    </RowTitle>
+                    {isEatRight() ? (
+                      <>
+                        <EatrightLogo style={{ marginBottom: 8 }} />
+                        <RowTitle>
+                          Eat Right DMCC, Nook Office, <br /> unit 02/02, One
+                          JLT, Dubai
+                        </RowTitle>
+                      </>
+                    ) : (
+                      <>
+                        <RowText className="invoice__issued-text">
+                          {invoice.invoice_from?.user?.first_name}{' '}
+                          {invoice.invoice_from?.user?.last_name}
+                        </RowText>
+                        <RowTitle>
+                          {invoice.invoice_from?.address?.address || '-'}
+                        </RowTitle>
+                        <RowTitle>
+                          {invoice.invoice_from?.address?.country
+                            ?.name_english || '-'}
+                        </RowTitle>
+                      </>
+                    )}
                   </RowCell>
                 </Row>
 

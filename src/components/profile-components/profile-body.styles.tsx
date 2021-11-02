@@ -51,6 +51,10 @@ export default styled.div<ProfileBodyStyleProps>`
           line-height: 100px;
           background-color: ${getColorCarry('primary')};
           border-radius: 50%;
+
+          @media ${mediaQueries.MOBILE} {
+            width: 70%;
+          }
         }
         .profile__image {
           border-radius: 50%;
@@ -194,6 +198,7 @@ export default styled.div<ProfileBodyStyleProps>`
         .textarea__wrapper {
           .text_input__input {
             height: 130px;
+            width: 100%;
           }
         }
         .text_input__input {
@@ -304,17 +309,10 @@ export default styled.div<ProfileBodyStyleProps>`
   }
 
   @media ${mediaQueries.MOBILE} {
-    .account-type__wrapper,
-    .profile__account-type-card {
-      .radio__wrapper {
-        .radio__cont {
-          .radio {
-            flex-direction: column;
-            .radio__button {
-              margin-bottom: 1rem;
-            }
-          }
-        }
+    .radio {
+      flex-direction: column;
+      .radio__button {
+        margin-bottom: 1rem;
       }
     }
   }

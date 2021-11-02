@@ -4,7 +4,7 @@ import { EP_GET_INVOICES } from '../../../enums/api.enum'
 import {
   getInvoice,
   markPainInvoice,
-  sendInvoice,
+  sendInvoice
 } from '../../../services/api/invoices'
 import { InvoiceFullType } from '../../../types/invoice.type'
 import { toast } from '../../../components/toast/toast.component'
@@ -14,6 +14,7 @@ export interface UseInvoice {
   isInvoiceLoading: boolean
   onMarkPaid: (id: number) => void
   onSend: (id: number) => void
+  mutate: any
 }
 
 interface UseInvoiceConfig {
@@ -37,7 +38,6 @@ export default function useInvoice(config: UseInvoiceConfig = {}): UseInvoice {
         type: 'success',
         msg: 'Invoice sent to client'
       })
-
     } catch (e) {
       console.error(e)
     }
@@ -65,6 +65,7 @@ export default function useInvoice(config: UseInvoiceConfig = {}): UseInvoice {
     isInvoiceLoading,
     invoice,
     onMarkPaid,
-    onSend
+    onSend,
+    mutate
   }
 }

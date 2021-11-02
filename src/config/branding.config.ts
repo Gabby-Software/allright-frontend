@@ -47,7 +47,7 @@ type Brands = { [key: string]: BrandingType }
 
 const brands: Brands = {
   default: LIVE_RIGHT_BRANDING,
-  localhost: LIVE_RIGHT_BRANDING,
+  localhost: EAT_RIGHT_BRANDING,
   'identity.liverightdev.xyz': LIVE_RIGHT_BRANDING,
   'identity.eatrightdev.xyz': EAT_RIGHT_BRANDING,
   'identity.liverightstaging.xyz': LIVE_RIGHT_BRANDING,
@@ -72,7 +72,7 @@ export function getBrand(isClient?: boolean): BrandingType {
 
   const brands: Brands = {
     default: LIVE_RIGHT_BRAND,
-    localhost: LIVE_RIGHT_BRAND,
+    localhost: EAT_RIGHT_BRANDING,
     'identity.liverightdev.xyz': LIVE_RIGHT_BRAND,
     'identity.eatrightdev.xyz': EAT_RIGHT_BRANDING,
     'identity.liverightstaging.xyz': LIVE_RIGHT_BRAND,
