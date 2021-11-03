@@ -121,7 +121,7 @@ const eatRightOnBoard: OnBoardStepType[] = [
     fields: [
       {
         type: 'text',
-        name: 'address',
+        name: 'addresses.0.address',
         label: 'profile:address'
       },
       {
@@ -129,19 +129,19 @@ const eatRightOnBoard: OnBoardStepType[] = [
         data: [
           {
             type: 'text',
-            name: 'city',
+            name: 'addresses.0.city',
             label: 'profile:city'
           },
           {
             type: 'text',
-            name: 'postal_code',
+            name: 'addresses.0.postal_code',
             label: 'profile:postal-code'
           }
         ]
       },
       {
         type: 'country-select',
-        name: 'country',
+        name: 'addresses.0.country.code',
         label: 'profile:country'
       }
     ]
