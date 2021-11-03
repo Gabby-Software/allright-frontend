@@ -71,7 +71,7 @@ const SignUpForm = () => {
         address,
         city,
         postal_code,
-        country,
+        country_code: country ? 'AE' : '',
         phone_number,
         first_name,
         last_name,

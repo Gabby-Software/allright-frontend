@@ -23,9 +23,11 @@ import UserBadge from '../../components/user-badge/user-badge.component'
 import useAppyCoupon from '../../hooks/api/coupon/useApplyCoupon'
 import useInvoice from '../../hooks/api/invoices/useInvoice'
 import { useIsMobile } from '../../hooks/is-mobile.hook'
+import { useAuth } from '../../hooks/use-auth.hook'
 import { mainHost } from '../../pipes/main-host'
 import { InvoiceItemType } from '../../types/invoice.type'
 import { isEatRight } from '../../utils/domains'
+import PageNotFound from '../page-not-found/page-not-found.component'
 import { Styles, Success } from './invoice-pay.styles'
 
 type Method = 'card' | 'crypto' | null
@@ -36,6 +38,11 @@ export default function InvoicePay() {
   const isMobile = useIsMobile()
   const params = useParams<any>()
   const [isSuccess, setSuccess] = useState(false)
+  const auth = useAuth()
+
+  if (!auth.uuid) {
+    return <PageNotFound />
+  }
 
   const { invoice, mutate } = useInvoice({ id: params.id })
   const {
@@ -56,8 +63,6 @@ export default function InvoicePay() {
 
     return item.type
   }
-
-  console.log(applyData)
 
   if (isSuccess) {
     return (
