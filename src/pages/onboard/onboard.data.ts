@@ -141,7 +141,7 @@ const eatRightOnBoard: OnBoardStepType[] = [
       },
       {
         type: 'country-select',
-        name: 'country.id',
+        name: 'country',
         label: 'profile:country'
       }
     ]

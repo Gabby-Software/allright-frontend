@@ -26,6 +26,7 @@ const OnboardItem = ({
   options,
   props
 }: OnBoardItemType) => {
+  // console.log(type)
   const { update } = useContext(OnBoardContext)
   const { t } = useTranslation()
   const labels = data?.map(({ label }) => label)
@@ -57,6 +58,7 @@ const OnboardItem = ({
         </FormRowWrapper>
       )
     case 'text':
+      // console.log('name', name);
       return (
         <FormInputLabeled
           {...props}
@@ -74,7 +76,7 @@ const OnboardItem = ({
         <FormCountrySelect
           name={name}
           label={t(label || '')}
-          onUpdate={(val) => update(name || '', val)}
+          onUpdate={update}
         />
       )
     case 'textarea':

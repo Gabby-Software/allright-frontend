@@ -11,7 +11,7 @@ import FormSelect from '../form-select/form-select.component'
 type FormCountrySelectPropsType = {
   name?: string
   label?: string
-  onUpdate?: (val: string) => void
+  onUpdate?: (name: string, val: string) => void
 }
 const FormCountrySelect = ({
   name = 'country.code',
@@ -41,12 +41,15 @@ const FormCountrySelect = ({
     //     setCountries((data as unknown as string[]).map(c => ({label:c, value: c})));
     // })
   }, [])
+
   return (
     <FormSelect
       name={name}
       label={label || t('profile:country')}
       options={countries}
-      onUpdate={onUpdate}
+      onUpdate={(value) => {
+        onUpdate && onUpdate(name, value)
+      }}
     />
   )
 }
