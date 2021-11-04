@@ -71,7 +71,7 @@ const SignUpForm = () => {
         address,
         city,
         postal_code,
-        country_code: country ? country : 'AE',
+        country_code: country ? country.toUpperCase() : 'AE',
         phone_number,
         first_name,
         last_name,
