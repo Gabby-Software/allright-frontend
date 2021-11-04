@@ -262,7 +262,11 @@ export default function InvoicePay() {
 
                 {method === 'card' && (
                   <CreditCardForm
-                    hint={`*Your card will be charged for a one-time payment of ${invoice.total} AED once you submit`}
+                    hint={
+                      invoice.is_subscription
+                        ? `*Your card will be weekly charged for a payment of ${invoice.total} AED and once you submit`
+                        : `*Your card will be charged for a one-time payment of ${invoice.total} AED once you submit`
+                    }
                     invoiceId={invoice.id}
                     onSuccess={() => setSuccess(true)}
                   />

@@ -53,6 +53,7 @@ export type InvoiceType = {
   pdf: null | FileType
   invoice_to: InvoiceAttendeeType
   invoice_from: InvoiceAttendeeType
+  is_subscription: boolean
 }
 
 export type InvoiceFullType = InvoiceType & {
