@@ -286,8 +286,11 @@ export default function InvoicePay() {
                 /> */}
 
                 <p className="invoice-pay__payment-hint">
-                  <SecureIcon />
-                  260bit secure encrypted payments
+                  <SecureIcon style={{ display: 'inline-block' }} />
+                  <span style={{ display: 'inline-block' }}>
+                    Payments securely processed and encrypted by Stripe
+                    <sup>TM</sup>
+                  </span>
                 </p>
               </div>
             </div>
