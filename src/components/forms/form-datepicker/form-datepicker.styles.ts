@@ -22,7 +22,6 @@ export default styled.div`
       outline: none;
       box-shadow: none;
       display: block;
-      background-color: #fbfbfb;
       padding: 14px 16px;
       border: 1px solid #c4c4c4;
       color: ${(p) => p.theme.vars.colors.dark};

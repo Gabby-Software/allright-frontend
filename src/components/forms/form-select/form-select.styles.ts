@@ -17,7 +17,6 @@ export const MobileStyles = styled.div`
     &__input {
       display: block;
       padding: 14px 16px;
-      background-color: ${(p) => p.theme.vars.colors.gray_1};
       border: 1px solid #c4c4c4;
       color: ${(p) => p.theme.vars.colors.dark};
       border-radius: ${(p) => p.theme.vars.sizes.borderRadius};
@@ -58,7 +57,6 @@ export const DesktopStyles = styled.div`
   .ant-select {
     display: block;
     padding: 9px 3px;
-    background-color: ${(p) => p.theme.vars.colors.gray_1};
     border: 1px solid ${(p) => p.theme.vars.colors.neutral_30};
     color: ${(p) => p.theme.vars.colors.dark};
     border-radius: ${(p) => p.theme.vars.sizes.borderRadius};

@@ -36,7 +36,6 @@ export default styled.div`
     &__input {
       display: block;
       padding: 14px 16px;
-      background-color: ${(p) => p.theme.vars.colors.gray_1};
       border: 1px solid ${(p) => p.theme.vars.colors.neutral_30};
       color: ${(p) => p.theme.vars.colors.dark};
       border-radius: ${(p) => p.theme.vars.sizes.borderRadius};
