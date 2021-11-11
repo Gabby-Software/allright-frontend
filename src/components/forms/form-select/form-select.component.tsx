@@ -25,6 +25,7 @@ const FormSelect = ({
   const isMobile = useIsMobile()
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const handleChange = (value: string, form: FormikProps<any>) => {
+    console.log('start')
     form.setFieldValue(name, value)
     onUpdate && onUpdate(value)
   }
@@ -92,7 +93,10 @@ const FormSelect = ({
                   (op) => op.value.toString() === field.value?.toString()
                 )}
                 labelInValue
-                onChange={(value) => form.setFieldValue(name, value.value)}
+                onChange={(value) => {
+                  onUpdate && onUpdate(value.value)
+                  form.setFieldValue(name, value.value)
+                }}
                 id={name}
                 onBlur={form.handleBlur}
               >

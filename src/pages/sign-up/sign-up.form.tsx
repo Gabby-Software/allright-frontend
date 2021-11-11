@@ -25,7 +25,7 @@ import {
   AuthFormTypeNotNull
 } from '../../modules/auth/auth-form.type'
 import { useTranslation } from '../../modules/i18n/i18n.hook'
-import { mainHost } from '../../pipes/main-host';
+import { mainHost } from '../../pipes/main-host'
 import { MobileStickyBottom } from '../styles'
 
 const searchParams = new URLSearchParams(location.search)
@@ -71,7 +71,7 @@ const SignUpForm = () => {
         address,
         city,
         postal_code,
-        country,
+        country_code: country ? country.toUpperCase() : 'AE',
         phone_number,
         first_name,
         last_name,
@@ -91,7 +91,9 @@ const SignUpForm = () => {
 
         // If user was redirected from EatRight cart, skip email confirmation and redirect back to EatRight
         if (session) {
-          window.location.href = `${mainHost()}/plans?redirectToCheckout=true&deliveryDate=${searchParams.get('deliveryDate') || '' }&renewWeekly=${searchParams.get('renewWeekly') || ''}`
+          window.location.href = `${mainHost()}/plans?redirectToCheckout=true&deliveryDate=${
+            searchParams.get('deliveryDate') || ''
+          }&renewWeekly=${searchParams.get('renewWeekly') || ''}`
         }
         helper.setSubmitting(false)
       })

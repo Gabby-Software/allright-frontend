@@ -47,6 +47,7 @@ export default styled.div<ProfileBodyStyleProps>`
         .profile__image-placeholder {
           display: inline-block;
           width: 100%;
+          height: 100%;
           text-align: center;
           line-height: 100px;
           background-color: ${getColorCarry('primary')};
@@ -54,6 +55,7 @@ export default styled.div<ProfileBodyStyleProps>`
 
           @media ${mediaQueries.MOBILE} {
             width: 70%;
+            height: 70%;
           }
         }
         .profile__image {

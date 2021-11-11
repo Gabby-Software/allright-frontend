@@ -1,13 +1,10 @@
-import Page from '../../components/containers/page/page.component'
-import { Styles, Success } from './invoice-pay.styles'
-import Card from '../../components/cards/card/card.component'
-import UserBadge from '../../components/user-badge/user-badge.component'
-import Button from '../../components/buttons/button/button.component'
-import Input from '../../components/form/input/input.component'
-import PaymentMethodCard from '../../components/cards/payment-method-card/payment-method-card.component'
+import { useState } from 'react'
+import { useParams } from 'react-router-dom'
+
+import EatRightProfile from '../../assets/media/eatright-profile.png'
 import {
   AmexIcon,
-  BtcIcon,
+  // BtcIcon,
   CaretDownIcon,
   CheckmarkIcon,
   GreenCheckIcon,
@@ -15,17 +12,23 @@ import {
   SecureIcon,
   VisaIcon
 } from '../../assets/media/icons'
-import EatRightProfile from '../../assets/media/eatright-profile.png'
-import { useState } from 'react'
-import { useIsMobile } from '../../hooks/is-mobile.hook'
-import { useParams } from 'react-router-dom'
-import useInvoice from '../../hooks/api/invoices/useInvoice'
+import Button from '../../components/buttons/button/button.component'
+import Card from '../../components/cards/card/card.component'
+import PaymentMethodCard from '../../components/cards/payment-method-card/payment-method-card.component'
+import Page from '../../components/containers/page/page.component'
+import Input from '../../components/form/input/input.component'
 import CreditCardForm from '../../components/payments/credit-card-form/credit-card-form.component'
-import { mainHost } from '../../pipes/main-host'
-import { isEatRight } from '../../utils/domains'
-import { InvoiceItemType } from '../../types/invoice.type'
-import useAppyCoupon from '../../hooks/api/coupon/useApplyCoupon'
 import { LoadingPlaceholder } from '../../components/placeholders'
+import UserBadge from '../../components/user-badge/user-badge.component'
+import useAppyCoupon from '../../hooks/api/coupon/useApplyCoupon'
+import useInvoice from '../../hooks/api/invoices/useInvoice'
+import { useIsMobile } from '../../hooks/is-mobile.hook'
+import { useAuth } from '../../hooks/use-auth.hook'
+import { mainHost } from '../../pipes/main-host'
+import { InvoiceItemType } from '../../types/invoice.type'
+import { isEatRight } from '../../utils/domains'
+import PageNotFound from '../page-not-found/page-not-found.component'
+import { Styles, Success } from './invoice-pay.styles'
 
 type Method = 'card' | 'crypto' | null
 
@@ -35,6 +38,11 @@ export default function InvoicePay() {
   const isMobile = useIsMobile()
   const params = useParams<any>()
   const [isSuccess, setSuccess] = useState(false)
+  const auth = useAuth()
+
+  if (!auth.uuid) {
+    return <PageNotFound />
+  }
 
   const { invoice, mutate } = useInvoice({ id: params.id })
   const {
@@ -55,8 +63,6 @@ export default function InvoicePay() {
 
     return item.type
   }
-
-  console.log(applyData)
 
   if (isSuccess) {
     return (
@@ -257,13 +263,17 @@ export default function InvoicePay() {
 
                 {method === 'card' && (
                   <CreditCardForm
-                    hint={`*Your card will be charged for a one-time payment of ${invoice.total} AED once you submit`}
+                    hint={
+                      invoice.is_subscription
+                        ? `*Your card will be weekly charged for a payment of ${invoice.total} AED and once you submit`
+                        : `*Your card will be charged for a one-time payment of ${invoice.total} AED once you submit`
+                    }
                     invoiceId={invoice.id}
                     onSuccess={() => setSuccess(true)}
                   />
                 )}
 
-                <PaymentMethodCard
+                {/* <PaymentMethodCard
                   disabled
                   title="Crypto"
                   onClick={() => setMethod('crypto')}
@@ -273,11 +283,14 @@ export default function InvoicePay() {
                       <BtcIcon />
                     </>
                   }
-                />
+                /> */}
 
                 <p className="invoice-pay__payment-hint">
-                  <SecureIcon />
-                  260bit secure encrypted payments
+                  <SecureIcon style={{ display: 'inline-block' }} />
+                  <span style={{ display: 'inline-block' }}>
+                    Payments securely processed and encrypted by Stripe
+                    <sup>TM</sup>
+                  </span>
                 </p>
               </div>
             </div>

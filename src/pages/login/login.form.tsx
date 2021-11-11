@@ -22,6 +22,7 @@ import { useTranslation } from '../../modules/i18n/i18n.hook'
 import { mainHost } from '../../pipes/main-host'
 import { unblockCookies } from '../../utils/cookie'
 import { ForgetPassword, MobileStickyBottom } from '../styles'
+import { isEatRight } from '../../utils/domains'
 
 type LoginDataType = {
   type: string
@@ -32,6 +33,8 @@ const LoginForm = () => {
   const { setData } = useContext(AuthDataContext)
   const { t } = useTranslation()
   const { form, update } = useContext(AuthFormContext) as AuthFormTypeNotNull
+  const searchParams = new URLSearchParams(location.search)
+
   const handleSubmit = (
     form: LoginDataType,
     helper: FormikHelpers<AuthFormFieldsType>
@@ -46,7 +49,11 @@ const LoginForm = () => {
 
         if (res.user.email_verified_at) {
           unblockCookies()
-          document.location.href = mainHost()
+          if (isEatRight() && searchParams.get('from_checkout')) {
+            document.location.href = `${mainHost()}/plans/1?show_checkout=true`
+          } else {
+            document.location.href = mainHost()
+          }
         } else {
           auth.current = res
           setData(res)
