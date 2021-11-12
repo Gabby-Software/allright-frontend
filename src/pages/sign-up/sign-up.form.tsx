@@ -63,6 +63,7 @@ const SignUpForm = () => {
     const postal_code = searchParams.get('postalCode') || ''
     const country = searchParams.get('country') || ''
     const phone_number = searchParams.get('phoneNo') || ''
+    const referral = searchParams.get('ref') || ''
 
     api
       .post<AuthResponseType>(EP_REGISTER, {
@@ -79,7 +80,8 @@ const SignUpForm = () => {
         password,
         gender,
         account_type: type,
-        password_confirmation: password
+        password_confirmation: password,
+        ref: referral
       })
       .then((res) => res.data)
       .then((res) => {
