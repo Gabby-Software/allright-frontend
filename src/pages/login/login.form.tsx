@@ -40,8 +40,9 @@ const LoginForm = () => {
     helper: FormikHelpers<AuthFormFieldsType>
   ) => {
     const { email, password } = form
+    const session = searchParams.get('session_id') || ''
     api
-      .post<AuthResponseType>(EP_LOGIN, { email, password })
+      .post<AuthResponseType>(EP_LOGIN, { email, password, session })
       .then((res) => res.data)
       .then((res) => {
         cookieManager.set('access_token', res.access_token, res.expires_in)
