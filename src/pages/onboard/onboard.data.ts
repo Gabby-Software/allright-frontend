@@ -131,11 +131,6 @@ const eatRightOnBoard: OnBoardStepType[] = [
             type: 'text',
             name: 'addresses.0.city',
             label: 'profile:city'
-          },
-          {
-            type: 'text',
-            name: 'addresses.0.postal_code',
-            label: 'profile:postal-code'
           }
         ]
       },
