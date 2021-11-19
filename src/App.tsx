@@ -24,12 +24,14 @@ import { AuthFormProvider } from './modules/auth/auth.context'
 import { AuthDataContext } from './modules/auth/auth-data.context'
 import PageNotFound from './pages/page-not-found/page-not-found.component'
 import { mainHost } from './pipes/main-host'
+import useReferral from './hooks/ui/useReferral'
 
 const Styles = styled.div`
   font-family: 'Work Sans', sans-serif;
 `
 function App() {
   useSeo()
+  useReferral()
   useAuthorization()
   return (
     <Styles>

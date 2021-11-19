@@ -63,7 +63,9 @@ const SignUpForm = () => {
     const postal_code = searchParams.get('postalCode') || ''
     const country = searchParams.get('country') || ''
     const phone_number = searchParams.get('phoneNo') || ''
-    const referral = searchParams.get('ref') || ''
+    const referral = searchParams.get('ref') || localStorage.getItem('eatright-ref') || ''
+
+    localStorage.removeItem('eatright-ref')
 
     api
       .post<AuthResponseType>(EP_REGISTER, {
