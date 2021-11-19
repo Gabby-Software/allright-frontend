@@ -51,7 +51,7 @@ const LoginForm = () => {
         if (res.user.email_verified_at) {
           unblockCookies()
           if (isEatRight() && searchParams.get('from_checkout')) {
-            document.location.href = `${mainHost()}/plans/1?show_checkout=true`
+            document.location.href = `${mainHost()}/plans/1/edit?from_checkout=true`
           } else {
             document.location.href = mainHost()
           }
