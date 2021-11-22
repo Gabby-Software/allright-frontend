@@ -12,6 +12,7 @@ export type InvoiceItemType = {
   unit_price: string
   tax_rate: number
   tax_value: number
+  tax_included: boolean
   total: number
   discount_percent: number
   extras: {
