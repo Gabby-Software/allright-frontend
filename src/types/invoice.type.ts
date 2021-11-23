@@ -10,6 +10,7 @@ export type InvoiceItemType = {
   is_taxable: boolean
   quantity: number
   unit_price: string
+  subtotal: string | number
   tax_rate: number
   tax_value: number
   tax_included: boolean

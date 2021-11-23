@@ -72,7 +72,8 @@ export default function InvoicePay() {
     ) {
       return Math.round(Number(item.unit_price) - item.tax_value).toFixed(2)
     } else if (item.tax_included && item.type === 'meal_plan') {
-      return (Number(item.unit_price) - item.tax_value).toFixed(2)
+      // return (Number(item.unit_price) - item.tax_value).toFixed(2)
+      return Number(item.subtotal).toFixed(2)
     } else {
       return item.unit_price
     }
@@ -172,10 +173,10 @@ export default function InvoicePay() {
                 <div className="invoice-pay__summary-row">
                   <p className="invoice-pay__summary-text">Subtotal</p>
                   <span>
-                    {invoice?.items?.every((item) => item.tax_included)
+                    {/* {invoice?.items?.every((item) => item.tax_included)
                       ? (invoice.subtotal - invoice.tax_value).toFixed(2)
-                      : invoice.subtotal}{' '}
-                    AED
+                      : invoice.subtotal}{' '} */}
+                    {invoice.subtotal} AED
                   </span>
                 </div>
                 <div className="invoice-pay__summary-row">

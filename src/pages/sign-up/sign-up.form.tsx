@@ -63,7 +63,8 @@ const SignUpForm = () => {
     const postal_code = searchParams.get('postalCode') || ''
     const country = searchParams.get('country') || ''
     const phone_number = searchParams.get('phoneNo') || ''
-    const referral = searchParams.get('ref') || localStorage.getItem('eatright-ref') || ''
+    const referral =
+      searchParams.get('ref') || localStorage.getItem('eatright-ref') || ''
 
     localStorage.removeItem('eatright-ref')
 
@@ -89,6 +90,7 @@ const SignUpForm = () => {
       .then((res) => {
         logger.success('REGISTRATION SUCCESS', res)
         console.log('SETTING COOKIE 8')
+        console.log(res.access_token, res.user)
         cookieManager.set('access_token', res.access_token, res.expires_in)
         cookieManager.set('auth', JSON.stringify(res.user), res.expires_in)
         setData(res)
