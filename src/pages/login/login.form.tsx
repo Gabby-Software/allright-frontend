@@ -40,8 +40,9 @@ const LoginForm = () => {
     helper: FormikHelpers<AuthFormFieldsType>
   ) => {
     const { email, password } = form
+    const session = searchParams.get('session_id') || ''
     api
-      .post<AuthResponseType>(EP_LOGIN, { email, password })
+      .post<AuthResponseType>(EP_LOGIN, { email, password, session })
       .then((res) => res.data)
       .then((res) => {
         cookieManager.set('access_token', res.access_token, res.expires_in)
@@ -50,7 +51,7 @@ const LoginForm = () => {
         if (res.user.email_verified_at) {
           unblockCookies()
           if (isEatRight() && searchParams.get('from_checkout')) {
-            document.location.href = `${mainHost()}/plans/1?show_checkout=true`
+            document.location.href = `${mainHost()}/plans/1/edit?from_checkout=true`
           } else {
             document.location.href = mainHost()
           }

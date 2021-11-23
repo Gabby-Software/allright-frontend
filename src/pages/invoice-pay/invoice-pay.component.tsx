@@ -64,6 +64,20 @@ export default function InvoicePay() {
     return item.type
   }
 
+  const renderUnitPrice = (item: InvoiceItemType) => {
+    if (
+      item.tax_included &&
+      item.type === 'fee' &&
+      item.name === 'Bag deposit fee'
+    ) {
+      return Math.round(Number(item.unit_price) - item.tax_value).toFixed(2)
+    } else if (item.tax_included && item.type === 'meal_plan') {
+      return (Number(item.unit_price) - item.tax_value).toFixed(2)
+    } else {
+      return item.unit_price
+    }
+  }
+
   if (isSuccess) {
     return (
       <Page>
@@ -147,7 +161,7 @@ export default function InvoicePay() {
                       {item.name === 'Bag deposit fee' ? '' : item.description}
                     </p>
                     <p className="invoice-pay__item-card-text invoice-pay__item-card-text_secondary">
-                      {item.quantity}x + {item.unit_price} AED + VAT (
+                      {item.quantity}x + {renderUnitPrice(item)} AED + VAT (
                       {item.tax_rate}%)
                     </p>
                   </div>
@@ -157,7 +171,12 @@ export default function InvoicePay() {
               <div className="invoice-pay__summary">
                 <div className="invoice-pay__summary-row">
                   <p className="invoice-pay__summary-text">Subtotal</p>
-                  <span>{invoice.subtotal} AED</span>
+                  <span>
+                    {invoice?.items?.every((item) => item.tax_included)
+                      ? (invoice.subtotal - invoice.tax_value).toFixed(2)
+                      : invoice.subtotal}{' '}
+                    AED
+                  </span>
                 </div>
                 <div className="invoice-pay__summary-row">
                   <p className="invoice-pay__summary-text">
