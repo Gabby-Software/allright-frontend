@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 import EatRightProfile from '../../assets/media/eatright-profile.png'
@@ -53,6 +53,13 @@ export default function InvoicePay() {
     couponError,
     onApplyCoupon
   } = useAppyCoupon()
+
+  // redirect back to EatRight if invoice is alredy paid
+  useEffect(() => {
+    if (invoice?.status === 'paid' && isEatRight()) {
+      document.location.href = mainHost()
+    }
+  }, [invoice])
 
   const renderItemType = (item: InvoiceItemType) => {
     if (item.type === 'fee' && item.name === 'Bag deposit fee') {
