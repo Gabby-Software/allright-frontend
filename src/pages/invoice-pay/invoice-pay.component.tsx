@@ -79,8 +79,8 @@ export default function InvoicePay() {
     ) {
       return Math.round(Number(item.unit_price) - item.tax_value).toFixed(2)
     } else if (item.tax_included && item.type === 'meal_plan') {
-      // return (Number(item.unit_price) - item.tax_value).toFixed(2)
-      return Number(item.subtotal).toFixed(2)
+      return (Number(item.unit_price) - item.tax_value).toFixed(2)
+      // return Number(item.subtotal).toFixed(2)
     } else {
       return item.unit_price
     }
@@ -162,7 +162,7 @@ export default function InvoicePay() {
                         {renderItemType(item)}
                       </p>
                       <p className="invoice-pay__item-card-text">
-                        {item.total} AED
+                        {item.total?.toFixed(2)} AED
                       </p>
                     </div>
                     <p className="invoice-pay__item-card-text invoice-pay__item-card-text_secondary">
@@ -180,17 +180,17 @@ export default function InvoicePay() {
                 <div className="invoice-pay__summary-row">
                   <p className="invoice-pay__summary-text">Subtotal</p>
                   <span>
-                    {/* {invoice?.items?.every((item) => item.tax_included)
+                    {invoice?.items?.every((item) => item.tax_included)
                       ? (invoice.subtotal - invoice.tax_value).toFixed(2)
-                      : invoice.subtotal}{' '} */}
-                    {invoice.subtotal} AED
+                      : invoice.subtotal?.toFixed(2)}{' '}AED
+                    {/* {invoice.subtotal} AED */}
                   </span>
                 </div>
                 <div className="invoice-pay__summary-row">
                   <p className="invoice-pay__summary-text">
                     Tax ({invoice.tax_rate}%)
                   </p>
-                  <span>{invoice.tax_value} AED</span>
+                  <span>{invoice.tax_value?.toFixed(2)} AED</span>
                 </div>
                 <div className="invoice-pay__summary-row">
                   <p className="invoice-pay__summary-row-text">
@@ -207,7 +207,7 @@ export default function InvoicePay() {
 
               <div className="invoice-pay__total">
                 <p className="invoice-pay__total-text">Total Payable</p>
-                <span>{invoice.total} AED</span>
+                <span>{invoice.total?.toFixed(2)} AED</span>
               </div>
             </>
           )}
@@ -217,7 +217,7 @@ export default function InvoicePay() {
           <Card color="secondary">
             <h2 className="invoice-pay__payment-title">
               Total Payable
-              <span>{invoice.total} AED</span>
+              <span>{invoice.total?.toFixed(2)} AED</span>
             </h2>
 
             {isEatRight() && (
@@ -329,7 +329,7 @@ export default function InvoicePay() {
                 id="pay-invoice-submit"
                 form="pay-invoice-form"
               >
-                Pay {invoice.total} AED
+                Pay {invoice.total?.toFixed(2)} AED
               </Button>
             </div>
           </Card>
