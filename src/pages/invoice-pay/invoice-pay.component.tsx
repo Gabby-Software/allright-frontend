@@ -77,7 +77,7 @@ export default function InvoicePay() {
       item.type === 'fee' &&
       item.name === 'Bag deposit fee'
     ) {
-      return Math.round(Number(item.unit_price) - item.tax_value).toFixed(2)
+      return (Number(item.unit_price) - item.tax_value).toFixed(2)
     } else if (item.tax_included && item.type === 'meal_plan') {
       return (Number(item.unit_price) - item.tax_value).toFixed(2)
       // return Number(item.subtotal).toFixed(2)
