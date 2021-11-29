@@ -8,6 +8,7 @@ import { toast } from '../components/toast/toast.component'
 import { serverError } from '../pipes/server-error.pipe'
 import { auth } from './auth.manager'
 import { AccountType } from '../modules/auth/account.type'
+import { isEatRight } from '../utils/domains'
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_BASE_API_URL
@@ -19,9 +20,15 @@ api.interceptors.request.use(
     const uuid = JSON.parse(cookieManager.get('auth') || '{}')?.accounts?.find(
       (acc: AccountType) => acc.is_current
     ).uuid
+    const isER = isEatRight()
 
     if (token) config.headers['Authorization'] = `Bearer ${token}`
     if (uuid) config.headers['Account-Token'] = uuid
+
+    config.headers['Origin-Fallback'] = isER
+      ? 'https://eatrightdev.xyz'
+      : 'https://liverightdev.xyz'
+
     return config
   },
   (err) => Promise.reject(err)
