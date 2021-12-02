@@ -119,6 +119,11 @@ const routes: RouteType[] = [
     title: 'Pay Invoice',
     url: Routes.INVOICE_PAY,
     Component: lazy(() => import('../pages/invoice-pay/invoice-pay.component'))
+  },
+  {
+    title: 'Login As',
+    url: Routes.LOGIN_AS,
+    Component: lazy(() => import('../pages/login-as/login-as.component'))
   }
 ]
 
