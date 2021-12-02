@@ -18,9 +18,11 @@ const LoginAs = () => {
   const makeLoginRequest = async () => {
     const searchParams = new URLSearchParams(location.search)
 
-    const url = searchParams.get('url')
+    const url = `${searchParams.get('url')}&signature=${searchParams.get(
+      'signature'
+    )}`
 
-    if (url) {
+    if (searchParams.get('url')) {
       api
         .get<AuthResponseType>(url)
         .then((res) => res.data)
