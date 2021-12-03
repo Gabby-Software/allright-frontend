@@ -30,13 +30,8 @@ const LoginAs = () => {
           cookieManager.set('access_token', res.access_token, res.expires_in)
           cookieManager.set('auth', JSON.stringify(res.user), res.expires_in)
 
-          if (res.user.email_verified_at) {
-            unblockCookies()
-            document.location.href = mainHost()
-          } else {
-            auth.current = res
-            setData(res)
-          }
+          unblockCookies()
+          document.location.href = mainHost()
         })
         .catch((error) => {
           toast.show({
