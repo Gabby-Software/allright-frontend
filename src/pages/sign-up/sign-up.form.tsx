@@ -65,6 +65,7 @@ const SignUpForm = () => {
     const phone_number = searchParams.get('phoneNo') || ''
     const referral =
       searchParams.get('ref') || localStorage.getItem('eatright-ref') || ''
+    const region = searchParams.get('region') || ''
 
     localStorage.removeItem('eatright-ref')
 
@@ -84,7 +85,8 @@ const SignUpForm = () => {
         gender,
         account_type: type,
         password_confirmation: password,
-        ref: referral
+        ref: referral,
+        region
       })
       .then((res) => res.data)
       .then((res) => {
