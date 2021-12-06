@@ -65,6 +65,7 @@ const SignUpForm = () => {
     const phone_number = searchParams.get('phoneNo') || ''
     const referral =
       searchParams.get('ref') || localStorage.getItem('eatright-ref') || ''
+    const region = searchParams.get('region') || ''
 
     localStorage.removeItem('eatright-ref')
 
@@ -84,7 +85,8 @@ const SignUpForm = () => {
         gender,
         account_type: type,
         password_confirmation: password,
-        ref: referral
+        ref: referral,
+        region
       })
       .then((res) => res.data)
       .then((res) => {
@@ -97,7 +99,7 @@ const SignUpForm = () => {
 
         // If user was redirected from EatRight cart, skip email confirmation and redirect back to EatRight
         if (session) {
-          window.location.href = `${mainHost()}/plans?redirectToCheckout=true&deliveryDate=${
+          window.location.href = `${mainHost()}/plans/1?redirectToCheckout=true&deliveryDate=${
             searchParams.get('deliveryDate') || ''
           }&renewWeekly=${searchParams.get('renewWeekly') || ''}`
         }
