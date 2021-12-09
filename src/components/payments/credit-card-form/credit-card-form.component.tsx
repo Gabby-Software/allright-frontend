@@ -1,3 +1,4 @@
+import { useImperativeHandle } from 'react'
 import { Styles } from './credit-card-form.styles'
 import {
   CardCvcElement,
@@ -18,64 +19,67 @@ interface CreditCardFormProps {
   hint?: string
   invoiceId: number
   onSuccess: () => void
+  formRef: React.MutableRefObject<any>
 }
 
-function Content({ hint, invoiceId, onSuccess }: CreditCardFormProps) {
+function Content({ hint, invoiceId, onSuccess, formRef }: CreditCardFormProps) {
   const { clientSecret } = usePaymentIntent(invoiceId)
   const stripe = useStripe()
   const elements = useElements()
 
-  const handleSubmit = async (e: any) => {
-    try {
-      e.preventDefault()
+  useImperativeHandle(formRef, () => ({
+    handleSubmit: async () => {
+      try {
+        // e.preventDefault()
 
-      const submitBtn: HTMLButtonElement = document.getElementById(
-        'pay-invoice-submit'
-      ) as HTMLButtonElement
+        const submitBtn: HTMLButtonElement = document.getElementById(
+          'pay-invoice-submit'
+        ) as HTMLButtonElement
 
-      if (!stripe || !elements || !clientSecret) {
-        toast.show({ type: 'error', msg: 'Error :( Try again later' })
-        return
-      }
-
-      const cardElement = elements.getElement(CardNumberElement)
-
-      if (!cardElement) {
-        toast.show({ type: 'error', msg: 'Error :( Try again later' })
-        return
-      }
-
-      submitBtn.disabled = true
-
-      const { error, paymentIntent } = await stripe.confirmCardPayment(
-        clientSecret,
-        {
-          payment_method: {
-            card: cardElement
-          }
+        if (!stripe || !elements || !clientSecret) {
+          toast.show({ type: 'error', msg: 'Error :( Try again later' })
+          return
         }
-      )
 
-      if (error) {
-        toast.show({
-          type: 'error',
-          msg: error.message || 'Oops! Something went wrong...'
-        })
+        const cardElement = elements.getElement(CardNumberElement)
 
-        submitBtn.disabled = false
+        if (!cardElement) {
+          toast.show({ type: 'error', msg: 'Error :( Try again later' })
+          return
+        }
+
+        submitBtn.disabled = true
+
+        const { error, paymentIntent } = await stripe.confirmCardPayment(
+          clientSecret,
+          {
+            payment_method: {
+              card: cardElement
+            }
+          }
+        )
+
+        if (error) {
+          toast.show({
+            type: 'error',
+            msg: error.message || 'Oops! Something went wrong...'
+          })
+
+          submitBtn.disabled = false
+        }
+
+        if (paymentIntent?.status === 'succeeded') {
+          onSuccess()
+        }
+      } catch (e) {
+        console.error(e)
       }
-
-      if (paymentIntent?.status === 'succeeded') {
-        onSuccess()
-      }
-    } catch (e) {
-      console.error(e)
     }
-  }
+  }))
 
   return (
     <Styles>
-      <form id="pay-invoice-form" onSubmit={handleSubmit}>
+      <form id="pay-invoice-form">
         <div className="credit-card__row">
           <div className="credit-card__field-container">
             <p className="credit-card__field-label">Credit Card Number</p>
