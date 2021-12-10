@@ -101,7 +101,9 @@ const SignUpForm = () => {
         if (session) {
           window.location.href = `${mainHost()}/plans/1?redirectToCheckout=true&deliveryDate=${
             searchParams.get('deliveryDate') || ''
-          }&renewWeekly=${searchParams.get('renewWeekly') || ''}`
+          }&renewWeekly=${searchParams.get('renewWeekly') || ''}&cutlery=${
+            searchParams.get('cutlery') || ''
+          }`
         }
         helper.setSubmitting(false)
       })
