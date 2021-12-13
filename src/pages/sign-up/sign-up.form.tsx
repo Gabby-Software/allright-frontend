@@ -28,6 +28,7 @@ import { useTranslation } from '../../modules/i18n/i18n.hook'
 import { mainHost } from '../../pipes/main-host'
 import { MobileStickyBottom } from '../styles'
 
+export const passwordRegExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
 const searchParams = new URLSearchParams(location.search)
 
 type LoginDataType = {
@@ -127,7 +128,14 @@ const SignUpForm = () => {
         first_name: Yup.string().required().name(),
         last_name: Yup.string().required().name(),
         email: Yup.string().required().email(),
-        password: Yup.string().required().min(8).password()
+        password: Yup.string()
+          .required()
+          .matches(
+            passwordRegExp,
+            'Minimum password length is 8 characters and it should contain at least 1 letter and one digit'
+          )
+          .min(8)
+          .password()
       })}
     >
       {() => (

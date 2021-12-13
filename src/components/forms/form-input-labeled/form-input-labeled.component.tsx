@@ -50,7 +50,9 @@ const FormInputLabeled = ({
               />
               {icon || null}
               {form.errors[name] && form.touched[name] ? (
-                <WarningIcon className={'text_input__error'} />
+                <WarningIcon
+                  className={`text_input__error ${icon && 'right40'}`}
+                />
               ) : null}
             </div>
           </label>

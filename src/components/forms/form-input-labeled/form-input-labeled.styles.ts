@@ -23,6 +23,10 @@ export default styled.div`
             display: none;
           }
         }
+
+        &.right40 {
+          right: 40px;
+        }
       }
     }
     &__label {
