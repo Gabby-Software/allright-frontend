@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 
 import EatRightProfile from '../../assets/media/eatright-profile.png'
@@ -35,6 +35,7 @@ type Method = 'card' | 'crypto' | null
 export default function InvoicePay() {
   const [method, setMethod] = useState<Method>(null)
   const [detailsOpen, setDetailsOpen] = useState(false)
+  const formRef = useRef<any>()
   const isMobile = useIsMobile()
   const params = useParams<any>()
   const [isSuccess, setSuccess] = useState(false)
@@ -60,6 +61,16 @@ export default function InvoicePay() {
       document.location.href = mainHost()
     }
   }, [invoice])
+
+  const onSubmitClicked = () => {
+    if (!method) {
+      setMethod('card')
+
+      return
+    }
+
+    formRef.current?.handleSubmit()
+  }
 
   const renderItemType = (item: InvoiceItemType) => {
     if (item.type === 'fee' && item.name === 'Bag deposit fee') {
@@ -182,7 +193,8 @@ export default function InvoicePay() {
                   <span>
                     {invoice?.items?.every((item) => item.tax_included)
                       ? (invoice.subtotal - invoice.tax_value).toFixed(2)
-                      : invoice.subtotal?.toFixed(2)}{' '}AED
+                      : invoice.subtotal?.toFixed(2)}{' '}
+                    AED
                     {/* {invoice.subtotal} AED */}
                   </span>
                 </div>
@@ -297,6 +309,7 @@ export default function InvoicePay() {
                     }
                     invoiceId={invoice.id}
                     onSuccess={() => setSuccess(true)}
+                    formRef={formRef}
                   />
                 )}
 
@@ -325,9 +338,8 @@ export default function InvoicePay() {
             <div>
               <Button
                 className="invoice-pay__submit"
-                htmlType="submit"
                 id="pay-invoice-submit"
-                form="pay-invoice-form"
+                onClick={onSubmitClicked}
               >
                 Pay {invoice.total?.toFixed(2)} AED
               </Button>
