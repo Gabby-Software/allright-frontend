@@ -16,13 +16,13 @@ const cookieManager = {
     }
     return ''
   },
-  set(name: string, value: string, expiry: number = 24 * 60 * 60) {
+  set(name: string, value: string, expiry: number = 24 * 60 * 60, useEncodeURIComponent: boolean = true) {
     const d: Date = new Date()
     d.setTime(d.getTime() + expiry * 1000)
     const expires = 'expires=' + d.toUTCString()
-    document.cookie = `${name}=${encodeURIComponent(
-      value
-    )};${expires};path=/;domain=${document.location.hostname
+    document.cookie = `${name}=${
+      useEncodeURIComponent ? encodeURIComponent(value) : value
+    };${expires};path=/;domain=${document.location.hostname
       .split('.')
       .slice(1)
       .join('.')}`

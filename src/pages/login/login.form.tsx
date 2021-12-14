@@ -46,7 +46,7 @@ const LoginForm = () => {
       .then((res) => res.data)
       .then((res) => {
         cookieManager.set('access_token', res.access_token, res.expires_in)
-        cookieManager.set('auth', JSON.stringify(res.user), res.expires_in)
+        cookieManager.set('auth', JSON.stringify(res.user), res.expires_in, false)
 
         if (res.user.email_verified_at) {
           unblockCookies()
