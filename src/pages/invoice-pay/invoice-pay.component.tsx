@@ -6,6 +6,7 @@ import {
   AmexIcon,
   // BtcIcon,
   CaretDownIcon,
+  CaretLeftIcon,
   CheckmarkIcon,
   GreenCheckIcon,
   McIcon,
@@ -126,6 +127,13 @@ export default function InvoicePay() {
     <Page>
       <Styles $expand={detailsOpen}>
         <div className="invoice-pay__details">
+          {
+            isEatRight() && (
+              <a className="invoice-pay__link" href={`${mainHost()}/plans/${invoice?.items?.length ? invoice?.items[0]?.extras?.meal_plan_id : '1'}`}>
+                <CaretLeftIcon /> Go back to Meal Plan Overview 
+              </a>
+            )
+          }
           <div className="invoice-pay__title-container">
             <h2 className="invoice-pay__title">
               Invoice <span>#{invoice.invoice_number}</span>

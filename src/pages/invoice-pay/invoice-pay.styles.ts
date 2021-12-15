@@ -47,6 +47,14 @@ export const Styles = styled(Card)<any>`
   display: flex;
 
   .invoice-pay {
+    &__link {
+      text-decoration: none;
+      color: #ff6b2c;
+      display: flex;
+      align-items: flex-end;
+      margin-bottom: 1rem;
+    }
+
     &__details {
       width: 100%;
       max-width: 60%;
