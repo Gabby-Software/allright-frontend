@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { getColorCarry } from '../../pipes/theme-color.pipe'
 
 export default styled.div`
   display: flex;
@@ -52,6 +53,18 @@ export default styled.div`
       margin: auto;
       width: 100%;
       max-width: 395px;
+    }
+  }
+  .goBackLink {
+    margin: 20px;
+
+    a {
+      color: ${getColorCarry('link')};
+    }
+
+    & svg {
+      display: inline-block;
+      margin: 0 rem(6px) rem(3px) 0;
     }
   }
 `

@@ -48,7 +48,7 @@ export default styled.div`
       &.confirm__cancel-btn {
         margin-top: 1rem;
         border-color: ${getColorCarry('blue_60')};
-        color:  ${getColorCarry('blue_60')};
+        color: ${getColorCarry('blue_60')};
       }
     }
   }
@@ -87,6 +87,18 @@ export default styled.div`
         max-width: 164px;
         margin: 15px auto;
       }
+    }
+  }
+  .goBackLink {
+    margin: 20px;
+
+    a {
+      color: ${getColorCarry('link')};
+    }
+
+    & svg {
+      display: inline-block;
+      margin: 0 rem(6px) rem(3px) 0;
     }
   }
 `

@@ -28,7 +28,7 @@ import { useTranslation } from '../../modules/i18n/i18n.hook'
 import { mainHost } from '../../pipes/main-host'
 import { MobileStickyBottom } from '../styles'
 
-export const passwordRegExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
+export const passwordRegExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/
 const searchParams = new URLSearchParams(location.search)
 
 type LoginDataType = {

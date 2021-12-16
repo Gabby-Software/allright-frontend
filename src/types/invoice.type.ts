@@ -18,6 +18,7 @@ export type InvoiceItemType = {
   discount_percent: number
   extras: {
     session_expires_on: string
+    meal_plan_id?: number
   }
 }
 
