@@ -89,7 +89,6 @@ export default styled.div`
       }
     }
   }
-
   .goBackLink {
     margin: 20px;
 
