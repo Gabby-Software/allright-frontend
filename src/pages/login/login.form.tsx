@@ -1,6 +1,7 @@
 import { Form, Formik, FormikHelpers } from 'formik'
 import React, { useContext } from 'react'
 import * as Yup from 'yup'
+import Cookies from 'js-cookie'
 
 // import AuthLink from '../../components/auth-link/auth-liks.component'
 import ButtonSubmit from '../../components/forms/button-submit/button-submit.component'
@@ -46,7 +47,13 @@ const LoginForm = () => {
       .then((res) => res.data)
       .then((res) => {
         cookieManager.set('access_token', res.access_token, res.expires_in)
-        cookieManager.set('auth', JSON.stringify(res.user), res.expires_in, false)
+        // cookieManager.set('auth', JSON.stringify(res.user), res.expires_in, false)
+
+        // Temporarily solution to prevent exceeding 4096KB limit for auth cookie
+        const expiry = res.expires_in || (24 * 60 * 60)
+        const d: Date = new Date()
+        d.setTime(d.getTime() + expiry * 1000)
+        Cookies.set('auth', JSON.stringify(res.user), { path: '/', expires: d, domain: document.location.hostname.split('.').slice(1).join('.') })
 
         if (res.user.email_verified_at) {
           unblockCookies()
