@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useHistory } from 'react-router-dom'
 
 import { ReactComponent as LeftArrowIcon } from '../../assets/media/icons/left-arrow.svg'
 import Styles from './identity-layout.styles'
@@ -24,7 +24,10 @@ type Props = {
 
 const IdentityLayout = ({ w, sidebar: Sidebar, children }: Props) => {
   const location = useLocation()
+  const history = useHistory()
   const isER = isEatRight()
+  const searchParams = new URLSearchParams(location.search)
+  const returnURL = searchParams.get('returnURL')
   return (
     <Styles>
       <IdentitySidebar>
@@ -33,7 +36,15 @@ const IdentityLayout = ({ w, sidebar: Sidebar, children }: Props) => {
       <main className={'layout__main'}>
         {isER && routesWithBackLink.includes(location.pathname) && (
           <div className={'goBackLink'}>
-            <a href={mainHost()}>
+            <a
+              onClick={() => {
+                if (returnURL) {
+                  window.location.href = returnURL
+                } else {
+                  history.goBack()
+                }
+              }}
+            >
               <LeftArrowIcon /> Go Back Eatright
             </a>
           </div>
