@@ -188,9 +188,10 @@ export default function InvoicePay() {
                       {item.name === 'Bag deposit fee' ? '' : item.description}
                     </p>
                     <p className="invoice-pay__item-card-text invoice-pay__item-card-text_secondary">
-                      {item.quantity}x + {renderUnitPrice(item)} AED + VAT (
-                      {item.tax_rate}%)
-                    </p>
+                      {
+                        `${item.quantity}x + ${renderUnitPrice(item)} AED ${item.is_taxable ? `+ VAT (${item.tax_rate}%)` : ''}`
+                      }
+                      </p>
                   </div>
                 </div>
               ))}
