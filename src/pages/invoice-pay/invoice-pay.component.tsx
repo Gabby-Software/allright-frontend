@@ -34,7 +34,7 @@ import { Styles, Success } from './invoice-pay.styles'
 type Method = 'card' | 'crypto' | null
 
 export default function InvoicePay() {
-  const [method, setMethod] = useState<Method>(null)
+  const [method, setMethod] = useState<Method>('card')
   const [detailsOpen, setDetailsOpen] = useState(false)
   const formRef = useRef<any>()
   const isMobile = useIsMobile()
