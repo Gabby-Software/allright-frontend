@@ -34,7 +34,7 @@ import { Styles, Success } from './invoice-pay.styles'
 type Method = 'card' | 'crypto' | null
 
 export default function InvoicePay() {
-  const [method, setMethod] = useState<Method>(null)
+  const [method, setMethod] = useState<Method>('card')
   const [detailsOpen, setDetailsOpen] = useState(false)
   const formRef = useRef<any>()
   const isMobile = useIsMobile()
@@ -188,9 +188,10 @@ export default function InvoicePay() {
                       {item.name === 'Bag deposit fee' ? '' : item.description}
                     </p>
                     <p className="invoice-pay__item-card-text invoice-pay__item-card-text_secondary">
-                      {item.quantity}x + {renderUnitPrice(item)} AED + VAT (
-                      {item.tax_rate}%)
-                    </p>
+                      {
+                        `${item.quantity}x + ${renderUnitPrice(item)} AED ${item.is_taxable ? `+ VAT (${item.tax_rate}%)` : ''}`
+                      }
+                      </p>
                   </div>
                 </div>
               ))}
