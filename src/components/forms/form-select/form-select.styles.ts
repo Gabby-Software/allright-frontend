@@ -23,13 +23,16 @@ export const MobileStyles = styled.div`
       outline: none;
       width: 100%;
       box-sizing: border-box;
+      text-align: left;
       &:focus {
         border-color: black;
       }
+
       .ant-select-selector {
         background-color: transparent;
         border: 0px;
         height: 22px;
+        padding: 0px;
         .ant-select-selection-item {
           line-height: 24px;
         }
