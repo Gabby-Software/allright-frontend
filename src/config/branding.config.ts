@@ -52,12 +52,15 @@ const brands: Brands = {
   'identity.eatrightdev.xyz': EAT_RIGHT_BRANDING,
   'identity.liverightstaging.xyz': LIVE_RIGHT_BRANDING,
   'identity.eatrightstaging.xyz': EAT_RIGHT_BRANDING,
+  'identity.theeatright.com': EAT_RIGHT_BRANDING,
   'payments.eatrightdev.xyz': EAT_RIGHT_BRANDING,
   'payments.eatrightstaging.xyz': EAT_RIGHT_BRANDING,
+  'payments.theeatright.com': EAT_RIGHT_BRANDING,
   'payments.liverightdev.xyz': LIVE_RIGHT_BRANDING,
   'payments.liverightstaging.xyz': LIVE_RIGHT_BRANDING,
   'invoices.eatrightdev.xyz': EAT_RIGHT_BRANDING,
   'invoices.eatrightstaging.xyz': EAT_RIGHT_BRANDING,
+  'invoices.theeatright.com': EAT_RIGHT_BRANDING,
   'invoices.liverightdev.xyz': LIVE_RIGHT_BRANDING,
   'invoices.liverightstaging.xyz': LIVE_RIGHT_BRANDING
 }
@@ -77,12 +80,15 @@ export function getBrand(isClient?: boolean): BrandingType {
     'identity.eatrightdev.xyz': EAT_RIGHT_BRANDING,
     'identity.liverightstaging.xyz': LIVE_RIGHT_BRAND,
     'identity.eatrightstaging.xyz': EAT_RIGHT_BRANDING,
+    'identity.theeatright.com': EAT_RIGHT_BRANDING,
     'payments.eatrightdev.xyz': EAT_RIGHT_BRANDING,
     'payments.eatrightstaging.xyz': EAT_RIGHT_BRANDING,
+    'payments.theeatright.com': EAT_RIGHT_BRANDING,
     'payments.liverightdev.xyz': LIVE_RIGHT_BRAND,
     'payments.liverightstaging.xyz': LIVE_RIGHT_BRAND,
     'invoices.eatrightdev.xyz': EAT_RIGHT_BRANDING,
     'invoices.eatrightstaging.xyz': EAT_RIGHT_BRANDING,
+    'invoices.theeatright.com': EAT_RIGHT_BRANDING,
     'invoices.liverightdev.xyz': LIVE_RIGHT_BRAND,
     'invoices.liverightstaging.xyz': LIVE_RIGHT_BRAND
   }
