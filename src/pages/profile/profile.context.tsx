@@ -98,6 +98,7 @@ export const ProfileProvider = ({
     values: ProfileFormType,
     helper: FormikHelpers<ProfileFormType>
   ) => {
+    console.log('submitting', submitting)
     if (submitting) {
       return
     }
