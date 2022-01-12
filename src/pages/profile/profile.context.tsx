@@ -65,6 +65,7 @@ export const ProfileProvider = ({
   const [avatarFile, setAvatarFile] = useState<File | null>(null)
   const [tnbFile, setTnbFile] = useState<File | null>(null)
   const [addresses, setAddresses] = useState<AddressType[]>([])
+  const [submitting, setSubmitting] = useState(false)
   const { data, setData } = useContext(AuthDataContext)
   const { uuid, accounts } = useAuth()
   useEffect(() => {
@@ -97,6 +98,10 @@ export const ProfileProvider = ({
     values: ProfileFormType,
     helper: FormikHelpers<ProfileFormType>
   ) => {
+    if (submitting) {
+      return
+    }
+
     const {
       first_name,
       last_name,
@@ -118,6 +123,7 @@ export const ProfileProvider = ({
     } = values
     const user = data?.user as AccountObjType
     logger.info('SUBMITTING 1')
+    setSubmitting(true)
     try {
       if (current_password && password && password_confirmation) {
         await api.put(EP_UPDATE_PASSWORD, {
@@ -216,11 +222,9 @@ export const ProfileProvider = ({
         ...data
       } as AuthResponseType)
       handleError(helper)(e)
+    } finally {
+      setSubmitting(false)
     }
-    // Why was this empty finally block present initially 🤔???
-    // finally {
-
-    // }
   }
   return (
     <ProfileContext.Provider
