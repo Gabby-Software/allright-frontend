@@ -152,10 +152,25 @@ export const ProfileProvider = ({
       }
       if (addresses?.length) {
         payload.addresses = addresses
+          .filter(
+            (addr) =>
+              (addr?.id && addr.id > 0) ||
+              addr?.address ||
+              addr?.postal_code ||
+              addr?.city ||
+              addr?.country?.code
+          )
           .map((addr) => ({
             ...addr,
             country_code: addr?.country?.code || undefined,
-            id: addr?.id && addr.id > 0 ? addr?.id : undefined
+            id: addr?.id && addr.id > 0 ? addr?.id : undefined,
+            _delete:
+              addr?.address ||
+              addr?.postal_code ||
+              addr?.city ||
+              addr?.country?.code
+                ? addr?._delete
+                : true
           }))
           .slice(0, 2)
       }
