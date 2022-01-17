@@ -7,7 +7,7 @@ export const useAuth = () => {
   const { data } = useContext(AuthDataContext)
 
   const user = data?.user as AccountObjType
-  const account = data?.user.accounts.find(
+  const account = data?.user?.accounts?.find(
     (acc) => acc.is_current
   ) as AccountType
 

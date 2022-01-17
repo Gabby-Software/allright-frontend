@@ -76,6 +76,8 @@ export default function InvoicePay() {
   const renderItemType = (item: InvoiceItemType) => {
     if (item.type === 'fee' && item.name === 'Bag deposit fee') {
       return 'Bag deposit fee'
+    } else if (item.type === 'delivery_fee' && item.name === 'Delivery fee') {
+      return 'Delivery fee'
     } else if (item.type === 'meal_plan') {
       return 'Meal Plan'
     }
@@ -185,7 +187,7 @@ export default function InvoicePay() {
                       </p>
                     </div>
                     <p className="invoice-pay__item-card-text invoice-pay__item-card-text_secondary">
-                      {item.name === 'Bag deposit fee' ? '' : item.description}
+                      {item.name === 'Bag deposit fee' || item.name === 'Delivery fee' ? '' : item.description}
                     </p>
                     <p className="invoice-pay__item-card-text invoice-pay__item-card-text_secondary">
                       {
