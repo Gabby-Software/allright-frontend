@@ -118,7 +118,7 @@ export default function InvoicePay() {
               isEatRight() ? mainHost() : `${mainHost()}/invoices/${params.id}`
             }
           >
-            <Button>Get Back</Button>
+            <Button>Go Back</Button>
           </a>
         </Success>
       </Page>
