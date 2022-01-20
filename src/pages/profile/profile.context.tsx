@@ -65,6 +65,7 @@ export const ProfileProvider = ({
   const [avatarFile, setAvatarFile] = useState<File | null>(null)
   const [tnbFile, setTnbFile] = useState<File | null>(null)
   const [addresses, setAddresses] = useState<AddressType[]>([])
+  const [submitting, setSubmitting] = useState(false)
   const { data, setData } = useContext(AuthDataContext)
   const { uuid, accounts } = useAuth()
   useEffect(() => {
@@ -97,6 +98,11 @@ export const ProfileProvider = ({
     values: ProfileFormType,
     helper: FormikHelpers<ProfileFormType>
   ) => {
+    console.log('submitting', submitting)
+    if (submitting) {
+      return
+    }
+
     const {
       first_name,
       last_name,
@@ -118,6 +124,7 @@ export const ProfileProvider = ({
     } = values
     const user = data?.user as AccountObjType
     logger.info('SUBMITTING 1')
+    setSubmitting(true)
     try {
       if (current_password && password && password_confirmation) {
         await api.put(EP_UPDATE_PASSWORD, {
@@ -145,10 +152,25 @@ export const ProfileProvider = ({
       }
       if (addresses?.length) {
         payload.addresses = addresses
+          .filter(
+            (addr) =>
+              (addr?.id && addr.id > 0) ||
+              addr?.address ||
+              addr?.postal_code ||
+              addr?.city ||
+              addr?.country?.code
+          )
           .map((addr) => ({
             ...addr,
             country_code: addr?.country?.code || undefined,
-            id: addr?.id && addr.id > 0 ? addr?.id : undefined
+            id: addr?.id && addr.id > 0 ? addr?.id : undefined,
+            _delete:
+              addr?.address ||
+              addr?.postal_code ||
+              addr?.city ||
+              addr?.country?.code
+                ? addr?._delete
+                : true
           }))
           .slice(0, 2)
       }
@@ -216,11 +238,9 @@ export const ProfileProvider = ({
         ...data
       } as AuthResponseType)
       handleError(helper)(e)
+    } finally {
+      setSubmitting(false)
     }
-    // Why was this empty finally block present initially 🤔???
-    // finally {
-
-    // }
   }
   return (
     <ProfileContext.Provider
