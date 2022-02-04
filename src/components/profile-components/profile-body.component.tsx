@@ -126,6 +126,31 @@ export default function ProfileBody({
         </Card>
 
         <Card>
+          <CardTitle>{t('profile:payment-info.title')}</CardTitle>
+
+          <div className="profile__grid">
+            <div className="profile__grid-item">
+              <p className="profile__grid-item-name">
+                {t('profile:payment-info.card-number')}
+              </p>
+              <p className="profile__grid-item-value">{123412341234}</p>
+            </div>
+            <div className="profile__grid-item">
+              <p className="profile__grid-item-name">
+                {t('profile:payment-info.card-expiration-date')}
+              </p>
+              <p className="profile__grid-item-value">{'03/22'}</p>
+            </div>
+            {/* <div className="profile__grid-item">
+              <p className="profile__grid-item-name">
+                {t('profile:payment-info.card-cvc')}
+              </p>
+              <p className="profile__grid-item-value">{213}</p>
+            </div> */}
+          </div>
+        </Card>
+
+        <Card>
           <CardTitle>{t('profile:address')}</CardTitle>
 
           {addresses.map((address, i) => (

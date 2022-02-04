@@ -140,7 +140,10 @@ const ProfileContent = () => {
             ..._profile,
             password: '',
             password_confirmation: '',
-            current_password: ''
+            current_password: '',
+            card_number: '',
+            card_expiry: '',
+            card_cvc: ''
           }}
           onSubmit={handleSubmit}
           validationSchema={profileSchema}

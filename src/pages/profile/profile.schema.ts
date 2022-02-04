@@ -21,7 +21,13 @@ export const profileSchema = Yup.object({
   password: Yup.string().nullable().password(),
   password_confirmation: Yup.string()
     .equals([Yup.ref('password')], 'passwords-not-match')
+    .nullable(),
+  card_number: Yup.string()
     .nullable()
+    .matches(/^[0-9]{16}/),
+  card_expiry: Yup.string().matches(/^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$/),
+  card_cvv: Yup.string().matches(/^[0-9]{3,4}$/)
+
   // payment_info: Yup.object({
   //     account_number: Yup.string()
   //         .number().min(6).max(12),

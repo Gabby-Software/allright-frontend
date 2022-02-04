@@ -3,6 +3,7 @@ import { PropsWithChildren } from 'react'
 import { Routes } from '../../enums/routes.enum'
 import useImage from '../../hooks/ui/useImage'
 import { AccountObjType, AccountType } from '../../modules/auth/account.type'
+import { useTranslation } from '../../modules/i18n/i18n.hook'
 import { capitalize } from '../../pipes/capitalize.pipe'
 import { date } from '../../pipes/date.pipe'
 import { noImage } from '../../pipes/no-image.pipe'
@@ -44,6 +45,7 @@ export default function ProfileBodyMobile({
   setEdit
 }: PropsWithChildren<ProfileBodyMobileProps>) {
   const { src, onError } = useImage(user?.avatar?.url)
+  const { t } = useTranslation()
   return (
     <Styles>
       <div className="profile__main">
@@ -111,6 +113,27 @@ export default function ProfileBodyMobile({
               <p className="profile__grid-item-value">
                 {capitalize(user.gender) || '-'}
               </p>
+            </div>
+          </div>
+        </Card>
+
+        <Card>
+          <CardTitle>{t('profile:payment-info.title')}</CardTitle>
+
+          <div className="profile__grid">
+            <div className="profile__grid-user-names-mobile">
+              <div className="profile__grid-item">
+                <p className="profile__grid-item-name">
+                  {t('profile:payment-info.card-number')}
+                </p>
+                <p className="profile__grid-item-value">{1234123412341234}</p>
+              </div>
+              <div className="profile__grid-item">
+                <p className="profile__grid-item-name">
+                  {t('profile:payment-info.card-expiration-date')}
+                </p>
+                <p className="profile__grid-item-value">{'03/22'}</p>
+              </div>
             </div>
           </div>
         </Card>
