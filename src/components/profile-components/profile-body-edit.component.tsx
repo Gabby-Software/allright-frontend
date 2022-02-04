@@ -2,6 +2,7 @@ import { Radio } from 'antd'
 import { useFormikContext } from 'formik'
 import moment, { Moment } from 'moment'
 
+import formatter from '../../managers/formatter.manager'
 import {
   HidePSIcon,
   PlusIcon,
@@ -16,7 +17,6 @@ import { useIsMobile } from '../../hooks/is-mobile.hook'
 import useImage from '../../hooks/ui/useImage'
 import { useAuth } from '../../hooks/use-auth.hook'
 import { useProfile } from '../../hooks/use-profile.hook'
-import { isEatRight } from '../../utils/domains'
 import { AccountObjType, AccountType } from '../../modules/auth/account.type'
 import { ProfileDataType } from '../../modules/auth/profile-data.type'
 import { useTranslation } from '../../modules/i18n/i18n.hook'
@@ -26,6 +26,7 @@ import { capitalize } from '../../pipes/capitalize.pipe'
 import { noImage } from '../../pipes/no-image.pipe'
 import { getColorCarry } from '../../pipes/theme-color.pipe'
 import { OptionType } from '../../types/option.type'
+import { isEatRight } from '../../utils/domains'
 import Input from '../form/input/input.component'
 import FormDatePicker from '../forms/form-datepicker/form-datepicker.component'
 import FormFileUpload from '../forms/form-file-upload/form-file-upload.component'
@@ -49,6 +50,11 @@ import {
 import AddressRadio, { Radio_2 } from './address-radio'
 import Styles from './profile-body.styles'
 
+const errorStyle: React.CSSProperties = {
+  border: '1px solid red',
+  boxShadow: 'none'
+}
+
 type ProfileBodyEditProps = {
   user: AccountObjType
   actionText: string
@@ -59,6 +65,9 @@ type EditProfileValuesProps = {
   password: string
   password_confirmation: string
   current_password: string
+  card_number: string
+  card_expiry: string
+  card_cvv: string
 } & AccountObjType &
   ProfileDataType &
   AccountType
@@ -70,7 +79,7 @@ export default function ProfileBodyEdit({
 }: ProfileBodyEditProps) {
   const { src, onError } = useImage(user?.avatar?.url)
   const isMobile = useIsMobile()
-  const { setFieldValue, values, submitForm } =
+  const { setFieldValue, values, submitForm, errors } =
     useFormikContext<EditProfileValuesProps>()
 
   const { setTnbFile, setAvatarFile } = useProfileContext()
@@ -94,6 +103,8 @@ export default function ProfileBodyEdit({
     { label: 'Female', value: genderTypes.FEMALE },
     { label: 'Other', value: genderTypes.OTHER }
   ]
+
+  console.log({ values, errors })
   return (
     <Styles edit={true} className="profile">
       <div className="profile__main">
@@ -236,6 +247,62 @@ export default function ProfileBodyEdit({
             </div>
           </div>
         </Card>
+        {isEatRight() && (
+          <Card>
+            <CardTitle>{t('profile:payment-info.title')}</CardTitle>
+            <div className="profile__grid">
+              <div className="profile__grid-item">
+                <p className="profile__grid-item-name">
+                  {t('profile:payment-info.card-number')}
+                </p>
+                <Input
+                  id="credit-card-number"
+                  name="credit-card-number"
+                  onChange={(e) => {
+                    setFieldValue('card_number', e.target.value)
+                  }}
+                  value={values.card_number}
+                  placeholder="1234 1234 1234 1234"
+                  style={errors.card_number ? errorStyle : undefined}
+                  format={formatter().number().max(9999999999999999)}
+                  max={16}
+                />
+              </div>
+              <div className="profile__grid-item">
+                <p className="profile__grid-item-name">
+                  {t('profile:payment-info.card-expiration-date')}
+                </p>
+                <Input
+                  id="card-expiry"
+                  name="card-expiry"
+                  onChange={(e) => {
+                    console.log({ values, last_name: values.last_name })
+                    setFieldValue('card_expiry', e.target.value)
+                  }}
+                  value={values.card_expiry}
+                  placeholder="MM / YY"
+                  style={errors.card_expiry ? errorStyle : undefined}
+                  max={5}
+                />
+              </div>
+              <div className="profile__grid-item">
+                <p className="profile__grid-item-name">
+                  {t('profile:payment-info.card-cvc')}
+                </p>
+                <Input
+                  id="card_cvc"
+                  name="card_cvc"
+                  onChange={(e) => {
+                    setFieldValue('card_cvv', e.target.value)
+                  }}
+                  value={values.card_cvv}
+                  style={errors.card_cvv ? errorStyle : undefined}
+                  max={4}
+                />
+              </div>
+            </div>
+          </Card>
+        )}
         <Card>
           <CardTitle>{t('profile:addresses')}</CardTitle>
           <ProfileAddresses />

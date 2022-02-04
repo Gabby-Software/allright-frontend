@@ -32,6 +32,7 @@ interface InputProps {
   format?: Formatter
   labelComponent?: ReactNode
   max?: number
+  style?: React.CSSProperties
 }
 
 const Input = forwardRef<any, InputProps>(
@@ -56,7 +57,8 @@ const Input = forwardRef<any, InputProps>(
       onBlur,
       format,
       labelComponent,
-      max
+      max,
+      style
     },
     ref
   ) => {
@@ -100,6 +102,7 @@ const Input = forwardRef<any, InputProps>(
           disabled={disabled}
           onBlur={onBlur}
           maxLength={max}
+          style={style}
         />
         {name && <FormError name={name} className="field-error" />}
       </Styles>

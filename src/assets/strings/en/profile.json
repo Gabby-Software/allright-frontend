@@ -52,6 +52,9 @@
     "account-number": "Account Number",
     "branch-name": "Branch Name",
     "name-on-account": "Name on account",
-    "tax-id": "Tax ID"
+    "tax-id": "Tax ID",
+    "card-number": "Card Number",
+    "card-expiration-date": "Expiration Date",
+    "card-cvc": "CVC"
   }
 }
