@@ -20,6 +20,7 @@ export type AuthResponseType = {
   access_token: string
   expires_in?: number
   user: AccountObjType
+  payment_info?: any[]
 }
 
 export const useAuthorization = () => {

@@ -115,7 +115,8 @@ const ProfileContent = () => {
     setTnbFile,
     avatarFile,
     editMode,
-    switchAccount
+    switchAccount,
+    paymentInfo
   } = useProfileContext()
   logger.info('AUTH', auth)
   logger.info('PROFILE', profile)
@@ -167,6 +168,7 @@ const ProfileContent = () => {
           mobileTitle=""
           profile={_profile}
           user={user}
+          paymentInfo={paymentInfo}
           actionText={t('profile:edit-profile')}
           setEdit={() => {
             setEditMode(!editMode)

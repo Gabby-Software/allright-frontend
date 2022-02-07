@@ -214,7 +214,10 @@ export const OnBoardProvider = ({
           password: '',
           password_confirmation: '',
           current_password: '',
-          tnb: true
+          tnb: true,
+          card_number: '',
+          card_expiry: '',
+          card_cvc: ''
         },
         update,
         step,

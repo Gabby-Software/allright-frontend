@@ -6,8 +6,11 @@ import React, {
   useEffect,
   useState
 } from 'react'
+import { useHistory } from 'react-router'
 
+import { toast } from '../../components/toast/toast.component'
 import {
+  EP_CARDS,
   EP_GET_ADDRESSES,
   EP_GET_USER,
   EP_UPDATE_AVATAR,
@@ -44,6 +47,7 @@ export type ProfileContextType = {
   ) => void
   addresses: AddressType[]
   switchAccount: (uuid: string) => void
+  paymentInfo: any
 }
 export const ProfileContext = createContext<ProfileContextType>({
   editMode: false,
@@ -54,7 +58,8 @@ export const ProfileContext = createContext<ProfileContextType>({
   setTnbFile: () => {},
   handleSubmit: () => {},
   addresses: [],
-  switchAccount: () => {}
+  switchAccount: () => {},
+  paymentInfo: null
 })
 export const ProfileProvider = ({
   children
@@ -68,6 +73,10 @@ export const ProfileProvider = ({
   const [submitting, setSubmitting] = useState(false)
   const { data, setData } = useContext(AuthDataContext)
   const { uuid, accounts } = useAuth()
+  const [paymentInfo, setPaymentInfo] = useState()
+
+  const history = useHistory()
+
   useEffect(() => {
     api
       .get(EP_GET_USER)
@@ -82,7 +91,30 @@ export const ProfileProvider = ({
         console.log('SETTING COOKIE 6')
         cookieManager.set('auth', JSON.stringify(res))
       })
+
+    api
+      .get(EP_CARDS)
+      .then((res) => res.data.data)
+      .then((res) => {
+        if (res.length) {
+          setPaymentInfo(res[0])
+        }
+      })
   }, [])
+
+  useEffect(() => {
+    if (!editMode) {
+      api
+        .get(EP_CARDS)
+        .then((res) => res.data.data)
+        .then((res) => {
+          if (res.length) {
+            setPaymentInfo(res[0])
+          }
+        })
+    }
+  }, [editMode])
+
   const switchAccount = (new_uuid: string) => {
     if (uuid === new_uuid) return
     ;(data as AuthResponseType).user.accounts =
@@ -99,7 +131,7 @@ export const ProfileProvider = ({
     helper: FormikHelpers<ProfileFormType>
   ) => {
     console.log('submitting', submitting)
-    console.log({values})
+    console.log({ values })
     if (submitting) {
       return
     }
@@ -121,11 +153,16 @@ export const ProfileProvider = ({
       avatar,
       password,
       password_confirmation,
-      current_password
+      current_password,
+      card_number,
+      card_expiry,
+      card_cvc
     } = values
+
     const user = data?.user as AccountObjType
     logger.info('SUBMITTING 1')
     setSubmitting(true)
+
     try {
       if (current_password && password && password_confirmation) {
         await api.put(EP_UPDATE_PASSWORD, {
@@ -134,6 +171,7 @@ export const ProfileProvider = ({
           password_confirmation
         })
       }
+
       const payload: any = {
         user: fillExist({
           first_name,
@@ -151,6 +189,7 @@ export const ProfileProvider = ({
           additional_info
         }
       }
+
       if (addresses?.length) {
         payload.addresses = addresses
           .filter(
@@ -175,6 +214,7 @@ export const ProfileProvider = ({
           }))
           .slice(0, 2)
       }
+
       const authRes = await api
         .put<{ data: AccountObjType }>(EP_UPDATE_PROFILE_CUSTOM, payload)
         .then((res) => res.data.data)
@@ -204,6 +244,7 @@ export const ProfileProvider = ({
       // setData({
       //     ...data
       // } as AuthResponseType);
+
       if (avatarFile) {
         const fd = new FormData()
         fd.append('avatar', avatarFile)
@@ -217,6 +258,7 @@ export const ProfileProvider = ({
         await api.delete(EP_UPDATE_AVATAR)
         ;(data as AuthResponseType).user.avatar = null
       }
+
       if (terms_and_conditions?.file_name || tnbFile) {
         const fd = new FormData()
         tnbFile && fd.append('terms_conditions', tnbFile || '')
@@ -230,6 +272,19 @@ export const ProfileProvider = ({
         )
         ;(data as AuthResponseType).user.accounts[idx].profile = tnbres.profile
       }
+
+      if (card_number && card_expiry && card_cvc) {
+        const res = await api
+          .post(EP_CARDS, { card_number, expiry: card_expiry, cvc: card_cvc })
+          .then((res) => res.data.data)
+          .then((res) => {
+            toast.show({ type: 'success', msg: 'Payment info updated!' })
+            if (res.invoice_id) {
+              history.push(`/invoices/${res.invoice_id}/pay?is_renewal=true`)
+            }
+          })
+      }
+
       setData({
         ...data
       } as AuthResponseType)
@@ -254,7 +309,8 @@ export const ProfileProvider = ({
         setTnbFile,
         handleSubmit,
         addresses,
-        switchAccount
+        switchAccount,
+        paymentInfo
       }}
     >
       {children}

@@ -34,3 +34,4 @@ export const EP_MARK_INVOICE_AS_PAID = (id: number) =>
   `/invoices/${id}/mark-as-paid`
 export const EP_EDIT_INVOICE = '/invoices'
 export const EP_APPLY_COUPON = EATRIGHT_API + '/api/applied-coupons/usage'
+export const EP_CARDS = '/cards'

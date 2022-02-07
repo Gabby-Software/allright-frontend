@@ -7,9 +7,12 @@ export async function getStripeKey(url: string) {
 }
 
 export async function generatePaymentIntent(invoiceId: number) {
+  const params = new URLSearchParams(window.location.search)
+
   const response = await api.post(EP_STRIPE_CHECKOUT, {
     invoice_id: invoiceId,
-    payment_method_id: 1
+    payment_method_id: 1,
+    is_renewal: params.get('is_renewal') ? true : false
   })
   return response.data.data
 }

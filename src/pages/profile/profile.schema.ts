@@ -24,9 +24,12 @@ export const profileSchema = Yup.object({
     .nullable(),
   card_number: Yup.string()
     .nullable()
-    .matches(/^[0-9]{16}/),
-  card_expiry: Yup.string().matches(/^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$/),
-  card_cvv: Yup.string().matches(/^[0-9]{3,4}$/)
+    .matches(/^[0-9\s]{19}/, 'Invalid value'),
+  card_expiry: Yup.string().matches(
+    /^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$/,
+    'Invalid value'
+  ),
+  card_cvc: Yup.string().matches(/^[0-9]{3,4}$/, 'Invalid value')
 
   // payment_info: Yup.object({
   //     account_number: Yup.string()
