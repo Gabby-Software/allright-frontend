@@ -31,6 +31,7 @@ type ProfileBodyProps = {
   actionText?: string
   mobileTitle: string
   mobileReturnText?: string
+  paymentInfo: any
   setEdit: (p?: boolean) => any | void
 }
 
@@ -43,6 +44,7 @@ export default function ProfileBody({
   // mobileTitle,
   // mobileReturnText,
   children,
+  paymentInfo,
   setEdit
 }: PropsWithChildren<ProfileBodyProps>) {
   const { src, onError } = useImage(user?.avatar?.url)
@@ -133,13 +135,23 @@ export default function ProfileBody({
               <p className="profile__grid-item-name">
                 {t('profile:payment-info.card-number')}
               </p>
-              <p className="profile__grid-item-value">{123412341234}</p>
+              <p className="profile__grid-item-value">
+                {paymentInfo?.last4
+                  ? `**** **** **** ${paymentInfo.last4 || ''}`
+                  : ''}
+              </p>
             </div>
             <div className="profile__grid-item">
               <p className="profile__grid-item-name">
                 {t('profile:payment-info.card-expiration-date')}
               </p>
-              <p className="profile__grid-item-value">{'03/22'}</p>
+              <p className="profile__grid-item-value">
+                {paymentInfo
+                  ? `${paymentInfo.exp_month?.padStart(2, '0') || ''}/${
+                      paymentInfo.exp_year?.substring(2) || ''
+                    }`
+                  : ''}
+              </p>
             </div>
             {/* <div className="profile__grid-item">
               <p className="profile__grid-item-name">

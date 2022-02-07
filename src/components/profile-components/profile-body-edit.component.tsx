@@ -2,7 +2,6 @@ import { Radio } from 'antd'
 import { useFormikContext } from 'formik'
 import moment, { Moment } from 'moment'
 
-import formatter from '../../managers/formatter.manager'
 import {
   HidePSIcon,
   PlusIcon,
@@ -17,12 +16,17 @@ import { useIsMobile } from '../../hooks/is-mobile.hook'
 import useImage from '../../hooks/ui/useImage'
 import { useAuth } from '../../hooks/use-auth.hook'
 import { useProfile } from '../../hooks/use-profile.hook'
+import formatter from '../../managers/formatter.manager'
 import { AccountObjType, AccountType } from '../../modules/auth/account.type'
 import { ProfileDataType } from '../../modules/auth/profile-data.type'
 import { useTranslation } from '../../modules/i18n/i18n.hook'
 import { useProfileContext } from '../../pages/profile/profile.context'
 import ProfileAddresses from '../../pages/profile/sections/profile-addresses/profile-addresses.component'
 import { capitalize } from '../../pipes/capitalize.pipe'
+import {
+  formatCardNumber,
+  formatExpiryDate
+} from '../../pipes/card-format.pipe'
 import { noImage } from '../../pipes/no-image.pipe'
 import { getColorCarry } from '../../pipes/theme-color.pipe'
 import { OptionType } from '../../types/option.type'
@@ -67,7 +71,7 @@ type EditProfileValuesProps = {
   current_password: string
   card_number: string
   card_expiry: string
-  card_cvv: string
+  card_cvc: string
 } & AccountObjType &
   ProfileDataType &
   AccountType
@@ -259,13 +263,16 @@ export default function ProfileBodyEdit({
                   id="credit-card-number"
                   name="credit-card-number"
                   onChange={(e) => {
-                    setFieldValue('card_number', e.target.value)
+                    setFieldValue(
+                      'card_number',
+                      formatCardNumber(e.target.value)
+                    )
                   }}
                   value={values.card_number}
                   placeholder="1234 1234 1234 1234"
                   style={errors.card_number ? errorStyle : undefined}
                   format={formatter().number().max(9999999999999999)}
-                  max={16}
+                  max={19}
                 />
               </div>
               <div className="profile__grid-item">
@@ -277,7 +284,10 @@ export default function ProfileBodyEdit({
                   name="card-expiry"
                   onChange={(e) => {
                     console.log({ values, last_name: values.last_name })
-                    setFieldValue('card_expiry', e.target.value)
+                    setFieldValue(
+                      'card_expiry',
+                      formatExpiryDate(e.target.value)
+                    )
                   }}
                   value={values.card_expiry}
                   placeholder="MM / YY"
@@ -293,10 +303,10 @@ export default function ProfileBodyEdit({
                   id="card_cvc"
                   name="card_cvc"
                   onChange={(e) => {
-                    setFieldValue('card_cvv', e.target.value)
+                    setFieldValue('card_cvc', e.target.value)
                   }}
-                  value={values.card_cvv}
-                  style={errors.card_cvv ? errorStyle : undefined}
+                  value={values.card_cvc}
+                  style={errors.card_cvc ? errorStyle : undefined}
                   max={4}
                 />
               </div>

@@ -102,7 +102,8 @@ export default function ProfileMobile() {
     setTnbFile,
     avatarFile,
     editMode,
-    switchAccount
+    switchAccount,
+    paymentInfo
   } = useProfileContext()
   logger.info('AUTH', auth)
   logger.info('PROFILE', profile)
@@ -128,7 +129,10 @@ export default function ProfileMobile() {
             ..._profile,
             password: '',
             password_confirmation: '',
-            current_password: ''
+            current_password: '',
+            card_number: '',
+            card_expiry: '',
+            card_cvc: ''
           }}
           onSubmit={handleSubmit}
           validationSchema={profileSchema}
@@ -153,6 +157,7 @@ export default function ProfileMobile() {
           account={account}
           address={addresses[0]}
           title={'title'}
+          paymentInfo={paymentInfo}
         >
           <Card>
             <CardTitle>{t('profile:security')}</CardTitle>

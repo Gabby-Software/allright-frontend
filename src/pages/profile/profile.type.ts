@@ -9,4 +9,7 @@ export type ProfileFormType = AccountObjType &
     password: string
     password_confirmation: string
     tnb?: boolean
+    card_number: string
+    card_expiry: string
+    card_cvc: string
   }
