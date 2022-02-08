@@ -23,5 +23,6 @@ export async function generatePaymentIntent(
   }
 
   const response = await api.post(EP_STRIPE_CHECKOUT, payload)
+
   return response.data.data
 }
