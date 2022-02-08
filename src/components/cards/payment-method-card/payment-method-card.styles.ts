@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+
 import { getColorCarry } from '../../../pipes/theme-color.pipe'
 
 export const Styles = styled.div<any>`
@@ -6,9 +7,6 @@ export const Styles = styled.div<any>`
   border: 1px solid ${getColorCarry('neutral_30')};
   border-radius: 10px;
   margin-bottom: 1.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   cursor: pointer;
 
   &:hover {
@@ -39,6 +37,9 @@ export const Styles = styled.div<any>`
     `}
 
   .payment-method-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     &__item {
       display: flex;
       align-items: center;
@@ -67,5 +68,13 @@ export const Styles = styled.div<any>`
           background-color: #fff;
         `}
     }
+  }
+
+  .payment-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    color: ${getColorCarry('neutral_60')};
   }
 `

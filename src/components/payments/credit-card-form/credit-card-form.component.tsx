@@ -1,5 +1,3 @@
-import { useImperativeHandle } from 'react'
-import { Styles } from './credit-card-form.styles'
 import {
   CardCvcElement,
   CardExpiryElement,
@@ -9,21 +7,35 @@ import {
   useStripe
 } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
-import useStripeKey from '../../../hooks/api/invoices/useStripeKey'
+import { useImperativeHandle } from 'react'
 import { useMemo } from 'react'
-import { LoadingPlaceholder } from '../../placeholders'
+
+import useStripeKey from '../../../hooks/api/invoices/useStripeKey'
 import usePaymentIntent from '../../../hooks/api/payments/usePaymentIntent'
+import { LoadingPlaceholder } from '../../placeholders'
 import { toast } from '../../toast/toast.component'
+import { Styles } from './credit-card-form.styles'
 
 interface CreditCardFormProps {
   hint?: string
   invoiceId: number
+  updateCreditCard: boolean
+  isVisible: boolean
+  paymentMethodId?: string
   onSuccess: () => void
   formRef: React.MutableRefObject<any>
 }
 
-function Content({ hint, invoiceId, onSuccess, formRef }: CreditCardFormProps) {
-  const { clientSecret } = usePaymentIntent(invoiceId)
+function Content({
+  hint,
+  invoiceId,
+  onSuccess,
+  formRef,
+  updateCreditCard,
+  isVisible,
+  paymentMethodId
+}: CreditCardFormProps) {
+  const { clientSecret } = usePaymentIntent(invoiceId, paymentMethodId)
   const stripe = useStripe()
   const elements = useElements()
 
@@ -52,11 +64,13 @@ function Content({ hint, invoiceId, onSuccess, formRef }: CreditCardFormProps) {
 
         const { error, paymentIntent } = await stripe.confirmCardPayment(
           clientSecret,
-          {
-            payment_method: {
-              card: cardElement
-            }
-          }
+          updateCreditCard
+            ? {
+                payment_method: {
+                  card: cardElement
+                }
+              }
+            : undefined
         )
 
         if (error) {
@@ -78,7 +92,7 @@ function Content({ hint, invoiceId, onSuccess, formRef }: CreditCardFormProps) {
   }))
 
   return (
-    <Styles>
+    <Styles style={{ display: !isVisible ? 'none' : '' }}>
       <form id="pay-invoice-form">
         <div className="credit-card__row">
           <div className="credit-card__field-container">

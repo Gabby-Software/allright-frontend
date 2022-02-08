@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import EatRightProfile from '../../assets/media/eatright-profile.png'
@@ -21,10 +21,12 @@ import Input from '../../components/form/input/input.component'
 import CreditCardForm from '../../components/payments/credit-card-form/credit-card-form.component'
 import { LoadingPlaceholder } from '../../components/placeholders'
 import UserBadge from '../../components/user-badge/user-badge.component'
+import { EP_CARDS } from '../../enums/api.enum'
 import useAppyCoupon from '../../hooks/api/coupon/useApplyCoupon'
 import useInvoice from '../../hooks/api/invoices/useInvoice'
 import { useIsMobile } from '../../hooks/is-mobile.hook'
 import { useAuth } from '../../hooks/use-auth.hook'
+import api from '../../managers/api.manager'
 import { mainHost } from '../../pipes/main-host'
 import { InvoiceItemType } from '../../types/invoice.type'
 import { isEatRight } from '../../utils/domains'
@@ -41,6 +43,10 @@ export default function InvoicePay() {
   const params = useParams<any>()
   const [isSuccess, setSuccess] = useState(false)
   const auth = useAuth()
+  const [updateCreditCard, setUpdateCreditCard] = useState(false)
+  const [savedCardNumber, setSavedCardNumber] = useState('')
+  const [savedCardExpiry, setSavedCardExpiry] = useState('')
+  const [paymentMethodId, setPaymentMethodId] = useState('')
 
   if (!auth.uuid) {
     return <PageNotFound />
@@ -56,6 +62,29 @@ export default function InvoicePay() {
     onApplyCoupon
   } = useAppyCoupon()
 
+  useEffect(() => {
+    api
+      .get(EP_CARDS)
+      .then((res) => res.data.data)
+      .then((res) => {
+        if (res?.length) {
+          setSavedCardNumber(res[0]?.last4 || '')
+          setSavedCardExpiry(
+            res[0]?.exp_month?.padStart(2, '0') +
+              '/' +
+              res[0]?.exp_year?.slice(2)
+          )
+          setPaymentMethodId(res[0]?.provider_id || '')
+        } else {
+          // no saved cards
+          setUpdateCreditCard(true)
+        }
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+  }, [])
+
   // redirect back to EatRight if invoice is alredy paid
   useEffect(() => {
     if (invoice?.status === 'paid' && isEatRight()) {
@@ -70,7 +99,8 @@ export default function InvoicePay() {
       return
     }
 
-    formRef.current?.handleSubmit()
+    // formRef.current?.handleSubmit(updateCreditCard)
+    formRef.current?.handleSubmit(updateCreditCard)
   }
 
   const renderItemType = (item: InvoiceItemType) => {
@@ -129,13 +159,18 @@ export default function InvoicePay() {
     <Page>
       <Styles $expand={detailsOpen}>
         <div className="invoice-pay__details">
-          {
-            isEatRight() && (
-              <a className="invoice-pay__link" href={`${mainHost()}/plans/${invoice?.items?.length ? invoice?.items[0]?.extras?.meal_plan_id : '1'}`}>
-                <CaretLeftIcon /> Go back to Meal Plan Overview 
-              </a>
-            )
-          }
+          {isEatRight() && (
+            <a
+              className="invoice-pay__link"
+              href={`${mainHost()}/plans/${
+                invoice?.items?.length
+                  ? invoice?.items[0]?.extras?.meal_plan_id
+                  : '1'
+              }`}
+            >
+              <CaretLeftIcon /> Go back to Meal Plan Overview
+            </a>
+          )}
           <div className="invoice-pay__title-container">
             <h2 className="invoice-pay__title">
               Invoice <span>#{invoice.invoice_number}</span>
@@ -187,13 +222,16 @@ export default function InvoicePay() {
                       </p>
                     </div>
                     <p className="invoice-pay__item-card-text invoice-pay__item-card-text_secondary">
-                      {item.name === 'Bag deposit fee' || item.name === 'Delivery fee' ? '' : item.description}
+                      {item.name === 'Bag deposit fee' ||
+                      item.name === 'Delivery fee'
+                        ? ''
+                        : item.description}
                     </p>
                     <p className="invoice-pay__item-card-text invoice-pay__item-card-text_secondary">
-                      {
-                        `${item.quantity}x + ${renderUnitPrice(item)} AED ${item.is_taxable ? `+ VAT (${item.tax_rate}%)` : ''}`
-                      }
-                      </p>
+                      {`${item.quantity}x + ${renderUnitPrice(item)} AED ${
+                        item.is_taxable ? `+ VAT (${item.tax_rate}%)` : ''
+                      }`}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -302,6 +340,9 @@ export default function InvoicePay() {
                   active={method === 'card'}
                   onClick={() => setMethod('card')}
                   title="Credit Card"
+                  disabled={updateCreditCard}
+                  cardNumber={savedCardNumber}
+                  cardExpiry={savedCardExpiry}
                   icons={
                     <>
                       <VisaIcon />
@@ -310,6 +351,16 @@ export default function InvoicePay() {
                     </>
                   }
                 />
+
+                {!updateCreditCard && (
+                  <Button
+                    className="invoice-pay__update-card"
+                    variant="secondary"
+                    onClick={() => setUpdateCreditCard(true)}
+                  >
+                    Update credit card
+                  </Button>
+                )}
 
                 {method === 'card' && (
                   <CreditCardForm
@@ -321,6 +372,11 @@ export default function InvoicePay() {
                     invoiceId={invoice.id}
                     onSuccess={() => setSuccess(true)}
                     formRef={formRef}
+                    updateCreditCard={updateCreditCard}
+                    isVisible={updateCreditCard}
+                    paymentMethodId={
+                      updateCreditCard ? undefined : paymentMethodId
+                    }
                   />
                 )}
 

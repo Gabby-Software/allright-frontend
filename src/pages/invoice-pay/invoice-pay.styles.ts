@@ -219,6 +219,11 @@ export const Styles = styled(Card)<any>`
       justify-content: space-between;
     }
     
+    &__update-card {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
     &__submit {
       width: 100%;
       margin-top: 3rem;
