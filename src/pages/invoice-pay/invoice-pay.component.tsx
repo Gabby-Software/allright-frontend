@@ -82,6 +82,7 @@ export default function InvoicePay() {
       })
       .catch((err) => {
         console.error(err)
+        setUpdateCreditCard(true)
       })
   }, [])
 
