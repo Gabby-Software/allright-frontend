@@ -22,7 +22,7 @@ export default function usePaymentIntent(
           console.error(error)
         })
     }
-  }, [invoiceId])
+  }, [invoiceId, paymentMethodId])
 
   return {
     clientSecret
