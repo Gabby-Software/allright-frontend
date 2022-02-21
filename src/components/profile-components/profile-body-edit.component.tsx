@@ -204,7 +204,6 @@ export default function ProfileBodyEdit({
                   setFieldValue('email', e.target.value)
                 }}
                 value={values.email}
-                disabled
               />
             </div>
             <div className="profile__grid-item">
