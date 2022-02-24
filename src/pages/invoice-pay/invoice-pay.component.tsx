@@ -123,7 +123,10 @@ export default function InvoicePay() {
       item.name === 'Bag deposit fee'
     ) {
       return (Number(item.unit_price) - item.tax_value).toFixed(2)
-    } else if (item.tax_included && item.type === 'meal_plan') {
+    } else if (
+      item.tax_included &&
+      (item.type === 'meal_plan' || item.type === 'delivery_fee')
+    ) {
       return (Number(item.unit_price) - item.tax_value).toFixed(2)
       // return Number(item.subtotal).toFixed(2)
     } else {
@@ -219,7 +222,7 @@ export default function InvoicePay() {
                         {renderItemType(item)}
                       </p>
                       <p className="invoice-pay__item-card-text">
-                        {item.total?.toFixed(2)} AED
+                        {Number(item.subtotal)?.toFixed(2)} AED
                       </p>
                     </div>
                     <p className="invoice-pay__item-card-text invoice-pay__item-card-text_secondary">
